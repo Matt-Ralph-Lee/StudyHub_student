@@ -5,7 +5,22 @@ enum AccountExceptionDetail implements ExceptionDetail {
     'alreadyexistException',
     'The account already exists.',
   ),
-  ;
+  noCurrentUserException(
+    'noCurrentUserException',
+    'There does not exist current user.',
+  ),
+  weakPasswordException(
+    'weakPasswordException',
+    'The password is weak.',
+  ),
+  wrongPasswordException(
+    'wrongPasswordException',
+    'Password is wrong.',
+  ),
+  notFoundException(
+    'notFoundException',
+    'The account is not found.',
+  );
 
   const AccountExceptionDetail(
     this._exceptionTitle,

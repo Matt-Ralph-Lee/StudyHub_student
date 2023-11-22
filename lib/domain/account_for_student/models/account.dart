@@ -1,17 +1,17 @@
 import 'email_address.dart';
-import 'user_id.dart';
+import 'account_id.dart';
 
 class Account {
-  final UserId _userId;
+  final AccountId _accountId;
   EmailAddress _emailAddress;
 
-  UserId get userId => _userId;
+  AccountId get accountId => _accountId;
   EmailAddress get emailAddress => _emailAddress;
 
   Account({
-    required final UserId userId,
+    required final AccountId accountId,
     required final EmailAddress emailAddress,
-  })  : _userId = userId,
+  })  : _accountId = accountId,
         _emailAddress = emailAddress;
 
   void changeEmailAddress(EmailAddress newEmailAddress) {

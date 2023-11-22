@@ -1,6 +1,5 @@
 import 'package:studyhub/common/exception/account_exception/account_exception_detail.dart';
-import 'package:studyhub/common/exception/account_exception/password_exception.dart';
-import 'package:studyhub/domain/account_for_student/models/i_account_factory.dart';
+import 'package:studyhub/common/exception/account_exception/account_exception.dart';
 import 'package:studyhub/domain/account_for_student/models/i_account_repository.dart';
 import 'package:studyhub/domain/account_for_student/models/email_address.dart';
 import 'package:studyhub/domain/account_for_student/models/password.dart';
@@ -8,15 +7,12 @@ import 'package:studyhub/domain/account_for_student/services/account_service.dar
 
 class AccountApplicationService {
   final IAccountRepository _repository;
-  final IAccountFactory _factory;
   final AccountService _service;
 
   AccountApplicationService({
     required final IAccountRepository repository,
-    required final IAccountFactory factory,
     required final AccountService service,
   })  : _repository = repository,
-        _factory = factory,
         _service = service;
 
   Future<void> register(
@@ -25,15 +21,11 @@ class AccountApplicationService {
   ) async {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
-    final account = await _factory.create(
-      emailAddress: emailAddress,
-      password: password,
-    );
-    if (_service.exists(account)) {
+    if (_service.exists(emailAddress)) {
       throw const AccountException(
           AccountExceptionDetail.alreadyExistException);
     }
-    await _repository.save(account);
+    await _repository.create(emailAddress: emailAddress, password: password);
   }
 
   Future<void> signIn({
@@ -57,6 +49,22 @@ class AccountApplicationService {
 
   Future<void> resetPassword(final String newPasswordData) async {
     final newPassword = Password(newPasswordData);
+    final account = _repository.getCurrentAccount();
+    if (account == null) {
+      throw const AccountException(
+          AccountExceptionDetail.noCurrentUserException);
+    }
     await _repository.resetPassword(newPassword);
+  }
+
+  Future<void> changeEmailAddress(final String newemailAddressData) async {
+    final newEmailAddress = EmailAddress(newemailAddressData);
+    final account = _repository.getCurrentAccount();
+    if (account == null) {
+      throw const AccountException(
+          AccountExceptionDetail.noCurrentUserException);
+    }
+    account.changeEmailAddress(newEmailAddress);
+    await _repository.changeEmailAddress(account);
   }
 }

@@ -1,13 +1,9 @@
-import '../exception_detail.dart';
+import 'exception_detail.dart';
 
-enum PasswordExceptionDetail implements ExceptionDetail {
-  shortException(
-    'shortException',
-    'The password is short.',
-  ),
-  ;
+enum UnknownExceptionDetail implements ExceptionDetail {
+  unknownException('unknownException', 'unexpected exception has occured.');
 
-  const PasswordExceptionDetail(
+  const UnknownExceptionDetail(
     this._exceptionTitle,
     this._exceptionMessage,
   );
