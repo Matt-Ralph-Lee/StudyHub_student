@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:studyhub/service.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  // flavor で通信するか否かを判断して書く
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -68,6 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void read() {
+    final service = FirestoreService();
+    service.read();
+    _incrementCounter();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -116,8 +131,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        // onPressed: _incrementCounter,
+        // tooltip: 'Increment',
+        onPressed: read,
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
