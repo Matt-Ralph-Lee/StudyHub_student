@@ -34,4 +34,22 @@ class InMemoryAccountRepository implements IAccountRepository {
     // TODO: implement signOut
     throw UnimplementedError();
   }
+  
+  @override
+  Future<void> delete() {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+  
+  @override
+  Stream<bool> isSignedIn() {
+    // TODO: implement isSignedIn
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> resetPassword(Password newPassword) {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
+  }
 }

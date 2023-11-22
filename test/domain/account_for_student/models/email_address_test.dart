@@ -8,8 +8,8 @@ void main() {
   group('contructor validation', () {
     test('valid_email_address', () {
       const String email = 'test@example.com';
-      final mailAddress = EmailAddress(email);
-      expect(mailAddress.value, equals(email));
+      final emailAddress = EmailAddress(email);
+      expect(emailAddress.value, equals(email));
     });
 
     test('empty_string', () {
@@ -64,9 +64,9 @@ void main() {
   group('method', () {
     test('should_be_equal_with_same_email_address', () {
       const String email = 'test@example.com';
-      final mailAddress1 = EmailAddress(email);
-      final mailAddress2 = EmailAddress(email);
-      expect(mailAddress1, equals(mailAddress2));
+      final emailAddress1 = EmailAddress(email);
+      final emailAddress2 = EmailAddress(email);
+      expect(emailAddress1, equals(emailAddress2));
     });
   });
 }
