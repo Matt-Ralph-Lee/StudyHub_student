@@ -49,7 +49,14 @@ class AccountApplicationService {
     await _repository.signOut();
   }
 
-  void resetPassword(final String newPasswordData) {
+  Future<void> delete() async {
+    await _repository.delete();
+    throw UnsupportedError('write deletion code.');
+    // TODO: 他のリポジトリにあるデータも削除する
+  }
+
+  Future<void> resetPassword(final String newPasswordData) async {
     final newPassword = Password(newPasswordData);
+    await _repository.resetPassword(newPassword);
   }
 }
