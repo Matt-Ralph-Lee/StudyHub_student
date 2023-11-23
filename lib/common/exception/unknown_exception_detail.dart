@@ -1,7 +1,7 @@
 import 'exception_detail.dart';
 
 enum UnknownExceptionDetail implements ExceptionDetail {
-  unknownException('unknownException', 'unexpected exception has occured.');
+  unknown('unknownException', 'unexpected exception has occured.');
 
   const UnknownExceptionDetail(
     this._exceptionTitle,

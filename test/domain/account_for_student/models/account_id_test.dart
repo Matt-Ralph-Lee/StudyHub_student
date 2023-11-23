@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/common/exception/argument_exception/argument_exception.dart';
-import 'package:studyhub/common/exception/argument_exception/argument_exception_detail.dart';
+import 'package:studyhub/common/exception/account_exception/account_creation_exception.dart';
+import 'package:studyhub/common/exception/account_exception/account_creation_exception_detail.dart';
 import 'package:studyhub/domain/account_for_student/models/account_id.dart';
 
 void main() {
@@ -19,8 +19,10 @@ void main() {
     test('empty_string_value', () {
       expect(
           () => AccountId(''),
-          throwsA(isA<ArgumentException>().having((e) => e.exceptionDetail,
-              'detail', ArgumentExceptionDetail.emptyException)));
+          throwsA(isA<AccountCreationException>().having(
+              (e) => e.exceptionDetail,
+              'detail',
+              AccountCreationExceptionDetail.empty)));
     });
   });
 }

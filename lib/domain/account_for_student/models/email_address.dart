@@ -1,8 +1,7 @@
-import '../../../common/exception/argument_exception/argument_exception.dart';
-import '../../../common/exception/argument_exception/argument_exception_detail.dart';
+import '../../../common/exception/account_exception/account_creation_exception.dart';
+import '../../../common/exception/account_exception/account_creation_exception_detail.dart';
 
 class EmailAddress {
-  static const String atMark = '@';
   final _emailAddressRegExp =
       RegExp(r'^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$');
   final String _value;
@@ -15,11 +14,12 @@ class EmailAddress {
 
   void _validate(final String value) {
     if (_value.isEmpty) {
-      throw const ArgumentException(ArgumentExceptionDetail.emptyException);
+      throw const AccountCreationException(
+          AccountCreationExceptionDetail.empty);
     }
     if (!_emailAddressRegExp.hasMatch(value)) {
-      throw const ArgumentException(
-          ArgumentExceptionDetail.invalidCharacterException);
+      throw const AccountCreationException(
+          AccountCreationExceptionDetail.invalidEmailFormat);
     }
   }
 

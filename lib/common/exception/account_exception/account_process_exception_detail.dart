@@ -1,28 +1,23 @@
 import '../exception_detail.dart';
 
-enum AccountExceptionDetail implements ExceptionDetail {
-  alreadyExistException(
-    'alreadyexistException',
-    'The account already exists.',
-  ),
-  noCurrentUserException(
+enum AccountProcessExceptionDetail implements ExceptionDetail {
+
+  noCurrentUser(
     'noCurrentUserException',
     'There does not exist current user.',
   ),
-  weakPasswordException(
-    'weakPasswordException',
-    'The password is weak.',
-  ),
-  wrongPasswordException(
+
+  wrongPassword(
     'wrongPasswordException',
     'Password is wrong.',
   ),
-  notFoundException(
+  notFound(
     'notFoundException',
     'The account is not found.',
-  );
+  ),
+  ;
 
-  const AccountExceptionDetail(
+  const AccountProcessExceptionDetail(
     this._exceptionTitle,
     this._exceptionMessage,
   );

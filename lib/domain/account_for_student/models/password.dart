@@ -1,7 +1,5 @@
-import '../../../common/exception/account_exception/account_exception.dart';
-import '../../../common/exception/account_exception/account_exception_detail.dart';
-import '../../../common/exception/argument_exception/argument_exception.dart';
-import '../../../common/exception/argument_exception/argument_exception_detail.dart';
+import '../../../common/exception/account_exception/account_creation_exception.dart';
+import '../../../common/exception/account_exception/account_creation_exception_detail.dart';
 
 class Password {
   final String _value;
@@ -11,7 +9,8 @@ class Password {
 
   Password(final String value) : _value = value {
     if (value.isEmpty) {
-      throw const ArgumentException(ArgumentExceptionDetail.emptyException);
+      throw const AccountCreationException(
+          AccountCreationExceptionDetail.empty);
     }
 
     _validate(_value);
@@ -19,8 +18,8 @@ class Password {
 
   void _validate(final String value) {
     if (value.length < _minLength) {
-      throw const AccountException(
-        AccountExceptionDetail.weakPasswordException,
+      throw const AccountCreationException(
+        AccountCreationExceptionDetail.weakPassword,
         info: _minLength,
       );
     }

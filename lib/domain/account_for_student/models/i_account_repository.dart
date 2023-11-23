@@ -17,6 +17,9 @@ abstract class IAccountRepository {
   Account? getCurrentAccount();
   Stream<bool> isSignedIn();
   Account? findByEmailAddress(final EmailAddress emailAddress);
-  Future<void> resetPassword(final Password newPassword);
-  Future<void> changeEmailAddress(final Account modifiedAccount);
+  Future<void> resetPassword({
+    required final Account account,
+    required Password newPassword,
+  });
+  Future<void> savechangedEmailAddress(final Account modifiedAccount);
 }

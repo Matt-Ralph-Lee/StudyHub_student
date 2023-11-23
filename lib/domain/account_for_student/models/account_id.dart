@@ -1,5 +1,5 @@
-import '../../../common/exception/argument_exception/argument_exception.dart';
-import '../../../common/exception/argument_exception/argument_exception_detail.dart';
+import '../../../common/exception/account_exception/account_creation_exception.dart';
+import '../../../common/exception/account_exception/account_creation_exception_detail.dart';
 
 class AccountId {
   final String _value;
@@ -8,7 +8,8 @@ class AccountId {
 
   AccountId(final String value) : _value = value {
     if (_value.isEmpty) {
-      throw const ArgumentException(ArgumentExceptionDetail.emptyException);
+      throw const AccountCreationException(
+          AccountCreationExceptionDetail.empty);
     }
   }
 }

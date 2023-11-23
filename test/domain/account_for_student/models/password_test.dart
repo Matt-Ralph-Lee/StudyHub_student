@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/common/exception/argument_exception/argument_exception.dart';
-import 'package:studyhub/common/exception/argument_exception/argument_exception_detail.dart';
-import 'package:studyhub/common/exception/password_exception/password_exception.dart';
-import 'package:studyhub/common/exception/password_exception/password_exception_detail.dart';
+import 'package:studyhub/common/exception/account_exception/account_creation_exception.dart';
+import 'package:studyhub/common/exception/account_exception/account_creation_exception_detail.dart';
 import 'package:studyhub/domain/account_for_student/models/password.dart';
 
 void main() {
@@ -24,16 +22,20 @@ void main() {
       const String value = '123';
       expect(
           () => Password(value),
-          throwsA(isA<PasswordException>().having((e) => e.exceptionDetail,
-              'detail', equals(PasswordExceptionDetail.shortException))));
+          throwsA(isA<AccountCreationException>().having(
+              (e) => e.exceptionDetail,
+              'detail',
+              equals(AccountCreationExceptionDetail.weakPassword))));
     });
 
     test('empty_string_value', () {
       const String value = '';
       expect(
           () => Password(value),
-          throwsA(isA<ArgumentException>().having((e) => e.exceptionDetail,
-              'detail', equals(ArgumentExceptionDetail.emptyException))));
+          throwsA(isA<AccountCreationException>().having(
+              (e) => e.exceptionDetail,
+              'detail',
+              equals(AccountCreationExceptionDetail.empty))));
     });
   });
 }
