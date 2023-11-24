@@ -1,15 +1,15 @@
 import 'email_address.dart';
-import 'account_id.dart';
+import 'student_id.dart';
 
-class Account {
-  final AccountId _accountId;
+class Student {
+  final StudentId _accountId;
   EmailAddress _emailAddress;
 
-  AccountId get accountId => _accountId;
+  StudentId get accountId => _accountId;
   EmailAddress get emailAddress => _emailAddress;
 
-  Account({
-    required final AccountId accountId,
+  Student({
+    required final StudentId accountId,
     required final EmailAddress emailAddress,
   })  : _accountId = accountId,
         _emailAddress = emailAddress;

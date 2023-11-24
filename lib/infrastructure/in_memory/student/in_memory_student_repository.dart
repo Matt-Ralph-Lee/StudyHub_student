@@ -1,14 +1,14 @@
-import 'package:studyhub/common/exception/account_exception/account_process_exception.dart';
-import 'package:studyhub/common/exception/account_exception/account_process_exception_detail.dart';
-import 'package:studyhub/domain/account_for_student/models/account_id.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../domain/account_for_student/models/account.dart';
-import '../../../domain/account_for_student/models/email_address.dart';
-import '../../../domain/account_for_student/models/i_account_repository.dart';
-import '../../../domain/account_for_student/models/password.dart';
+import '../../../common/exception/student_exception/student_process_exception.dart';
+import '../../../common/exception/student_exception/student_process_exception_detail.dart';
+import '../../../domain/student/models/student.dart';
+import '../../../domain/student/models/student_id.dart';
+import '../../../domain/student/models/email_address.dart';
+import '../../../domain/student/models/i_student_repository.dart';
+import '../../../domain/student/models/password.dart';
 
-class InMemoryAccountRepository implements IAccountRepository {
+class InMemoryStudentRepository implements IStudentRepository {
   var store = <Map?>{};
 
   @override
@@ -16,7 +16,7 @@ class InMemoryAccountRepository implements IAccountRepository {
     required EmailAddress emailAddress,
     required Password password,
   }) async {
-    final accountId = AccountId(const Uuid().v4());
+    final accountId = StudentId(const Uuid().v4());
     // ignore: unnecessary_nullable_for_final_variable_declarations
     final Map<String, dynamic>? data = <String, dynamic>{
       'accountId': accountId.value,
@@ -40,12 +40,12 @@ class InMemoryAccountRepository implements IAccountRepository {
     }, orElse: () => null);
 
     if (data == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.notFound);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.notFound);
     }
     if (data['password'] != password.value) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.wrongPassword);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.wrongPassword);
     }
     data['isSignedIn'] = true;
   }
@@ -63,13 +63,13 @@ class InMemoryAccountRepository implements IAccountRepository {
   }
 
   @override
-  Stream<Account?> accountStateChanges() {
+  Stream<Student?> accountStateChanges() {
     // TODO: implement accountStateChanges
     throw UnimplementedError();
   }
 
   @override
-  Account? findByEmailAddress(EmailAddress emailAddress) {
+  Student? findByEmailAddress(EmailAddress emailAddress) {
     // TODO: implement findByEmailAddress
     throw UnimplementedError();
   }
@@ -81,26 +81,26 @@ class InMemoryAccountRepository implements IAccountRepository {
   }
 
   @override
-  Future<void> savechangedEmailAddress(Account modifiedAccount) {
+  Future<void> saveChangedEmailAddress(Student modifiedAccount) {
     // TODO: implement changeEmailAddress
     throw UnimplementedError();
   }
 
   @override
-  Account? getCurrentAccount() {
+  Student? getCurrentAccount() {
     // TODO: implement getCurrentAccount
     throw UnimplementedError();
   }
 
   @override
   Future<void> resetPassword(
-      {required Account account, required Password newPassword}) {
+      {required Student account, required Password newPassword}) {
     // TODO: implement resetPassword
     throw UnimplementedError();
   }
 
-  Account _clone(Account account) {
-    return Account(
+  Student _clone(Student account) {
+    return Student(
         accountId: account.accountId, emailAddress: account.emailAddress);
   }
 }

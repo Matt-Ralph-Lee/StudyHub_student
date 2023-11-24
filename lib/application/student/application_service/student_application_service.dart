@@ -1,20 +1,20 @@
-import 'package:studyhub/common/exception/account_exception/account_creation_exception.dart';
-import 'package:studyhub/common/exception/account_exception/account_creation_exception_detail.dart';
-import 'package:studyhub/common/exception/account_exception/account_process_exception_detail.dart';
-import 'package:studyhub/common/exception/account_exception/account_process_exception.dart';
-import 'package:studyhub/domain/account_for_student/models/i_account_repository.dart';
-import 'package:studyhub/domain/account_for_student/models/email_address.dart';
-import 'package:studyhub/domain/account_for_student/models/password.dart';
-import 'package:studyhub/domain/account_for_student/services/account_service.dart';
+import 'package:studyhub/common/exception/student_exception/student_creation_exception.dart';
+import 'package:studyhub/common/exception/student_exception/student_creation_exception_detail.dart';
+import 'package:studyhub/common/exception/student_exception/student_process_exception_detail.dart';
+import 'package:studyhub/common/exception/student_exception/student_process_exception.dart';
+import 'package:studyhub/domain/student/models/i_student_repository.dart';
+import 'package:studyhub/domain/student/models/email_address.dart';
+import 'package:studyhub/domain/student/models/password.dart';
+import 'package:studyhub/domain/student/services/student_domain_service.dart';
 
-class AccountApplicationService {
+class StudentApplicationService {
   // TODO: エラー捕捉チェック
-  final IAccountRepository _repository;
-  final AccountService _service;
+  final IStudentRepository _repository;
+  final StudentDomainService _service;
 
-  AccountApplicationService({
-    required final IAccountRepository repository,
-    required final AccountService service,
+  StudentApplicationService({
+    required final IStudentRepository repository,
+    required final StudentDomainService service,
   })  : _repository = repository,
         _service = service;
 
@@ -25,8 +25,8 @@ class AccountApplicationService {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
     if (_service.exists(emailAddress)) {
-      throw const AccountCreationException(
-          AccountCreationExceptionDetail.alreadyExists);
+      throw const StudentCreationException(
+          StudentCreationExceptionDetail.alreadyExists);
     }
     await _repository.create(emailAddress: emailAddress, password: password);
   }
@@ -53,8 +53,8 @@ class AccountApplicationService {
     final newPassword = Password(newPasswordData);
     final account = _repository.getCurrentAccount();
     if (account == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentUser);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.noCurrentStudent);
     }
     await _repository.resetPassword(account: account, newPassword: newPassword);
   }
@@ -63,14 +63,14 @@ class AccountApplicationService {
     final newEmailAddress = EmailAddress(newemailAddressData);
     final account = _repository.getCurrentAccount();
     if (account == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentUser);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.noCurrentStudent);
     }
     if (_service.exists(newEmailAddress)) {
-      throw const AccountCreationException(
-          AccountCreationExceptionDetail.alreadyExists);
+      throw const StudentCreationException(
+          StudentCreationExceptionDetail.alreadyExists);
     }
     account.changeEmailAddress(newEmailAddress);
-    await _repository.savechangedEmailAddress(account);
+    await _repository.saveChangedEmailAddress(account);
   }
 }

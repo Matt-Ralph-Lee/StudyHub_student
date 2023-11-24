@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/common/exception/account_exception/account_creation_exception.dart';
-import 'package:studyhub/common/exception/account_exception/account_creation_exception_detail.dart';
-import 'package:studyhub/domain/account_for_student/models/password.dart';
+import 'package:studyhub/common/exception/student_exception/student_creation_exception.dart';
+import 'package:studyhub/common/exception/student_exception/student_creation_exception_detail.dart';
+import 'package:studyhub/domain/student/models/password.dart';
 
 void main() {
   setUp(() => null);
@@ -22,20 +22,20 @@ void main() {
       const String value = '123';
       expect(
           () => Password(value),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.weakPassword))));
+              equals(StudentCreationExceptionDetail.weakPassword))));
     });
 
     test('empty_string_value', () {
       const String value = '';
       expect(
           () => Password(value),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.empty))));
+              equals(StudentCreationExceptionDetail.empty))));
     });
   });
 }

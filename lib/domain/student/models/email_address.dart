@@ -1,5 +1,5 @@
-import '../../../common/exception/account_exception/account_creation_exception.dart';
-import '../../../common/exception/account_exception/account_creation_exception_detail.dart';
+import '../../../common/exception/student_exception/student_creation_exception.dart';
+import '../../../common/exception/student_exception/student_creation_exception_detail.dart';
 
 class EmailAddress {
   final _emailAddressRegExp =
@@ -8,18 +8,18 @@ class EmailAddress {
 
   String get value => _value;
 
-  EmailAddress(final String value) : _value = value {
+  EmailAddress(this._value) {
     _validate(_value);
   }
 
   void _validate(final String value) {
-    if (_value.isEmpty) {
-      throw const AccountCreationException(
-          AccountCreationExceptionDetail.empty);
+    if (value.isEmpty) {
+      throw const StudentCreationException(
+          StudentCreationExceptionDetail.empty);
     }
     if (!_emailAddressRegExp.hasMatch(value)) {
-      throw const AccountCreationException(
-          AccountCreationExceptionDetail.invalidEmailFormat);
+      throw const StudentCreationException(
+          StudentCreationExceptionDetail.invalidEmailFormat);
     }
   }
 

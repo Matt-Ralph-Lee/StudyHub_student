@@ -1,10 +1,9 @@
 import '../exception_detail.dart';
 
-enum AccountProcessExceptionDetail implements ExceptionDetail {
-
-  noCurrentUser(
-    'noCurrentUserException',
-    'There does not exist current user.',
+enum StudentProcessExceptionDetail implements ExceptionDetail {
+  noCurrentStudent(
+    'noCurrentStudentException',
+    'There does not exist current Student.',
   ),
 
   wrongPassword(
@@ -17,7 +16,7 @@ enum AccountProcessExceptionDetail implements ExceptionDetail {
   ),
   ;
 
-  const AccountProcessExceptionDetail(
+  const StudentProcessExceptionDetail(
     this._exceptionTitle,
     this._exceptionMessage,
   );

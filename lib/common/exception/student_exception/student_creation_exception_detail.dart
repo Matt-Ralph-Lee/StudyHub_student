@@ -1,6 +1,6 @@
 import '../exception_detail.dart';
 
-enum AccountCreationExceptionDetail implements ExceptionDetail {
+enum StudentCreationExceptionDetail implements ExceptionDetail {
   empty(
     'emptyException',
     'Empty is not allowed.',
@@ -31,7 +31,7 @@ enum AccountCreationExceptionDetail implements ExceptionDetail {
   ),
   ;
 
-  const AccountCreationExceptionDetail(
+  const StudentCreationExceptionDetail(
     this._exceptionTitle,
     this._exceptionMessage,
   );

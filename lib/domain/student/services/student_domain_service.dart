@@ -1,10 +1,10 @@
 import '../models/email_address.dart';
-import '../models/i_account_repository.dart';
+import '../models/i_student_repository.dart';
 
-class AccountService {
-  final IAccountRepository _repository;
+class StudentDomainService {
+  final IStudentRepository _repository;
 
-  AccountService({required final IAccountRepository repository})
+  StudentDomainService({required final IStudentRepository repository})
       : _repository = repository;
 
   bool exists(final EmailAddress emailAddress) {

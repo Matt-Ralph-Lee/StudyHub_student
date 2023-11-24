@@ -1,31 +1,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../common/exception/account_exception/account_creation_exception.dart';
-import '../../../common/exception/account_exception/account_creation_exception_detail.dart';
-import '../../../common/exception/account_exception/account_process_exception.dart';
-import '../../../common/exception/account_exception/account_process_exception_detail.dart';
+import '../../../common/exception/student_exception/student_creation_exception.dart';
+import '../../../common/exception/student_exception/student_creation_exception_detail.dart';
+import '../../../common/exception/student_exception/student_process_exception.dart';
+import '../../../common/exception/student_exception/student_process_exception_detail.dart';
 import '../../../common/exception/unknown_exception.dart';
 import '../../../common/exception/unknown_exception_detail.dart';
-import '../../../domain/account_for_student/models/account.dart';
-import '../../../domain/account_for_student/models/account_id.dart';
-import '../../../domain/account_for_student/models/email_address.dart';
-import '../../../domain/account_for_student/models/i_account_repository.dart';
-import '../../../domain/account_for_student/models/password.dart';
+import '../../../domain/student/models/student.dart';
+import '../../../domain/student/models/student_id.dart';
+import '../../../domain/student/models/email_address.dart';
+import '../../../domain/student/models/i_student_repository.dart';
+import '../../../domain/student/models/password.dart';
 
-class FireBaseAccountRepository implements IAccountRepository {
+class FirebaseStudentRepository implements IStudentRepository {
   @override
-  Stream<Account?> accountStateChanges() {
+  Stream<Student?> accountStateChanges() {
     return FirebaseAuth.instance
         .authStateChanges()
         .map((user) => _userToAccount(user));
   }
 
   @override
-  Future<void> savechangedEmailAddress(Account modifiedAccount) async {
+  Future<void> saveChangedEmailAddress(Student modifiedAccount) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentUser);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.noCurrentStudent);
     }
     try {
       await currentUser.updateEmail(modifiedAccount.emailAddress.value);
@@ -57,8 +57,8 @@ class FireBaseAccountRepository implements IAccountRepository {
   Future<void> delete() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentUser);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.noCurrentStudent);
     }
     try {
       await currentUser.delete();
@@ -71,10 +71,10 @@ class FireBaseAccountRepository implements IAccountRepository {
 
   // Firebaseでは、create時にemailAddressのチェックを行うため、ここではチェックを行わない。
   @override
-  Account? findByEmailAddress(EmailAddress emailAddress) => null;
+  Student? findByEmailAddress(EmailAddress emailAddress) => null;
 
   @override
-  Account? getCurrentAccount() {
+  Student? getCurrentAccount() {
     final user = FirebaseAuth.instance.currentUser;
     return _userToAccount(user);
   }
@@ -112,13 +112,13 @@ class FireBaseAccountRepository implements IAccountRepository {
 
   @override
   Future<void> resetPassword({
-    required Account account,
+    required Student account,
     required Password newPassword,
   }) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentUser);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.noCurrentStudent);
     }
     try {
       await currentUser.updatePassword(newPassword.value);
@@ -129,32 +129,32 @@ class FireBaseAccountRepository implements IAccountRepository {
     }
   }
 
-  Account? _userToAccount(final User? user) {
+  Student? _userToAccount(final User? user) {
     if (user == null) {
       return null;
     }
     if (user.email == null) {
       return null;
     }
-    final accountId = AccountId(user.uid);
+    final accountId = StudentId(user.uid);
     final emailAddress = EmailAddress(user.email!);
-    final account = Account(accountId: accountId, emailAddress: emailAddress);
+    final account = Student(accountId: accountId, emailAddress: emailAddress);
     return account;
   }
 
   void _processFirebaseAuthException(final FirebaseAuthException e) {
     if (e.code == 'weak-password') {
-      throw const AccountCreationException(
-          AccountCreationExceptionDetail.weakPassword);
+      throw const StudentCreationException(
+          StudentCreationExceptionDetail.weakPassword);
     } else if (e.code == 'email-already-in-use') {
-      throw const AccountCreationException(
-          AccountCreationExceptionDetail.alreadyExists);
+      throw const StudentCreationException(
+          StudentCreationExceptionDetail.alreadyExists);
     } else if (e.code == 'user-not-found') {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.notFound);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.notFound);
     } else if (e.code == 'wrong-password') {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.wrongPassword);
+      throw const StudentProcessException(
+          StudentProcessExceptionDetail.wrongPassword);
     }
   }
 }
