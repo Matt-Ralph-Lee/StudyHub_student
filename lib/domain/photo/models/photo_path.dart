@@ -1,5 +1,5 @@
-import '../../../common/exception/photo_exception/photo_creation_exception.dart';
-import '../../../common/exception/photo_exception/photo_creation_exception_detail.dart';
+import '../../../common/exception/photo/photo_creation_exception.dart';
+import '../../../common/exception/photo/photo_creation_exception_detail.dart';
 
 class PhotoPath {
   final String _value;

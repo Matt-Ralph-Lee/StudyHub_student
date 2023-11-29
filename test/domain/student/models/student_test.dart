@@ -11,7 +11,7 @@ void main() {
       final EmailAddress emailAddress = EmailAddress('test@example.com');
 
       final Student account =
-          Student(accountId: userId, emailAddress: emailAddress);
+          Student(studentId: userId, emailAddress: emailAddress);
 
       expect(account.accountId, equals(userId));
       expect(account.emailAddress, equals(emailAddress));
@@ -23,7 +23,7 @@ void main() {
       final StudentId userId = StudentId('123');
       final EmailAddress emailAddress = EmailAddress('test@example.com');
       final Student account =
-          Student(accountId: userId, emailAddress: emailAddress);
+          Student(studentId: userId, emailAddress: emailAddress);
 
       final newEmailAddress = EmailAddress('new@example.com');
       account.changeEmailAddress(newEmailAddress);

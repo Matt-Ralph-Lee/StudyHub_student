@@ -1,18 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../common/exception/student_exception/student_creation_exception.dart';
-import '../../../common/exception/student_exception/student_creation_exception_detail.dart';
-import '../../../common/exception/student_exception/student_process_exception.dart';
-import '../../../common/exception/student_exception/student_process_exception_detail.dart';
+import '../../../common/exception/student/student_creation_exception.dart';
+import '../../../common/exception/student/student_creation_exception_detail.dart';
+import '../../../common/exception/student/student_process_exception.dart';
+import '../../../common/exception/student/student_process_exception_detail.dart';
 import '../../../common/exception/unknown_exception.dart';
 import '../../../common/exception/unknown_exception_detail.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student/models/email_address.dart';
 import '../../../domain/student/models/i_student_repository.dart';
-import '../../../domain/student/models/password.dart';
+import '../../../domain/account/password.dart';
 
-class FirebaseStudentRepository implements IStudentRepository {
+class FirebaseStudentRepository implements IAccountRepository {
   @override
   Stream<Student?> accountStateChanges() {
     return FirebaseAuth.instance
@@ -138,7 +138,7 @@ class FirebaseStudentRepository implements IStudentRepository {
     }
     final accountId = StudentId(user.uid);
     final emailAddress = EmailAddress(user.email!);
-    final account = Student(accountId: accountId, emailAddress: emailAddress);
+    final account = Student(studentId: accountId, emailAddress: emailAddress);
     return account;
   }
 

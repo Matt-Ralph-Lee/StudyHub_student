@@ -41,6 +41,7 @@ dependencies:
   flutter_hooks:
   uuid:
   firebase_auth:
+  english_words:
 
 dev_dependencies:
   flutter_test:

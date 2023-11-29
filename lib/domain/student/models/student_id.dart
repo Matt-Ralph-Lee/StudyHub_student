@@ -1,5 +1,5 @@
-import '../../../common/exception/student_exception/student_creation_exception.dart';
-import '../../../common/exception/student_exception/student_creation_exception_detail.dart';
+import '../../../common/exception/student/student_creation_exception.dart';
+import '../../../common/exception/student/student_creation_exception_detail.dart';
 
 class StudentId {
   final String _value;

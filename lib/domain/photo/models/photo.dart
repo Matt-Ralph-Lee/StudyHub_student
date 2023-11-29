@@ -3,13 +3,13 @@ import 'photo_path.dart';
 
 class Photo {
   final PhotoId _photoId;
-  final PhotoPath _path;
+  final PhotoPath _photoPath;
 
   PhotoId get photoId => _photoId;
 
   Photo({required final PhotoId photoId, required final PhotoPath path})
       : _photoId = photoId,
-        _path = path;
+        _photoPath = path;
 
   factory Photo.fromPhotoPath(final PhotoPath photoPath) {
     final name = photoPath.getName();

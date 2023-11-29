@@ -17,17 +17,9 @@ enum StudentCreationExceptionDetail implements ExceptionDetail {
     'invalidCharacterException',
     'Invalid character is used.',
   ),
-  invalidEmailFormat(
-    'invalidEmailFormatException',
-    'Invalid email address.',
-  ),
   alreadyExists(
     'alreadyexistException',
     'The account already exists.',
-  ),
-  weakPassword(
-    'weakPasswordException',
-    'The password is weak.',
   ),
   ;
 

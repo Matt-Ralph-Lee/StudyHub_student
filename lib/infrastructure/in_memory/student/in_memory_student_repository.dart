@@ -1,14 +1,14 @@
 import 'package:uuid/uuid.dart';
 
-import '../../../common/exception/student_exception/student_process_exception.dart';
-import '../../../common/exception/student_exception/student_process_exception_detail.dart';
+import '../../../common/exception/student/student_process_exception.dart';
+import '../../../common/exception/student/student_process_exception_detail.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student/models/email_address.dart';
 import '../../../domain/student/models/i_student_repository.dart';
-import '../../../domain/student/models/password.dart';
+import '../../../domain/account/password.dart';
 
-class InMemoryStudentRepository implements IStudentRepository {
+class InMemoryStudentRepository implements IAccountRepository {
   var store = <Map?>{};
 
   @override
@@ -101,6 +101,6 @@ class InMemoryStudentRepository implements IStudentRepository {
 
   Student _clone(Student account) {
     return Student(
-        accountId: account.accountId, emailAddress: account.emailAddress);
+        studentId: account.accountId, emailAddress: account.emailAddress);
   }
 }

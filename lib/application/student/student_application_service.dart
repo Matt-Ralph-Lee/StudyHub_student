@@ -1,21 +1,28 @@
-import 'package:studyhub/common/exception/student_exception/student_creation_exception.dart';
-import 'package:studyhub/common/exception/student_exception/student_creation_exception_detail.dart';
-import 'package:studyhub/common/exception/student_exception/student_process_exception_detail.dart';
-import 'package:studyhub/common/exception/student_exception/student_process_exception.dart';
+import 'package:studyhub/common/exception/student/student_creation_exception.dart';
+import 'package:studyhub/common/exception/student/student_creation_exception_detail.dart';
+import 'package:studyhub/common/exception/student/student_process_exception_detail.dart';
+import 'package:studyhub/common/exception/student/student_process_exception.dart';
+import 'package:studyhub/domain/photo/models/i_photo_factory.dart';
 import 'package:studyhub/domain/student/models/i_student_repository.dart';
 import 'package:studyhub/domain/student/models/email_address.dart';
-import 'package:studyhub/domain/student/models/password.dart';
+import 'package:studyhub/domain/account/password.dart';
 import 'package:studyhub/domain/student/services/student_domain_service.dart';
+
+import '../../domain/photo/models/photo.dart';
+import '../../domain/student/models/i_student_factory.dart';
 
 class StudentApplicationService {
   // TODO: エラー捕捉チェック
-  final IStudentRepository _repository;
+  final IAccountRepository _repository;
+  final IStudentFactory _factory;
   final StudentDomainService _service;
 
   StudentApplicationService({
-    required final IStudentRepository repository,
+    required final IAccountRepository repository,
+    required final IStudentFactory factory,
     required final StudentDomainService service,
   })  : _repository = repository,
+        _factory = factory,
         _service = service;
 
   Future<void> register(
@@ -24,11 +31,15 @@ class StudentApplicationService {
   ) async {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
-    if (_service.exists(emailAddress)) {
+    final student = _factory.createwithEmailAndPassword(
+      emailAddress: emailAddress,
+      password: password,
+    );
+    if (_service.exists(student)) {
       throw const StudentCreationException(
           StudentCreationExceptionDetail.alreadyExists);
     }
-    await _repository.create(emailAddress: emailAddress, password: password);
+    await _repository.save(student);
   }
 
   Future<void> signIn({

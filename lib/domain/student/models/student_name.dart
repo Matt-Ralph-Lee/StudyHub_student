@@ -1,5 +1,5 @@
-import 'package:studyhub/common/exception/student_exception/student_creation_exception.dart';
-import 'package:studyhub/common/exception/student_exception/student_creation_exception_detail.dart';
+import 'package:studyhub/common/exception/student/student_creation_exception.dart';
+import 'package:studyhub/common/exception/student/student_creation_exception_detail.dart';
 
 class StudentName {
   final String _value;
