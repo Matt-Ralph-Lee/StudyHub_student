@@ -1,4 +1,4 @@
-import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/account/models/account_id.dart';
 
 import 'student.dart';
 import 'email_address.dart';
@@ -12,7 +12,7 @@ abstract class IStudentRepository {
   Student? getCurrentAccount();
   Stream<bool> isSignedIn();
   Student? findByEmailAddress(final EmailAddress emailAddress);
-  Student? findById(final StudentId studentId);
+  Student? findById(final AccountId studentId);
   Future<void> resetPassword({
     required final Student account,
     required Password newPassword,

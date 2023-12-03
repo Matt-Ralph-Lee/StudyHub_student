@@ -9,7 +9,7 @@ import 'occupation.dart';
 import '../../account/password.dart';
 import 'school_name.dart';
 import 'student.dart';
-import 'student_id.dart';
+import '../../account/models/account_id.dart';
 import 'student_name.dart';
 
 class IStudentFactory {
@@ -25,9 +25,9 @@ class IStudentFactory {
     // TODO: 学校名をどうとってくるかは考慮の余地あり
     final schoolName = SchoolName.others();
 
-    var studentId = StudentId(const Uuid().v4());
+    var studentId = AccountId(const Uuid().v4());
     while (_repository.findById(studentId) != null) {
-      studentId = StudentId(const Uuid().v4());
+      studentId = AccountId(const Uuid().v4());
     }
 
     return Student(

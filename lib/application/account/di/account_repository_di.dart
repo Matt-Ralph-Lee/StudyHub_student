@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/student/models/i_student_repository.dart';
+import '../../../domain/account/models/i_account_repository.dart';
 import '../../common/flavor.dart';
 import '../../common/flavor_config.dart';
 

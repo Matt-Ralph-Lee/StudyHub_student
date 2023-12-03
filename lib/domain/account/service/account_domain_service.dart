@@ -8,6 +8,7 @@ class AccountDomainService {
       : _repository = repository;
 
   bool exists(final Account account) {
-    return _repository.emailAddressExists(account.emailAddress);
+    final found = _repository.findByEmailAddress(account.emailAddress);
+    return found != null;
   }
 }

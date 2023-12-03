@@ -1,21 +1,29 @@
-import '../../student/models/student_id.dart';
+import 'account_id.dart';
 import 'email_address.dart';
 import 'password.dart';
 
 class Account {
-  final EmailAddress _emailAddress;
-  final Password _password;
-  StudentId _studentId;
+  final AccountId _accountId;
+  EmailAddress _emailAddress;
+  Password _password;
 
+  AccountId get accountId => _accountId;
   EmailAddress get emailAddress => _emailAddress;
   Password get password => _password;
-  StudentId get studentId => _studentId;
 
   Account({
+    required final AccountId accountId,
     required final EmailAddress emailAddress,
     required final Password password,
-    required final StudentId studentId,
-  })  : _emailAddress = emailAddress,
-        _password = password,
-        _studentId = studentId;
+  })  : _accountId = accountId,
+        _emailAddress = emailAddress,
+        _password = password;
+
+  void changeEmailAddress(final EmailAddress newEmailAddress) {
+    _emailAddress = newEmailAddress;
+  }
+
+  void changePassword(final Password newPassword) {
+    _password = newPassword;
+  }
 }

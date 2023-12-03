@@ -5,8 +5,8 @@ import "di/account_application_service_di.dart";
 part "account_state.g.dart";
 
 @riverpod
-Stream<AccountDto?> currentAccount(CurrentAccountRef ref) {
+Stream<AccountDto?> currentAccountState(CurrentAccountStateRef ref) {
   final accountApplicationService =
       ref.watch(accountApplicationServiceProvider);
-  return accountApplicationService.currentAccount();
+  return accountApplicationService.currentAccountState();
 }

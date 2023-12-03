@@ -7,11 +7,11 @@ import 'grade.dart';
 import 'occupation.dart';
 import '../../account/password.dart';
 import 'school_name.dart';
-import 'student_id.dart';
+import '../../account/models/account_id.dart';
 import 'student_name.dart';
 
 class Student {
-  final StudentId _studentId;
+  final AccountId _studentId;
   final Password _password;
   bool _isAuthenticated;
   EmailAddress _emailAddress;
@@ -26,7 +26,7 @@ class Student {
   bool get isAuthenticated => _isAuthenticated;
 
   Student({
-    required final StudentId studentId,
+    required final AccountId studentId,
     required final Password password,
     required final bool isauthenticated,
     required final EmailAddress emailAddress,
