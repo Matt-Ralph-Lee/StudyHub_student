@@ -38,6 +38,7 @@ class AccountApplicationService {
           AccountCreationExceptionDetail.alreadyExists);
     }
     _repository.create(account);
+    _service.verify(account);
     // TODO: Studentのcreateも整合性保守のため同時に行う
   }
 
@@ -48,6 +49,14 @@ class AccountApplicationService {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
     _repository.signIn(emailAddress: emailAddress, password: password);
+    final account = _repository.getCurrentAccount();
+    if (account == null) {
+      throw const AccountProcessException(
+          AccountProcessExceptionDetail.noCurrentAccount);
+    }
+    if (account.isVerified == false) {
+      _service.verify(account);
+    }
   }
 
   void signOut() {

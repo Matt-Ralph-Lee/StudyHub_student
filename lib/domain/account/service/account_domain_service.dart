@@ -11,4 +11,8 @@ class AccountDomainService {
     final found = _repository.findByEmailAddress(account.emailAddress);
     return found != null;
   }
+
+  void verify(final Account account) {
+    _repository.verify(account.emailAddress);
+  }
 }

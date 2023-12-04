@@ -13,7 +13,7 @@ abstract class IAccountRepository {
   void delete();
   void update(final Account account);
   void resetPassword(final EmailAddress emailAddress);
-  void verify(final Account account);
+  void verify(final EmailAddress emailAddress);
   Account? getCurrentAccount();
   Stream<Account?> accountState();
   Account? findById(final AccountId accountId);
