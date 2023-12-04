@@ -26,6 +26,7 @@ class FirebaseAccountFactory implements IAccountFactory {
       accountId: accountId,
       emailAddress: emailAddress,
       password: password,
+      isVerified: false,
     );
   }
 }

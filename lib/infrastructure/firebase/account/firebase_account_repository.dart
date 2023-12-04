@@ -122,7 +122,7 @@ class FirebaseAccountRepository implements IAccountRepository {
   }
 
   @override
-  Stream<AccountDto?> getAccountState() {
+  Stream<AccountDto?> accountState() {
     final user = FirebaseAuth.instance.currentUser;
     return _userToAccountDto(user);
   }

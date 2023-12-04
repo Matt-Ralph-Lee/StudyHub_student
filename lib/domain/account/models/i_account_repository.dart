@@ -1,4 +1,3 @@
-import '../../../application/account/account_dto.dart';
 import 'account.dart';
 import 'account_id.dart';
 import 'email_address.dart';
@@ -14,8 +13,9 @@ abstract class IAccountRepository {
   void delete();
   void update(final Account account);
   void resetPassword(final EmailAddress emailAddress);
-  AccountDto? getCurrentAccount();
-  Stream<AccountDto?> getAccountState();
+  void verify(final Account account);
+  Account? getCurrentAccount();
+  Stream<Account?> accountState();
   Account? findById(final AccountId accountId);
   Account? findByEmailAddress(final EmailAddress emailAddress);
 }

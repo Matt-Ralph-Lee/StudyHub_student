@@ -1,6 +1,8 @@
 import '../../../common/exception/account/account_creation_exception.dart';
 import '../../../common/exception/account/account_creation_exception_detail.dart';
 
+final blurredPassword = Password('blurred');
+
 class Password {
   final String _value;
   static const _minLength = 6;

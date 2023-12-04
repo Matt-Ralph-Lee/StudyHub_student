@@ -2,7 +2,6 @@ import '../../common/exception/account/account_creation_exception.dart';
 import '../../common/exception/account/account_creation_exception_detail.dart';
 import '../../common/exception/account/account_process_exception.dart';
 import '../../common/exception/account/account_process_exception_detail.dart';
-import '../../domain/account/models/account_id.dart';
 import '../../domain/account/models/email_address.dart';
 import '../../domain/account/models/i_account_factory.dart';
 import '../../domain/account/models/i_account_repository.dart';
@@ -72,17 +71,10 @@ class AccountApplicationService {
   }
 
   void update(AccountUpdateCommand command) {
-    final currentAccount = _repository.getCurrentAccount();
-    if (currentAccount == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentAccount);
-    }
-    final accountId = AccountId(currentAccount.accountId);
-    final account = _repository.findById(accountId);
-
+    final account = _repository.getCurrentAccount();
     if (account == null) {
       throw const AccountProcessException(
-          AccountProcessExceptionDetail.notFound);
+          AccountProcessExceptionDetail.noCurrentAccount);
     }
 
     final emailAddressData = command.emailAddress;
@@ -112,6 +104,11 @@ class AccountApplicationService {
   }
 
   Stream<AccountDto?> currentAccountState() {
-    return _repository.getAccountState();
+    return _repository.accountState().map((account) {
+      if (account == null) {
+        return null;
+      }
+      return AccountDto.fromAccount(account);
+    });
   }
 }
