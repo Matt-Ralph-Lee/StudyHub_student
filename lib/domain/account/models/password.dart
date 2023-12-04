@@ -8,8 +8,6 @@ class Password {
   static const _minLength = 6;
   static const _maxLength = 64;
 
-  String get value => _value;
-
   Password(this._value) {
     _validate(_value);
   }

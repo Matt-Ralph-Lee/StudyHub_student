@@ -30,8 +30,4 @@ class Account {
   void changePassword(final Password newPassword) {
     _password = newPassword;
   }
-
-  void verify() {
-    _isVerified = true;
-  }
 }
