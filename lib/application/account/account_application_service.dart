@@ -1,3 +1,6 @@
+import 'package:studyhub/domain/student/models/i_student_factory.dart';
+import 'package:studyhub/domain/student/models/i_student_repository.dart';
+
 import '../../common/exception/account/account_creation_exception.dart';
 import '../../common/exception/account/account_creation_exception_detail.dart';
 import '../../common/exception/account/account_process_exception.dart';
@@ -14,14 +17,20 @@ class AccountApplicationService {
   final AccountDomainService _service;
   final IAccountRepository _repository;
   final IAccountFactory _factory;
+  final IStudentFactory _studentFactory;
+  final IStudentRepository _studentRepository;
 
   AccountApplicationService({
     required final AccountDomainService service,
     required final IAccountRepository repository,
     required final IAccountFactory factory,
+    required final IStudentFactory studentFactory,
+    required final IStudentRepository studentRepository,
   })  : _factory = factory,
         _repository = repository,
-        _service = service;
+        _service = service,
+        _studentFactory = studentFactory,
+        _studentRepository = studentRepository;
 
   void create({
     required final String emailAddressData,
@@ -39,7 +48,8 @@ class AccountApplicationService {
     }
     _repository.create(account);
     _service.verify(account);
-    // TODO: Studentのcreateも整合性保守のため同時に行う
+    final student = _studentFactory.createInitially(account.accountId);
+    _studentRepository.save(student);
   }
 
   void signIn({
@@ -70,13 +80,14 @@ class AccountApplicationService {
   }
 
   void delete() {
-    final currentAccount = _repository.getCurrentAccount();
-    if (currentAccount == null) {
+    final account = _repository.getCurrentAccount();
+    if (account == null) {
       throw const AccountProcessException(
           AccountProcessExceptionDetail.noCurrentAccount);
     }
     // TODO:引数などについてはインメモリリポジトリとの兼ね合いも含め再考
     _repository.delete();
+    _studentRepository.delete(account.accountId);
   }
 
   void update(AccountUpdateCommand command) {

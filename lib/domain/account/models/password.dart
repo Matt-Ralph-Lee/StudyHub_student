@@ -4,6 +4,7 @@ import '../../../common/exception/account/account_creation_exception_detail.dart
 final blurredPassword = Password('blurred');
 
 class Password {
+  final _passwordRegExp = RegExp(r'^[a-zA-Z0-9!@#$%^&*()_+-=?<>/.,;:{}|]+$');
   final String _value;
   static const _minLength = 6;
   static const _maxLength = 64;
@@ -28,6 +29,10 @@ class Password {
         AccountCreationExceptionDetail.invalidLength,
         info: _minLength,
       );
+    }
+    if (!_passwordRegExp.hasMatch(value)) {
+      throw const AccountCreationException(
+          AccountCreationExceptionDetail.invalidCharacter);
     }
   }
 }

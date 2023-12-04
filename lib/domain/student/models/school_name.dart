@@ -1,9 +1,9 @@
+final anotherSchool = SchoolName('another');
+
 class SchoolName {
   final String _value;
 
-  SchoolName(this._value);
+  String get value => _value;
 
-  factory SchoolName.others() {
-    return SchoolName('others');
-  }
+  SchoolName(this._value);
 }

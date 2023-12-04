@@ -9,17 +9,17 @@ import 'package:studyhub/domain/account/password.dart';
 import 'package:studyhub/domain/student/services/student_domain_service.dart';
 
 import '../../domain/photo/models/photo.dart';
-import '../../domain/student/models/i_student_factory.dart';
+import '../../infrastructure/firebase/student/firebase_student_factory.dart';
 
 class StudentApplicationService {
   // TODO: エラー捕捉チェック
   final IAccountRepository _repository;
-  final IStudentFactory _factory;
+  final FirebaseStudentFactory _factory;
   final StudentDomainService _service;
 
   StudentApplicationService({
     required final IAccountRepository repository,
-    required final IStudentFactory factory,
+    required final FirebaseStudentFactory factory,
     required final StudentDomainService service,
   })  : _repository = repository,
         _factory = factory,

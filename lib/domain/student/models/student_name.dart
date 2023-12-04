@@ -3,7 +3,7 @@ import 'package:studyhub/common/exception/student/student_creation_exception_det
 
 class StudentName {
   final String _value;
-  static const int _maxLength = 64;
+  static const int _maxLength = 15;
 
   StudentName(this._value) {
     if (_value.isEmpty) {
