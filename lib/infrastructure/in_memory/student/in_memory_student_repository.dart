@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 import '../../../common/exception/student/student_process_exception.dart';
 import '../../../common/exception/student/student_process_exception_detail.dart';
 import '../../../domain/student/models/student.dart';
-import '../../../domain/account/models/account_id.dart';
+import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student/models/email_address.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/account/password.dart';
@@ -16,7 +16,7 @@ class InMemoryStudentRepository implements IAccountRepository {
     required EmailAddress emailAddress,
     required Password password,
   }) async {
-    final accountId = AccountId(const Uuid().v4());
+    final accountId = StudentId(const Uuid().v4());
     // ignore: unnecessary_nullable_for_final_variable_declarations
     final Map<String, dynamic>? data = <String, dynamic>{
       'accountId': accountId.value,

@@ -1,0 +1,4 @@
+enum SessionRole {
+  student,
+  teacher,
+}

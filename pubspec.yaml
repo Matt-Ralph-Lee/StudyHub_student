@@ -42,6 +42,7 @@ dependencies:
   uuid:
   firebase_auth:
   english_words:
+  image:
 
 dev_dependencies:
   flutter_test:

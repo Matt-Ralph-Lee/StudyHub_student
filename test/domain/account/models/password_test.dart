@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/common/exception/account/account_creation_exception.dart';
-import 'package:studyhub/common/exception/account/account_creation_exception_detail.dart';
-import 'package:studyhub/domain/account/models/password.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception_detail.dart';
+import 'package:studyhub/domain/student_auth/models/password.dart';
 
 void main() {
   setUp(() => null);
@@ -22,10 +22,10 @@ void main() {
       const String value = '123';
       expect(
           () => Password(value),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.invalidLength))));
+              equals(StudentAuthCreationExceptionDetail.invalidLength))));
     });
 
     test('more_than_maximumLength', () {
@@ -33,20 +33,20 @@ void main() {
           'passwordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpassword';
       expect(
           () => Password(value),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.invalidLength))));
+              equals(StudentAuthCreationExceptionDetail.invalidLength))));
     });
 
     test('empty_string_value', () {
       const String value = '';
       expect(
           () => Password(value),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.empty))));
+              equals(StudentAuthCreationExceptionDetail.empty))));
     });
   });
 }

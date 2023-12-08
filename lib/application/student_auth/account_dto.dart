@@ -1,4 +1,4 @@
-import '../../domain/account/models/account.dart';
+import '../../domain/student_auth/models/student_auth_info.dart';
 
 class AccountDto {
   final String _emailAddress;
@@ -13,10 +13,10 @@ class AccountDto {
   })  : _emailAddress = emailAddress,
         _accountId = accountId;
 
-  factory AccountDto.fromAccount(final Account account) {
+  factory AccountDto.fromAccount(final StudentAuthInfo account) {
     return AccountDto(
       emailAddress: account.emailAddress.value,
-      accountId: account.accountId.value,
+      accountId: account.studentId.value,
     );
   }
 

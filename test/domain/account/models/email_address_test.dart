@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/common/exception/account/account_creation_exception.dart';
-import 'package:studyhub/common/exception/account/account_creation_exception_detail.dart';
-import 'package:studyhub/domain/account/models/email_address.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception_detail.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 
 void main() {
   setUp(() => null);
@@ -16,50 +16,50 @@ void main() {
       const String email = '';
       expect(
           () => EmailAddress(email),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.empty))));
+              equals(StudentAuthCreationExceptionDetail.empty))));
     });
 
     test('without_at_character', () {
       const String email = 'testexample.com';
       expect(
           () => EmailAddress(email),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.invalidEmailFormat))));
+              equals(StudentAuthCreationExceptionDetail.invalidEmailFormat))));
     });
 
     test('multiple_at_characters', () {
       const String email = 'test@@example.com';
       expect(
           () => EmailAddress(email),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.invalidEmailFormat))));
+              equals(StudentAuthCreationExceptionDetail.invalidEmailFormat))));
     });
 
     test('no_at_sign', () {
       const String email = 'testexample.com';
       expect(
           () => EmailAddress(email),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.invalidEmailFormat))));
+              equals(StudentAuthCreationExceptionDetail.invalidEmailFormat))));
     });
 
     test('no_period_after_at_sign', () {
       const String email = 'test@examplecom';
       expect(
           () => EmailAddress(email),
-          throwsA(isA<AccountCreationException>().having(
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              equals(AccountCreationExceptionDetail.invalidEmailFormat))));
+              equals(StudentAuthCreationExceptionDetail.invalidEmailFormat))));
     });
   });
 }

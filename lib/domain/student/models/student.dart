@@ -1,4 +1,4 @@
-import '../../account/models/account_id.dart';
+import 'student_id.dart';
 import '../../photo/models/photo.dart';
 import 'gender.dart';
 import 'grade.dart';
@@ -7,7 +7,7 @@ import 'school_name.dart';
 import 'student_name.dart';
 
 class Student {
-  final AccountId _accountId;
+  final StudentId _accountId;
   StudentName _studentName;
   Photo _profilePhoto;
   Gender _gender;
@@ -15,7 +15,7 @@ class Student {
   SchoolName _schoolName;
   Grade _grade;
 
-  AccountId get accountId => _accountId;
+  StudentId get accountId => _accountId;
   StudentName get studentName => _studentName;
   Photo get profilePhoto => _profilePhoto;
   Gender get gender => _gender;
@@ -24,7 +24,7 @@ class Student {
   Grade get grade => _grade;
 
   Student({
-    required final AccountId accountId,
+    required final StudentId accountId,
     required final StudentName studentName,
     required final Photo profilePhoto,
     required final Gender gender,

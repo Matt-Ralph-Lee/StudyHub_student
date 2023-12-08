@@ -1,6 +1,6 @@
 import '../exception_detail.dart';
 
-enum AccountProcessExceptionDetail implements ExceptionDetail {
+enum StudentAuthProcessExceptionDetail implements ExceptionDetail {
   noCurrentAccount(
     'noCurrentAccountException',
     'There does not exist current Account.',
@@ -16,7 +16,7 @@ enum AccountProcessExceptionDetail implements ExceptionDetail {
   ),
   ;
 
-  const AccountProcessExceptionDetail(
+  const StudentAuthProcessExceptionDetail(
     this._exceptionTitle,
     this._exceptionMessage,
   );

@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:studyhub/application/account/account_dto.dart';
-import 'package:studyhub/common/exception/account/account_process_exception.dart';
-import 'package:studyhub/common/exception/account/account_process_exception_detail.dart';
-import 'package:studyhub/domain/account/models/account.dart';
-import 'package:studyhub/domain/account/models/email_address.dart';
-import 'package:studyhub/domain/account/models/password.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_process_exception.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_process_exception_detail.dart';
+import 'package:studyhub/domain/student_auth/models/student_auth_info.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
+import 'package:studyhub/domain/student_auth/models/password.dart';
 
 import '../../../common/exception/student/student_creation_exception.dart';
 import '../../../common/exception/student/student_creation_exception_detail.dart';
@@ -12,16 +12,16 @@ import '../../../common/exception/student/student_process_exception.dart';
 import '../../../common/exception/student/student_process_exception_detail.dart';
 import '../../../common/exception/unknown_exception.dart';
 import '../../../common/exception/unknown_exception_detail.dart';
-import '../../../domain/account/models/i_account_repository.dart';
+import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student/models/student.dart';
-import '../../../domain/account/models/account_id.dart';
+import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student/models/email_address.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/account/password.dart';
 
-class FirebaseAccountRepository implements IAccountRepository {
+class FirebaseAccountRepository implements IStudentAuthRepository {
   @override
-  void create(Account account) async {
+  void create(StudentAuthInfo account) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: account.emailAddress.value,
@@ -65,8 +65,8 @@ class FirebaseAccountRepository implements IAccountRepository {
   Future<void> delete() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentAccount);
+      throw const StudentAuthProcessException(
+          StudentAuthProcessExceptionDetail.noCurrentAccount);
     }
     try {
       await currentUser.delete();
@@ -81,8 +81,8 @@ class FirebaseAccountRepository implements IAccountRepository {
   void updateEmailAddress(EmailAddress emailAddress) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentAccount);
+      throw const StudentAuthProcessException(
+          StudentAuthProcessExceptionDetail.noCurrentAccount);
     }
     try {
       await currentUser.updateEmail(emailAddress.value);
@@ -97,8 +97,8 @@ class FirebaseAccountRepository implements IAccountRepository {
   void updatePassword(Password newPassword) async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
-      throw const AccountProcessException(
-          AccountProcessExceptionDetail.noCurrentAccount);
+      throw const StudentAuthProcessException(
+          StudentAuthProcessExceptionDetail.noCurrentAccount);
     }
     try {
       await currentUser.updatePassword(newPassword.value);

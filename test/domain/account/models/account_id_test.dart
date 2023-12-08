@@ -1,28 +1,28 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/common/exception/account/account_creation_exception.dart';
-import 'package:studyhub/common/exception/account/account_creation_exception_detail.dart';
-import 'package:studyhub/domain/account/models/account_id.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception.dart';
+import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception_detail.dart';
+import 'package:studyhub/domain/student/models/student_id.dart';
 
 void main() {
   setUp(() => null);
   group('constructor', () {
     test('not_throw_exception', () {
-      final accountId = AccountId('abc');
+      final accountId = StudentId('abc');
       expect(() => accountId, returnsNormally);
     });
 
     test('should_be_equal_to_constructor_value', () {
-      final userId = AccountId('abc');
+      final userId = StudentId('abc');
       expect(userId.value, equals('abc'));
     });
 
     test('empty_string_value', () {
       expect(
-          () => AccountId(''),
-          throwsA(isA<AccountCreationException>().having(
+          () => StudentId(''),
+          throwsA(isA<StudentAuthCreationException>().having(
               (e) => e.exceptionDetail,
               'detail',
-              AccountCreationExceptionDetail.empty)));
+              StudentAuthCreationExceptionDetail.empty)));
     });
   });
 }

@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/account/models/i_account_repository.dart';
+import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../common/flavor.dart';
 import '../../common/flavor_config.dart';
 
-final accountRepositoryProvider = Provider<IAccountRepository>(
+final accountRepositoryProvider = Provider<IStudentAuthRepository>(
   (ref) {
     switch (flavor) {
       case Flavor.dev:

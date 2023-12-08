@@ -1,37 +1,28 @@
-import 'photo_id.dart';
-import 'photo_path.dart';
+import '../../../common/exception/photo/photo_creation_exception.dart';
+import '../../../common/exception/photo/photo_creation_exception_detail.dart';
+import 'photo_file_format.dart';
 
 class Photo {
-  final PhotoId _photoId;
-  final PhotoPath _photoPath;
+  final String _pathOrUrl;
+  final _localPathRegExp =
+      RegExp(r'^[/\\]?[a-zA-Z0-9_\-\.]+\.' + regExpOfPhotoFileFormat);
+  final _cloudPathRegExp = RegExp(
+      r'^(http|https)://([a-zA-Z0-9\-\.]+\.[a-zA-Z]+)(/[a-zA-Z0-9\-\._?&=]*)?$');
 
-  PhotoId get photoId => _photoId;
+  String get pathOrURl => _pathOrUrl;
 
-  Photo({required final PhotoId photoId, required final PhotoPath path})
-      : _photoId = photoId,
-        _photoPath = path;
-
-  factory Photo.fromPhotoPath(final PhotoPath photoPath) {
-    final name = photoPath.getName();
-    final now = DateTime.now();
-    final referenceName =
-        '${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-${now.second}-$name.png';
-    final photoId = PhotoId(referenceName);
-    return Photo(photoId: photoId, path: photoPath);
+  Photo({required final String pathOrUrl}) : _pathOrUrl = pathOrUrl {
+    _validate(_pathOrUrl);
   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
+  void _validate(final String pathOrUrl) {
+    if (pathOrUrl.isEmpty) {
+      throw const PhotoCreationException(PhotoCreationExceptionDetail.empty);
     }
-    if (other is Photo) {
-      return runtimeType == other.runtimeType && _photoId == other.photoId;
-    } else {
-      return false;
+    if (!_localPathRegExp.hasMatch(pathOrUrl) &&
+        !_cloudPathRegExp.hasMatch(pathOrUrl)) {
+      throw const PhotoCreationException(
+          PhotoCreationExceptionDetail.invalidPathFormat);
     }
   }
-
-  @override
-  int get hashCode => _photoId.hashCode;
 }
