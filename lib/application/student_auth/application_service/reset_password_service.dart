@@ -1,6 +1,5 @@
-import 'package:studyhub/domain/student_auth/models/i_student_auth_repository.dart';
-
-import '../../domain/student_auth/models/email_address.dart';
+import '../../../domain/student_auth/models/email_address.dart';
+import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 
 class ResetPasswordService {
   final IStudentAuthRepository _repository;

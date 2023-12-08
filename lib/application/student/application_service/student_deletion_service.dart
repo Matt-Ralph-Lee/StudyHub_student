@@ -14,7 +14,7 @@ class StudentDeletionService {
         _session = session,
         _authRepository = authRepository;
 
-  void delete() {
+  void execute() {
     final studentId = _session.studentId;
     _repository.delete(studentId);
     _authRepository.delete(studentId);

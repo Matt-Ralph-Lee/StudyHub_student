@@ -1,5 +1,5 @@
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
-import 'i_session.dart';
+import '../i_session.dart';
 
 class SignOutService {
   final IStudentAuthRepository _repository;
