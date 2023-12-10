@@ -756,6 +756,7 @@ packages:
       sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
       url: "https://pub.dev"
     source: hosted
+    version: "1.11.1"
     version: "1.0.0"
   stream_channel:
     dependency: transitive
