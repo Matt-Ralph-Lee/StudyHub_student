@@ -12,7 +12,7 @@ void main() {
 
     test('should_be_equal_to_constructor_value', () {
       final userId = StudentId('01234567890123456789');
-      expect(userId.value, equals('abc'));
+      expect(userId.value, equals('01234567890123456789'));
     });
 
     test('empty_string_value', () {
