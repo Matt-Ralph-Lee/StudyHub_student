@@ -1,15 +1,16 @@
-import '../../../common/exception/student_auth/student_auth_creation_exception.dart';
-import '../../../common/exception/student_auth/student_auth_creation_exception_detail.dart';
+import '../exception/student_domain_exception.dart';
+import '../exception/student_domain_exception_detail.dart';
 
 class StudentId {
   final String _value;
+  static const minLength = 20;
 
   String get value => _value;
 
   StudentId(this._value) {
-    if (_value.isEmpty) {
-      throw const StudentAuthCreationException(
-          StudentAuthCreationExceptionDetail.empty);
+    if (_value.length < minLength) {
+      throw const StudentDomainException(
+          StudentDomainExceptionDetail.idInvalidLength);
     }
   }
 }

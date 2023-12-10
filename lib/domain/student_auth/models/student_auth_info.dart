@@ -25,6 +25,7 @@ class StudentAuthInfo {
 
   void changeEmailAddress(final EmailAddress newEmailAddress) {
     _emailAddress = newEmailAddress;
+    _isVerified = false;
   }
 
   void changePassword(final Password newPassword) {

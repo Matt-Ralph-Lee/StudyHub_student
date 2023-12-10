@@ -101,6 +101,6 @@ class InMemoryStudentRepository implements IAccountRepository {
 
   Student _clone(Student account) {
     return Student(
-        accountId: account.accountId, emailAddress: account.emailAddress);
+        studentId: account.studentId, emailAddress: account.emailAddress);
   }
 }

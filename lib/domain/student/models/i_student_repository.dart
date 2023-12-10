@@ -4,7 +4,7 @@ import 'student.dart';
 
 abstract class IStudentRepository {
   void save(final Student student);
-  void delete(final StudentId accountId);
+  void delete(final StudentId studentId);
   Student? findByEmailAddress(final EmailAddress emailAddress);
-  Student? findById(final StudentId accountId);
+  Student? findById(final StudentId studentId);
 }

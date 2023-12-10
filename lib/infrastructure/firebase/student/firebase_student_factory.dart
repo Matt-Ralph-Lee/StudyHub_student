@@ -10,7 +10,7 @@ class FirebaseStudentFactory implements IStudentFactory {
   @override
   Student createInitially(final StudentId accountId) {
     return Student(
-      accountId: accountId,
+      studentId: accountId,
       studentName: studentName,
       profilePhoto: null,
       gender: Gender.nonAnswer,

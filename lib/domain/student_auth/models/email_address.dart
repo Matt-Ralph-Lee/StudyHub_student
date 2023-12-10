@@ -1,5 +1,5 @@
-import '../../../common/exception/student_auth/student_auth_creation_exception.dart';
-import '../../../common/exception/student_auth/student_auth_creation_exception_detail.dart';
+import '../exception/student_auth_domain_exception.dart';
+import '../exception/student_auth_domain_exception_detail.dart';
 
 class EmailAddress {
   final _emailAddressRegExp =
@@ -9,17 +9,9 @@ class EmailAddress {
   String get value => _value;
 
   EmailAddress(this._value) {
-    _validate(_value);
-  }
-
-  void _validate(final String value) {
-    if (value.isEmpty) {
-      throw const StudentAuthCreationException(
-          StudentAuthCreationExceptionDetail.empty);
-    }
-    if (!_emailAddressRegExp.hasMatch(value)) {
-      throw const StudentAuthCreationException(
-          StudentAuthCreationExceptionDetail.invalidEmailFormat);
+    if (!_emailAddressRegExp.hasMatch(_value)) {
+      throw const StudentAuthDomainException(
+          StudentAuthDomainExceptionDetail.invalidEmailFormat);
     }
   }
 }
