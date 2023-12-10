@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception.dart';
-import 'package:studyhub/common/exception/student_auth/student_auth_creation_exception_detail.dart';
+import 'package:studyhub/domain/shared/domain_exception.dart';
 import 'package:studyhub/domain/student_auth/models/student_auth_info.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
@@ -10,13 +9,13 @@ void main() {
   setUp(() => null);
   group('constructor', () {
     test('with_valid_inputs', () {
-      final StudentId accountId = StudentId('123');
+      final StudentId studentId = StudentId('01234567890123456789');
       final EmailAddress emailAddress = EmailAddress('test@example.com');
       final Password password = Password('password');
       const bool isVerified = false;
 
       final StudentAuthInfo account = StudentAuthInfo(
-        accountId: accountId,
+        studentId: studentId,
         emailAddress: emailAddress,
         password: password,
         isVerified: isVerified,
@@ -27,33 +26,29 @@ void main() {
 
     test('with_invalid_email', () {
       expect(() {
-        final StudentId accountId = StudentId('123');
+        final StudentId studentId = StudentId('01234567890123456789');
         final EmailAddress emailAddress = EmailAddress('invalidemail');
         final Password password = Password('password');
         const bool isVerified = true;
         StudentAuthInfo(
-          accountId: accountId,
+          studentId: studentId,
           emailAddress: emailAddress,
           password: password,
           isVerified: isVerified,
         );
-      },
-          throwsA(isA<StudentAuthCreationException>().having(
-              (e) => e.exceptionDetail,
-              'detail',
-              StudentAuthCreationExceptionDetail.invalidEmailFormat)));
+      }, throwsA(const TypeMatcher<DomainException>()));
     });
   });
 
   group('methods', () {
     test('change_email_address_with_valid_email', () {
-      final StudentId accountId = StudentId('123');
+      final StudentId studentId = StudentId('01234567890123456789');
       final EmailAddress emailAddress = EmailAddress('test@example.com');
       final Password password = Password('password');
       const bool isVerified = true;
 
       final StudentAuthInfo account = StudentAuthInfo(
-        accountId: accountId,
+        studentId: studentId,
         emailAddress: emailAddress,
         password: password,
         isVerified: isVerified,
@@ -66,13 +61,13 @@ void main() {
     });
 
     test('change_password_with_valid_password', () {
-      final StudentId accountId = StudentId('123');
+      final StudentId studentId = StudentId('01234567890123456789');
       final EmailAddress emailAddress = EmailAddress('test@example.com');
       final Password password = Password('password');
       const bool isVerified = true;
 
       final StudentAuthInfo account = StudentAuthInfo(
-        accountId: accountId,
+        studentId: studentId,
         emailAddress: emailAddress,
         password: password,
         isVerified: isVerified,
@@ -85,13 +80,13 @@ void main() {
     });
 
     test('change_email_address_with_invalid_email', () {
-      final StudentId accountId = StudentId('123');
+      final StudentId studentId = StudentId('01234567890123456789');
       final EmailAddress emailAddress = EmailAddress('test@example.com');
       final Password password = Password('password');
       const bool isVerified = true;
 
       final StudentAuthInfo account = StudentAuthInfo(
-        accountId: accountId,
+        studentId: studentId,
         emailAddress: emailAddress,
         password: password,
         isVerified: isVerified,
@@ -100,11 +95,7 @@ void main() {
       expect(() {
         final EmailAddress newEmailAddress = EmailAddress('invalidemail');
         account.changeEmailAddress(newEmailAddress);
-      },
-          throwsA(isA<StudentAuthCreationException>().having(
-              (e) => e.exceptionDetail,
-              'detail',
-              StudentAuthCreationExceptionDetail.invalidEmailFormat)));
+      }, throwsA(const TypeMatcher<DomainException>()));
       expect(account.emailAddress, equals(emailAddress));
     });
   });
