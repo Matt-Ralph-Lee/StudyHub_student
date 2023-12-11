@@ -10,8 +10,17 @@ class EmailAddress {
 
   EmailAddress(this._value) {
     if (!_emailAddressRegExp.hasMatch(_value)) {
-      throw const StudentAuthDomainException(
-          StudentAuthDomainExceptionDetail.invalidEmailFormat);
+      final numOfAts = RegExp(r'@').allMatches(_value).length;
+      if (numOfAts != 1) {
+        throw const StudentAuthDomainException(
+            StudentAuthDomainExceptionDetail.invalidEmailFormat,
+            info: '@');
+      }
+      if (!_value.contains('.')) {
+        throw const StudentAuthDomainException(
+            StudentAuthDomainExceptionDetail.invalidEmailFormat,
+            info: '.');
+      }
     }
   }
 }
