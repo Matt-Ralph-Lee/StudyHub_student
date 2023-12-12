@@ -36,10 +36,22 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.22.0
   cloud_firestore:
+  flutter_riverpod:
+  riverpod_annotation:
+  flutter_hooks:
+  uuid:
+  firebase_auth:
+  english_words:
+  image:
+  image_size_getter: ^2.1.2
+  file_picker: ^6.1.1
+  flutter_image_compress: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  riverpod_generator:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
