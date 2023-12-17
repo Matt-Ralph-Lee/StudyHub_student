@@ -11,11 +11,11 @@ abstract class IStudentAuthRepository {
   });
   void signOut(final StudentId studentId);
   void delete(final StudentId studentId);
-  void update(final StudentAuthInfo account);
+  void update(final StudentAuthInfo studentAuthInfo);
   void resetPassword(final EmailAddress emailAddress);
-  void verify(final EmailAddress emailAddress);
-  StudentAuthInfo? getCurrentAccount();
-  Stream<StudentAuthInfo?> accountState();
+  void verifyWithEmail(final StudentId studentId);
+  StudentAuthInfo? getCurrentAccount(final StudentId studentId);
+  Stream<StudentAuthInfo?> accountState(final StudentId studentId);
   StudentAuthInfo? findById(final StudentId studentId);
   StudentAuthInfo? findByEmailAddress(final EmailAddress emailAddress);
 }

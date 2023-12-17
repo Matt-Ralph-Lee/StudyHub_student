@@ -1,6 +1,5 @@
-import 'package:studyhub/domain/student_auth/models/email_address.dart';
-import 'package:studyhub/domain/student_auth/models/password.dart';
-
+import 'email_address.dart';
+import 'password.dart';
 import 'student_auth_info.dart';
 
 abstract class IStudentAuthFactory {

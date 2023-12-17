@@ -31,4 +31,8 @@ class StudentAuthInfo {
   void changePassword(final Password newPassword) {
     _password = newPassword;
   }
+
+  void changeIsVerified(final bool isVerified) {
+    _isVerified = isVerified;
+  }
 }

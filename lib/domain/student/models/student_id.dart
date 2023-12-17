@@ -13,4 +13,19 @@ class StudentId {
           StudentDomainExceptionDetail.idInvalidLength);
     }
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is StudentId) {
+      return runtimeType == other.runtimeType && value == other.value;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => value.hashCode;
 }
