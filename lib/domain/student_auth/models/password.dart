@@ -1,8 +1,6 @@
 import '../exception/student_auth_domain_exception.dart';
 import '../exception/student_auth_domain_exception_detail.dart';
 
-final blurredPassword = Password('blurred');
-
 class Password {
   final _passwordRegExp = RegExp(r'^[a-zA-Z0-9!@#$%^&*()_+-=?<>/.,;:{}|]+$');
   final String _value;
@@ -27,4 +25,19 @@ class Password {
           StudentAuthDomainExceptionDetail.longPassword);
     }
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is Password) {
+      return runtimeType == other.runtimeType && _value == other._value;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => _value.hashCode;
 }

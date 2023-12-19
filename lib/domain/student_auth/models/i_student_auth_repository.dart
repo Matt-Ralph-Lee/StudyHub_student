@@ -12,7 +12,7 @@ abstract class IStudentAuthRepository {
   void signOut(final StudentId studentId);
   void delete(final StudentId studentId);
   void update(final StudentAuthInfo studentAuthInfo);
-  void resetPassword(final EmailAddress emailAddress);
+  void sendPasswordResetEmail(final EmailAddress emailAddress);
   void verifyWithEmail(final StudentId studentId);
   StudentAuthInfo? getCurrentAccount(final StudentId studentId);
   Stream<StudentAuthInfo?> accountState(final StudentId studentId);
