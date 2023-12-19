@@ -10,13 +10,11 @@ class InMemoryStudentAuthFactory implements IStudentAuthFactory {
   @override
   StudentAuthInfo createWithEmailAndPassword(
       {required EmailAddress emailAddress, required Password password}) {
-    final studentId = StudentId(const Uuid().v4());
-    const isVerified = false;
     return StudentAuthInfo(
-      studentId: studentId,
+      studentId: StudentId(const Uuid().v4()),
       emailAddress: emailAddress,
       password: password,
-      isVerified: isVerified,
+      isVerified: false,
     );
   }
 }

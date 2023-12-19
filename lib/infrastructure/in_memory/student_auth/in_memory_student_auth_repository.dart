@@ -36,10 +36,10 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     signedInStore[studentId] = false;
     store[studentId] = studentAuthInfo;
     emailToIdMap[emailAddress] = studentId;
-    streamControllers[studentId] = StreamController<StudentAuthInfo>();
+    streamControllers[studentId] = StreamController<StudentAuthInfo?>();
 
     final streamController = streamControllers[studentId]!;
-    streamController.add(studentAuthInfo);
+    streamController.add(null);
   }
 
   @override
@@ -47,7 +47,6 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     signedInStore.remove(studentId);
     store.remove(studentId);
     emailToIdMap.removeWhere((email, id) => id == studentId);
-    streamControllers[studentId]!.add(null);
     streamControllers.remove(studentId);
   }
 
@@ -66,11 +65,11 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     if (storedStudentAuth == null) {
       return null;
     }
-    return _passwordMasked(storedStudentAuth);
+    return _maskPassword(storedStudentAuth);
   }
 
   @override
-  StudentAuthInfo? getCurrentAccount(final StudentId studentId) {
+  StudentAuthInfo? getAccountState(final StudentId studentId) {
     if (signedInStore[studentId] == null) {
       return null;
     }
@@ -78,7 +77,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     if (storedStudentAuth == null) {
       return null;
     }
-    return _passwordMasked(storedStudentAuth);
+    return _maskPassword(storedStudentAuth);
   }
 
   @override
@@ -100,7 +99,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
 
     final studentId = storedStudentAuthInfo.studentId;
     signedInStore[studentId] = true;
-    streamControllers[studentId]!.add(storedStudentAuthInfo);
+    streamControllers[studentId]!.add(_maskPassword(storedStudentAuthInfo));
   }
 
   @override
@@ -110,19 +109,41 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   }
 
   @override
-  void update(final StudentAuthInfo updatedStudentAuth) {
-    final Password password;
+  void sendPasswordResetEmail(EmailAddress emailAddress) {
+    throw UnimplementedError();
+  }
 
-    final storedStudentAuth = findById(updatedStudentAuth.studentId);
+  @override
+  void updatePassword(
+      {required StudentId studentId,
+      required Password currentPassword,
+      required Password newPassword}) {
+    final storedStudentAuth = _getById(studentId);
     if (storedStudentAuth == null) {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.notFound);
     }
-    // password を変更しないとき
-    if (updatedStudentAuth.password == null) {
-      password = storedStudentAuth.password!;
-      updatedStudentAuth.changePassword(password);
+
+    if (currentPassword != newPassword) {
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.wrongEmailOrPassword);
     }
+
+    storedStudentAuth.changePassword(newPassword);
+    store[studentId] = storedStudentAuth;
+  }
+
+  @override
+  void updateEmailAddress(final StudentAuthInfo updatedStudentAuth) {
+    final storedStudentAuth = _getById(updatedStudentAuth.studentId);
+    if (storedStudentAuth == null) {
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.notFound);
+    }
+
+    final password = storedStudentAuth.password!;
+    updatedStudentAuth.changePassword(password);
+    updatedStudentAuth.changeIsVerified(false);
 
     final oldEmailAddress = updatedStudentAuth.emailAddress;
     emailToIdMap.remove(oldEmailAddress);
@@ -131,22 +152,22 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     final emailAddress = updatedStudentAuth.emailAddress;
     store[studentId] = updatedStudentAuth;
     emailToIdMap[emailAddress] = studentId;
-    streamControllers[studentId]!.add(_getById(studentId));
+    streamControllers[studentId]!.add(findById(studentId));
   }
 
   @override
   void verifyWithEmail(final StudentId studentId) {
-    final studentAuthInfo = findById(studentId);
+    final studentAuthInfo = _getById(studentId);
     if (studentAuthInfo == null) {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.notFound);
     }
     studentAuthInfo.changeIsVerified(true);
     store[studentId] = studentAuthInfo;
-    streamControllers[studentId]!.add(_getById(studentId));
+    streamControllers[studentId]!.add(findById(studentId));
   }
 
-  StudentAuthInfo _passwordMasked(final StudentAuthInfo studentAuthInfo) {
+  StudentAuthInfo _maskPassword(final StudentAuthInfo studentAuthInfo) {
     return StudentAuthInfo(
       studentId: studentAuthInfo.studentId,
       emailAddress: studentAuthInfo.emailAddress,
@@ -163,10 +184,20 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     return _getById(studentId);
   }
 
-  StudentAuthInfo? _getById(final StudentId studentId) => store[studentId];
+  StudentAuthInfo? _getById(final StudentId studentId) {
+    final data = store[studentId];
+    if (data == null) {
+      return null;
+    }
+    return _clone(data);
+  }
 
-  @override
-  void sendPasswordResetEmail(EmailAddress emailAddress) {
-    throw UnimplementedError();
+  StudentAuthInfo _clone(final StudentAuthInfo studentAuthInfo) {
+    return StudentAuthInfo(
+      studentId: studentAuthInfo.studentId,
+      emailAddress: studentAuthInfo.emailAddress,
+      password: studentAuthInfo.password,
+      isVerified: studentAuthInfo.isVerified,
+    );
   }
 }
