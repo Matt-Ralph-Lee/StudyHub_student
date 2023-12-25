@@ -5,11 +5,11 @@ import '../../shared/session/i_session.dart';
 import '../exception/student_auth_use_case_exception.dart';
 import '../exception/student_auth_use_case_exception_detail.dart';
 
-class StudentAuthInfoUpdateUseCase {
+class EmailAddressUpdateUseCase {
   final IStudentAuthRepository _authRepository;
   final StudentAuthDomainService _service;
   final ISession _session;
-  StudentAuthInfoUpdateUseCase({
+  EmailAddressUpdateUseCase({
     required final IStudentAuthRepository authRepository,
     required final StudentAuthDomainService service,
     required final ISession session,

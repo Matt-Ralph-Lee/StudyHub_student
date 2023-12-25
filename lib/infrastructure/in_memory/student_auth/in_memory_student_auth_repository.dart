@@ -124,7 +124,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
           StudentAuthInfrastructureExceptionDetail.notFound);
     }
 
-    if (currentPassword != newPassword) {
+    if (currentPassword != storedStudentAuth.password) {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.wrongEmailOrPassword);
     }

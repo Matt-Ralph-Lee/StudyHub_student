@@ -190,6 +190,43 @@ void main() {
       repository.signOut(studentId1);
     });
   });
+
+  group('update', () {
+    test('update emailAddress normally', () {
+      final repository = InMemoryStudentAuthRepository();
+
+      repository.create(studentAuthInfo1);
+
+      final newEmailAddress = EmailAddress('newtest1@example.com');
+      final updatedStudentAuth = _clone(studentAuthInfo1);
+      updatedStudentAuth.changeEmailAddress(newEmailAddress);
+
+      repository.updateEmailAddress(updatedStudentAuth);
+
+      final found = repository.findByEmailAddress(newEmailAddress);
+
+      expect(found?.emailAddress, newEmailAddress);
+    });
+
+    test('update password normally', () {
+      final repository = InMemoryStudentAuthRepository();
+
+      repository.create(studentAuthInfo1);
+
+      final newPassword = Password('newpassword1');
+      final studentId = studentAuthInfo1.studentId;
+
+      repository.updatePassword(
+          studentId: studentId,
+          currentPassword: password1,
+          newPassword: newPassword);
+
+      repository.signOut(studentId);
+      repository.signIn(emailAddress: emailAddress1, password: newPassword);
+      bool? signedIn = repository.signedInStore[studentId1];
+      expect(signedIn, equals(true));
+    });
+  });
 }
 
 void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
@@ -204,4 +241,13 @@ void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
 
   print(
       'studentId: ${studentId.value}\nemailAddress: ${emailAddress.value}\npassword: ${password?.value}\nisVerified: $isVerified');
+}
+
+StudentAuthInfo _clone(final StudentAuthInfo studentAuthInfo) {
+  return StudentAuthInfo(
+    studentId: studentAuthInfo.studentId,
+    emailAddress: studentAuthInfo.emailAddress,
+    password: studentAuthInfo.password,
+    isVerified: studentAuthInfo.isVerified,
+  );
 }

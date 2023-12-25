@@ -2,10 +2,10 @@ import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
 import '../../shared/session/i_session.dart';
 
-class StudentAuthInfoUpdateUseCase {
+class PasswordUpdateUseCase {
   final IStudentAuthRepository _authRepository;
   final ISession _session;
-  StudentAuthInfoUpdateUseCase({
+  PasswordUpdateUseCase({
     required final IStudentAuthRepository authRepository,
     required final ISession session,
   })  : _authRepository = authRepository,
