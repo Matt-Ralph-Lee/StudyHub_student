@@ -1,5 +1,5 @@
 import '../../shared/domain_exception_detail.dart';
-import '../models/profile_photo/profile_photo.dart';
+import '../models/profile_photo.dart';
 import '../models/student_id.dart';
 import '../models/student_name.dart';
 

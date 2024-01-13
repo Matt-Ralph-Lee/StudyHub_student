@@ -1,4 +1,4 @@
-import 'profile_photo/profile_photo_path.dart';
+import 'profile_photo_path.dart';
 import 'student_id.dart';
 import 'gender.dart';
 import 'grade.dart';

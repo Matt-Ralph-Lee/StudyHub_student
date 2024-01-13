@@ -1,8 +1,7 @@
 import 'package:image/image.dart';
-import 'package:studyhub/domain/photo/models/photo.dart';
-
-import '../../exception/student_domain_exception.dart';
-import '../../exception/student_domain_exception_detail.dart';
+import '../../photo/models/photo.dart';
+import '../exception/student_domain_exception.dart';
+import '../exception/student_domain_exception_detail.dart';
 
 class ProfilePhoto extends Photo {
   static const height = 180;

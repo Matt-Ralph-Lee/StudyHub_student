@@ -1,6 +1,6 @@
 import 'package:image/image.dart';
 
-import '../../student/models/profile_photo/profile_photo_path.dart';
+import '../../student/models/profile_photo_path.dart';
 
 abstract class Photo {
   final ProfilePhotoPath _path;

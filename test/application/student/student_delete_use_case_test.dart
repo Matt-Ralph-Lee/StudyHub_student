@@ -4,7 +4,7 @@ import 'package:studyhub/application/student/application_service/student_delete_
 import 'package:studyhub/domain/student/models/gender.dart';
 import 'package:studyhub/domain/student/models/grade.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
-import 'package:studyhub/domain/student/models/profile_photo/profile_photo_path.dart';
+import 'package:studyhub/domain/student/models/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/school_name.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';

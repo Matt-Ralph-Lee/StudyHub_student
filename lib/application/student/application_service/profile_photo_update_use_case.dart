@@ -5,8 +5,8 @@ import 'package:image/image.dart';
 
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
-import '../../../domain/student/models/profile_photo/profile_photo.dart';
-import '../../../domain/student/models/profile_photo/profile_photo_path.dart';
+import '../../../domain/student/models/profile_photo.dart';
+import '../../../domain/student/models/profile_photo_path.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../shared/session/i_session.dart';
 import '../exception/student_use_case_exception.dart';
