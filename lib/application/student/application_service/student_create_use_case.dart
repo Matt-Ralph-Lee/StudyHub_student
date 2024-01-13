@@ -5,7 +5,6 @@ import '../../../domain/student_auth/models/i_student_auth_factory.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
 import '../../../domain/student_auth/service/student_auth_domain_service.dart';
-import '../../shared/session/i_session.dart';
 import '../../student_auth/exception/student_auth_use_case_exception.dart';
 import '../../student_auth/exception/student_auth_use_case_exception_detail.dart';
 
@@ -22,20 +21,19 @@ class StudentCreateUseCase {
     required final IStudentAuthFactory factory,
     required final IStudentFactory studentFactory,
     required final IStudentRepository studentRepository,
-    required final ISession session,
   })  : _factory = factory,
         _repository = repository,
         _service = service,
         _studentFactory = studentFactory,
         _studentRepository = studentRepository;
 
-  void execute({
+  Future<void> execute({
     required final String emailAddressData,
     required final String passwordData,
-  }) {
+  }) async {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
-    final studentAuthInfo = _factory.createWithEmailAndPassword(
+    final studentAuthInfo = await _factory.createWithEmailAndPassword(
       emailAddress: emailAddress,
       password: password,
     );

@@ -7,12 +7,12 @@ class StudentAuthDomainService {
   StudentAuthDomainService(final IStudentAuthRepository repository)
       : _repository = repository;
 
-  bool exists(final StudentAuthInfo account) {
-    final found = _repository.findByEmailAddress(account.emailAddress);
+  bool exists(final StudentAuthInfo studentAuthInfo) {
+    final found = _repository.findByEmailAddress(studentAuthInfo.emailAddress);
     return found != null;
   }
 
   void requireVerification(final StudentAuthInfo account) {
-    _repository.verify(account.emailAddress);
+    _repository.verifyWithEmail(account.studentId);
   }
 }

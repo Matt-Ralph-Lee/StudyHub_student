@@ -23,4 +23,19 @@ class EmailAddress {
       }
     }
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is EmailAddress) {
+      return runtimeType == other.runtimeType && _value == other._value;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => _value.hashCode;
 }

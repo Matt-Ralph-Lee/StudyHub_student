@@ -6,8 +6,10 @@ class ResetPasswordUseCase {
   ResetPasswordUseCase({required final IStudentAuthRepository repository})
       : _repository = repository;
 
-  void execute(final String emailAddressData) {
+  void execute(
+      {required final String emailAddressData,
+      required final String newPasswordData}) {
     final emailAddress = EmailAddress(emailAddressData);
-    _repository.resetPassword(emailAddress);
+    _repository.sendPasswordResetEmail(emailAddress);
   }
 }
