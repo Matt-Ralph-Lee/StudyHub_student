@@ -1,4 +1,4 @@
-import 'profile_image/profile_image_path.dart';
+import 'profile_photo/profile_photo_path.dart';
 import 'student_id.dart';
 import 'gender.dart';
 import 'grade.dart';
@@ -9,7 +9,7 @@ import 'student_name.dart';
 class Student {
   final StudentId _studentId;
   StudentName _studentName;
-  ProfileImagePath _profileImagePath;
+  ProfilePhotoPath _profilePhotoPath;
   Gender _gender;
   Occupation _occupation;
   SchoolName _schoolName;
@@ -17,7 +17,7 @@ class Student {
 
   StudentId get studentId => _studentId;
   StudentName get studentName => _studentName;
-  ProfileImagePath get profileImagePath => _profileImagePath;
+  ProfilePhotoPath get profilePhotoPath => _profilePhotoPath;
   Gender get gender => _gender;
   Occupation get occupation => _occupation;
   SchoolName get schoolName => _schoolName;
@@ -26,21 +26,21 @@ class Student {
   Student({
     required final StudentId studentId,
     required final StudentName studentName,
-    required final ProfileImagePath profileImagePath,
+    required final ProfilePhotoPath profilePhotoPath,
     required final Gender gender,
     required final Occupation occupation,
     required final SchoolName schoolName,
     required final Grade grade,
   })  : _studentId = studentId,
         _studentName = studentName,
-        _profileImagePath = profileImagePath,
+        _profilePhotoPath = profilePhotoPath,
         _gender = gender,
         _occupation = occupation,
         _schoolName = schoolName,
         _grade = grade;
 
-  void changeProfileImage(final ProfileImagePath newProfileImagePath) {
-    _profileImagePath = newProfileImagePath;
+  void changeProfilePhoto(final ProfilePhotoPath newProfilePhotoPath) {
+    _profilePhotoPath = newProfilePhotoPath;
   }
 
   void changeStudentName(final StudentName newStudentName) {
@@ -62,4 +62,19 @@ class Student {
   void changeGrade(final Grade newGrade) {
     _grade = newGrade;
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is Student) {
+      return runtimeType == other.runtimeType && studentId == other.studentId;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => studentId.hashCode;
 }

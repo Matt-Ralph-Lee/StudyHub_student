@@ -20,7 +20,7 @@
 
 	"Initialize test code": {
 		"scope": "dart",
-		"prefix": "main_test",
+		"prefix": "test",
 		"body": [
 			"import 'package:flutter_test/flutter_test.dart';",
 			"",

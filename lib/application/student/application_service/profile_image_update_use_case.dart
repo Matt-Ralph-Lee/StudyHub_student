@@ -4,51 +4,51 @@ import 'dart:typed_data';
 import 'package:image/image.dart';
 
 import '../../../domain/student/models/i_student_repository.dart';
-import '../../../domain/student/models/profile_image/i_profile_image_repository.dart';
-import '../../../domain/student/models/profile_image/profile_image.dart';
-import '../../../domain/student/models/profile_image/profile_image_path.dart';
+import '../../../domain/student/models/profile_photo/i_profile_photo_repository.dart';
+import '../../../domain/student/models/profile_photo/profile_photo.dart';
+import '../../../domain/student/models/profile_photo/profile_photo_path.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../shared/session/i_session.dart';
 import '../exception/student_use_case_exception.dart';
 import '../exception/student_use_case_exception_detail.dart';
 
-class ProfileImageUpdateUseCase {
+class ProfilePhotoUpdateUseCase {
   final ISession _session;
   final IStudentRepository _repository;
-  final IProfileImageRepository _profileImageRepository;
+  final IProfilePhotoRepository _profilePhotoRepository;
 
-  ProfileImageUpdateUseCase({
+  ProfilePhotoUpdateUseCase({
     required final ISession session,
     required final IStudentRepository repository,
-    required final IProfileImageRepository profileImageRepository,
+    required final IProfilePhotoRepository profilePhotoRepository,
   })  : _session = session,
         _repository = repository,
-        _profileImageRepository = profileImageRepository;
+        _profilePhotoRepository = profilePhotoRepository;
 
-  void execute(final String localImagePath) async {
+  void execute(final String localPhotoPath) async {
     final studentId = _session.studentId;
 
     final String fileName = _createFileName(studentId);
-    final path = ProfileImagePath('images/profile_image/$fileName.jpeg');
-    final data = await _convertToJpegAndResize(localImagePath);
+    final path = ProfilePhotoPath('photos/profile_photo/$fileName.jpeg');
+    final data = await _convertToJpegAndResize(localPhotoPath);
     final image = decodeImage(data);
     if (image == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.failedInImageProcessing);
     }
-    final profileImage = ProfileImage(path: path, image: image);
-    _profileImageRepository.save(profileImage);
+    final profilePhoto = ProfilePhoto(path: path, image: image);
+    _profilePhotoRepository.save(profilePhoto);
 
     final student = _repository.findById(studentId);
     if (student == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.notFound);
     }
-    final oldImagePath = student.profileImagePath;
-    student.changeProfileImage(path);
+    final oldPhotoPath = student.profilePhotoPath;
+    student.changeProfilePhoto(path);
     _repository.save(student);
 
-    _profileImageRepository.delete(oldImagePath);
+    _profilePhotoRepository.delete(oldPhotoPath);
   }
 }
 
@@ -75,6 +75,6 @@ Future<Uint8List> _convertToJpegAndResize(String imagePath) async {
         StudentUseCaseExceptionDetail.failedInImageProcessing);
   }
   final croppedImage =
-      copyResizeCropSquare(originalImage, size: ProfileImage.height);
+      copyResizeCropSquare(originalImage, size: ProfilePhoto.height);
   return encodeJpg(croppedImage);
 }
