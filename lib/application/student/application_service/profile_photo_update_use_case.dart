@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:image/image.dart';
 
 import '../../../domain/student/models/i_student_repository.dart';
@@ -25,7 +26,7 @@ class ProfilePhotoUpdateUseCase {
         _repository = repository,
         _photoRepository = photoRepository;
 
-  void execute(final String localPhotoPath) async {
+  Future<void> execute(final String localPhotoPath) async {
     final studentId = _session.studentId;
 
     final String fileName = _createFileName(studentId);
@@ -62,7 +63,7 @@ String _createFileName(final StudentId studentId) {
   final minute = now.minute;
   final second = now.second;
   final fileName =
-      '${studentId.value}-$year-${month.toString().padLeft(2, '0')}-${date.toString().padLeft(2, '0')}-${hour.toString().padLeft(2, '0')}-${minute.toString().padLeft(2, '0')}-${second.toString().padLeft(2, '0')}.jpg';
+      '${studentId.value}-$year-${month.toString().padLeft(2, '0')}-${date.toString().padLeft(2, '0')}-${hour.toString().padLeft(2, '0')}-${minute.toString().padLeft(2, '0')}-${second.toString().padLeft(2, '0')}';
   return fileName;
 }
 

@@ -1,10 +1,9 @@
-import 'package:studyhub/application/student/exception/student_use_case_exception.dart';
-import 'package:studyhub/application/student/exception/student_use_case_exception_detail.dart';
-
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../shared/session/i_session.dart';
+import '../exception/student_use_case_exception.dart';
+import '../exception/student_use_case_exception_detail.dart';
 
 class StudentDeleteUseCase {
   final ISession _session;

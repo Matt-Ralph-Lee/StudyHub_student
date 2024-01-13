@@ -4,7 +4,7 @@ import '../exception/student_domain_exception_detail.dart';
 import 'profile_photo_format.dart';
 
 class ProfilePhotoPath extends PhotoPath {
-  final _pathRegExp = RegExp(r'^photos/profile_photo/[a-zA-Z0-9_]+\.(' +
+  final _pathRegExp = RegExp(r'^photos/profile_photo/[a-zA-Z0-9_-]+\.(' +
       profilePhotoFormatsRegExpString +
       r')$');
 
