@@ -32,10 +32,10 @@ class StudentCreateUseCase {
   void execute({
     required final String emailAddressData,
     required final String passwordData,
-  }) {
+  }) async {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
-    final studentAuthInfo = _factory.createWithEmailAndPassword(
+    final studentAuthInfo = await _factory.createWithEmailAndPassword(
       emailAddress: emailAddress,
       password: password,
     );

@@ -1,5 +1,3 @@
-final anotherSchool = SchoolName('another');
-
 class SchoolName {
   final String _value;
 

@@ -8,8 +8,8 @@ import '../../../domain/student_auth/models/student_auth_info.dart';
 
 class InMemoryStudentAuthFactory implements IStudentAuthFactory {
   @override
-  StudentAuthInfo createWithEmailAndPassword(
-      {required EmailAddress emailAddress, required Password password}) {
+  Future<StudentAuthInfo> createWithEmailAndPassword(
+      {required EmailAddress emailAddress, required Password password}) async {
     return StudentAuthInfo(
       studentId: StudentId(const Uuid().v4()),
       emailAddress: emailAddress,
