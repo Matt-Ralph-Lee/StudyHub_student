@@ -1,15 +1,15 @@
 import 'package:image/image.dart';
 
-import '../../student/models/profile_photo_path.dart';
+import 'photo_path.dart';
 
 abstract class Photo {
-  final ProfilePhotoPath _path;
+  final PhotoPath _path;
   final Image _image;
 
-  ProfilePhotoPath get path => _path;
+  PhotoPath get path => _path;
   Image get image => _image;
 
-  Photo({required final ProfilePhotoPath path, required final Image image})
+  Photo({required final PhotoPath path, required final Image image})
       : _path = path,
         _image = image {
     validate(image);
