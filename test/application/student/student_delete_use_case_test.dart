@@ -4,8 +4,6 @@ import 'package:studyhub/application/student/application_service/student_delete_
 import 'package:studyhub/domain/student/models/gender.dart';
 import 'package:studyhub/domain/student/models/grade.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
-import 'package:studyhub/domain/student/models/profile_photo/i_profile_photo_repository.dart';
-import 'package:studyhub/domain/student/models/profile_photo/profile_photo.dart';
 import 'package:studyhub/domain/student/models/profile_photo/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/school_name.dart';
 import 'package:studyhub/domain/student/models/student.dart';
@@ -14,6 +12,7 @@ import 'package:studyhub/domain/student/models/student_name.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/models/password.dart';
 import 'package:studyhub/domain/student_auth/models/student_auth_info.dart';
+import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
 
@@ -22,7 +21,7 @@ void main() {
   group('delete use case', () {
     final studentAuthRepository = InMemoryStudentAuthRepository();
     final studentRepository = InMemoryStudentRepository();
-    final profilePhotoRepository = MockProfilePhotoRepository();
+    final profilePhotoRepository = InMemoryPhotoRepository();
 
     final studentId = StudentId('teststudent1234567890');
     final emailAddress = EmailAddress('test@example.com');
@@ -58,7 +57,7 @@ void main() {
         session: session,
         studentAuthRepository: studentAuthRepository,
         studentRepository: studentRepository,
-        profilePhotoRepository: profilePhotoRepository,
+        photoRepository: profilePhotoRepository,
       );
 
       usecase.execute();
@@ -78,12 +77,4 @@ class MockSession implements ISession {
 
   @override
   StudentId get studentId => StudentId('teststudent1234567890');
-}
-
-class MockProfilePhotoRepository implements IProfilePhotoRepository {
-  @override
-  void delete(ProfilePhotoPath profilePhotoPath) {}
-
-  @override
-  void save(ProfilePhoto profilePhoto) {}
 }

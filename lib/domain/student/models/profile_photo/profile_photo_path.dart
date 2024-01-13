@@ -1,34 +1,20 @@
+import '../../../photo/models/photo_path.dart';
 import '../../exception/student_domain_exception.dart';
 import '../../exception/student_domain_exception_detail.dart';
 import 'profile_photo_format.dart';
 
-class ProfilePhotoPath {
-  final String _value;
+class ProfilePhotoPath extends PhotoPath {
   final _pathRegExp = RegExp(r'^photos/profile_photo/[a-zA-Z0-9_]+\.(' +
       profilePhotoFormatsRegExpString +
       r')$');
 
-  String get value => _value;
+  ProfilePhotoPath(super.value);
 
-  ProfilePhotoPath(this._value) {
-    if (!_pathRegExp.hasMatch(_value)) {
+  @override
+  void validate(String value) {
+    if (!_pathRegExp.hasMatch(value)) {
       throw const StudentDomainException(
           StudentDomainExceptionDetail.invalidPhotoPath);
     }
   }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (other is ProfilePhotoPath) {
-      return runtimeType == other.runtimeType && value == other.value;
-    } else {
-      return false;
-    }
-  }
-
-  @override
-  int get hashCode => value.hashCode;
 }

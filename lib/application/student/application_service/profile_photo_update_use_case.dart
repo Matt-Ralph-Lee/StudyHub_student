@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:image/image.dart';
 
 import '../../../domain/student/models/i_student_repository.dart';
-import '../../../domain/student/models/profile_photo/i_profile_photo_repository.dart';
+import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/student/models/profile_photo/profile_photo.dart';
 import '../../../domain/student/models/profile_photo/profile_photo_path.dart';
 import '../../../domain/student/models/student_id.dart';
@@ -15,15 +15,15 @@ import '../exception/student_use_case_exception_detail.dart';
 class ProfilePhotoUpdateUseCase {
   final ISession _session;
   final IStudentRepository _repository;
-  final IProfilePhotoRepository _profilePhotoRepository;
+  final IPhotoRepository _photoRepository;
 
   ProfilePhotoUpdateUseCase({
     required final ISession session,
     required final IStudentRepository repository,
-    required final IProfilePhotoRepository profilePhotoRepository,
+    required final IPhotoRepository photoRepository,
   })  : _session = session,
         _repository = repository,
-        _profilePhotoRepository = profilePhotoRepository;
+        _photoRepository = photoRepository;
 
   void execute(final String localPhotoPath) async {
     final studentId = _session.studentId;
@@ -37,7 +37,7 @@ class ProfilePhotoUpdateUseCase {
           StudentUseCaseExceptionDetail.failedInImageProcessing);
     }
     final profilePhoto = ProfilePhoto(path: path, image: image);
-    _profilePhotoRepository.save(profilePhoto);
+    _photoRepository.save(profilePhoto);
 
     final student = _repository.findById(studentId);
     if (student == null) {
@@ -48,7 +48,7 @@ class ProfilePhotoUpdateUseCase {
     student.changeProfilePhoto(path);
     _repository.save(student);
 
-    _profilePhotoRepository.delete(oldPhotoPath);
+    _photoRepository.delete(oldPhotoPath);
   }
 }
 
