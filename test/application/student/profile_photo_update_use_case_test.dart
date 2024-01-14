@@ -6,7 +6,9 @@ import 'package:studyhub/domain/student/models/gender.dart';
 import 'package:studyhub/domain/student/models/grade.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
 import 'package:studyhub/domain/student/models/profile_photo_path.dart';
+import 'package:studyhub/domain/student/models/question_count.dart';
 import 'package:studyhub/domain/student/models/school_name.dart';
+import 'package:studyhub/domain/student/models/status.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student/models/student_name.dart';
@@ -28,6 +30,8 @@ void main() {
     const occupation = Occupation.student;
     final schoolName = SchoolName('noAnswer');
     const grade = Grade.other;
+    final questionCount = QuestionCount(0);
+    const status = Status.beginner;
     final student = Student(
       studentId: studentId,
       studentName: studentName,
@@ -36,6 +40,8 @@ void main() {
       occupation: occupation,
       schoolName: schoolName,
       grade: grade,
+      questionCount: questionCount,
+      status: status,
     );
     repository.store[studentId] = student;
 
