@@ -5,7 +5,9 @@ import '../../../domain/student/models/grade.dart';
 import '../../../domain/student/models/i_student_factory.dart';
 import '../../../domain/student/models/occupation.dart';
 import '../../../domain/student/models/profile_photo_path.dart';
+import '../../../domain/student/models/question_count.dart';
 import '../../../domain/student/models/school_name.dart';
+import '../../../domain/student/models/status.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student/models/student_name.dart';
@@ -20,6 +22,8 @@ class InMemoryStudentFactory implements IStudentFactory {
     const occupation = Occupation.others;
     final schoolName = SchoolName('noAnswer');
     const grade = Grade.other;
+    final questionCount = QuestionCount(0);
+    const status = Status.beginner;
 
     return Student(
       studentId: studentId,
@@ -29,6 +33,8 @@ class InMemoryStudentFactory implements IStudentFactory {
       occupation: occupation,
       schoolName: schoolName,
       grade: grade,
+      questionCount: questionCount,
+      status: status,
     );
   }
 }
