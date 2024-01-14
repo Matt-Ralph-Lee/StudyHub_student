@@ -10,12 +10,7 @@ enum StudentDomainExceptionDetail implements DomainExceptionDetail {
   invalidPhotoPath('画像パスが不正です'),
   invalidPhotoSize(
       'プロフィール画像の大きさは${ProfilePhoto.height}x${ProfilePhoto.width}にしてください'),
-  empty('Empty is not allowed.'),
-  missingCharacter('Missing specified character to be used.'),
-  invalidCharacter('Invalid character is used.'),
-  alreadyExists('The account already exists.'),
-  notFound('The account is not found.'),
-  cannotConvert('cannot convert data.'),
+  invalidQuestionCount('質問数が不正です'),
   ;
 
   const StudentDomainExceptionDetail(this._message);
