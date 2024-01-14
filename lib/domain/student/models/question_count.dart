@@ -25,19 +25,19 @@ class QuestionCount {
     }
   }
 
-  bool operator >(Object other) {
+  bool operator >=(Object other) {
     if (identical(this, other)) {
       return false;
     }
     if (other is QuestionCount) {
-      return runtimeType == other.runtimeType && value > other.value;
+      return runtimeType == other.runtimeType && value >= other.value;
     } else {
       return false;
     }
   }
 
-  bool operator <(Object other) {
-    return !(this > other) && !(this == other);
+  bool operator <=(Object other) {
+    return !(this >= other) || this == other;
   }
 
   @override

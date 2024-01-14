@@ -47,7 +47,9 @@ class Student {
         _schoolName = schoolName,
         _grade = grade,
         _questionCount = questionCount,
-        _status = status;
+        _status = status {
+    setStatus();
+  }
 
   void changeProfilePhoto(final ProfilePhotoPath newProfilePhotoPath) {
     _profilePhotoPath = newProfilePhotoPath;
@@ -81,11 +83,11 @@ class Student {
   }
 
   void setStatus() {
-    if (questionCount > Status.expert.minQuestionCount) {
+    if (questionCount >= Status.expert.minQuestionCount) {
       _status = Status.expert;
-    } else if (questionCount > Status.advanced.minQuestionCount) {
+    } else if (questionCount >= Status.advanced.minQuestionCount) {
       _status = Status.advanced;
-    } else if (questionCount > Status.novice.minQuestionCount) {
+    } else if (questionCount >= Status.novice.minQuestionCount) {
       _status = Status.novice;
     } else {
       _status = Status.beginner;
