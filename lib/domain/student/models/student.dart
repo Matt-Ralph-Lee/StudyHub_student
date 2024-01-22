@@ -1,41 +1,41 @@
-import 'profile_photo_path.dart';
+import '../../school/models/school.dart';
+import '../../shared/profile_photo_path.dart';
 import 'question_count.dart';
 import 'status.dart';
 import 'student_id.dart';
 import 'gender.dart';
 import 'grade.dart';
 import 'occupation.dart';
-import 'school_name.dart';
-import 'student_name.dart';
+import '../../shared/name.dart';
 
 class Student {
   final StudentId _studentId;
-  StudentName _studentName;
+  Name _studentName;
   ProfilePhotoPath _profilePhotoPath;
   Gender _gender;
   Occupation _occupation;
-  SchoolName _schoolName;
+  School _school;
   Grade _grade;
   QuestionCount _questionCount;
   Status _status;
 
   StudentId get studentId => _studentId;
-  StudentName get studentName => _studentName;
+  Name get studentName => _studentName;
   ProfilePhotoPath get profilePhotoPath => _profilePhotoPath;
   Gender get gender => _gender;
   Occupation get occupation => _occupation;
-  SchoolName get schoolName => _schoolName;
+  School get school => _school;
   Grade get grade => _grade;
   QuestionCount get questionCount => _questionCount;
   Status get status => _status;
 
   Student({
     required final StudentId studentId,
-    required final StudentName studentName,
+    required final Name studentName,
     required final ProfilePhotoPath profilePhotoPath,
     required final Gender gender,
     required final Occupation occupation,
-    required final SchoolName schoolName,
+    required final School school,
     required final Grade grade,
     required final QuestionCount questionCount,
     required final Status status,
@@ -44,7 +44,7 @@ class Student {
         _profilePhotoPath = profilePhotoPath,
         _gender = gender,
         _occupation = occupation,
-        _schoolName = schoolName,
+        _school = school,
         _grade = grade,
         _questionCount = questionCount,
         _status = status {
@@ -55,7 +55,7 @@ class Student {
     _profilePhotoPath = newProfilePhotoPath;
   }
 
-  void changeStudentName(final StudentName newStudentName) {
+  void changeStudentName(final Name newStudentName) {
     _studentName = newStudentName;
   }
 
@@ -67,8 +67,8 @@ class Student {
     _occupation = newOccupation;
   }
 
-  void changeSchoolName(final SchoolName newSchoolName) {
-    _schoolName = newSchoolName;
+  void changeSchool(final School newSchool) {
+    _school = newSchool;
   }
 
   void changeGrade(final Grade newGrade) {

@@ -1,6 +1,6 @@
-import '../../photo/models/photo_path.dart';
-import '../exception/student_domain_exception.dart';
-import '../exception/student_domain_exception_detail.dart';
+import '../photo/models/photo_path.dart';
+import '../student/exception/student_domain_exception.dart';
+import '../student/exception/student_domain_exception_detail.dart';
 import 'profile_photo_format.dart';
 
 class ProfilePhotoPath extends PhotoPath {

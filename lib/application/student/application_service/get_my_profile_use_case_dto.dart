@@ -1,7 +1,7 @@
-import '../../../domain/student/models/profile_photo_path.dart';
+import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/student/models/question_count.dart';
 import '../../../domain/student/models/status.dart';
-import '../../../domain/student/models/student_name.dart';
+import '../../../domain/shared/name.dart';
 
 class GetMyProfileUseCaseDto {
   final String _studentName;
@@ -25,7 +25,7 @@ class GetMyProfileUseCaseDto {
         _questionCount = questionCount;
 
   factory GetMyProfileUseCaseDto.fromDomainObject({
-    required final StudentName studentName,
+    required final Name studentName,
     required final ProfilePhotoPath profilePhotoPath,
     required final Status status,
     required final QuestionCount questionCount,

@@ -11,7 +11,7 @@ class GetStudentUseCaseDto {
   final Occupation _occupation;
   final String _profilePhotoPath;
   final int _questionCount;
-  final String _schoolName;
+  final String _school;
   final Status _status;
 
   String get studentName => _studentName;
@@ -20,7 +20,7 @@ class GetStudentUseCaseDto {
   Occupation get occupation => _occupation;
   String get profilePhotoPath => _profilePhotoPath;
   int get questionCount => _questionCount;
-  String get schoolName => _schoolName;
+  String get school => _school;
   Status get status => _status;
 
   GetStudentUseCaseDto._(
@@ -30,7 +30,7 @@ class GetStudentUseCaseDto {
       required final Occupation occupation,
       required final String profilePhotoPath,
       required final int questionCount,
-      required final String schoolName,
+      required final String school,
       required final Status status})
       : _studentName = studentName,
         _gender = gender,
@@ -38,7 +38,7 @@ class GetStudentUseCaseDto {
         _occupation = occupation,
         _profilePhotoPath = profilePhotoPath,
         _questionCount = questionCount,
-        _schoolName = schoolName,
+        _school = school,
         _status = status;
 
   factory GetStudentUseCaseDto.fromDomainObject(final Student student) {
@@ -49,7 +49,7 @@ class GetStudentUseCaseDto {
       occupation: student.occupation,
       profilePhotoPath: student.profilePhotoPath.value,
       questionCount: student.questionCount.value,
-      schoolName: student.schoolName.value,
+      school: student.school.value,
       status: student.status,
     );
   }
