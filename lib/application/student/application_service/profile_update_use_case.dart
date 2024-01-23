@@ -49,7 +49,8 @@ class ProfileUpdateUseCase {
     if (newSchoolData != null) {
       final newSchool = School(newSchoolData);
 
-      if (newSchool != School.noAnswer && !_schoolService.exists(newSchool)) {
+      if (newSchool != School.noAnswer &&
+          !_schoolService.exists(school: newSchool, schoolType: null)) {
         throw const StudentUseCaseException(
             StudentUseCaseExceptionDetail.noSuchSchool);
       }

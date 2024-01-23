@@ -1,7 +1,4 @@
-import '../../../domain/shared/profile_photo_path.dart';
-import '../../../domain/student/models/question_count.dart';
 import '../../../domain/student/models/status.dart';
-import '../../../domain/shared/name.dart';
 
 class GetMyProfileUseCaseDto {
   final String _studentName;
@@ -14,7 +11,7 @@ class GetMyProfileUseCaseDto {
   Status get status => _status;
   int get questionCount => _questionCount;
 
-  GetMyProfileUseCaseDto._(
+  GetMyProfileUseCaseDto(
       {required String studentName,
       required String profilePhotoPath,
       required Status status,
@@ -23,21 +20,4 @@ class GetMyProfileUseCaseDto {
         _profilePhotoPath = profilePhotoPath,
         _status = status,
         _questionCount = questionCount;
-
-  factory GetMyProfileUseCaseDto.fromDomainObject({
-    required final Name studentName,
-    required final ProfilePhotoPath profilePhotoPath,
-    required final Status status,
-    required final QuestionCount questionCount,
-  }) {
-    final studentNameData = studentName.value;
-    final profilePhotoPathData = profilePhotoPath.value;
-    final questionCountData = questionCount.value;
-    return GetMyProfileUseCaseDto._(
-      studentName: studentNameData,
-      profilePhotoPath: profilePhotoPathData,
-      status: status,
-      questionCount: questionCountData,
-    );
-  }
 }
