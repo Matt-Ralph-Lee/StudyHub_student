@@ -12,7 +12,9 @@ class InMemoryPhotoRepository implements IPhotoRepository {
   }
 
   @override
-  void save(Photo photo) {
-    store[photo.path] = photo.image;
+  void save(List<Photo> photoList) {
+    for (Photo photo in photoList) {
+      store[photo.path] = photo.image;
+    }
   }
 }

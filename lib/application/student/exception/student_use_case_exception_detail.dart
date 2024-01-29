@@ -5,7 +5,7 @@ enum StudentUseCaseExceptionDetail implements UseCaseExceptionDetail {
   failedInImageProcessing('画像の処理に失敗しました'),
   noSuchSchool('存在しない学校名です'),
   noProfileFound('プロフィールがみつかりませんでした'),
-  ;
+  imageNotFound('プロフィール画像が見つかりませんでした。');
 
   const StudentUseCaseExceptionDetail(this._message);
 
