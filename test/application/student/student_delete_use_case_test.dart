@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:studyhub/application/shared/session/i_session.dart';
 import 'package:studyhub/application/student/application_service/student_delete_use_case.dart';
+import 'package:studyhub/domain/school/models/school.dart';
+import 'package:studyhub/domain/shared/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/gender.dart';
 import 'package:studyhub/domain/student/models/grade.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
-import 'package:studyhub/domain/student/models/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/question_count.dart';
-import 'package:studyhub/domain/student/models/school_name.dart';
 import 'package:studyhub/domain/student/models/status.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
-import 'package:studyhub/domain/student/models/student_name.dart';
+import 'package:studyhub/domain/shared/name.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/models/password.dart';
 import 'package:studyhub/domain/student_auth/models/student_auth_info.dart';
@@ -19,21 +19,20 @@ import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repo
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
 
 void main() {
-  setUp(() => null);
-  group('delete use case', () {
-    final studentAuthRepository = InMemoryStudentAuthRepository();
-    final studentRepository = InMemoryStudentRepository();
-    final profilePhotoRepository = InMemoryPhotoRepository();
+  final studentAuthRepository = InMemoryStudentAuthRepository();
+  final studentRepository = InMemoryStudentRepository();
+  final profilePhotoRepository = InMemoryPhotoRepository();
 
+  setUp(() {
     final studentId = StudentId('teststudent1234567890');
     final emailAddress = EmailAddress('test@example.com');
     final password = Password('password123');
-    final studentName = StudentName('nickname');
+    final studentName = Name('nickname');
     final profilePhotoPath =
         ProfilePhotoPath('photos/profile_photo/initial_photo.jpg');
     const gender = Gender.noAnswer;
     const occupation = Occupation.student;
-    final schoolName = SchoolName('noAnswer');
+    final school = School.noAnswer;
     const grade = Grade.other;
     final questionCount = QuestionCount(0);
     const status = Status.beginner;
@@ -49,14 +48,16 @@ void main() {
       profilePhotoPath: profilePhotoPath,
       gender: gender,
       occupation: occupation,
-      schoolName: schoolName,
+      school: school,
       grade: grade,
       questionCount: questionCount,
       status: status,
     );
     studentAuthRepository.store[studentId] = studentAuthInfo;
     studentRepository.store[studentId] = student;
+  });
 
+  group('delete use case', () {
     test('should delete student', () {
       final session = MockSession();
       final usecase = StudentDeleteUseCase(
@@ -68,11 +69,20 @@ void main() {
 
       usecase.execute();
 
-      expect(studentRepository.store[studentId], null);
-      expect(studentAuthRepository.store[studentId], null);
-      expect(studentAuthRepository.emailToIdMap[emailAddress], null);
-      expect(studentAuthRepository.signedInStore[studentId], null);
-      expect(studentAuthRepository.streamControllers[studentId], null);
+      expect(studentRepository.store[StudentId('teststudent1234567890')], null);
+      expect(studentAuthRepository.store[StudentId('teststudent1234567890')],
+          null);
+      expect(
+          studentAuthRepository.emailToIdMap[EmailAddress('test@example.com')],
+          null);
+      expect(
+          studentAuthRepository
+              .signedInStore[StudentId('teststudent1234567890')],
+          null);
+      expect(
+          studentAuthRepository
+              .streamControllers[StudentId('teststudent1234567890')],
+          null);
     });
   });
 }
