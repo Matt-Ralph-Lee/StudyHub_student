@@ -2,33 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:studyhub/application/shared/session/i_session.dart';
 import 'package:studyhub/application/student/application_service/profile_photo_update_use_case.dart';
+import 'package:studyhub/domain/school/models/school.dart';
+import 'package:studyhub/domain/shared/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/gender.dart';
 import 'package:studyhub/domain/student/models/grade.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
-import 'package:studyhub/domain/student/models/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/question_count.dart';
-import 'package:studyhub/domain/student/models/school_name.dart';
 import 'package:studyhub/domain/student/models/status.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
-import 'package:studyhub/domain/student/models/student_name.dart';
+import 'package:studyhub/domain/shared/name.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 
 void main() {
-  setUp(() => null);
-  group('profile photo update usecase', () {
-    final session = MockSession();
-    final repository = InMemoryStudentRepository();
-    final photoRepository = InMemoryPhotoRepository();
+  final session = MockSession();
+  final repository = InMemoryStudentRepository();
+  final photoRepository = InMemoryPhotoRepository();
 
+  setUp(() {
     final studentId = StudentId('teststudent1234567890');
-    final studentName = StudentName('nickname');
+    final studentName = Name('nickname');
     final profilePhotoPath =
         ProfilePhotoPath('photos/profile_photo/initial_photo.jpg');
     const gender = Gender.noAnswer;
     const occupation = Occupation.student;
-    final schoolName = SchoolName('noAnswer');
+    final school = School.noAnswer;
     const grade = Grade.other;
     final questionCount = QuestionCount(0);
     const status = Status.beginner;
@@ -38,13 +37,15 @@ void main() {
       profilePhotoPath: profilePhotoPath,
       gender: gender,
       occupation: occupation,
-      schoolName: schoolName,
+      school: school,
       grade: grade,
       questionCount: questionCount,
       status: status,
     );
     repository.store[studentId] = student;
+  });
 
+  group('profile photo update usecase', () {
     test('should update profile photo', () async {
       final usecase = ProfilePhotoUpdateUseCase(
         session: session,
@@ -56,7 +57,7 @@ void main() {
 
       await usecase.execute(localPhotoPath);
 
-      final student = repository.findById(studentId);
+      final student = repository.findById(session.studentId);
       final currentPath = student!.profilePhotoPath;
       debugPrint(currentPath.value);
 
@@ -78,7 +79,7 @@ void main() {
 
       await usecase.execute(localPhotoPath);
 
-      final student = repository.findById(studentId);
+      final student = repository.findById(session.studentId);
       final currentPath = student!.profilePhotoPath;
       debugPrint(currentPath.value);
 
