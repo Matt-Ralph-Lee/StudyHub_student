@@ -1,29 +1,33 @@
+import '../../teacher/models/teacher_id.dart';
 import 'answer_id.dart';
 import 'answer_photo_path_list.dart';
 import 'answer_text.dart';
+import 'answer_like.dart';
 
 class Answer {
   final AnswerId _answerId;
   final AnswerText _answerText;
   final AnswerPhotoPathList _answerPhotoPathList;
-  final int _like;
+  final AnswerLike _like;
+  final TeacherId _teacherId;
 
   AnswerId get answerId => _answerId;
   AnswerText get answerText => _answerText;
   AnswerPhotoPathList get answerPhotoPathList => _answerPhotoPathList;
-  int get like => _like;
-
-  //TODO: teacher
+  AnswerLike get like => _like;
+  TeacherId get teacherId => _teacherId;
 
   Answer({
     required final AnswerId answerId,
     required final AnswerText answerText,
     required final AnswerPhotoPathList answerPhotoPathList,
-    required final int like,
+    required final AnswerLike like,
+    required final TeacherId teacherId,
   })  : _answerId = answerId,
         _answerText = answerText,
         _answerPhotoPathList = answerPhotoPathList,
-        _like = like;
+        _like = like,
+        _teacherId = teacherId;
 
   // studentのアプリでは必要ないと判断
   // 下記の編集権限はteacherIdと一致することを確認する

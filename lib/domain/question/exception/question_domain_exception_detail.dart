@@ -13,7 +13,7 @@ enum QuestionDomainExceptionDetail implements DomainExceptionDetail {
       '${QuestionTitle.minLength}字以上${QuestionTitle.maxLength}字以下にしてください。'),
   textEmptyLength('文字列が空です。質問を入力してください。'),
   textInvalidLength('${QuestionText.maxLength}字以上にしてください。'),
-  textInvalidLineLength('${QuestionText.maxLine}行い内にしてください。'),
+  textInvalidLineLength('${QuestionText.maxLine}行以内にしてください。'),
   invalidPhotoPath('画像パスが不正です'),
   invalidPhotoSize('画像の大きさは${QuestionPhoto.dataSize}以下にしてください。'),
   invalidPhotoLength('画像は${QuestionPhotoPathList.maxLength}枚までです。'),

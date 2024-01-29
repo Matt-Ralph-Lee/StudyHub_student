@@ -21,17 +21,16 @@ void main() {
   final repository = InMemoryQuestionRepository();
   final photoRepository = InMemoryPhotoRepository();
 
-  const String questionIdData = '01234567890123456789';
-  final questionId = QuestionId(questionIdData);
+  final questionId = QuestionId('01234567890123456789');
   final questionTitle = QuestionTitle("数学がわからない");
   final questionText = QuestionText("ほんとうにわからない。");
   const questionSubject = Subject.highEng;
   final List<QuestionPhotoPath> questionPhotoPathListData = [];
   final questionPhotoPathList =
-      QuestionPhotoPathList(questionPhotoPathList: questionPhotoPathListData);
+      QuestionPhotoPathList(questionPhotoPathListData);
   final studentId = session.studentId;
   final List<Answer> answerListData = [];
-  final answerList = AnswerList(answerList: answerListData);
+  final answerList = AnswerList(answerListData);
   final seenCount = SeenCount(0);
   const questionResolved = false;
   final selectedTeacherList = SelectedTeacherList(selectedTeacherList: []);
@@ -59,7 +58,7 @@ void main() {
           repository: repository,
           photoRepository: photoRepository);
 
-      useCase.execute(questionIdData: questionIdData);
+      useCase.execute(questionId);
     });
   });
 }

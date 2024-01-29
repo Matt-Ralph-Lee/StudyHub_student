@@ -10,9 +10,7 @@ class QuestionPhotoPathList {
   int get length => _questionPhotoPathList.length;
   List<QuestionPhotoPath> get questionPhotoPathList => _questionPhotoPathList;
 
-  QuestionPhotoPathList({
-    required final List<QuestionPhotoPath> questionPhotoPathList,
-  }) : _questionPhotoPathList = questionPhotoPathList {
+  QuestionPhotoPathList(this._questionPhotoPathList) {
     if (_questionPhotoPathList.length > maxLength) {
       throw const QuestionDomainException(
           QuestionDomainExceptionDetail.invalidPhotoLength);

@@ -9,10 +9,9 @@ enum AnswerDomainExceptionDetail implements DomainExceptionDetail {
   textEmptyLength('文字列が空です。質問を入力してください。'),
   textInvalidLength('${AnswerText.maxLength}字以上にしてください。'),
   invalidPhotoPath('画像パスが不正です'),
-  invalidPhotoSize(
-      'プロフィール画像の大きさは${AnswerPhoto.height}x${AnswerPhoto.width}にしてください'),
+  invalidPhotoSize('画像の大きさは${AnswerPhoto.dataSize}以下にしてください。'),
   invalidPhotoLength('画像は${AnswerPhotoPathList.maxLength}枚までです。'),
-  // invalidQuestionCount('質問数が不正です'),
+  invalidAnswerLike('Answerのlike数が不正です。'),
   ;
 
   const AnswerDomainExceptionDetail(this._message);

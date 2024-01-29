@@ -6,6 +6,7 @@ import 'package:studyhub/domain/question/exception/question_domain_exception.dar
 import 'package:studyhub/domain/question/exception/question_domain_exception_detail.dart';
 import 'package:studyhub/domain/shared/subject.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_factory.dart';
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
@@ -26,7 +27,7 @@ void main() {
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [];
+      List<TeacherId> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -49,7 +50,7 @@ void main() {
         "assets/images/sample_user_icon2.jpg"
       ];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [];
+      List<TeacherId> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -73,7 +74,7 @@ void main() {
         "assets/images/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [];
+      List<TeacherId> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -94,7 +95,7 @@ void main() {
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = ["01234567890123456789"];
+      List<TeacherId> selectedTeacherList = [TeacherId("01234567890123456789")];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -115,9 +116,9 @@ void main() {
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [
-        "01234567890123456789",
-        "98765432109876543210"
+      List<TeacherId> selectedTeacherList = [
+        TeacherId("01234567890123456789"),
+        TeacherId("98765432109876543210")
       ];
       final useCase = QuestionCreateUseCase(
           session: session,
@@ -140,7 +141,7 @@ void main() {
         "assets/images/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [];
+      List<TeacherId> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -166,7 +167,7 @@ void main() {
         "assets/images/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [];
+      List<TeacherId> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -192,7 +193,7 @@ void main() {
         "assets/images/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [];
+      List<TeacherId> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -218,7 +219,7 @@ void main() {
         "assets/images/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [];
+      List<TeacherId> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -242,9 +243,9 @@ void main() {
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [];
       Subject questionSubject = Subject.highEng;
-      List<String> selectedTeacherList = [
+      List<TeacherId> selectedTeacherList = [
         for (int i = 0; i < 10; i++)
-          List.generate(20, (index) => index.toString()).join()
+          TeacherId(List.generate(20, (index) => index.toString()).join())
       ];
       final useCase = QuestionCreateUseCase(
           session: session,

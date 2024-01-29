@@ -1,5 +1,5 @@
-import 'package:studyhub/domain/question/exception/question_domain_exception.dart';
-import 'package:studyhub/domain/question/exception/question_domain_exception_detail.dart';
+import '../exception/question_domain_exception.dart';
+import '../exception/question_domain_exception_detail.dart';
 
 import '../../teacher/models/teacher_id.dart';
 

@@ -1,12 +1,12 @@
-import 'package:studyhub/application/question/exception/question_use_case_exception.dart';
-import 'package:studyhub/application/question/exception/question_use_case_exception_detail.dart';
-import 'package:studyhub/domain/photo/models/i_profile_photo_repository.dart';
-import 'package:studyhub/domain/question/models/question_id.dart';
+import '../exception/question_use_case_exception.dart';
+import '../exception/question_use_case_exception_detail.dart';
 
 import '../../shared/session/i_session.dart';
 import '../../../domain/question/models/i_question_repository.dart';
+import '../../../domain/photo/models/i_profile_photo_repository.dart';
 
 import '../../../domain/question/models/question.dart';
+import '../../../domain/question/models/question_id.dart';
 
 class QuestionDeleteUseCase {
   final ISession _session;
@@ -21,11 +21,8 @@ class QuestionDeleteUseCase {
         _repository = repository,
         _photoRepository = photoRepository;
 
-  void execute({
-    required final String questionIdData,
-  }) {
+  void execute(final QuestionId questionId) {
     final studentId = _session.studentId;
-    final questionId = QuestionId(questionIdData);
 
     final Question? question = _repository.findById(questionId);
     if (question == null) {
@@ -42,7 +39,7 @@ class QuestionDeleteUseCase {
       _repository.delete(question.questionId);
     } else {
       throw const QuestionUseCaseException(
-          QuestionUseCaseExceptionDetail.failDeleting);
+          QuestionUseCaseExceptionDetail.failedDeleting);
     }
   }
 }

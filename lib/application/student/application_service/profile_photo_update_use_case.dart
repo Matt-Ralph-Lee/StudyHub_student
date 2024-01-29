@@ -31,14 +31,14 @@ class ProfilePhotoUpdateUseCase {
 
     final String fileName = _createFileName(studentId);
     final path = ProfilePhotoPath('photos/profile_photo/$fileName.jpeg');
-    final data = await _convertToJpegAndResize(localPhotoPath);
+    final data = _convertToJpegAndResize(localPhotoPath);
     final image = decodeImage(data);
     if (image == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.failedInImageProcessing);
     }
     final profilePhoto = ProfilePhoto(path: path, image: image);
-    _photoRepository.save(profilePhoto);
+    _photoRepository.save([profilePhoto]);
 
     final student = _repository.findById(studentId);
     if (student == null) {
@@ -67,15 +67,22 @@ String _createFileName(final StudentId studentId) {
   return fileName;
 }
 
-Future<Uint8List> _convertToJpegAndResize(String imagePath) async {
+Uint8List _convertToJpegAndResize(String imagePath) {
   final file = File(imagePath);
-  final originalImageBytes = await file.readAsBytes();
-  final originalImage = decodeImage(originalImageBytes);
-  if (originalImage == null) {
+
+  if (file.existsSync()) {
+    final originalImageBytes = file.readAsBytesSync();
+    final image = decodeImage(originalImageBytes);
+    if (image == null) {
+      throw const StudentUseCaseException(
+          StudentUseCaseExceptionDetail.failedInImageProcessing);
+    }
+
+    final croppedImage = copyResizeCropSquare(image, size: ProfilePhoto.height);
+
+    return encodeJpg(croppedImage);
+  } else {
     throw const StudentUseCaseException(
-        StudentUseCaseExceptionDetail.failedInImageProcessing);
+        StudentUseCaseExceptionDetail.imageNotFound);
   }
-  final croppedImage =
-      copyResizeCropSquare(originalImage, size: ProfilePhoto.height);
-  return encodeJpg(croppedImage);
 }

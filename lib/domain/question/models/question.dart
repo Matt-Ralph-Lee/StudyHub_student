@@ -1,5 +1,3 @@
-import 'package:studyhub/domain/question/models/selected_teacher_list.dart';
-
 import '../../answer_list/models/answer_list.dart';
 
 import '../../shared/subject.dart';
@@ -10,6 +8,7 @@ import 'question_title.dart';
 import 'question_text.dart';
 import 'question_photo_path_list.dart';
 import 'seen_count.dart';
+import 'selected_teacher_list.dart';
 
 class Question {
   final QuestionId _questionId;

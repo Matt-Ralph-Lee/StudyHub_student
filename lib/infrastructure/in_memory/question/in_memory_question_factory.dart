@@ -17,17 +17,17 @@ class InMemoryQuestionFactory implements IQuestionFactory {
   InMemoryQuestionFactory(final IQuestionRepository repository)
       : _repository = repository;
   @override
-  Future<Question> createQuestion(
-    Subject questionSubject,
-    StudentId studentId,
-    QuestionTitle questionTitle,
-    QuestionText questionText,
-    QuestionPhotoPathList questionPhotoPathList,
-    SelectedTeacherList selectedTeacherList,
-  ) async {
+  Future<Question> createQuestion({
+    required final Subject questionSubject,
+    required final StudentId studentId,
+    required final QuestionTitle questionTitle,
+    required final QuestionText questionText,
+    required final QuestionPhotoPathList questionPhotoPathList,
+    required final SelectedTeacherList selectedTeacherList,
+  }) async {
     final QuestionId questionId = _repository.generateId();
 
-    final AnswerList answerList = AnswerList(answerList: []);
+    final AnswerList answerList = AnswerList([]);
     final SeenCount seenCount = SeenCount(0);
     const bool questionResolved = false;
 

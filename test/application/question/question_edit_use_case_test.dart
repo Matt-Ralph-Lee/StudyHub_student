@@ -23,17 +23,16 @@ void main() {
   final repository = InMemoryQuestionRepository();
   final photoRepository = InMemoryPhotoRepository();
 
-  const String questionIdData = '01234567890123456789';
-  final questionId = QuestionId(questionIdData);
+  final questionId = QuestionId('01234567890123456789');
   final questionTitle = QuestionTitle("数学がわからない");
   final questionText = QuestionText("ほんとうにわからない。");
   const questionSubject = Subject.highEng;
   final List<QuestionPhotoPath> questionPhotoPathListData = [];
   final questionPhotoPathList =
-      QuestionPhotoPathList(questionPhotoPathList: questionPhotoPathListData);
+      QuestionPhotoPathList(questionPhotoPathListData);
   final studentId = session.studentId;
   final List<Answer> answerListData = [];
-  final answerList = AnswerList(answerList: answerListData);
+  final answerList = AnswerList(answerListData);
   final seenCount = SeenCount(0);
   const questionResolved = false;
   final selectedTeacherList = SelectedTeacherList(selectedTeacherList: []);
@@ -57,7 +56,7 @@ void main() {
   group('questin edit use case', () {
     test('should edit question except photo and selected teacher', () {
       final command = QuestionEditCommand(
-          questionId: questionIdData,
+          questionId: questionId,
           questionTitleData: "英語がわからん",
           questionTextData: "わりとわからん",
           localPathList: null,
@@ -73,7 +72,7 @@ void main() {
 
     test('should edit question photo', () {
       final command = QuestionEditCommand(
-          questionId: questionIdData,
+          questionId: questionId,
           questionTitleData: null,
           questionTextData: null,
           localPathList: ["assets/images/sample_picture_hd.png"],
@@ -89,7 +88,7 @@ void main() {
 
     test('should edit selected teacher', () {
       final command = QuestionEditCommand(
-          questionId: questionIdData,
+          questionId: questionId,
           questionTitleData: null,
           questionTextData: null,
           localPathList: null,

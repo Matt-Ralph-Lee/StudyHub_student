@@ -5,9 +5,7 @@ class AnswerList {
 
   List<Answer> get answerList => _answerList;
 
-  AnswerList({
-    required final List<Answer> answerList,
-  }) : _answerList = answerList;
+  AnswerList(this._answerList);
 
 // 以下はstudentアプリでは必要ないと判断
   // void addAnswer(final Answer newAnswer) {

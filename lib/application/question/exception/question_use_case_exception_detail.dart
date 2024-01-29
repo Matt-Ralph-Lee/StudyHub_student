@@ -1,8 +1,8 @@
 import '../../shared/exception/use_case_exception_detail.dart';
 
 enum QuestionUseCaseExceptionDetail implements UseCaseExceptionDetail {
-  failDeleting('Questionを削除する権限がありません。'),
-  failEditing('Questionを編集する権限がありません。'),
+  failedDeleting('Questionを削除する権限がありませんでした。'),
+  failedEditing('Questionを編集する権限がありませんでした。'),
   questionNotFound('Questionが見つかりません。'),
   imageNotFound('画像が見つかりませんでした。'),
   failedImageProcessing('画像の処理に失敗しました。');
