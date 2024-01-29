@@ -9,10 +9,11 @@ import 'package:studyhub/domain/question/models/question.dart';
 import 'package:studyhub/domain/question/models/question_id.dart';
 import 'package:studyhub/domain/question/models/question_photo_path.dart';
 import 'package:studyhub/domain/question/models/question_photo_path_list.dart';
-import 'package:studyhub/domain/question/models/question_subject.dart';
 import 'package:studyhub/domain/question/models/question_text.dart';
 import 'package:studyhub/domain/question/models/question_title.dart';
 import 'package:studyhub/domain/question/models/seen_count.dart';
+import 'package:studyhub/domain/question/models/selected_teacher_list.dart';
+import 'package:studyhub/domain/shared/subject.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
@@ -26,7 +27,7 @@ void main() {
   final questionId = QuestionId(questionIdData);
   final questionTitle = QuestionTitle("数学がわからない");
   final questionText = QuestionText("ほんとうにわからない。");
-  const questionSubject = QuestionSubject.highEng;
+  const questionSubject = Subject.highEng;
   final List<QuestionPhotoPath> questionPhotoPathListData = [];
   final questionPhotoPathList =
       QuestionPhotoPathList(questionPhotoPathList: questionPhotoPathListData);
@@ -35,6 +36,7 @@ void main() {
   final answerList = AnswerList(answerList: answerListData);
   final seenCount = SeenCount(0);
   const questionResolved = false;
+  final selectedTeacherList = SelectedTeacherList(selectedTeacherList: []);
   final question = Question(
       questionId: questionId,
       questionSubject: questionSubject,
@@ -44,7 +46,8 @@ void main() {
       studentId: studentId,
       answerList: answerList,
       seenCount: seenCount,
-      questionResolved: questionResolved);
+      questionResolved: questionResolved,
+      selectedTeacherList: selectedTeacherList);
   repository.store[questionId] = question;
 
   tearDown(() {
@@ -52,12 +55,13 @@ void main() {
   });
 
   group('questin edit use case', () {
-    test('should edit question except photo', () {
+    test('should edit question except photo and selected teacher', () {
       final command = QuestionEditCommand(
           questionId: questionIdData,
           questionTitleData: "英語がわからん",
           questionTextData: "わりとわからん",
-          localPathList: null);
+          localPathList: null,
+          selectedTeacherList: null);
       final useCase = QuestionEditUseCase(
           session: session,
           repository: repository,
@@ -72,7 +76,24 @@ void main() {
           questionId: questionIdData,
           questionTitleData: null,
           questionTextData: null,
-          localPathList: ["assets/images/sample_picture_hd.png"]);
+          localPathList: ["assets/images/sample_picture_hd.png"],
+          selectedTeacherList: null);
+      final useCase = QuestionEditUseCase(
+          session: session,
+          repository: repository,
+          photoRepository: photoRepository);
+
+      useCase.execute(command);
+      debugPrint(repository.store.toString());
+    });
+
+    test('should edit selected teacher', () {
+      final command = QuestionEditCommand(
+          questionId: questionIdData,
+          questionTitleData: null,
+          questionTextData: null,
+          localPathList: null,
+          selectedTeacherList: ["01234567890123456789"]);
       final useCase = QuestionEditUseCase(
           session: session,
           repository: repository,

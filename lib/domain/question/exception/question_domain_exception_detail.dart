@@ -1,3 +1,5 @@
+import 'package:studyhub/domain/question/models/selected_teacher_list.dart';
+
 import '../../shared/domain_exception_detail.dart';
 import '../models/question_id.dart';
 import '../models/question_title.dart';
@@ -16,7 +18,9 @@ enum QuestionDomainExceptionDetail implements DomainExceptionDetail {
   invalidPhotoSize('画像の大きさは${QuestionPhoto.dataSize}以下にしてください。'),
   invalidPhotoLength('画像は${QuestionPhotoPathList.maxLength}枚までです。'),
   invalidSeenCount('閲覧数が不正です。'),
-  invalidIndex('不正なindexです。');
+  invalidIndex('不正なindexです。'),
+  invalidTeacherLength(
+      '先生の指定数が多すぎます。${SelectedTeacherList.maxLength}人以内にしてください。');
 
   const QuestionDomainExceptionDetail(this._message);
 

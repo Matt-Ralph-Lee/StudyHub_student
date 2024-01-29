@@ -4,7 +4,7 @@ import 'package:studyhub/application/question/application_service/question_creat
 import 'package:studyhub/application/shared/session/i_session.dart';
 import 'package:studyhub/domain/question/exception/question_domain_exception.dart';
 import 'package:studyhub/domain/question/exception/question_domain_exception_detail.dart';
-import 'package:studyhub/domain/question/models/question_subject.dart';
+import 'package:studyhub/domain/shared/subject.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_factory.dart';
@@ -25,7 +25,8 @@ void main() {
       String questionTitleData = "数学がわからない";
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [];
-      QuestionSubject questionSubject = QuestionSubject.highEng;
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -35,7 +36,8 @@ void main() {
           questionTitleData: questionTitleData,
           questionTextData: questionTextData,
           localPathList: localPathList,
-          questionSubject: questionSubject);
+          questionSubject: questionSubject,
+          selectedTeacherListData: selectedTeacherList);
       debugPrint(repository.store.toString());
     });
 
@@ -46,7 +48,8 @@ void main() {
         "assets/images/sample_user_icon.jpg",
         "assets/images/sample_user_icon2.jpg"
       ];
-      QuestionSubject questionSubject = QuestionSubject.highEng;
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -56,7 +59,8 @@ void main() {
           questionTitleData: questionTitleData,
           questionTextData: questionTextData,
           localPathList: localPathList,
-          questionSubject: questionSubject);
+          questionSubject: questionSubject,
+          selectedTeacherListData: selectedTeacherList);
       debugPrint(repository.store.toString());
     });
 
@@ -68,7 +72,8 @@ void main() {
       List<String> localPathList = [
         "assets/images/sample_picture_hd.png",
       ];
-      QuestionSubject questionSubject = QuestionSubject.highEng;
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -78,7 +83,53 @@ void main() {
           questionTitleData: questionTitleData,
           questionTextData: questionTextData,
           localPathList: localPathList,
-          questionSubject: questionSubject);
+          questionSubject: questionSubject,
+          selectedTeacherListData: selectedTeacherList);
+      debugPrint(repository.store.toString());
+    });
+
+    test('should create a new question with a single selected teacher',
+        () async {
+      String questionTitleData = "数学がわからない";
+      String questionTextData = "分数の割り算ができない";
+      List<String> localPathList = [];
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = ["01234567890123456789"];
+      final useCase = QuestionCreateUseCase(
+          session: session,
+          repository: repository,
+          factory: factory,
+          photoRepository: phototReposiory);
+      await useCase.execute(
+          questionTitleData: questionTitleData,
+          questionTextData: questionTextData,
+          localPathList: localPathList,
+          questionSubject: questionSubject,
+          selectedTeacherListData: selectedTeacherList);
+      debugPrint(repository.store.toString());
+    });
+
+    test('should create a new question with multiple selected teacher',
+        () async {
+      String questionTitleData = "数学がわからない";
+      String questionTextData = "分数の割り算ができない";
+      List<String> localPathList = [];
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [
+        "01234567890123456789",
+        "98765432109876543210"
+      ];
+      final useCase = QuestionCreateUseCase(
+          session: session,
+          repository: repository,
+          factory: factory,
+          photoRepository: phototReposiory);
+      await useCase.execute(
+          questionTitleData: questionTitleData,
+          questionTextData: questionTextData,
+          localPathList: localPathList,
+          questionSubject: questionSubject,
+          selectedTeacherListData: selectedTeacherList);
       debugPrint(repository.store.toString());
     });
 
@@ -88,7 +139,8 @@ void main() {
       List<String> localPathList = [
         "assets/images/sample_picture_hd.png",
       ];
-      QuestionSubject questionSubject = QuestionSubject.highEng;
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -100,7 +152,8 @@ void main() {
             questionTitleData: questionTitleData,
             questionTextData: questionTextData,
             localPathList: localPathList,
-            questionSubject: questionSubject);
+            questionSubject: questionSubject,
+            selectedTeacherListData: selectedTeacherList);
       },
           throwsA(const QuestionDomainException(
               QuestionDomainExceptionDetail.titleInvalidLength)));
@@ -112,7 +165,8 @@ void main() {
       List<String> localPathList = [
         "assets/images/sample_picture_hd.png",
       ];
-      QuestionSubject questionSubject = QuestionSubject.highEng;
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -124,7 +178,8 @@ void main() {
             questionTitleData: questionTitleData,
             questionTextData: questionTextData,
             localPathList: localPathList,
-            questionSubject: questionSubject);
+            questionSubject: questionSubject,
+            selectedTeacherListData: selectedTeacherList);
       },
           throwsA(const QuestionDomainException(
               QuestionDomainExceptionDetail.titleInvalidLength)));
@@ -136,7 +191,8 @@ void main() {
       List<String> localPathList = [
         "assets/images/sample_picture_hd.png",
       ];
-      QuestionSubject questionSubject = QuestionSubject.highEng;
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -148,7 +204,8 @@ void main() {
             questionTitleData: questionTitleData,
             questionTextData: questionTextData,
             localPathList: localPathList,
-            questionSubject: questionSubject);
+            questionSubject: questionSubject,
+            selectedTeacherListData: selectedTeacherList);
       },
           throwsA(const QuestionDomainException(
               QuestionDomainExceptionDetail.textInvalidLength)));
@@ -160,7 +217,8 @@ void main() {
       List<String> localPathList = [
         "assets/images/sample_picture_hd.png",
       ];
-      QuestionSubject questionSubject = QuestionSubject.highEng;
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [];
       final useCase = QuestionCreateUseCase(
           session: session,
           repository: repository,
@@ -172,10 +230,38 @@ void main() {
             questionTitleData: questionTitleData,
             questionTextData: questionTextData,
             localPathList: localPathList,
-            questionSubject: questionSubject);
+            questionSubject: questionSubject,
+            selectedTeacherListData: selectedTeacherList);
       },
           throwsA(const QuestionDomainException(
               QuestionDomainExceptionDetail.textEmptyLength)));
+    });
+
+    test('invalid teacher length', () async {
+      String questionTitleData = "数学がわからない";
+      String questionTextData = "分数の割り算ができない";
+      List<String> localPathList = [];
+      Subject questionSubject = Subject.highEng;
+      List<String> selectedTeacherList = [
+        for (int i = 0; i < 10; i++)
+          List.generate(20, (index) => index.toString()).join()
+      ];
+      final useCase = QuestionCreateUseCase(
+          session: session,
+          repository: repository,
+          factory: factory,
+          photoRepository: phototReposiory);
+
+      expect(() async {
+        await useCase.execute(
+            questionTitleData: questionTitleData,
+            questionTextData: questionTextData,
+            localPathList: localPathList,
+            questionSubject: questionSubject,
+            selectedTeacherListData: selectedTeacherList);
+      },
+          throwsA(const QuestionDomainException(
+              QuestionDomainExceptionDetail.invalidTeacherLength)));
     });
   });
 }

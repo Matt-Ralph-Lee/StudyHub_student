@@ -3,9 +3,11 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart';
 
+import '../../../domain/shared/subject.dart';
 import '../exception/question_use_case_exception.dart';
 import '../exception/question_use_case_exception_detail.dart';
 
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../shared/session/i_session.dart';
 import '../../../domain/question/models/i_question_repository.dart';
@@ -13,12 +15,12 @@ import '../../../domain/question/models/i_question_factory.dart';
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 
 import '../../../domain/question/models/question.dart';
-import '../../../domain/question/models/question_subject.dart';
 import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/question_photo_path.dart';
 import '../../../domain/question/models/question_photo_path_list.dart';
+import '../../../domain/question/models/selected_teacher_list.dart';
 
 class QuestionCreateUseCase {
   final ISession _session;
@@ -40,11 +42,16 @@ class QuestionCreateUseCase {
     required final String questionTitleData,
     required final String questionTextData,
     required final List<String> localPathList,
-    required final QuestionSubject questionSubject,
+    required final Subject questionSubject,
+    required final List<String> selectedTeacherListData,
   }) async {
     final StudentId studentId = _session.studentId;
     final QuestionTitle questionTitle = QuestionTitle(questionTitleData);
     final QuestionText questionText = QuestionText(questionTextData);
+    final SelectedTeacherList selectedTeacherList = SelectedTeacherList(
+        selectedTeacherList: selectedTeacherListData
+            .map((selectedTeacher) => TeacherId(selectedTeacher))
+            .toList());
 
     final List<QuestionPhotoPath> questionPhotoPathListData =
         _createPathList(studentId, localPathList);
@@ -66,8 +73,13 @@ class QuestionCreateUseCase {
       _photoRepository.save(questionPhoto);
     }
 
-    final Question question = await _factory.createQuestion(questionSubject,
-        studentId, questionTitle, questionText, questionPhotoPathList);
+    final Question question = await _factory.createQuestion(
+        questionSubject,
+        studentId,
+        questionTitle,
+        questionText,
+        questionPhotoPathList,
+        selectedTeacherList);
 
     _repository.save(question);
   }

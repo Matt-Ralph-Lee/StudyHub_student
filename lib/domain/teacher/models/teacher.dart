@@ -1,5 +1,6 @@
 import '../../shared/profile_photo_path.dart';
 import '../../shared/name.dart';
+import '../../shared/subject.dart';
 import 'bio.dart';
 import 'high_school.dart';
 import 'introduction.dart';

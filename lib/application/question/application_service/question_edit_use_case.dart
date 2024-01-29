@@ -2,9 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:image/image.dart';
 
-import 'package:studyhub/domain/photo/models/i_profile_photo_repository.dart';
-import 'package:studyhub/domain/question/models/question_photo_path_list.dart';
-
 import 'question_edit_command.dart';
 
 import '../exception/question_use_case_exception.dart';
@@ -12,6 +9,8 @@ import '../exception/question_use_case_exception_detail.dart';
 
 import '../../shared/session/i_session.dart';
 
+import '../../../domain/photo/models/i_profile_photo_repository.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/question/models/i_question_repository.dart';
 import '../../../domain/question/models/question.dart';
@@ -20,6 +19,8 @@ import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/question_photo_path.dart';
+import '../../../domain/question/models/question_photo_path_list.dart';
+import '../../../domain/question/models/selected_teacher_list.dart';
 
 class QuestionEditUseCase {
   final ISession _session;
@@ -52,6 +53,7 @@ class QuestionEditUseCase {
     final newTitle = command.questionTitleData;
     final newText = command.questionTextData;
     final newLocalPathList = command.localPathList;
+    final newSelectedTeacherList = command.selectedTeacherList;
 
     if (newTitle != null) {
       question.changeQuestionTitle(QuestionTitle(newTitle));
@@ -89,6 +91,13 @@ class QuestionEditUseCase {
       }
       // change the question's photo to the new one
       question.changeQuestionPhotoPathList(questionPhotoPathList);
+    }
+
+    if (newSelectedTeacherList != null) {
+      question.changeSelectedTeacherList(SelectedTeacherList(
+          selectedTeacherList: newSelectedTeacherList
+              .map((selectedTeacher) => TeacherId(selectedTeacher))
+              .toList()));
     }
 
     _repository.save(question);
