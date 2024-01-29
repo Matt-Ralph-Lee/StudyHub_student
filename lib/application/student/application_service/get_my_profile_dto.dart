@@ -1,6 +1,6 @@
 import '../../../domain/student/models/status.dart';
 
-class GetMyProfileUseCaseDto {
+class GetMyProfileDto {
   final String _studentName;
   final String _profilePhotoPath;
   final Status _status;
@@ -11,7 +11,7 @@ class GetMyProfileUseCaseDto {
   Status get status => _status;
   int get questionCount => _questionCount;
 
-  GetMyProfileUseCaseDto(
+  GetMyProfileDto(
       {required String studentName,
       required String profilePhotoPath,
       required Status status,

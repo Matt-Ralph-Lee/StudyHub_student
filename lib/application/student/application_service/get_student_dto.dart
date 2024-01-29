@@ -4,7 +4,7 @@ import '../../../domain/student/models/occupation.dart';
 import '../../../domain/student/models/status.dart';
 import '../../../domain/student/models/student.dart';
 
-class GetStudentUseCaseDto {
+class GetStudentDto {
   final String _studentName;
   final Gender _gender;
   final Grade _grade;
@@ -23,7 +23,7 @@ class GetStudentUseCaseDto {
   String get school => _school;
   Status get status => _status;
 
-  GetStudentUseCaseDto._(
+  GetStudentDto._(
       {required final String studentName,
       required final Gender gender,
       required final Grade grade,
@@ -41,8 +41,8 @@ class GetStudentUseCaseDto {
         _school = school,
         _status = status;
 
-  factory GetStudentUseCaseDto.fromDomainObject(final Student student) {
-    return GetStudentUseCaseDto._(
+  factory GetStudentDto.fromDomainObject(final Student student) {
+    return GetStudentDto._(
       studentName: student.studentName.value,
       gender: student.gender,
       grade: student.grade,
