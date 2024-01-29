@@ -1,5 +1,13 @@
+
 import '../../school/models/school.dart'
+import 'graduated.dart';
 
 class University extends School {
-  University(super.value);
+  final EnrollmentStatus _enrollmentStatus;
+
+  University({required final School school, required final EnrollmentStatus enrollmentStatus})
+   : _enrollmentStatus = enrollmentStatus,
+   super(school);
+
+
 }
