@@ -1,6 +1,7 @@
+import '../../../domain/school/models/school.dart';
+import '../../../domain/school/services/school_service.dart';
 import '../../../domain/student/models/i_student_repository.dart';
-import '../../../domain/student/models/school_name.dart';
-import '../../../domain/student/models/student_name.dart';
+import '../../../domain/shared/name.dart';
 import '../../shared/session/i_session.dart';
 import '../exception/student_use_case_exception.dart';
 import '../exception/student_use_case_exception_detail.dart';
@@ -9,12 +10,15 @@ import 'profile_update_command.dart';
 class ProfileUpdateUseCase {
   final ISession _session;
   final IStudentRepository _repository;
+  final SchoolService _schoolService;
 
-  ProfileUpdateUseCase({
-    required ISession session,
-    required IStudentRepository repository,
-  })  : _session = session,
-        _repository = repository;
+  ProfileUpdateUseCase(
+      {required final ISession session,
+      required final IStudentRepository repository,
+      required final SchoolService schoolService})
+      : _session = session,
+        _repository = repository,
+        _schoolService = schoolService;
 
   void execute(ProfileUpdateCommand command) {
     final studentId = _session.studentId;
@@ -27,11 +31,11 @@ class ProfileUpdateUseCase {
     final newStudentNameData = command.studentName;
     final newGender = command.gender;
     final newOccupation = command.occupation;
-    final newSchoolNameData = command.schoolName;
+    final newSchoolData = command.school;
     final newGrade = command.grade;
 
     if (newStudentNameData != null) {
-      student.changeStudentName(StudentName(newStudentNameData));
+      student.changeStudentName(Name(newStudentNameData));
     }
 
     if (newGender != null) {
@@ -42,8 +46,16 @@ class ProfileUpdateUseCase {
       student.changeOccupation(newOccupation);
     }
 
-    if (newSchoolNameData != null) {
-      student.changeSchoolName(SchoolName(newSchoolNameData));
+    if (newSchoolData != null) {
+      final newSchool = School(newSchoolData);
+
+      if (newSchool != School.noAnswer &&
+          !_schoolService.exists(school: newSchool, schoolType: null)) {
+        throw const StudentUseCaseException(
+            StudentUseCaseExceptionDetail.noSuchSchool);
+      }
+
+      student.changeSchool(School(newSchoolData));
     }
 
     if (newGrade != null) {

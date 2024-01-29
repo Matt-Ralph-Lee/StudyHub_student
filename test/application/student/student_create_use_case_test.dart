@@ -9,14 +9,15 @@ import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
 
 void main() {
-  setUp(() {});
-  group('create use case', () {
-    final repository = InMemoryStudentAuthRepository();
-    final service = StudentAuthDomainService(repository);
-    final factory = InMemoryStudentAuthFactory();
-    final studentFactory = InMemoryStudentFactory();
-    final studentRepository = InMemoryStudentRepository();
+  final repository = InMemoryStudentAuthRepository();
+  final service = StudentAuthDomainService(repository);
+  final factory = InMemoryStudentAuthFactory();
+  final studentFactory = InMemoryStudentFactory();
+  final studentRepository = InMemoryStudentRepository();
 
+  setUp(() {});
+
+  group('create use case', () {
     test('should create a new student with valid email and password', () async {
       const emailAddressData = 'test@example.com';
       const passwordData = 'password123';
