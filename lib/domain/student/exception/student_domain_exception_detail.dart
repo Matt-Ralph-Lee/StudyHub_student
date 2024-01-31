@@ -8,7 +8,7 @@ enum StudentDomainExceptionDetail implements DomainExceptionDetail {
   idInvalidLength('${StudentId.minLength}字以上にしてください'),
   invalidPhotoPath('画像パスが不正です'),
   invalidPhotoSize(
-      'プロフィール画像の大きさは${ProfilePhoto.height}x${ProfilePhoto.width}にしてください'),
+      'プロフィール画像の大きさは${ProfilePhoto.avaliableHeight}x${ProfilePhoto.availableWidth}にしてください'),
   invalidQuestionCount('質問数が不正です'),
   ;
 

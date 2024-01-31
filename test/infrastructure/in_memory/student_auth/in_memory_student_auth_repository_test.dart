@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
@@ -70,7 +71,7 @@ void main() {
       repository.create(studentAuthInfo1);
       repository.create(studentAuthInfo2);
 
-      print('store size before deletion: ${repository.store.length}');
+      debugPrint('store size before deletion: ${repository.store.length}');
 
       final storedStudentAuthInfo2 = repository.store[studentId2];
       expect(storedStudentAuthInfo2?.studentId, equals(studentId2));
@@ -86,7 +87,7 @@ void main() {
       final mappedId = repository.emailToIdMap[emailAddress2];
       expect(mappedId, equals(null));
 
-      print('store size after deletion: ${repository.store.length}');
+      debugPrint('store size after deletion: ${repository.store.length}');
     });
   });
 
@@ -231,7 +232,7 @@ void main() {
 
 void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
   if (studentAuthInfo == null) {
-    print(null);
+    debugPrint(null);
     return;
   }
   final studentId = studentAuthInfo.studentId;
@@ -239,7 +240,7 @@ void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
   final password = studentAuthInfo.password;
   final isVerified = studentAuthInfo.isVerified;
 
-  print(
+  debugPrint(
       'studentId: ${studentId.value}\nemailAddress: ${emailAddress.value}\npassword: ${password?.value}\nisVerified: $isVerified');
 }
 

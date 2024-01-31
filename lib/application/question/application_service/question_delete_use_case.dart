@@ -33,7 +33,7 @@ class QuestionDeleteUseCase {
     if (question.canDelete(studentId)) {
       final questionPhotoPathList = question.questionPhotoPathList;
       for (var i = 0; i < questionPhotoPathList.length; i++) {
-        _photoRepository.delete(questionPhotoPathList[i]);
+        _photoRepository.deleteList(questionPhotoPathList);
       }
 
       _repository.delete(question.questionId);

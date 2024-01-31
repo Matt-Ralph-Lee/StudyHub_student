@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:studyhub/application/student/application_service/student_create_use_case.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/service/student_auth_domain_service.dart';
-import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_factory.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_factory.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
@@ -12,7 +11,6 @@ void main() {
   final repository = InMemoryStudentAuthRepository();
   final service = StudentAuthDomainService(repository);
   final factory = InMemoryStudentAuthFactory();
-  final studentFactory = InMemoryStudentFactory();
   final studentRepository = InMemoryStudentRepository();
 
   setUp(() {});
@@ -26,7 +24,6 @@ void main() {
         service: service,
         repository: repository,
         factory: factory,
-        studentFactory: studentFactory,
         studentRepository: studentRepository,
       );
 

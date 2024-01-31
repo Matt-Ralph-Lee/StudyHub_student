@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image/image.dart';
 import 'package:studyhub/application/shared/session/i_session.dart';
 import 'package:studyhub/application/student/application_service/profile_update_command.dart';
 import 'package:studyhub/application/student/application_service/profile_update_use_case.dart';
@@ -14,6 +16,7 @@ import 'package:studyhub/domain/student/models/status.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/shared/name.dart';
+import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/school/in_memory_school_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 
@@ -21,6 +24,7 @@ void main() {
   final repository = InMemoryStudentRepository();
   final session = MockSession();
   final schoolRepository = InMemorySchoolRepository();
+  final photoRepository = InMemoryPhotoRepository();
   final schoolService = SchoolService(schoolRepository);
 
   setUp(() {
@@ -48,6 +52,7 @@ void main() {
     );
     repository.store[studentId] = student;
   });
+
   group('profile update use case', () {
     test('should update profile', () {
       final command = ProfileUpdateCommand(
@@ -56,11 +61,13 @@ void main() {
         occupation: null,
         school: '第一高校',
         grade: null,
+        localPhotoPath: 'assets/images/sample_user_icon.jpg',
       );
       final usecase = ProfileUpdateUseCase(
         session: session,
         repository: repository,
         schoolService: schoolService,
+        photoRepository: photoRepository,
       );
       usecase.execute(command);
 
@@ -70,18 +77,48 @@ void main() {
           repository.store[session.studentId]!.occupation, Occupation.student);
     });
 
-    test('should throw error on invlaid school name', () {
+    test('should update profile photo with no-square photo', () {
+      final command = ProfileUpdateCommand(
+        studentName: null,
+        gender: null,
+        occupation: null,
+        school: null,
+        grade: null,
+        localPhotoPath: 'assets/images/sample_user_icon2.jpg',
+      );
+      final usecase = ProfileUpdateUseCase(
+        session: session,
+        repository: repository,
+        schoolService: schoolService,
+        photoRepository: photoRepository,
+      );
+      usecase.execute(command);
+
+      final student = repository.findById(session.studentId);
+      final currentPath = student!.profilePhotoPath;
+      debugPrint(currentPath.value);
+
+      final data = photoRepository.store[currentPath]!;
+      final img = decodeJpg(data)!;
+
+      debugPrint('height: ${img.height}, width: ${img.width}');
+      expect(photoRepository.store[currentPath] != null, true);
+    });
+
+    test('should throw error on invalid school name', () {
       final command = ProfileUpdateCommand(
         studentName: null,
         gender: null,
         occupation: null,
         school: '第二高校',
         grade: null,
+        localPhotoPath: null,
       );
       final usecase = ProfileUpdateUseCase(
         session: session,
         repository: repository,
         schoolService: schoolService,
+        photoRepository: photoRepository,
       );
       expect(() => usecase.execute(command),
           throwsA(const TypeMatcher<StudentUseCaseException>()));

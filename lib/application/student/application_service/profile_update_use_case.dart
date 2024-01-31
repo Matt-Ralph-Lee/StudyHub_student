@@ -1,24 +1,30 @@
+import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/school/models/school.dart';
 import '../../../domain/school/services/school_service.dart';
+import '../../../domain/shared/profile_photo.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/shared/name.dart';
 import '../../shared/session/i_session.dart';
 import '../exception/student_use_case_exception.dart';
 import '../exception/student_use_case_exception_detail.dart';
 import 'profile_update_command.dart';
+import 'utils/photo_processing.dart';
 
 class ProfileUpdateUseCase {
   final ISession _session;
   final IStudentRepository _repository;
   final SchoolService _schoolService;
+  final IPhotoRepository _photoRepository;
 
-  ProfileUpdateUseCase(
-      {required final ISession session,
-      required final IStudentRepository repository,
-      required final SchoolService schoolService})
-      : _session = session,
+  ProfileUpdateUseCase({
+    required final ISession session,
+    required final IStudentRepository repository,
+    required final SchoolService schoolService,
+    required final IPhotoRepository photoRepository,
+  })  : _session = session,
         _repository = repository,
-        _schoolService = schoolService;
+        _schoolService = schoolService,
+        _photoRepository = photoRepository;
 
   void execute(ProfileUpdateCommand command) {
     final studentId = _session.studentId;
@@ -33,6 +39,7 @@ class ProfileUpdateUseCase {
     final newOccupation = command.occupation;
     final newSchoolData = command.school;
     final newGrade = command.grade;
+    final newLocalPhotoPath = command.localPhotoPath;
 
     if (newStudentNameData != null) {
       student.changeStudentName(Name(newStudentNameData));
@@ -60,6 +67,24 @@ class ProfileUpdateUseCase {
 
     if (newGrade != null) {
       student.changeGrade(newGrade);
+    }
+
+    if (newLocalPhotoPath != null) {
+      final profilePhotoPath = createPathFromId(studentId);
+      final image = convertToJpegAndResize(newLocalPhotoPath);
+      final profilePhoto =
+          ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
+      _photoRepository.save([profilePhoto]);
+
+      final student = _repository.findById(studentId);
+      if (student == null) {
+        throw const StudentUseCaseException(
+            StudentUseCaseExceptionDetail.notFound);
+      }
+      final oldPhotoPath = student.profilePhotoPath;
+      student.changeProfilePhoto(profilePhotoPath);
+
+      _photoRepository.delete(oldPhotoPath);
     }
 
     _repository.save(student);

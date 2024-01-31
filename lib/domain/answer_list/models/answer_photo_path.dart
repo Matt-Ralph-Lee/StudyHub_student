@@ -4,9 +4,8 @@ import '../exception/answer_domain_exception_detail.dart';
 import 'answer_photo_format.dart';
 
 class AnswerPhotoPath extends PhotoPath {
-  final _pathRegExp = RegExp(r'^photos/answer_photo/[a-zA-Z0-9_-]+\.(' +
-      answerPhotoFormatsRegExpString +
-      r')$');
+  final _pathRegExp =
+      RegExp(r'^[/\w\-_.]+\.(' + AnswerPhotoFormat.regExpString + r')$');
 
   AnswerPhotoPath(super.value);
 

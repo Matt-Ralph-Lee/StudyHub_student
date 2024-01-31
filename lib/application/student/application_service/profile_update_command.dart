@@ -8,22 +8,26 @@ class ProfileUpdateCommand {
   final Occupation? _occupation;
   final String? _school;
   final Grade? _grade;
+  final String? _localPhotoPath;
 
   String? get studentName => _studentName;
   Gender? get gender => _gender;
   Occupation? get occupation => _occupation;
   String? get school => _school;
   Grade? get grade => _grade;
+  String? get localPhotoPath => _localPhotoPath;
 
   ProfileUpdateCommand({
-    required String? studentName,
-    required Gender? gender,
-    required Occupation? occupation,
-    required String? school,
-    required Grade? grade,
+    required final String? studentName,
+    required final Gender? gender,
+    required final Occupation? occupation,
+    required final String? school,
+    required final Grade? grade,
+    required final String? localPhotoPath,
   })  : _studentName = studentName,
         _gender = gender,
         _occupation = occupation,
         _school = school,
-        _grade = grade;
+        _grade = grade,
+        _localPhotoPath = localPhotoPath;
 }

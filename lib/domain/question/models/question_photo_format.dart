@@ -6,9 +6,9 @@ enum QuestionPhotoFormat {
   final String _value;
   const QuestionPhotoFormat(this._value);
   String get value => _value;
+
+  static final _formatsList =
+      QuestionPhotoFormat.values.map((e) => e._value).toList();
+
+  static final regExpString = _formatsList.join('|');
 }
-
-final questionPhotoFormatsList =
-    QuestionPhotoFormat.values.map((e) => e._value).toList();
-
-final questionPhotoFormatsRegExpString = questionPhotoFormatsList.join('|');

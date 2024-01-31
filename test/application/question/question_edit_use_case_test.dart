@@ -53,7 +53,7 @@ void main() {
     repository.store[questionId] = question;
   });
 
-  group('questin edit use case', () {
+  group('question edit use case', () {
     test('should edit question except photo and selected teacher', () {
       final command = QuestionEditCommand(
           questionId: questionId,
