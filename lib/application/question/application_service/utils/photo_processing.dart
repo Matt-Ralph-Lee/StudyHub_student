@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:image/image.dart';
-import 'package:studyhub/domain/question/models/question_photo_path_list.dart';
 
 import '../../../../domain/question/models/question_photo.dart';
 import '../../../../domain/question/models/question_photo_path.dart';
+import '../../../../domain/question/models/question_photo_path_list.dart';
 import '../../../../domain/student/models/student_id.dart';
 import '../../exception/question_use_case_exception.dart';
 import '../../exception/question_use_case_exception_detail.dart';
