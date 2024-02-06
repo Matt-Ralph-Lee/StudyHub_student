@@ -1,15 +1,15 @@
 import '../../../domain/student/models/i_student_repository.dart';
-import '../../shared/session/i_session.dart';
+import '../../shared/session/session.dart';
 import '../exception/student_use_case_exception.dart';
 import '../exception/student_use_case_exception_detail.dart';
 import 'get_student_dto.dart';
 
 class GetStudentUseCase {
   final IStudentRepository _repository;
-  final ISession _session;
+  final Session _session;
 
   GetStudentUseCase(
-      {required IStudentRepository repository, required ISession session})
+      {required IStudentRepository repository, required Session session})
       : _repository = repository,
         _session = session;
 

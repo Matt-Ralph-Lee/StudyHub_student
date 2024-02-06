@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/application/shared/session/i_session.dart';
+import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/application/student/application_service/student_delete_use_case.dart';
 import 'package:studyhub/domain/school/models/school.dart';
 import 'package:studyhub/domain/shared/profile_photo_path.dart';
@@ -87,7 +87,7 @@ void main() {
   });
 }
 
-class MockSession implements ISession {
+class MockSession implements Session {
   @override
   bool get isVerified => true;
 

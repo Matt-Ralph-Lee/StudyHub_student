@@ -4,20 +4,20 @@ import '../../../domain/school/services/school_service.dart';
 import '../../../domain/shared/profile_photo.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/shared/name.dart';
-import '../../shared/session/i_session.dart';
+import '../../shared/session/session.dart';
 import '../exception/student_use_case_exception.dart';
 import '../exception/student_use_case_exception_detail.dart';
 import 'profile_update_command.dart';
 import 'utils/photo_processing.dart';
 
 class ProfileUpdateUseCase {
-  final ISession _session;
+  final Session _session;
   final IStudentRepository _repository;
   final SchoolService _schoolService;
   final IPhotoRepository _photoRepository;
 
   ProfileUpdateUseCase({
-    required final ISession session,
+    required final Session session,
     required final IStudentRepository repository,
     required final SchoolService schoolService,
     required final IPhotoRepository photoRepository,

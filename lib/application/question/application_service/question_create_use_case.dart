@@ -9,17 +9,17 @@ import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
-import '../../shared/session/i_session.dart';
+import '../../shared/session/session.dart';
 import 'utils/photo_processing.dart';
 
 class QuestionCreateUseCase {
-  final ISession _session;
+  final Session _session;
   final IQuestionRepository _repository;
   final IQuestionFactory _factory;
   final IPhotoRepository _photoRepository;
 
   QuestionCreateUseCase({
-    required final ISession session,
+    required final Session session,
     required final IQuestionRepository repository,
     required final IQuestionFactory factory,
     required final IPhotoRepository photoRepository,

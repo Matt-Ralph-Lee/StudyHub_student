@@ -1,5 +1,5 @@
-import 'i_session.dart';
+import 'session.dart';
 
 abstract class ISessionProvider {
-  ISession get();
+  Session get();
 }
