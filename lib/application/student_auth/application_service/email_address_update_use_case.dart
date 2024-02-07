@@ -1,18 +1,18 @@
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/service/student_auth_domain_service.dart';
-import '../../shared/session/i_session.dart';
+import '../../shared/session/session.dart';
 import '../exception/student_auth_use_case_exception.dart';
 import '../exception/student_auth_use_case_exception_detail.dart';
 
 class EmailAddressUpdateUseCase {
   final IStudentAuthRepository _authRepository;
   final StudentAuthDomainService _service;
-  final ISession _session;
+  final Session _session;
   EmailAddressUpdateUseCase({
     required final IStudentAuthRepository authRepository,
     required final StudentAuthDomainService service,
-    required final ISession session,
+    required final Session session,
   })  : _authRepository = authRepository,
         _service = service,
         _session = session;

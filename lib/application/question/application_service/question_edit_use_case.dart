@@ -9,19 +9,19 @@ import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../utils/zip.dart';
-import '../../shared/session/i_session.dart';
+import '../../shared/session/session.dart';
 import '../exception/question_use_case_exception.dart';
 import '../exception/question_use_case_exception_detail.dart';
 import 'question_edit_command.dart';
 import 'utils/photo_processing.dart';
 
 class QuestionEditUseCase {
-  final ISession _session;
+  final Session _session;
   final IQuestionRepository _repository;
   final IPhotoRepository _photoRepository;
 
   QuestionEditUseCase({
-    required final ISession session,
+    required final Session session,
     required final IQuestionRepository repository,
     required final IPhotoRepository photoRepository,
   })  : _session = session,

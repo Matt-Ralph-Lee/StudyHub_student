@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image/image.dart';
-import 'package:studyhub/application/shared/session/i_session.dart';
+import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/application/student/application_service/profile_update_command.dart';
 import 'package:studyhub/application/student/application_service/profile_update_use_case.dart';
 import 'package:studyhub/application/student/exception/student_use_case_exception.dart';
@@ -126,7 +126,7 @@ void main() {
   });
 }
 
-class MockSession implements ISession {
+class MockSession implements Session {
   @override
   bool get isVerified => true;
 

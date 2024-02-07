@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:studyhub/application/question/application_service/question_create_use_case.dart';
-import 'package:studyhub/application/shared/session/i_session.dart';
+import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/domain/question/exception/question_domain_exception.dart';
 import 'package:studyhub/domain/question/exception/question_domain_exception_detail.dart';
 import 'package:studyhub/domain/shared/subject.dart';
@@ -267,7 +267,7 @@ void main() {
   });
 }
 
-class MockSession implements ISession {
+class MockSession implements Session {
   @override
   bool get isVerified => true;
 

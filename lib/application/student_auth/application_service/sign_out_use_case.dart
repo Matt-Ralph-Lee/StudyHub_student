@@ -1,12 +1,12 @@
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
-import '../../shared/session/i_session.dart';
+import '../../shared/session/session.dart';
 
 class SignOutUseCase {
   final IStudentAuthRepository _repository;
-  final ISession _session;
+  final Session _session;
   SignOutUseCase({
     required final IStudentAuthRepository repository,
-    required final ISession session,
+    required final Session session,
   })  : _repository = repository,
         _session = session;
 

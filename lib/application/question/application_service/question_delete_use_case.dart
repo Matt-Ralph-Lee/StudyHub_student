@@ -1,7 +1,7 @@
 import '../exception/question_use_case_exception.dart';
 import '../exception/question_use_case_exception_detail.dart';
 
-import '../../shared/session/i_session.dart';
+import '../../shared/session/session.dart';
 import '../../../domain/question/models/i_question_repository.dart';
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 
@@ -9,12 +9,12 @@ import '../../../domain/question/models/question.dart';
 import '../../../domain/question/models/question_id.dart';
 
 class QuestionDeleteUseCase {
-  final ISession _session;
+  final Session _session;
   final IQuestionRepository _repository;
   final IPhotoRepository _photoRepository;
 
   QuestionDeleteUseCase({
-    required final ISession session,
+    required final Session session,
     required final IQuestionRepository repository,
     required final IPhotoRepository photoRepository,
   })  : _session = session,
