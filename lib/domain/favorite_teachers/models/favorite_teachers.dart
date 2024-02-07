@@ -11,6 +11,7 @@ class FavoriteTeachers {
 
   StudentId get studentId => _studentId;
   List<TeacherId> get teacherIdList => _teacherIdList;
+  int get length => _teacherIdList.length;
 
   FavoriteTeachers({
     required StudentId studentId,
@@ -25,5 +26,29 @@ class FavoriteTeachers {
       throw const FavoriteTeachersDomainException(
           FavoriteTeachersDomainExceptionDetail.duplicateTeacher);
     }
+  }
+
+  void add(TeacherId newTeacherId) {
+    if (_teacherIdList.length >= maxLength) {
+      throw const FavoriteTeachersDomainException(
+          FavoriteTeachersDomainExceptionDetail.invalidTeacherLength);
+    }
+    if (_teacherIdList.contains(newTeacherId)) {
+      throw const FavoriteTeachersDomainException(
+          FavoriteTeachersDomainExceptionDetail.duplicateTeacher);
+    }
+    _teacherIdList.add(newTeacherId);
+  }
+
+  void delete(TeacherId teacherId) {
+    if (!_teacherIdList.contains(teacherId)) {
+      throw const FavoriteTeachersDomainException(
+          FavoriteTeachersDomainExceptionDetail.teacherNotFound);
+    }
+    _teacherIdList.remove(teacherId);
+  }
+
+  bool canDelete(StudentId studentId) {
+    return _studentId == studentId;
   }
 }

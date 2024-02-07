@@ -34,5 +34,14 @@ void main() {
               ),
           throwsA(isA<DomainException>()));
     });
+
+    test("should throw teacher not found error", () {
+      expect(
+          () => FavoriteTeachers(
+                studentId: StudentId("01234567890123456789"),
+                teacherIdList: [],
+              ).delete(TeacherId("00000000000000000000")),
+          throwsA(isA<DomainException>()));
+    });
   });
 }

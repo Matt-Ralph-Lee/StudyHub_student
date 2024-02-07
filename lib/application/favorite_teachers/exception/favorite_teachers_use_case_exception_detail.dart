@@ -1,7 +1,7 @@
 import '../../shared/exception/use_case_exception_detail.dart';
 
 enum FavoriteTeachersUseCaseExceptionDetail implements UseCaseExceptionDetail {
-  failedDeleting('FavoriteTeachersを削除する権限がありませんでした。');
+  favoriteTeacherNotFound('FavoriteTeachersが見つかりませんでした。');
 
   const FavoriteTeachersUseCaseExceptionDetail(this._message);
 
