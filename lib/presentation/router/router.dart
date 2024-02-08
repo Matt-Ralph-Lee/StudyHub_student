@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 import "package:studyhub/presentation/auth/tmp.dart";
-import "package:studyhub/presentation/pages/login_page.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
 
+import "../pages/auth_page.dart";
+import "../pages/reset_password_page.dart";
 import "scaffold_with_navbar.dart";
 import "page_path.dart";
 
 part "router.g.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final _authPageNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'authPage');
 final _page1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page1');
 final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page2');
 final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page3');
@@ -59,9 +61,15 @@ GoRouter router(RouterRef ref) {
       ],
     ),
     GoRoute(
-      path: PageId.login.path,
-      name: PageId.login.name,
-      builder: (context, state) => const LoginPage(),
+      path: PageId.authPage.path,
+      name: PageId.authPage.name,
+      builder: (context, state) => const AuthPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.resetPassword.path,
+      name: PageId.resetPassword.name,
+      builder: (context, state) => const ResetPasswordPage(),
       parentNavigatorKey: _rootNavigatorKey,
     ),
   ];
@@ -70,10 +78,10 @@ GoRouter router(RouterRef ref) {
     final page = state.uri.toString();
     final isLoggedIn = ref.read(tmpProvider);
 
-    if (isLoggedIn && page == PageId.login.path) {
+    if (isLoggedIn && page == PageId.authPage.path) {
       return PageId.page1.path;
-    } else if (!isLoggedIn && page != PageId.login.path) {
-      return PageId.login.path;
+    } else if (!isLoggedIn && page != PageId.authPage.path) {
+      return PageId.authPage.path;
     } else {
       return null;
     }
