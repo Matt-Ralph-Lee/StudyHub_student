@@ -11,7 +11,7 @@ import 'package:studyhub/infrastructure/in_memory/favorite_teachers/in_memory_fa
 
 void main() {
   final session = MockSession();
-  final repository = InMemoryFavoriteTeachersRepository();
+  var repository = InMemoryFavoriteTeachersRepository();
 
   final studentId = session.studentId;
   final teacherId = TeacherId("01234567890123456789");
@@ -28,6 +28,7 @@ void main() {
     });
 
     test("should throw teacher not found error", () {
+      repository = InMemoryFavoriteTeachersRepository();
       final usecase = FavoriteTeachersDeleteUseCase(
           session: session, repository: repository);
 

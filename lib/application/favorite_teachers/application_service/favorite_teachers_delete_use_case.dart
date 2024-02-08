@@ -18,7 +18,7 @@ class FavoriteTeachersDeleteUseCase {
     final studentId = _session.studentId;
     final favoriteTeachers = _repository.findByStudentId(studentId);
 
-    if (favoriteTeachers == null || favoriteTeachers.length == 0) {
+    if (favoriteTeachers == null) {
       throw const FavoriteTeachersUseCaseException(
           FavoriteTeachersUseCaseExceptionDetail.favoriteTeacherNotFound);
     }
