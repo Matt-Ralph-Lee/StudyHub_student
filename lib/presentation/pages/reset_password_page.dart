@@ -12,8 +12,10 @@ class ResetPasswordPage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.height;
     final topPadding = screenWidth * 0.1;
     return Scaffold(
+      backgroundColor: ColorSet.of(context).background,
       appBar: AppBar(
         toolbarHeight: 80,
+        backgroundColor: ColorSet.of(context).background,
         leading: Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: IconButton(
@@ -22,13 +24,13 @@ class ResetPasswordPage extends StatelessWidget {
               size: 30,
               color: ColorSet.of(context).text,
             ),
-            onPressed: () => context.pop(), // GoRouterを使用して前のページに戻る
+            onPressed: () => context.pop(),
           ),
         ),
       ),
       body: Center(
         child: Column(
-          children: [SizedBox(height: topPadding), ResetPassswordWidget()],
+          children: [SizedBox(height: topPadding), const ResetPasswordWidget()],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/shared/constants/l10n.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -10,7 +11,7 @@ class LoginByGoogleButtonWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  push(BuildContext context) {
+  void push(BuildContext context) {
     context.push('/login_by_google');
   }
 
@@ -31,7 +32,7 @@ class LoginByGoogleButtonWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
         ),
         child: Text(
-          "Googleでログインする",
+          L10n.loginByGoogleButtonText,
           style: TextStyle(
               fontWeight: FontWeightSet.normal,
               fontSize: FontSizeSet.annotation,

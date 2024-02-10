@@ -5,8 +5,8 @@ import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
-class TextForResetPasswordMailAddressInputExplanation extends StatelessWidget {
-  const TextForResetPasswordMailAddressInputExplanation({super.key});
+class TextForResetPasswordEmailAddressInputExplanation extends StatelessWidget {
+  const TextForResetPasswordEmailAddressInputExplanation({super.key});
 
   @override
   Widget build(BuildContext context) {

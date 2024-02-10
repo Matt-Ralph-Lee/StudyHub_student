@@ -8,13 +8,13 @@ import "package:studyhub/presentation/pages/page3.dart";
 
 import "../pages/auth_page.dart";
 import "../pages/reset_password_page.dart";
+import "../shared/utils.dart";
 import "scaffold_with_navbar.dart";
-import "page_path.dart";
+import '../shared/constants/page_path.dart';
 
 part "router.g.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-final _authPageNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'authPage');
 final _page1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page1');
 final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page2');
 final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page3');
@@ -75,12 +75,12 @@ GoRouter router(RouterRef ref) {
   ];
 
   String? redirect(BuildContext context, GoRouterState state) {
-    final page = state.uri.toString();
+    final pagePath = state.uri.toString();
     final isLoggedIn = ref.read(tmpProvider);
 
-    if (isLoggedIn && page == PageId.authPage.path) {
+    if (isLoggedIn && requiresLoggedOut(pagePath)) {
       return PageId.page1.path;
-    } else if (!isLoggedIn && page != PageId.authPage.path) {
+    } else if (!isLoggedIn && isPrivate(pagePath)) {
       return PageId.authPage.path;
     } else {
       return null;

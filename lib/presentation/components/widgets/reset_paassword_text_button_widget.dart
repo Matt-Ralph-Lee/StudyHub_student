@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/shared/constants/l10n.dart';
 
-import '../../router/page_path.dart';
+import '../../shared/constants/page_path.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -10,7 +11,6 @@ class ResetPaasswordTextButtonWidget extends StatelessWidget {
   const ResetPaasswordTextButtonWidget({super.key});
 
   void push(BuildContext context) {
-    print("test");
     context.push(PageId.resetPassword.path);
   }
 
@@ -22,7 +22,7 @@ class ResetPaasswordTextButtonWidget extends StatelessWidget {
         padding: MaterialStateProperty.all(EdgeInsets.zero),
       ),
       child: Text(
-        "パスワードを忘れた方はこちら",
+        L10n.resetPasswordTextButtonText,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.annotation,

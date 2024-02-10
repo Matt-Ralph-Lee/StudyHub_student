@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studyhub/presentation/shared/constants/l10n.dart';
 
+import '../../controllers/sample_controller/sample_controller.dart';
 import '../parts/elevated_button_for_auth.dart';
-import '../parts/text_for_reset_password_mail_address_input_explanation.dart';
-import '../parts/text_form_field_for_mail_address_input.dart';
+import '../parts/text_for_reset_password_email_address_input_explanation.dart';
+import '../parts/text_form_field_for_email_address_input.dart';
 
-class ResetPassswordWidget extends HookWidget {
-  ResetPassswordWidget({super.key});
-
-  final forgetPasswordEmailController = useTextEditingController();
+class ResetPasswordWidget extends HookConsumerWidget {
+  const ResetPasswordWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final isEnabled = useState<bool>(false);
-    void onTextChanged(String text) {
-      isEnabled.value = text.isNotEmpty;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isEmailFiled = useState<bool>(false);
+    void checkEmailFiled(String text) {
+      isEmailFiled.value = text.isNotEmpty;
     }
 
-    return Material(
-      child: Column(
-        children: [
-          const TextForResetPasswordMailAddressInputExplanation(),
-          const SizedBox(height: 80),
-          TextFormFieldForMailAddressInput(
-            controller: forgetPasswordEmailController,
-            onChanged: onTextChanged,
-          ),
-          const SizedBox(height: 80),
-          ElavatedButtonForAuth(
-              onPressed:
-                  isEnabled.value && isEnabled.value ? ResetPassword : null,
-              buttonText: "再設定用のメールアドレスを送信")
-        ],
-      ),
+    final forgetPasswordEmailController = useTextEditingController();
+
+    return Column(
+      children: [
+        const TextForResetPasswordEmailAddressInputExplanation(),
+        const SizedBox(height: 80),
+        TextFormFieldForEmailAddressInput(
+          controller: forgetPasswordEmailController,
+          onChanged: checkEmailFiled,
+        ),
+        const SizedBox(height: 80),
+        ElavatedButtonForAuth(
+            onPressed: isEmailFiled.value
+                ? ref.read(sampleControllerProvider.notifier).resetPassword
+                : null,
+            buttonText: L10n.passwordResetButtonText)
+      ],
     );
   }
 }
-
-void ResetPassword() {}

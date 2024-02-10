@@ -4,7 +4,6 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-//バリデーションとかはせず、文脈に依存せず、発火させる関数とtextさえあればいいから一個定義すればいいよね...？
 class ElavatedButtonForAuth extends StatelessWidget {
   final VoidCallback? onPressed;
   final String buttonText;
@@ -17,15 +16,16 @@ class ElavatedButtonForAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       width: screenWidth * 0.8,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: onPressed != null
-              ? ColorSet.of(context).primary
-              : ColorSet.of(context).inactiveGreySurface,
+          backgroundColor: ColorSet.of(context).primary,
+          disabledBackgroundColor: ColorSet.of(context).inactiveGreySurface,
+          foregroundColor: ColorSet.of(context).whiteText,
+          disabledForegroundColor: ColorSet.of(context).unselectedText,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(5),
@@ -35,14 +35,10 @@ class ElavatedButtonForAuth extends StatelessWidget {
         ),
         child: Text(
           buttonText,
-          style: TextStyle(
-              fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.annotation,
-              //非活性時のテキスト色はどうする？？
-              //unselectedTextだと見づらいかも
-              color: onPressed != null
-                  ? ColorSet.of(context).whiteText
-                  : ColorSet.of(context).unselectedText),
+          style: const TextStyle(
+            fontWeight: FontWeightSet.normal,
+            fontSize: FontSizeSet.annotation,
+          ),
         ),
       ),
     );

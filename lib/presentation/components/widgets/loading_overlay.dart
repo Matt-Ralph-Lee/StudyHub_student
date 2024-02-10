@@ -9,12 +9,12 @@ class LoadingOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned.fill(
       child: Container(
-        color: Colors.grey.withOpacity(0.5), // グレーの背景
+        color: Colors.grey.withOpacity(0.5),
         child: Center(
           child: CircularProgressIndicator(
             color: ColorSet.of(context).text,
             strokeWidth: 3.0,
-          ), // ローディングインジケーター
+          ),
         ),
       ),
     );

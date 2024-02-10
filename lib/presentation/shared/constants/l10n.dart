@@ -6,8 +6,8 @@ class L10n {
   static const passwordTextFieldHintText = "パスワード";
   static const loginButtonText = "ログイン";
   static const signupButtonText = "サインアップ";
-  static const forgotPasswordTextButtonText = "パスワードを忘れた方はこちら";
-  static const signinByGoogleButtonText = "Goggleでログイン";
+  static const resetPasswordTextButtonText = "パスワードを忘れた方はこちら";
+  static const loginByGoogleButtonText = "Goggleでログイン";
 
   //password_reset_page
   static const paasswordResetTitle = "パスワード再設定";
@@ -16,9 +16,9 @@ class L10n {
   static const passwordResetButtonText = "再設定用のメールを送信";
 
   //mail_vertification_page
-  static const mailVertificationTitleText = "メール認証";
-  static const mailVertificaionSubtitleText = "入力されたメールアドレスに認証メールを送りました";
-  static const mailVertificationButtonText = "メールを再送信";
+  static const emailVertificationTitleText = "メール認証";
+  static const emailVertificaionSubtitleText = "入力されたメールアドレスに認証メールを送りました";
+  static const emailVertificationButtonText = "メールを再送信";
   //profile_input_page
   static const indicatorTextOneThird = "1/3";
   static const usernameInputExplanationText = "ユーザー名を入力してください";

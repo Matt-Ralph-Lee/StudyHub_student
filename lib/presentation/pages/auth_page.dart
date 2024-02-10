@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studyhub/presentation/shared/constants/l10n.dart';
 
-import '../components/widgets/custom_loading_indicator.dart';
+import '../components/widgets/loading_overlay.dart';
 import '../components/widgets/login_by_google_button_widget.dart';
 import '../components/widgets/login_widget.dart';
-import '../components/widgets/orLine_widget.dart';
 import '../components/widgets/reset_paassword_text_button_widget.dart';
-import '../components/widgets/signin_widget.dart';
+import '../components/widgets/signup_widget.dart';
 import '../controllers/sample_controller/sample_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
@@ -22,6 +22,35 @@ class AuthPage extends ConsumerWidget {
     final paddingRight = screenWidth * 0.1;
     final screenHeight = MediaQuery.of(context).size.height;
     final paddingTop = screenHeight * 0.2;
+    //コード長いので定数として定義しておく
+    Widget orLine = SizedBox(
+      width: screenWidth * 0.8,
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 0.5,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(width: 10),
+          const Text(
+            "or",
+            style: TextStyle(
+                fontWeight: FontWeightSet.normal,
+                fontSize: FontSizeSet.annotation,
+                color: Colors.grey),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Container(
+              height: 0.5,
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    );
 
     final state = ref.watch(sampleControllerProvider);
 
@@ -46,8 +75,8 @@ class AuthPage extends ConsumerWidget {
                       fontWeight: FontWeightSet.normal,
                       fontSize: FontSizeSet.header3),
                   tabs: const [
-                    Tab(text: 'ログイン'),
-                    Tab(text: 'サインアップ'),
+                    Tab(text: L10n.loginToggleText),
+                    Tab(text: L10n.signupToggleText),
                   ],
                 ),
                 Expanded(
@@ -59,7 +88,6 @@ class AuthPage extends ConsumerWidget {
                           const SizedBox(height: 70),
                           const LoginWidget(),
                           const SizedBox(height: 20),
-                          //このpaddingってpageの役割？それともpartsの中に組み込んでもいい？
                           Padding(
                             padding: EdgeInsets.only(right: paddingRight),
                             child: const Row(
@@ -68,9 +96,9 @@ class AuthPage extends ConsumerWidget {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [OrLineWidget()]),
+                              children: [orLine]),
                           const SizedBox(height: 50),
                           const LoginByGoogleButtonWidget(),
                         ],
@@ -79,7 +107,7 @@ class AuthPage extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(height: 70),
-                          SignInWidget(),
+                          SignUpWidget(),
                         ],
                       ),
                     ],

@@ -31,4 +31,6 @@ class SampleController extends _$SampleController {
       tmp.logout();
     });
   }
+
+  void resetPassword() async {}
 }
