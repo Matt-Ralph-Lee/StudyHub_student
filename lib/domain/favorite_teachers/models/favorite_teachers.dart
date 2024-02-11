@@ -28,6 +28,14 @@ class FavoriteTeachers {
     }
   }
 
+  TeacherId operator [](int index) {
+    if (index < 0 || index >= _teacherIdList.length) {
+      throw const FavoriteTeachersDomainException(
+          FavoriteTeachersDomainExceptionDetail.invalidIndex);
+    }
+    return _teacherIdList[index];
+  }
+
   void add(TeacherId newTeacherId) {
     if (_teacherIdList.length >= maxLength) {
       throw const FavoriteTeachersDomainException(
