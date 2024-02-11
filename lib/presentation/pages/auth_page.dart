@@ -68,6 +68,7 @@ class AuthPage extends ConsumerWidget {
                   SizedBox(height: paddingTop),
                   TabBar(
                     indicatorColor: ColorSet.of(context).primary,
+                    dividerColor: Colors.transparent,
                     labelColor: ColorSet.of(context).text,
                     unselectedLabelColor: ColorSet.of(context).unselectedText,
                     labelStyle: const TextStyle(
@@ -78,7 +79,7 @@ class AuthPage extends ConsumerWidget {
                         fontSize: FontSizeSet.header3),
                     tabs: const [
                       Tab(text: L10n.loginToggleText),
-                      Tab(text: L10n.signupToggleText),
+                      Tab(text: L10n.signUpToggleText),
                     ],
                   ),
                   Expanded(

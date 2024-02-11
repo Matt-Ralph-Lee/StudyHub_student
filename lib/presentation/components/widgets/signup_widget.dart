@@ -38,7 +38,7 @@ class SignUpWidget extends HookConsumerWidget {
         ),
         const SizedBox(height: 50),
         ElevatedButtonForAuth(
-          buttonText: L10n.signupButtonText,
+          buttonText: L10n.signUpButtonText,
           onPressed: isEmailFilled.value && isPasswordFilled.value
               ? ref.read(sampleControllerProvider.notifier).login
               : null,
