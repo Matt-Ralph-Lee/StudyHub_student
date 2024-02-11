@@ -39,6 +39,7 @@ dependencies:
   flutter_riverpod:
   riverpod_annotation:
   flutter_hooks:
+  hooks_riverpod:
   uuid:
   firebase_auth:
   english_words:
