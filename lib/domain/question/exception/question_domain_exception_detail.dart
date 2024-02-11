@@ -1,11 +1,10 @@
-import 'package:studyhub/domain/question/models/selected_teacher_list.dart';
-
 import '../../shared/domain_exception_detail.dart';
 import '../models/question_id.dart';
 import '../models/question_title.dart';
 import '../models/question_text.dart';
 import '../models/question_photo.dart';
 import '../models/question_photo_path_list.dart';
+import '../models/selected_teacher_list.dart';
 
 enum QuestionDomainExceptionDetail implements DomainExceptionDetail {
   idInvalidLength('${QuestionId.minLength}字以上にしてください。'),
