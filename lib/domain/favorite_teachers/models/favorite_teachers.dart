@@ -4,59 +4,49 @@ import '../exception/favorite_teachers_domain_exception_detail.dart';
 import '../../teacher/models/teacher_id.dart';
 import '../../student/models/student_id.dart';
 
-class FavoriteTeachers {
+class FavoriteTeachers extends Iterable {
   static const maxLength = 5;
   final StudentId _studentId;
-  final List<TeacherId> _teacherIdList;
+  final Set<TeacherId> _teacherIdSet;
 
   StudentId get studentId => _studentId;
-  List<TeacherId> get teacherIdList => _teacherIdList;
-  int get length => _teacherIdList.length;
+  Set<TeacherId> get teacherIdSet => _teacherIdSet;
 
   FavoriteTeachers({
-    required StudentId studentId,
-    required List<TeacherId> teacherIdList,
+    required final StudentId studentId,
+    required final Set<TeacherId> teacherIdSet,
   })  : _studentId = studentId,
-        _teacherIdList = teacherIdList {
-    if (_teacherIdList.length > maxLength) {
+        _teacherIdSet = teacherIdSet {
+    if (_teacherIdSet.length > maxLength) {
       throw const FavoriteTeachersDomainException(
           FavoriteTeachersDomainExceptionDetail.invalidTeacherLength);
     }
-    if (_teacherIdList.toSet().toList().length != _teacherIdList.length) {
-      throw const FavoriteTeachersDomainException(
-          FavoriteTeachersDomainExceptionDetail.duplicateTeacher);
-    }
-  }
-
-  TeacherId operator [](int index) {
-    if (index < 0 || index >= _teacherIdList.length) {
-      throw const FavoriteTeachersDomainException(
-          FavoriteTeachersDomainExceptionDetail.invalidIndex);
-    }
-    return _teacherIdList[index];
   }
 
   void add(TeacherId newTeacherId) {
-    if (_teacherIdList.length >= maxLength) {
+    if (_teacherIdSet.length >= maxLength) {
       throw const FavoriteTeachersDomainException(
           FavoriteTeachersDomainExceptionDetail.invalidTeacherLength);
     }
-    if (_teacherIdList.contains(newTeacherId)) {
+    if (_teacherIdSet.contains(newTeacherId)) {
       throw const FavoriteTeachersDomainException(
           FavoriteTeachersDomainExceptionDetail.duplicateTeacher);
     }
-    _teacherIdList.add(newTeacherId);
+    _teacherIdSet.add(newTeacherId);
   }
 
   void delete(TeacherId teacherId) {
-    if (!_teacherIdList.contains(teacherId)) {
+    if (!_teacherIdSet.contains(teacherId)) {
       throw const FavoriteTeachersDomainException(
           FavoriteTeachersDomainExceptionDetail.teacherNotFound);
     }
-    _teacherIdList.remove(teacherId);
+    _teacherIdSet.remove(teacherId);
   }
 
   bool canDelete(StudentId studentId) {
     return _studentId == studentId;
   }
+
+  @override
+  Iterator get iterator => _teacherIdSet.iterator;
 }

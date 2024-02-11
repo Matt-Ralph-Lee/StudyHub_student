@@ -16,10 +16,10 @@ class FavoriteTeachersAddUseCase {
 
   Future<void> execute(final TeacherId newFavoriteTeacherId) async {
     final studentId = _session.studentId;
-    var favoriteTeachers = _repository.findByStudentId(studentId);
+    var favoriteTeachers = _repository.getByStudentId(studentId);
 
     favoriteTeachers ??=
-        FavoriteTeachers(studentId: studentId, teacherIdList: []);
+        FavoriteTeachers(studentId: studentId, teacherIdSet: {});
 
     favoriteTeachers.add(newFavoriteTeacherId);
 

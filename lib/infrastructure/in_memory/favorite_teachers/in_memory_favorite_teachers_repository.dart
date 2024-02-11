@@ -1,5 +1,4 @@
-import 'package:studyhub/domain/favorite_teachers/models/favorite_teachers.dart';
-
+import '../../../domain/favorite_teachers/models/favorite_teachers.dart';
 import '../../../domain/favorite_teachers/models/i_favorite_teachers_repository.dart';
 import '../../../domain/student/models/student_id.dart';
 
@@ -12,7 +11,7 @@ class InMemoryFavoriteTeachersRepository
   }
 
   @override
-  FavoriteTeachers? findByStudentId(StudentId studentId) {
+  FavoriteTeachers? getByStudentId(StudentId studentId) {
     return store[studentId];
   }
 }

@@ -8,7 +8,7 @@ void main() {
   group("constructor", () {
     test("not_throw_exception", () {
       final favoriteTeachers = FavoriteTeachers(
-          studentId: StudentId("01234567890123456789"), teacherIdList: []);
+          studentId: StudentId("01234567890123456789"), teacherIdSet: {});
       expect(() => favoriteTeachers, returnsNormally);
     });
 
@@ -16,21 +16,10 @@ void main() {
       expect(
           () => FavoriteTeachers(
                 studentId: StudentId("01234567890123456789"),
-                teacherIdList: [
+                teacherIdSet: {
                   for (var i = 0; i < 10; i++)
                     TeacherId("0123456789012345678$i")
-                ],
-              ),
-          throwsA(isA<DomainException>()));
-    });
-
-    test("duplicated teacher", () {
-      expect(
-          () => FavoriteTeachers(
-                studentId: StudentId("01234567890123456789"),
-                teacherIdList: [
-                  for (var i = 0; i < 3; i++) TeacherId("01234567890123456789")
-                ],
+                },
               ),
           throwsA(isA<DomainException>()));
     });
@@ -39,7 +28,7 @@ void main() {
       expect(
           () => FavoriteTeachers(
                 studentId: StudentId("01234567890123456789"),
-                teacherIdList: [],
+                teacherIdSet: {},
               ).delete(TeacherId("00000000000000000000")),
           throwsA(isA<DomainException>()));
     });

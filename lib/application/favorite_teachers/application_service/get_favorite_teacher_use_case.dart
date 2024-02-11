@@ -15,7 +15,7 @@ class GetFavoriteTeacherUseCase {
 
   List<GetFavoriteTeacherDto>? execute() {
     final studentId = _session.studentId;
-    final favoriteTeacher = _queryService.getById(studentId);
-    return favoriteTeacher;
+    final favoriteTeachers = _queryService.getById(studentId);
+    return favoriteTeachers;
   }
 }
