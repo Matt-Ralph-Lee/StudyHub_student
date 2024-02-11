@@ -6,7 +6,7 @@ import '../components/widgets/loading_overlay.dart';
 import '../components/widgets/login_by_google_button_widget.dart';
 import '../components/widgets/login_widget.dart';
 import '../components/widgets/reset_password_text_button_widget.dart';
-import '../components/widgets/signup_widget.dart';
+import '../components/widgets/sign_up_widget.dart';
 import '../controllers/sample_controller/sample_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
@@ -58,37 +58,38 @@ class AuthPage extends ConsumerWidget {
       length: 2,
       child: Scaffold(
         backgroundColor: ColorSet.of(context).background,
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: paddingTop),
-                  TabBar(
-                    indicatorColor: ColorSet.of(context).primary,
-                    dividerColor: Colors.transparent,
-                    labelColor: ColorSet.of(context).text,
-                    unselectedLabelColor: ColorSet.of(context).unselectedText,
-                    labelStyle: const TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.header3),
-                    unselectedLabelStyle: const TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.header3),
-                    tabs: const [
-                      Tab(text: L10n.loginToggleText),
-                      Tab(text: L10n.signUpToggleText),
-                    ],
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        Column(
+        body: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: paddingTop),
+                TabBar(
+                  indicatorColor: ColorSet.of(context).primary,
+                  dividerColor: Colors.transparent,
+                  labelColor: ColorSet.of(context).text,
+                  unselectedLabelColor: ColorSet.of(context).unselectedText,
+                  labelStyle: const TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize: FontSizeSet.header3),
+                  unselectedLabelStyle: const TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize: FontSizeSet.header3),
+                  tabs: const [
+                    Tab(text: L10n.loginToggleText),
+                    Tab(text: L10n.signUpToggleText),
+                  ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: paddingHorizontal),
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 70),
+                            const SizedBox(height: 50),
                             const LoginWidget(),
                             const SizedBox(height: 20),
                             const Row(
@@ -103,21 +104,21 @@ class AuthPage extends ConsumerWidget {
                             const LoginByGoogleButtonWidget(),
                           ],
                         ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(height: 70),
-                            SignUpWidget(),
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 50),
+                          SignUpWidget(),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              if (state.isLoading) const LoadingOverlay(),
-            ],
-          ),
+                ),
+              ],
+            ),
+            if (state.isLoading) const LoadingOverlay(),
+          ],
         ),
       ),
     );

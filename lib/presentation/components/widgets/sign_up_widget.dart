@@ -13,8 +13,8 @@ class SignUpWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signupEmailController = useTextEditingController();
-    final signupPassWordController = useTextEditingController();
+    final signUpEmailController = useTextEditingController();
+    final signUpPassWordController = useTextEditingController();
     final isEmailFilled = useState<bool>(false);
     void checkEmailFilled(String text) {
       isEmailFilled.value = text.isNotEmpty;
@@ -28,12 +28,12 @@ class SignUpWidget extends HookConsumerWidget {
     return Column(
       children: [
         TextFormFieldForEmailAddressInput(
-          controller: signupEmailController,
+          controller: signUpEmailController,
           onChanged: checkEmailFilled,
         ),
         const SizedBox(height: 25),
         TextFormFieldForPasswordInput(
-          controller: signupPassWordController,
+          controller: signUpPassWordController,
           onChanged: checkPasswordFilled,
         ),
         const SizedBox(height: 50),
