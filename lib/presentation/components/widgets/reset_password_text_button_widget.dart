@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/shared/constants/l10n.dart';
 
+import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class ResetPaasswordTextButtonWidget extends StatelessWidget {
-  const ResetPaasswordTextButtonWidget({super.key});
+class ResetPasswordTextButtonWidget extends StatelessWidget {
+  const ResetPasswordTextButtonWidget({super.key});
 
   void push(BuildContext context) {
     context.push(PageId.resetPassword.path);

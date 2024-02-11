@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:studyhub/presentation/shared/constants/l10n.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 
 class TextFormFieldForPasswordInput extends StatelessWidget {
   final TextEditingController controller;

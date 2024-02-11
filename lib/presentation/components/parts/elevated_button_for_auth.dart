@@ -4,11 +4,11 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class ElavatedButtonForAuth extends StatelessWidget {
+class ElevatedButtonForAuth extends StatelessWidget {
   final VoidCallback? onPressed;
   final String buttonText;
 
-  const ElavatedButtonForAuth({
+  const ElevatedButtonForAuth({
     Key? key,
     required this.onPressed,
     required this.buttonText,

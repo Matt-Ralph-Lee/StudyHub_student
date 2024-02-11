@@ -9,8 +9,11 @@ class ResetPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.height;
-    final topPadding = screenWidth * 0.1;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final topPadding = screenHeight * 0.1;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final paddingHorizontal = screenWidth * 0.1;
+
     return Scaffold(
       backgroundColor: ColorSet.of(context).background,
       appBar: AppBar(
@@ -22,13 +25,14 @@ class ResetPasswordPage extends StatelessWidget {
             icon: Icon(
               Icons.chevron_left_outlined,
               size: 30,
-              color: ColorSet.of(context).text,
+              color: ColorSet.of(context).icon,
             ),
             onPressed: () => context.pop(),
           ),
         ),
       ),
-      body: Center(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
         child: Column(
           children: [SizedBox(height: topPadding), const ResetPasswordWidget()],
         ),

@@ -10,14 +10,14 @@ class L10n {
   static const loginByGoogleButtonText = "Goggleでログイン";
 
   //password_reset_page
-  static const paasswordResetTitle = "パスワード再設定";
+  static const passwordResetTitle = "パスワード再設定";
   static const passwordResetMailAddressInputExplanationText =
       "登録されているメールアドレスを入力してください";
   static const passwordResetButtonText = "再設定用のメールを送信";
 
   //mail_vertification_page
   static const emailVertificationTitleText = "メール認証";
-  static const emailVertificaionSubtitleText = "入力されたメールアドレスに認証メールを送りました";
+  static const emailVertificationSubtitleText = "入力されたメールアドレスに認証メールを送りました";
   static const emailVertificationButtonText = "メールを再送信";
   //profile_input_page
   static const indicatorTextOneThird = "1/3";
@@ -55,7 +55,7 @@ class L10n {
 
   static const academicHistoryTextFieldLabelText = "学校名";
   static const academicHistoryRadioBoxLabelText = "学年";
-  static const academicHistoryOptionGuraduate = "卒業";
+  static const academicHistoryOptionGraduate = "卒業";
   static const academicHistoryOptionOther = "その他";
 
   static const indicatorTextFin = "Fin.";

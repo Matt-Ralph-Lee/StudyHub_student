@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/shared/constants/l10n.dart';
 
 import '../../controllers/sample_controller/sample_controller.dart';
+import '../../shared/constants/l10n.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_form_field_for_email_address_input.dart';
 import '../parts/text_form_field_for_password_input.dart';
@@ -20,9 +20,9 @@ class LoginWidget extends HookConsumerWidget {
       isEmailFilled.value = text.isNotEmpty;
     }
 
-    final isPassworeFilled = useState<bool>(false);
+    final isPasswordFilled = useState<bool>(false);
     void checkPasswordFilled(String text) {
-      isPassworeFilled.value = text.isNotEmpty;
+      isPasswordFilled.value = text.isNotEmpty;
     }
 
     return Column(
@@ -37,9 +37,9 @@ class LoginWidget extends HookConsumerWidget {
           onChanged: checkPasswordFilled,
         ),
         const SizedBox(height: 50),
-        ElavatedButtonForAuth(
+        ElevatedButtonForAuth(
           buttonText: L10n.loginButtonText,
-          onPressed: isEmailFilled.value && isPassworeFilled.value
+          onPressed: isEmailFilled.value && isPasswordFilled.value
               ? ref.read(sampleControllerProvider.notifier).login
               : null,
         ),

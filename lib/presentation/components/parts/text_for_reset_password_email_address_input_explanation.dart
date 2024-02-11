@@ -16,7 +16,7 @@ class TextForResetPasswordEmailAddressInputExplanation extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            L10n.paasswordResetTitle,
+            L10n.passwordResetTitle,
             style: TextStyle(
                 color: ColorSet.of(context).text,
                 fontWeight: FontWeightSet.normal,

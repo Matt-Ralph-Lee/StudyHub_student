@@ -8,7 +8,7 @@ import "package:studyhub/presentation/pages/page3.dart";
 
 import "../pages/auth_page.dart";
 import "../pages/reset_password_page.dart";
-import "../shared/utils.dart";
+import '../shared/utils/accessibility.dart';
 import "scaffold_with_navbar.dart";
 import '../shared/constants/page_path.dart';
 
