@@ -16,7 +16,7 @@ class BookmarksDeleteUseCase {
 
   Future<void> execute(final QuestionId bookmarkId) async {
     final studentId = _session.studentId;
-    final bookmarks = _repository.findByStudentId(studentId);
+    final bookmarks = _repository.getByStudentId(studentId);
 
     if (bookmarks == null) {
       throw const BookmarksUseCaseException(

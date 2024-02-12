@@ -10,7 +10,7 @@ class InMemoryBookmarksRepository implements IBookmarksRepository {
   }
 
   @override
-  Bookmarks? findByStudentId(StudentId studentId) {
+  Bookmarks? getByStudentId(StudentId studentId) {
     return store[studentId];
   }
 }

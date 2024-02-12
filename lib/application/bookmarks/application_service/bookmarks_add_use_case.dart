@@ -16,9 +16,9 @@ class BookmarksAddUseCase {
 
   Future<void> execute(final QuestionId newBookmarkId) async {
     final studentId = _session.studentId;
-    var bookmarks = _repository.findByStudentId(studentId);
+    var bookmarks = _repository.getByStudentId(studentId);
 
-    bookmarks ??= Bookmarks(studentId: studentId, questionIdList: []);
+    bookmarks ??= Bookmarks(studentId: studentId, questionIdSet: {});
 
     bookmarks.add(newBookmarkId);
 

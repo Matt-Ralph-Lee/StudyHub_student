@@ -8,7 +8,7 @@ void main() {
   group("constructor", () {
     test("not_throw_exception", () {
       final bookmarks = Bookmarks(
-          studentId: StudentId("01234567890123456789"), questionIdList: []);
+          studentId: StudentId("01234567890123456789"), questionIdSet: {});
       expect(() => bookmarks, returnsNormally);
     });
 
@@ -16,21 +16,10 @@ void main() {
       expect(
           () => Bookmarks(
                 studentId: StudentId("01234567890123456789"),
-                questionIdList: [
+                questionIdSet: {
                   for (var i = 0; i < Bookmarks.maxLength + 1; i++)
                     QuestionId("0123456789012345678$i")
-                ],
-              ),
-          throwsA(isA<DomainException>()));
-    });
-
-    test("duplicated teacher", () {
-      expect(
-          () => Bookmarks(
-                studentId: StudentId("01234567890123456789"),
-                questionIdList: [
-                  for (var i = 0; i < 3; i++) QuestionId("01234567890123456789")
-                ],
+                },
               ),
           throwsA(isA<DomainException>()));
     });
@@ -39,7 +28,7 @@ void main() {
       expect(
           () => Bookmarks(
                 studentId: StudentId("01234567890123456789"),
-                questionIdList: [],
+                questionIdSet: {},
               ).delete(QuestionId("00000000000000000000")),
           throwsA(isA<DomainException>()));
     });
