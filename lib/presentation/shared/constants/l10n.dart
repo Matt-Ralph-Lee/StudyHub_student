@@ -49,8 +49,6 @@ class L10n {
   static const gradeOptionThirdGrade = "3年";
   static const gradeOptionForthGrade = "4年";
 
-  static const skipButtonText = "スキップ";
-
   static const academicHistoryInputExplanationText = "最終学歴を入力してください";
 
   static const academicHistoryTextFieldLabelText = "学校名";
@@ -61,5 +59,7 @@ class L10n {
   static const indicatorTextFin = "Fin.";
   static const welcomeText = "ようこそ";
 
+  static const skipButtonText = "スキップ";
+  static const backButtonText = "戻る";
   static const nextButtonText = "次へ";
 }

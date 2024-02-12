@@ -5,6 +5,7 @@ import "package:studyhub/presentation/auth/tmp.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
+import "package:studyhub/presentation/pages/profile_input_page.dart";
 
 import "../pages/auth_page.dart";
 import "../pages/reset_password_page.dart";
@@ -70,6 +71,12 @@ GoRouter router(RouterRef ref) {
       path: PageId.resetPassword.path,
       name: PageId.resetPassword.name,
       builder: (context, state) => const ResetPasswordPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.profileInput.path,
+      name: PageId.profileInput.name,
+      builder: (context, state) => const ProfileInputPage(),
       parentNavigatorKey: _rootNavigatorKey,
     ),
   ];
