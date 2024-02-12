@@ -13,8 +13,8 @@ class Bookmarks extends Iterable {
   Set<QuestionId> get questionIdSet => _questionIdSet;
 
   Bookmarks({
-    required StudentId studentId,
-    required Set<QuestionId> questionIdSet,
+    required final StudentId studentId,
+    required final Set<QuestionId> questionIdSet,
   })  : _studentId = studentId,
         _questionIdSet = questionIdSet {
     if (_questionIdSet.length > maxLength) {

@@ -1,5 +1,5 @@
 import 'i_get_bookmarks_query_service.dart';
-import 'get_bookmarks_dto.dart';
+import 'get_bookmark_dto.dart';
 
 import '../../shared/session/session.dart';
 
@@ -13,7 +13,7 @@ class GetFavoriteTeacherUseCase {
   })  : _session = session,
         _queryService = queryService;
 
-  List<GetBookmarksDto>? execute() {
+  List<GetBookmarkDto>? execute() {
     final studentId = _session.studentId;
     final bookmarks = _queryService.getByStudentId(studentId);
     return bookmarks;

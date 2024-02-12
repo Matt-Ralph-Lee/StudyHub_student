@@ -1,7 +1,7 @@
 import '../../../domain/student/models/student_id.dart';
 
-import 'get_bookmarks_dto.dart';
+import 'get_bookmark_dto.dart';
 
 abstract class IGetBookmarksQueryService {
-  List<GetBookmarksDto>? getByStudentId(final StudentId studentId);
+  List<GetBookmarkDto> getByStudentId(final StudentId studentId);
 }

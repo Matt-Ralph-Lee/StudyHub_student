@@ -12,4 +12,38 @@ class AnswerLike {
           AnswerDomainExceptionDetail.invalidAnswerLike);
     }
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is AnswerLike) {
+      return runtimeType == other.runtimeType && value == other.value;
+    } else {
+      return false;
+    }
+  }
+
+  bool operator >(Object other) {
+    if (identical(this, other)) {
+      return false;
+    }
+    if (other is AnswerLike) {
+      return runtimeType == other.runtimeType && value > other.value;
+    } else {
+      return false;
+    }
+  }
+
+  bool operator <(Object other) {
+    if (identical(this, other)) {
+      return false;
+    }
+    if (other is AnswerLike) {
+      return runtimeType == other.runtimeType && value < other.value;
+    } else {
+      return false;
+    }
+  }
 }

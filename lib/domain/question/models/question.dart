@@ -19,7 +19,7 @@ class Question {
   QuestionTitle _questionTitle;
   QuestionText _questionText;
   QuestionPhotoPathList _questionPhotoPathList;
-  bool _questionResolved;
+  bool _resolved;
   SelectedTeacherList _selectedTeacherList;
 
   QuestionId get questionId => _questionId;
@@ -30,7 +30,7 @@ class Question {
   StudentId get studentId => _studentId;
   AnswerList get answerList => _answerList;
   SeenCount get seenCount => _seenCount;
-  bool get questionResolved => _questionResolved;
+  bool get resolved => _resolved;
   SelectedTeacherList get selectedTeacherList => _selectedTeacherList;
 
   Question({
@@ -43,7 +43,7 @@ class Question {
     required final AnswerList answerList,
     required final SeenCount seenCount,
     required final SelectedTeacherList selectedTeacherList,
-    required final bool questionResolved,
+    required final bool resolved,
   })  : _questionId = questionId,
         _questionSubject = questionSubject,
         _questionTitle = questionTitle,
@@ -53,7 +53,7 @@ class Question {
         _answerList = answerList,
         _seenCount = seenCount,
         _selectedTeacherList = selectedTeacherList,
-        _questionResolved = questionResolved;
+        _resolved = resolved;
 
 // 下記の編集権限は必ずstudentIdの一致を確認すること
   void changeQuestionTitle(final QuestionTitle newQuestionTitle) {
@@ -76,7 +76,7 @@ class Question {
   }
 
   void changeQuestionResolved(final bool newQuestionResolved) {
-    _questionResolved = newQuestionResolved;
+    _resolved = newQuestionResolved;
   }
 
   bool canDelete(final StudentId studentId) {

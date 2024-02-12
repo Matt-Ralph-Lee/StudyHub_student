@@ -1,8 +1,8 @@
-import '../../../domain/answer_list/models/answer.dart';
-import '../../../domain/question/models/question_id.dart';
-import '../../../application/bookmarks/application_service/get_bookmarks_dto.dart';
-import '../../../application/bookmarks/application_service/i_get_bookmarks_query_service.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
+import '../../../domain/question/models/question_id.dart';
+import '../../../application/bookmarks/application_service/get_bookmark_dto.dart';
+import '../../../application/bookmarks/application_service/i_get_bookmarks_query_service.dart';
 import '../teacher/in_memory_teacher_repository.dart';
 import '../question/in_memory_question_repository.dart';
 import '../student/in_memory_student_repository.dart';
@@ -25,57 +25,50 @@ class InMemoryBookmarksQueryService implements IGetBookmarksQueryService {
         _teacherRepository = teacherRepository;
 
   @override
-  List<GetBookmarksDto> getByStudentId(StudentId studentId) {
-    final bookmarkIds = _repository.getByStudentId(studentId);
-    if (bookmarkIds == null) return [];
+  List<GetBookmarkDto> getByStudentId(StudentId studentId) {
+    final bookmarks = _repository.getByStudentId(studentId);
+    if (bookmarks == null) return [];
 
-    List<GetBookmarksDto> bookmarks = [];
-    for (final QuestionId bookmarkId in bookmarkIds) {
-      final bookmark = _questionRepository.findById(bookmarkId);
+    List<GetBookmarkDto> bookmarkedQuestionList = [];
+    for (final QuestionId questionId in bookmarks) {
+      final bookmarkedQuestion = _questionRepository.findById(questionId);
       final student = _studentRepository.findById(studentId);
-      if (bookmark == null) return [];
-      if (student == null) return [];
+      if (bookmarkedQuestion == null) continue;
+      if (student == null) break;
 
-      if (bookmark.questionResolved) {
-        Answer mostLikedAnswer = bookmark.answerList.answerList.first;
-        for (final Answer answer in bookmark.answerList.answerList) {
-          if (mostLikedAnswer.like.value < answer.like.value) {
-            mostLikedAnswer = answer;
-          }
-        }
-
-        final teacher =
-            _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
-        if (teacher == null) return [];
-
-        bookmarks.add(
-          GetBookmarksDto(
-            studentId: studentId,
-            studentProfilePhoto: student.profilePhotoPath.value,
-            questionTitle: bookmark.questionTitle.value,
-            questionText: bookmark.questionText.value,
-            teacherId: mostLikedAnswer.teacherId,
-            teacherProfilePhoto: teacher.profilePhotoPath.value,
-            answerText: mostLikedAnswer.answerText.value,
-            resolve: bookmark.questionResolved,
-          ),
+      if (bookmarkedQuestion.answerList.isEmpty) {
+        bookmarkedQuestionList.add(
+          GetBookmarkDto(
+              studentId: studentId,
+              studentProfilePhoto: student.profilePhotoPath.value,
+              questionTitle: bookmarkedQuestion.questionTitle.value,
+              questionText: bookmarkedQuestion.questionText.value,
+              teacherId: null,
+              teacherProfilePhoto: null,
+              answerText: null),
         );
       } else {
-        bookmarks.add(
-          GetBookmarksDto(
-            studentId: studentId,
-            studentProfilePhoto: student.profilePhotoPath.value,
-            questionTitle: bookmark.questionTitle.value,
-            questionText: bookmark.questionText.value,
-            teacherId: null,
-            teacherProfilePhoto: null,
-            answerText: null,
-            resolve: bookmark.questionResolved,
-          ),
+        final answer = bookmarkedQuestion.answerList.getMostLikedAnswer();
+        final teacher = _teacherRepository.getByTeacherId(answer.teacherId);
+        TeacherId? teacherId;
+        String? teacherProfilePhotoPath;
+        if (teacher != null) {
+          teacherId = null;
+          teacherProfilePhotoPath = null;
+        }
+        bookmarkedQuestionList.add(
+          GetBookmarkDto(
+              studentId: studentId,
+              studentProfilePhoto: student.profilePhotoPath.value,
+              questionTitle: bookmarkedQuestion.questionTitle.value,
+              questionText: bookmarkedQuestion.questionText.value,
+              teacherId: teacherId,
+              teacherProfilePhoto: teacherProfilePhotoPath,
+              answerText: answer.answerText.value),
         );
       }
     }
 
-    return bookmarks;
+    return bookmarkedQuestionList;
   }
 }
