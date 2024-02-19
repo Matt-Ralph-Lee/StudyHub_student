@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:studyhub/domain/student/models/gender.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -16,7 +17,7 @@ class RadioButtonForGenderInput extends HookWidget {
     required this.onChanged,
   });
 
-  final genderOptions = ['回答しない', '男性', '女性', 'その他'];
+  final genderOptions = Gender.values.map((e) => e.japanese).toList();
 
   List<Widget> buildRadioButtons(BuildContext context) {
     return genderOptions.map((option) {

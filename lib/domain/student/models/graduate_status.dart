@@ -1,11 +1,9 @@
-enum Grade {
-  first('1年', 'first year'),
-  second('2年', 'second year'),
-  third('3年', 'third year'),
+enum GraduateStatus {
+  graduate('卒業', 'graduate'),
   other('その他', 'other'),
   ;
 
-  const Grade(this._japanese, this._english);
+  const GraduateStatus(this._japanese, this._english);
 
   final String _japanese;
   final String _english;

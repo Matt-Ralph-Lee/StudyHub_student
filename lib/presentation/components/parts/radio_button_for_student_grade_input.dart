@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:studyhub/domain/student/models/grade.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -16,7 +17,7 @@ class RadioButtonForStudentGradeInput extends HookWidget {
     required this.onChanged,
   });
 
-  final studentGradeOptions = ['1年', '2年', '3年', '4年'];
+  final studentGradeOptions = Grade.values.map((e) => e.japanese).toList();
 
   List<Widget> buildRadioButtons(BuildContext context) {
     return studentGradeOptions.map((option) {

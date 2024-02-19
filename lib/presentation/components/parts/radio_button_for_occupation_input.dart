@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:studyhub/domain/student/models/occupation.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
-class RadioButtonForJobInput extends HookWidget {
+class RadioButtonForOccupationInput extends HookWidget {
   final String? groupValue;
   final ValueChanged<String?> onChanged;
 
-  RadioButtonForJobInput({
+  RadioButtonForOccupationInput({
     super.key,
     required this.groupValue,
     required this.onChanged,
   });
 
-  final jobOptions = ['学生', '会社員', '教師', 'その他'];
+  final occupationOptions = Occupation.values.map((e) => e.japanese).toList();
 
   List<Widget> buildRadioButtons(BuildContext context) {
-    return jobOptions.map((option) {
+    return occupationOptions.map((option) {
       return GestureDetector(
         onTap: () => onChanged(option),
         child: Row(
