@@ -1,5 +1,5 @@
 enum GraduateStatus {
-  graduate('卒業', 'graduate'),
+  graduate('既卒', 'graduate'),
   other('その他', 'other'),
   ;
 
