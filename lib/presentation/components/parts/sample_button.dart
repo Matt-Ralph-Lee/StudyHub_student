@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:studyhub/presentation/shared/constants/color_set.dart';
+
+import '../../shared/constants/color_set.dart';
 
 class SampleButton extends StatelessWidget {
   // fcをnull許容にすることによって関数を与えられなかったら不活性化させる

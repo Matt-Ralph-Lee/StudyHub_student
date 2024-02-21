@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 import "package:studyhub/presentation/auth/tmp.dart";
-import "package:studyhub/presentation/pages/login_page.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
+import "package:studyhub/presentation/pages/profile_input_page.dart";
 
+import "../pages/auth_page.dart";
+import "../pages/reset_password_page.dart";
+import '../shared/utils/accessibility.dart';
 import "scaffold_with_navbar.dart";
-import "page_path.dart";
+import '../shared/constants/page_path.dart';
 
 part "router.g.dart";
 
@@ -59,21 +62,33 @@ GoRouter router(RouterRef ref) {
       ],
     ),
     GoRoute(
-      path: PageId.login.path,
-      name: PageId.login.name,
-      builder: (context, state) => const LoginPage(),
+      path: PageId.authPage.path,
+      name: PageId.authPage.name,
+      builder: (context, state) => const AuthPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.resetPassword.path,
+      name: PageId.resetPassword.name,
+      builder: (context, state) => const ResetPasswordPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.profileInput.path,
+      name: PageId.profileInput.name,
+      builder: (context, state) => const ProfileInputPage(),
       parentNavigatorKey: _rootNavigatorKey,
     ),
   ];
 
   String? redirect(BuildContext context, GoRouterState state) {
-    final page = state.uri.toString();
+    final pagePath = state.uri.toString();
     final isLoggedIn = ref.read(tmpProvider);
 
-    if (isLoggedIn && page == PageId.login.path) {
+    if (isLoggedIn && requiresLoggedOut(pagePath)) {
       return PageId.page1.path;
-    } else if (!isLoggedIn && page != PageId.login.path) {
-      return PageId.login.path;
+    } else if (!isLoggedIn && isPrivate(pagePath)) {
+      return PageId.authPage.path;
     } else {
       return null;
     }
