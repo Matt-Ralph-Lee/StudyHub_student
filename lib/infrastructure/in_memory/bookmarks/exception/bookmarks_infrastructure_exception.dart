@@ -1,5 +1,5 @@
 import '../../../shared/infrastructure_exception.dart';
-import 'bookmarks_domain_exception_detail.dart';
+import 'bookmarks_infrastructure_exception_detail.dart';
 
 class BookmarksInfrastructureException extends InfrastructureException {
   const BookmarksInfrastructureException(

@@ -5,7 +5,6 @@ import '../../question/models/question_id.dart';
 import '../../student/models/student_id.dart';
 
 class Bookmarks extends Iterable {
-  static const maxLength = 5;
   final StudentId _studentId;
   final Set<QuestionId> _questionIdSet;
 
@@ -16,18 +15,9 @@ class Bookmarks extends Iterable {
     required final StudentId studentId,
     required final Set<QuestionId> questionIdSet,
   })  : _studentId = studentId,
-        _questionIdSet = questionIdSet {
-    if (_questionIdSet.length > maxLength) {
-      throw const BookmarksDomainException(
-          BookmarksDomainExceptionDetail.invalidQuestionLength);
-    }
-  }
+        _questionIdSet = questionIdSet;
 
   void add(QuestionId newQuestionId) {
-    if (_questionIdSet.length >= maxLength) {
-      throw const BookmarksDomainException(
-          BookmarksDomainExceptionDetail.invalidQuestionLength);
-    }
     if (_questionIdSet.contains(newQuestionId)) {
       throw const BookmarksDomainException(
           BookmarksDomainExceptionDetail.duplicateQuestion);

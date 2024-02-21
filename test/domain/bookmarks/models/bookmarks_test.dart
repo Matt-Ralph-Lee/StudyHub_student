@@ -12,18 +12,6 @@ void main() {
       expect(() => bookmarks, returnsNormally);
     });
 
-    test("invalid number of teacher", () {
-      expect(
-          () => Bookmarks(
-                studentId: StudentId("01234567890123456789"),
-                questionIdSet: {
-                  for (var i = 0; i < Bookmarks.maxLength + 1; i++)
-                    QuestionId("0123456789012345678$i")
-                },
-              ),
-          throwsA(isA<DomainException>()));
-    });
-
     test("should throw teacher not found error", () {
       expect(
           () => Bookmarks(
