@@ -3,11 +3,11 @@ import 'get_bookmark_dto.dart';
 
 import '../../shared/session/session.dart';
 
-class GetFavoriteTeacherUseCase {
+class GetBookmarksUseCase {
   final Session _session;
   final IGetBookmarksQueryService _queryService;
 
-  GetFavoriteTeacherUseCase({
+  GetBookmarksUseCase({
     required final Session session,
     required final IGetBookmarksQueryService queryService,
   })  : _session = session,

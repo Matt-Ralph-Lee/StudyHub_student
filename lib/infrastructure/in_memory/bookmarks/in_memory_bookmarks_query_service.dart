@@ -28,19 +28,20 @@ class InMemoryBookmarksQueryService implements IGetBookmarksQueryService {
   List<GetBookmarkDto> getByStudentId(StudentId studentId) {
     final bookmarks = _repository.getByStudentId(studentId);
     if (bookmarks == null) return [];
+    final student = _studentRepository.findById(studentId);
+    if (student == null) return [];
 
     List<GetBookmarkDto> bookmarkedQuestionList = [];
     for (final QuestionId questionId in bookmarks) {
       final bookmarkedQuestion = _questionRepository.findById(questionId);
-      final student = _studentRepository.findById(studentId);
       if (bookmarkedQuestion == null) continue;
-      if (student == null) break;
 
       if (bookmarkedQuestion.answerList.isEmpty) {
         bookmarkedQuestionList.add(
           GetBookmarkDto(
               studentId: studentId,
               studentProfilePhoto: student.profilePhotoPath.value,
+              bookmarkId: bookmarkedQuestion.questionId,
               questionTitle: bookmarkedQuestion.questionTitle.value,
               questionText: bookmarkedQuestion.questionText.value,
               teacherId: null,
@@ -53,13 +54,14 @@ class InMemoryBookmarksQueryService implements IGetBookmarksQueryService {
         TeacherId? teacherId;
         String? teacherProfilePhotoPath;
         if (teacher != null) {
-          teacherId = null;
-          teacherProfilePhotoPath = null;
+          teacherId = teacher.teacherId;
+          teacherProfilePhotoPath = teacher.profilePhotoPath.value;
         }
         bookmarkedQuestionList.add(
           GetBookmarkDto(
               studentId: studentId,
               studentProfilePhoto: student.profilePhotoPath.value,
+              bookmarkId: bookmarkedQuestion.questionId,
               questionTitle: bookmarkedQuestion.questionTitle.value,
               questionText: bookmarkedQuestion.questionText.value,
               teacherId: teacherId,
