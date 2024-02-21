@@ -5,6 +5,7 @@ import '../../../application/favorite_teachers/application_service/get_favorite_
 import '../../../application/favorite_teachers/application_service/i_get_favorite_teacher_query_service.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
+import '../../../domain/favorite_teachers/models/favorite_teachers.dart';
 
 class InMemoryFavoriteTeacherQueryService
     implements IGetFavoriteTeacherQueryService {
@@ -18,18 +19,27 @@ class InMemoryFavoriteTeacherQueryService
         _teacherRepository = teacherRepository;
 
   @override
-  List<GetFavoriteTeacherDto>? getById(StudentId studentId) {
+  List<GetFavoriteTeacherDto> getById(StudentId studentId) {
     final favoriteTeacherIds = _repository.getByStudentId(studentId);
-    if (favoriteTeacherIds == null) return null;
+    if (favoriteTeacherIds == null) {
+      _repository.save(
+        FavoriteTeachers(
+          studentId: studentId,
+          teacherIdSet: {},
+        ),
+      );
+      return [];
+    }
 
     List<GetFavoriteTeacherDto> favoriteTeachers = [];
 
     for (final TeacherId favoriteTeacherId in favoriteTeacherIds) {
       final favoriteTeacher =
           _teacherRepository.getByTeacherId(favoriteTeacherId);
-      if (favoriteTeacher == null) return null;
+      if (favoriteTeacher == null) continue;
       favoriteTeachers.add(
         GetFavoriteTeacherDto(
+          teacherId: favoriteTeacher.teacherId,
           teacherName: favoriteTeacher.teacherId.value,
           profilePhotoPath: favoriteTeacher.profilePhotoPath.value,
           bio: favoriteTeacher.bio.value,
