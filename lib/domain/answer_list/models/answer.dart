@@ -10,12 +10,14 @@ class Answer {
   final AnswerPhotoPathList _answerPhotoPathList;
   final AnswerLike _like;
   final TeacherId _teacherId;
+  final bool _evaluated;
 
   AnswerId get answerId => _answerId;
   AnswerText get answerText => _answerText;
   AnswerPhotoPathList get answerPhotoPathList => _answerPhotoPathList;
   AnswerLike get like => _like;
   TeacherId get teacherId => _teacherId;
+  bool get evaluated => _evaluated;
 
   Answer({
     required final AnswerId answerId,
@@ -23,11 +25,13 @@ class Answer {
     required final AnswerPhotoPathList answerPhotoPathList,
     required final AnswerLike like,
     required final TeacherId teacherId,
+    required final bool evaluated,
   })  : _answerId = answerId,
         _answerText = answerText,
         _answerPhotoPathList = answerPhotoPathList,
         _like = like,
-        _teacherId = teacherId;
+        _teacherId = teacherId,
+        _evaluated = evaluated;
 
   // studentのアプリでは必要ないと判断
   // 下記の編集権限はteacherIdと一致することを確認する

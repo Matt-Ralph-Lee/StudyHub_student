@@ -10,7 +10,7 @@ void main() {
   final session = MockSession();
   final repository = InMemoryBookmarksRepository();
 
-  group("favorite teachers add use case", () {
+  group("bookmarks add use case", () {
     test("should add favorite teachers", () async {
       final questionId = QuestionId("01234567890123456789");
       final usecase =
