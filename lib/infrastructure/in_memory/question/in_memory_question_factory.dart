@@ -29,7 +29,7 @@ class InMemoryQuestionFactory implements IQuestionFactory {
 
     final AnswerList answerList = AnswerList([]);
     final SeenCount seenCount = SeenCount(0);
-    const bool questionResolved = false;
+    const bool resolved = false;
 
     return Question(
         questionId: questionId,
@@ -40,7 +40,7 @@ class InMemoryQuestionFactory implements IQuestionFactory {
         studentId: studentId,
         answerList: answerList,
         seenCount: seenCount,
-        questionResolved: questionResolved,
+        resolved: resolved,
         selectedTeacherList: selectedTeacherList);
   }
 }

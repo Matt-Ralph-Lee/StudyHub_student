@@ -34,7 +34,7 @@ void main() {
   final List<Answer> answerListData = [];
   final answerList = AnswerList(answerListData);
   final seenCount = SeenCount(0);
-  const questionResolved = false;
+  const resolved = false;
   final selectedTeacherList = SelectedTeacherList(selectedTeacherList: []);
   final question = Question(
       questionId: questionId,
@@ -45,7 +45,7 @@ void main() {
       studentId: studentId,
       answerList: answerList,
       seenCount: seenCount,
-      questionResolved: questionResolved,
+      resolved: resolved,
       selectedTeacherList: selectedTeacherList);
   repository.store[questionId] = question;
 

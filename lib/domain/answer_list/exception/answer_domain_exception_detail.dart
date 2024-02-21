@@ -12,6 +12,7 @@ enum AnswerDomainExceptionDetail implements DomainExceptionDetail {
   invalidPhotoSize('画像の大きさは${AnswerPhoto.dataSize}以下にしてください。'),
   invalidPhotoLength('画像は${AnswerPhotoPathList.maxLength}枚までです。'),
   invalidAnswerLike('Answerのlike数が不正です。'),
+  noAnswer('Answerはありません。'),
   ;
 
   const AnswerDomainExceptionDetail(this._message);

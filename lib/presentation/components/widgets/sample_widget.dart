@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:studyhub/presentation/components/parts/sample_button.dart';
-import 'package:studyhub/presentation/shared/constants/color_set.dart';
+
+import '../../shared/constants/color_set.dart';
+import '../parts/sample_button.dart';
 
 class SampleWidget extends StatelessWidget {
   const SampleWidget({super.key});
