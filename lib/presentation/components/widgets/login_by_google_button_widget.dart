@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/shared/constants/page_path.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -12,7 +13,7 @@ class LoginByGoogleButtonWidget extends StatelessWidget {
   }) : super(key: key);
 
   void push(BuildContext context) {
-    context.push('/login_by_google');
+    context.push(PageId.loginByGoogle.path);
   }
 
   @override
