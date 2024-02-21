@@ -23,7 +23,7 @@ class InMemoryBlockingsQueryService implements IGetBlockingsQueryService {
       _repository.save(
         Blockings(
           studentId: studentId,
-          teacherIdList: [],
+          teacherIdList: {},
         ),
       );
       return [];

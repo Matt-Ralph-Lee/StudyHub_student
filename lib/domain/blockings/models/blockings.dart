@@ -6,14 +6,14 @@ import '../../student/models/student_id.dart';
 
 class Blockings extends Iterable {
   final StudentId _studentId;
-  final List<TeacherId> _teacherIdList;
+  final Set<TeacherId> _teacherIdList;
 
   StudentId get studentId => _studentId;
-  List<TeacherId> get teacherIdList => _teacherIdList;
+  Set<TeacherId> get teacherIdList => _teacherIdList;
 
   Blockings({
-    required StudentId studentId,
-    required List<TeacherId> teacherIdList,
+    required final StudentId studentId,
+    required final Set<TeacherId> teacherIdList,
   })  : _studentId = studentId,
         _teacherIdList = teacherIdList {
     if (_teacherIdList.toSet().toList().length != _teacherIdList.length) {

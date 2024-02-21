@@ -18,7 +18,7 @@ class BlockingsAddUseCase {
     final studentId = _session.studentId;
     var blockings = _repository.getByStudentId(studentId);
 
-    blockings ??= Blockings(studentId: studentId, teacherIdList: []);
+    blockings ??= Blockings(studentId: studentId, teacherIdList: {});
 
     blockings.add(newTeacherId);
 

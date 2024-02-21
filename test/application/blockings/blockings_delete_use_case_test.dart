@@ -16,7 +16,7 @@ void main() {
   final studentId = session.studentId;
   final teacherId = TeacherId("01234567890123456789");
   final favoriteTeacher =
-      Blockings(studentId: studentId, teacherIdList: [teacherId]);
+      Blockings(studentId: studentId, teacherIdList: {teacherId});
 
   group("favorite teachers delete use case", () {
     test("should delete a favorite teacher", () async {
