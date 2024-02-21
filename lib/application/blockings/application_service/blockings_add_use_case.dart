@@ -16,7 +16,7 @@ class BlockingsAddUseCase {
 
   Future<void> execute(final TeacherId newTeacherId) async {
     final studentId = _session.studentId;
-    var blockings = _repository.findByStudentId(studentId);
+    var blockings = _repository.getByStudentId(studentId);
 
     blockings ??= Blockings(studentId: studentId, teacherIdList: []);
 

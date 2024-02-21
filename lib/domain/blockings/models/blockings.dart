@@ -4,13 +4,12 @@ import '../exception/blockings_domain_exception_detail.dart';
 import '../../teacher/models/teacher_id.dart';
 import '../../student/models/student_id.dart';
 
-class Blockings {
+class Blockings extends Iterable {
   final StudentId _studentId;
   final List<TeacherId> _teacherIdList;
 
   StudentId get studentId => _studentId;
   List<TeacherId> get teacherIdList => _teacherIdList;
-  int get length => _teacherIdList.length;
 
   Blockings({
     required StudentId studentId,
@@ -42,4 +41,7 @@ class Blockings {
   bool canDelete(StudentId studentId) {
     return _studentId == studentId;
   }
+
+  @override
+  Iterator get iterator => _teacherIdList.iterator;
 }

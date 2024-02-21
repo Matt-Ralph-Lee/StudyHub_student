@@ -10,7 +10,7 @@ class InMemoryBlockingsRepository implements IBlockingsRepository {
   }
 
   @override
-  Blockings? findByStudentId(StudentId studentId) {
+  Blockings? getByStudentId(StudentId studentId) {
     return store[studentId];
   }
 }
