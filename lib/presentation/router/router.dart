@@ -8,7 +8,9 @@ import "package:studyhub/presentation/pages/page3.dart";
 import "package:studyhub/presentation/pages/profile_input_page.dart";
 
 import "../pages/auth_page.dart";
+import "../pages/menu_page.dart";
 import "../pages/reset_password_page.dart";
+import "../pages/search_teachers_page.dart";
 import '../shared/utils/accessibility.dart';
 import "scaffold_with_navbar.dart";
 import '../shared/constants/page_path.dart';
@@ -77,6 +79,18 @@ GoRouter router(RouterRef ref) {
       path: PageId.profileInput.path,
       name: PageId.profileInput.name,
       builder: (context, state) => const ProfileInputPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.searchTeachers.path,
+      name: PageId.searchTeachers.name,
+      builder: (context, state) => const SearchTeachersPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.menu.path,
+      name: PageId.menu.name,
+      builder: (context, state) => const MenuPage(),
       parentNavigatorKey: _rootNavigatorKey,
     ),
   ];

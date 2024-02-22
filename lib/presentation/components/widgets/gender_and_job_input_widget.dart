@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../shared/constants/l10n.dart';
 import '../parts/button_for_profile_input_back.dart';
 import '../parts/button_for_profile_input_next.dart';
 import '../parts/radio_button_for_gender_input.dart';
 import '../parts/radio_button_for_occupation_input.dart';
-import '../parts/text_for_gender_and_job_input_explanation.dart';
+import '../parts/text_for_input_explanation.dart';
 
 class GenderAndJobInputWidget extends HookWidget {
   final String? genderValue;
@@ -30,7 +31,8 @@ class GenderAndJobInputWidget extends HookWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const TextForGenderAndJobInputExplanation(),
+        const TextForProfileInputExplanation(
+            explanationText: L10n.genderAndJobInputExplanationText),
         const SizedBox(height: 100),
         RadioButtonForGenderInput(
           groupValue: genderValue,
