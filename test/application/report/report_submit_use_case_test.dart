@@ -26,28 +26,13 @@ void main() {
           ReportSubmitUseCase(repository: repository, session: session);
       usecase.execute(command);
 
-      expect(repository.store[session.studentId]!.first.text!.value,
+      expect(repository.store[session.studentId]!.first.text.value,
           reportTextData1);
     });
 
-    test('with no text', () {
+    test('with empty text', () {
       final teacherId1 = TeacherId('newtestteacher1234567890');
       const reportReason1 = ReportReason.answerIncorrect;
-      final command = ReportSubmitCommand(
-          teacherId: teacherId1,
-          reportReason: reportReason1,
-          reportTextData: null);
-      final usecase =
-          ReportSubmitUseCase(repository: repository, session: session);
-      usecase.execute(command);
-
-      expect(repository.store[session.studentId]![1].to, teacherId1);
-      expect(repository.store[session.studentId]![1].text, null);
-    });
-
-    test('with empty text', () {
-      final teacherId1 = TeacherId('brandnewtestteacher1234567890');
-      const reportReason1 = ReportReason.answerIrrelevant;
       const emptyText = '';
       final command = ReportSubmitCommand(
           teacherId: teacherId1,
@@ -57,8 +42,8 @@ void main() {
           ReportSubmitUseCase(repository: repository, session: session);
       usecase.execute(command);
 
-      expect(repository.store[session.studentId]![2].to, teacherId1);
-      expect(repository.store[session.studentId]![2].text, null);
+      expect(repository.store[session.studentId]![1].to, teacherId1);
+      expect(repository.store[session.studentId]![1].text.value, emptyText);
     });
   });
 }

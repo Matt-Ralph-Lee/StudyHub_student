@@ -19,13 +19,7 @@ class ReportSubmitUseCase {
     final targetTeacherId = command.teacherId;
     final reportReason = command.reportReason;
     final reportTextData = command.reportTextData;
-
-    final ReportText? reportText;
-    if (reportTextData != null && reportTextData.isNotEmpty) {
-      reportText = ReportText(reportTextData);
-    } else {
-      reportText = null;
-    }
+    final reportText = ReportText(reportTextData);
 
     final report = Report(
         from: studentId,

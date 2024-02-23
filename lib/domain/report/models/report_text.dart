@@ -12,9 +12,6 @@ class ReportText {
   }
 
   void validate(final String value) {
-    if (value.isEmpty) {
-      throw const ReportDomainException(ReportDomainExceptionDetail.textEmpty);
-    }
     if (value.length > maxLength) {
       throw const ReportDomainException(
           ReportDomainExceptionDetail.textInvalidLength);

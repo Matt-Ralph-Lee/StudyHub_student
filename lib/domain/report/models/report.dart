@@ -7,7 +7,7 @@ class Report {
   final StudentId from;
   final TeacherId to;
   final ReportReason reason;
-  final ReportText? text;
+  final ReportText text;
 
   Report(
       {required this.from,
