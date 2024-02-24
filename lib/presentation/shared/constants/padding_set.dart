@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaddingSet {
-  static const double elevatedButtonPadding = 20.0;
+  static const double elevatedButtonPadding = 25.0;
 
   static double getPaddingSize(BuildContext context, double size) {
     double width = MediaQuery.of(context).size.width;

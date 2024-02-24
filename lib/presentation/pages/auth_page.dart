@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../components/widgets/loading_overlay.dart';
+import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/login_by_google_button_widget.dart';
 import '../components/widgets/login_widget.dart';
 import '../components/widgets/reset_password_text_button_widget.dart';

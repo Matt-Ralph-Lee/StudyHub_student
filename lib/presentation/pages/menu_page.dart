@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:studyhub/presentation/components/widgets/other_function_menu_widget.dart';
 import 'package:studyhub/presentation/components/widgets/terms_of_service_menu_widget.dart';
 import 'package:studyhub/presentation/shared/constants/color_set.dart';
 
-import '../components/widgets/account_related_menu.dart';
+import '../components/widgets/account_related_menu_widget.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 
@@ -22,11 +23,10 @@ class MenuPage extends StatelessWidget {
             color: ColorSet.of(context).icon,
             size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => GoRouter.of(context).pop(),
         ),
         backgroundColor: ColorSet.of(context).background,
+        centerTitle: true,
         title: Text(
           'メニュー',
           style: TextStyle(

@@ -17,16 +17,26 @@ class ElevatedButtonForMenuItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: ColorSet.of(context).cardShadow,
+            blurRadius: 16,
+            offset: const Offset(0, 0), // 影のオフセット
+          ),
+        ],
+      ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: ColorSet.of(context).surface,
           foregroundColor: ColorSet.of(context).text,
+          elevation: 0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(5),
+              Radius.circular(14),
             ),
           ),
           padding: EdgeInsets.symmetric(
