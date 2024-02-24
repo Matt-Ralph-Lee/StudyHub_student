@@ -24,7 +24,7 @@ class ElevatedButtonForMenuItems extends StatelessWidget {
           BoxShadow(
             color: ColorSet.of(context).cardShadow,
             blurRadius: 16,
-            offset: const Offset(0, 0), // 影のオフセット
+            offset: const Offset(0, 0),
           ),
         ],
       ),

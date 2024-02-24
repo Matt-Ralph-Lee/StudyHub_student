@@ -58,16 +58,6 @@ GoRouter router(RouterRef ref) {
               name: PageId.page3.name,
               builder: (context, state) => const Page3(),
             ),
-            GoRoute(
-              path: PageId.menu.path,
-              name: PageId.menu.name,
-              builder: (context, state) => const MenuPage(),
-            ),
-            GoRoute(
-              path: PageId.searchTeachers.path,
-              name: PageId.searchTeachers.name,
-              builder: (context, state) => const SearchTeachersPage(),
-            ),
           ],
           navigatorKey: _page3NavigatorKey,
         ),
@@ -90,6 +80,16 @@ GoRouter router(RouterRef ref) {
       name: PageId.profileInput.name,
       builder: (context, state) => const ProfileInputPage(),
       parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.menu.path,
+      name: PageId.menu.name,
+      builder: (context, state) => const MenuPage(),
+    ),
+    GoRoute(
+      path: PageId.searchTeachers.path,
+      name: PageId.searchTeachers.name,
+      builder: (context, state) => const SearchTeachersPage(),
     ),
   ];
 
