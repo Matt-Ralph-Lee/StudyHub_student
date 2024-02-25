@@ -28,7 +28,7 @@ class SignUpWidget extends HookConsumerWidget {
     }
 
     void push(BuildContext context) {
-      context.push(PageId.menu.path);
+      context.push(PageId.profileInput.path);
     }
 
     return Column(

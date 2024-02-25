@@ -23,7 +23,7 @@ class MenuPage extends StatelessWidget {
             color: ColorSet.of(context).icon,
             size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
           ),
-          onPressed: () => GoRouter.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
         backgroundColor: ColorSet.of(context).background,
         centerTitle: true,
