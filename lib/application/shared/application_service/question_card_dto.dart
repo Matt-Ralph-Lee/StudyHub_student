@@ -1,6 +1,6 @@
 import '../../../domain/question/models/question_id.dart';
 
-class QuestionSearchDto {
+class QuestionCardDto {
   final QuestionId _questionId;
   final String _studentProfilePhotoPath;
   final String _questionTitleData;
@@ -17,7 +17,7 @@ class QuestionSearchDto {
   String? get answerTitleData => _answerTitleData;
   String? get answerTextData => _answerTextData;
 
-  QuestionSearchDto({
+  QuestionCardDto({
     required final QuestionId questionId,
     required final String studentProfilePhotoPath,
     required final String questionTitleData,

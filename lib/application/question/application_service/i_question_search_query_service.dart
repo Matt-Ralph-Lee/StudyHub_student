@@ -1,6 +1,6 @@
-import 'question_search_dto.dart';
+import '../../shared/application_service/question_card_dto.dart';
 
 abstract class IQuestionSearchQueryService {
-  List<QuestionSearchDto> searchQuestionWithMostLikedAnswer(
+  List<QuestionCardDto> searchQuestionWithMostLikedAnswer(
       final String searchWord);
 }
