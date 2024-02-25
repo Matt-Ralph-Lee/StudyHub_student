@@ -1,6 +1,6 @@
 import 'photo_path.dart';
 
-abstract class PhotoPathList extends Iterable {
+abstract class PhotoPathList extends Iterable<PhotoPath> {
   final List<PhotoPath> _photoPathList;
 
   List<PhotoPath> get photoPathList => _photoPathList;

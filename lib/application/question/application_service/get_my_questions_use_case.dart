@@ -13,7 +13,7 @@ class GetMyQuestionsUseCase {
         _queryService = queryService;
   List<QuestionCardDto> execute() {
     final studentId = _session.studentId;
-    final found = _queryService.getWithMostLikedAnswer(studentId);
+    final found = _queryService.get(studentId);
     return found;
   }
 }

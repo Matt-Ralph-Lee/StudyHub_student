@@ -4,7 +4,7 @@ import '../exception/favorite_teachers_domain_exception_detail.dart';
 import '../../teacher/models/teacher_id.dart';
 import '../../student/models/student_id.dart';
 
-class FavoriteTeachers extends Iterable {
+class FavoriteTeachers extends Iterable<TeacherId> {
   static const maxLength = 5;
   final StudentId _studentId;
   final Set<TeacherId> _teacherIdSet;
@@ -48,5 +48,5 @@ class FavoriteTeachers extends Iterable {
   }
 
   @override
-  Iterator get iterator => _teacherIdSet.iterator;
+  Iterator<TeacherId> get iterator => _teacherIdSet.iterator;
 }

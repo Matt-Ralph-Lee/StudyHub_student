@@ -1,3 +1,4 @@
+import '../../answer_list/models/answer.dart';
 import '../../answer_list/models/answer_list.dart';
 
 import '../../shared/subject.dart';
@@ -85,5 +86,20 @@ class Question {
 
   bool canEdit(final StudentId studentId) {
     return studentId == _studentId;
+  }
+
+  Answer? getMostLikedAnswer() {
+    if (_answerList.isEmpty) {
+      return null;
+    }
+
+    var mostLikedAnswer = _answerList.first;
+    for (final answer in _answerList) {
+      if (mostLikedAnswer.like > answer.like) {
+        mostLikedAnswer = answer;
+      }
+    }
+
+    return mostLikedAnswer;
   }
 }
