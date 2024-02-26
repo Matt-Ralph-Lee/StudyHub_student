@@ -8,6 +8,7 @@ import "package:studyhub/presentation/pages/page3.dart";
 import "package:studyhub/presentation/pages/profile_input_page.dart";
 
 import "../pages/auth_page.dart";
+import "../pages/favorite_teacher_page.dart";
 import "../pages/menu_page.dart";
 import "../pages/reset_password_page.dart";
 import "../pages/search_teachers_page.dart";
@@ -90,6 +91,11 @@ GoRouter router(RouterRef ref) {
       path: PageId.searchTeachers.path,
       name: PageId.searchTeachers.name,
       builder: (context, state) => const SearchTeachersPage(),
+    ),
+    GoRoute(
+      path: PageId.favoriteTeachers.path,
+      name: PageId.favoriteTeachers.name,
+      builder: (context, state) => const FavoriteTeachersPage(),
     ),
   ];
 
