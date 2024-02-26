@@ -8,7 +8,9 @@ import "package:studyhub/presentation/pages/page3.dart";
 import "package:studyhub/presentation/pages/profile_input_page.dart";
 
 import "../pages/auth_page.dart";
+import "../pages/menu_page.dart";
 import "../pages/reset_password_page.dart";
+import "../pages/search_teachers_page.dart";
 import '../shared/utils/accessibility.dart';
 import "scaffold_with_navbar.dart";
 import '../shared/constants/page_path.dart';
@@ -55,7 +57,7 @@ GoRouter router(RouterRef ref) {
               path: PageId.page3.path,
               name: PageId.page3.name,
               builder: (context, state) => const Page3(),
-            )
+            ),
           ],
           navigatorKey: _page3NavigatorKey,
         ),
@@ -78,6 +80,16 @@ GoRouter router(RouterRef ref) {
       name: PageId.profileInput.name,
       builder: (context, state) => const ProfileInputPage(),
       parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.menu.path,
+      name: PageId.menu.name,
+      builder: (context, state) => const MenuPage(),
+    ),
+    GoRoute(
+      path: PageId.searchTeachers.path,
+      name: PageId.searchTeachers.name,
+      builder: (context, state) => const SearchTeachersPage(),
     ),
   ];
 

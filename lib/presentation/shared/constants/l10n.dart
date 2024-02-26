@@ -19,6 +19,7 @@ class L10n {
   static const emailVerificationTitleText = "メール認証";
   static const emailVerificationSubtitleText = "入力されたメールアドレスに認証メールを送りました";
   static const emailVerificationButtonText = "メールを再送信";
+
   //profile_input_page
   static const indicatorTextOneThird = "1/3";
   static const usernameInputExplanationText = "ユーザー名を入力してください";
@@ -62,4 +63,17 @@ class L10n {
   static const skipButtonText = "スキップ";
   static const backButtonText = "戻る";
   static const nextButtonText = "次へ";
+
+  //menu_page
+  static const otherFunctionsButtonExplanationText = "その他の機能";
+  static const searchTeachersButtonText = "講師検索ページ";
+
+  static const termsOfServiceInformationButtonExplanationText = "規約情報など";
+  static const termsOfServiceButtonText = "利用規約";
+  static const privacyPolicyButtonText = "個人情報保護規約";
+
+  static const accountRelatedButtonExplanationText = "アカウント関連";
+  static const editAccountInformationButtonText = "アカウント情報編集";
+  static const logoutButtonText = "ログアウト";
+  static const deleteAccountButtonText = "アカウント削除";
 }

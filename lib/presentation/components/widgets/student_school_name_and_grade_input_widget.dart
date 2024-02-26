@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../shared/constants/l10n.dart';
 import '../parts/button_for_profile_input_back.dart';
 import '../parts/button_for_profile_input_next.dart';
 import '../parts/button_for_profile_input_skip.dart';
 import '../parts/radio_button_for_student_grade_input.dart';
-import '../parts/text_for_school_and_grade_input_explanation.dart';
+import '../parts/text_for_input_explanation.dart';
 import '../parts/text_form_field_for_school_name_input.dart';
 
 class StudentSchoolNameAndGradeInputWidget extends HookWidget {
@@ -35,7 +36,8 @@ class StudentSchoolNameAndGradeInputWidget extends HookWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const TextForSchoolNameAndGradeInputExplanationText(),
+        const TextForProfileInputExplanation(
+            explanationText: L10n.schoolAndGradeInputExplanationText),
         const SizedBox(height: 70),
         TextFormFieldForSchoolNameInput(
           controller: studentSchoolNameInputController,

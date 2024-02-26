@@ -24,25 +24,30 @@ class RadioButtonForOthersGradeInput extends HookWidget {
     return othersGradeOptions.map((option) {
       return GestureDetector(
         onTap: () => onChanged(option),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Radio<String>(
-              value: option,
-              groupValue: groupValue,
-              onChanged: (value) => onChanged(value),
-              activeColor: ColorSet.of(context).primary,
-            ),
-            const SizedBox(width: 3),
-            Text(
-              option,
-              style: TextStyle(
-                  height: 2,
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.annotation,
-                  color: ColorSet.of(context).text),
-            ),
-          ],
+        child: Theme(
+          data: ThemeData(
+            unselectedWidgetColor: ColorSet.of(context).inactiveGreySurface,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Radio<String>(
+                value: option,
+                groupValue: groupValue,
+                onChanged: (value) => onChanged(value),
+                activeColor: ColorSet.of(context).primary,
+              ),
+              const SizedBox(width: 3),
+              Text(
+                option,
+                style: TextStyle(
+                    height: 2,
+                    fontWeight: FontWeightSet.normal,
+                    fontSize: FontSizeSet.annotation,
+                    color: ColorSet.of(context).text),
+              ),
+            ],
+          ),
         ),
       );
     }).toList();

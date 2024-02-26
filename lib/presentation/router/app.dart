@@ -14,6 +14,21 @@ class App extends ConsumerWidget {
       router.refresh();
     });
     return MaterialApp.router(
+      theme: ThemeData(
+        colorScheme: const ColorScheme(
+          background: Colors.transparent,
+          brightness: Brightness.light,
+          primary: Colors.transparent,
+          onPrimary: Colors.transparent,
+          secondary: Colors.transparent,
+          onSecondary: Colors.transparent,
+          error: Colors.transparent,
+          onError: Colors.transparent,
+          onBackground: Colors.transparent,
+          surface: Colors.transparent,
+          onSurface: Colors.transparent,
+        ), // colorScheme
+      ), // ThemeData
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
