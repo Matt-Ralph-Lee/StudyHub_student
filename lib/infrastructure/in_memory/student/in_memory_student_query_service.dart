@@ -15,7 +15,7 @@ class InMemoryStudentQueryService implements IGetMyProfileQueryService {
       return null;
     }
     return GetMyProfileDto(
-      studentName: student.studentName.value,
+      studentName: student.name.value,
       profilePhotoPath: student.profilePhotoPath.value,
       status: student.status,
       questionCount: student.questionCount.value,

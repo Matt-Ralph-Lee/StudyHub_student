@@ -69,7 +69,7 @@ Student _createInitially(StudentId studentId) {
 
   return Student(
     studentId: studentId,
-    studentName: studentName,
+    name: studentName,
     profilePhotoPath: profilePhotoPath,
     gender: gender,
     occupation: occupation,
