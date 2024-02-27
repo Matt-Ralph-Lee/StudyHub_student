@@ -41,7 +41,7 @@ void main() {
 
     final student = Student(
       studentId: studentId,
-      studentName: studentName,
+      name: studentName,
       profilePhotoPath: profilePhotoPath,
       gender: gender,
       occupation: occupation,
@@ -71,7 +71,7 @@ void main() {
       );
       usecase.execute(command);
 
-      expect(repository.store[session.studentId]!.studentName, Name('newname'));
+      expect(repository.store[session.studentId]!.name, Name('newname'));
       expect(repository.store[session.studentId]!.gender, Gender.male);
       expect(
           repository.store[session.studentId]!.occupation, Occupation.student);

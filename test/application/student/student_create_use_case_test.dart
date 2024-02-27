@@ -38,7 +38,7 @@ void main() {
       debugPrint(repository.store[studentId]!.studentId.value);
       debugPrint(repository.store[studentId]!.isVerified.toString());
 
-      debugPrint(studentRepository.store[studentId]!.studentName.value);
+      debugPrint(studentRepository.store[studentId]!.name.value);
     });
   });
 }

@@ -4,7 +4,7 @@ import '../exception/blockings_domain_exception_detail.dart';
 import '../../teacher/models/teacher_id.dart';
 import '../../student/models/student_id.dart';
 
-class Blockings extends Iterable {
+class Blockings extends Iterable<TeacherId> {
   final StudentId _studentId;
   final Set<TeacherId> _teacherIdList;
 
@@ -22,7 +22,7 @@ class Blockings extends Iterable {
     }
   }
 
-  void add(TeacherId newTeacherId) {
+  void add(final TeacherId newTeacherId) {
     if (_teacherIdList.contains(newTeacherId)) {
       throw const BlockingsDomainException(
           BlockingsDomainExceptionDetail.duplicateTeacher);
@@ -30,7 +30,7 @@ class Blockings extends Iterable {
     _teacherIdList.add(newTeacherId);
   }
 
-  void delete(TeacherId teacherId) {
+  void delete(final TeacherId teacherId) {
     if (!_teacherIdList.contains(teacherId)) {
       throw const BlockingsDomainException(
           BlockingsDomainExceptionDetail.teacherNotFound);
@@ -38,10 +38,10 @@ class Blockings extends Iterable {
     _teacherIdList.remove(teacherId);
   }
 
-  bool canDelete(StudentId studentId) {
+  bool canDelete(final StudentId studentId) {
     return _studentId == studentId;
   }
 
   @override
-  Iterator get iterator => _teacherIdList.iterator;
+  Iterator<TeacherId> get iterator => _teacherIdList.iterator;
 }

@@ -1,12 +1,12 @@
 import '../../../shared/infrastructure_exception_detail.dart';
 
-enum BookmarksInfrastructureExceptionDetail
+enum QuestionInfrastructureExceptionDetail
     implements InfrastructureExceptionDetail {
   studentNotFound('student not found'),
   teacherNotFound('teacher not found'),
   ;
 
-  const BookmarksInfrastructureExceptionDetail(this._message);
+  const QuestionInfrastructureExceptionDetail(this._message);
 
   final String _message;
 

@@ -29,7 +29,7 @@ class Teacher {
   List<Subject> get bestSubjects => _bestSubjects;
   ProfilePhotoPath get profilePhotoPath => _profilePhotoPath;
 
-  Teacher._({
+  Teacher({
     required final TeacherId teacherId,
     required final Name name,
     required final HighSchool highSchool,
