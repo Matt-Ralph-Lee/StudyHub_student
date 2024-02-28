@@ -10,7 +10,7 @@ import '../../shared/name.dart';
 
 class Student {
   final StudentId _studentId;
-  Name _studentName;
+  Name _name;
   ProfilePhotoPath _profilePhotoPath;
   Gender _gender;
   Occupation _occupation;
@@ -20,7 +20,7 @@ class Student {
   Status _status;
 
   StudentId get studentId => _studentId;
-  Name get studentName => _studentName;
+  Name get name => _name;
   ProfilePhotoPath get profilePhotoPath => _profilePhotoPath;
   Gender get gender => _gender;
   Occupation get occupation => _occupation;
@@ -31,7 +31,7 @@ class Student {
 
   Student({
     required final StudentId studentId,
-    required final Name studentName,
+    required final Name name,
     required final ProfilePhotoPath profilePhotoPath,
     required final Gender gender,
     required final Occupation occupation,
@@ -40,7 +40,7 @@ class Student {
     required final QuestionCount questionCount,
     required final Status status,
   })  : _studentId = studentId,
-        _studentName = studentName,
+        _name = name,
         _profilePhotoPath = profilePhotoPath,
         _gender = gender,
         _occupation = occupation,
@@ -55,8 +55,8 @@ class Student {
     _profilePhotoPath = newProfilePhotoPath;
   }
 
-  void changeStudentName(final Name newStudentName) {
-    _studentName = newStudentName;
+  void changeName(final Name newName) {
+    _name = newName;
   }
 
   void changeGender(final Gender newGender) {

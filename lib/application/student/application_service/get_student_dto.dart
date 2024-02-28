@@ -43,7 +43,7 @@ class GetStudentDto {
 
   factory GetStudentDto.fromDomainObject(final Student student) {
     return GetStudentDto._(
-      studentName: student.studentName.value,
+      studentName: student.name.value,
       gender: student.gender,
       grade: student.grade,
       occupation: student.occupation,

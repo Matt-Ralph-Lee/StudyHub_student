@@ -4,7 +4,7 @@ import '../exception/bookmarks_domain_exception_detail.dart';
 import '../../question/models/question_id.dart';
 import '../../student/models/student_id.dart';
 
-class Bookmarks extends Iterable {
+class Bookmarks extends Iterable<QuestionId> {
   final StudentId _studentId;
   final Set<QuestionId> _questionIdSet;
 
@@ -17,7 +17,7 @@ class Bookmarks extends Iterable {
   })  : _studentId = studentId,
         _questionIdSet = questionIdSet;
 
-  void add(QuestionId newQuestionId) {
+  void add(final QuestionId newQuestionId) {
     if (_questionIdSet.contains(newQuestionId)) {
       throw const BookmarksDomainException(
           BookmarksDomainExceptionDetail.duplicateQuestion);
@@ -25,7 +25,7 @@ class Bookmarks extends Iterable {
     _questionIdSet.add(newQuestionId);
   }
 
-  void delete(QuestionId questionId) {
+  void delete(final QuestionId questionId) {
     if (!_questionIdSet.contains(questionId)) {
       throw const BookmarksDomainException(
           BookmarksDomainExceptionDetail.questionNotFound);
@@ -33,10 +33,10 @@ class Bookmarks extends Iterable {
     _questionIdSet.remove(questionId);
   }
 
-  bool canDelete(StudentId studentId) {
+  bool canDelete(final StudentId studentId) {
     return _studentId == studentId;
   }
 
   @override
-  Iterator get iterator => _questionIdSet.iterator;
+  Iterator<QuestionId> get iterator => _questionIdSet.iterator;
 }

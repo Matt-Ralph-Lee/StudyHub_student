@@ -42,7 +42,7 @@ class ProfileUpdateUseCase {
     final newLocalPhotoPath = command.localPhotoPath;
 
     if (newStudentNameData != null) {
-      student.changeStudentName(Name(newStudentNameData));
+      student.changeName(Name(newStudentNameData));
     }
 
     if (newGender != null) {

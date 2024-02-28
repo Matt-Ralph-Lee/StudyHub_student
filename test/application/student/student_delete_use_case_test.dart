@@ -44,7 +44,7 @@ void main() {
     );
     final student = Student(
       studentId: studentId,
-      studentName: studentName,
+      name: studentName,
       profilePhotoPath: profilePhotoPath,
       gender: gender,
       occupation: occupation,
