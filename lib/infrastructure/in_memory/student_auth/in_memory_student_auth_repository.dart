@@ -14,14 +14,16 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   final emailToIdMap = <EmailAddress, StudentId>{};
   final streamControllers = <StudentId, StreamController<StudentAuthInfo?>>{};
 
+  // implement this later
   @override
-  Stream<StudentAuthInfo?> accountState(final StudentId studentId) {
-    final streamController = streamControllers[studentId];
-    if (streamController == null) {
-      throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.notFound);
-    }
-    return streamController.stream;
+  Stream<StudentAuthInfo?> accountState() {
+    throw UnimplementedError();
+    // final streamController = streamControllers[studentId];
+    // if (streamController == null) {
+    //   throw const StudentAuthInfrastructureException(
+    //       StudentAuthInfrastructureExceptionDetail.notFound);
+    // }
+    // return streamController.stream;
   }
 
   @override
@@ -69,15 +71,16 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   }
 
   @override
-  StudentAuthInfo? getAccountState(final StudentId studentId) {
-    if (signedInStore[studentId] == null) {
-      return null;
-    }
-    final storedStudentAuth = store[studentId];
-    if (storedStudentAuth == null) {
-      return null;
-    }
-    return _maskPassword(storedStudentAuth);
+  StudentAuthInfo? getAccountState() {
+    throw UnimplementedError();
+    // if (signedInStore[studentId] == null) {
+    //   return null;
+    // }
+    // final storedStudentAuth = store[studentId];
+    // if (storedStudentAuth == null) {
+    //   return null;
+    // }
+    // return _maskPassword(storedStudentAuth);
   }
 
   @override
