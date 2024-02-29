@@ -178,7 +178,7 @@ void main() {
 
       repository.create(studentAuthInfo1);
 
-      final stream = repository.accountState(studentId1);
+      final stream = repository.accountState();
       stream.listen((data) {
         _printStudentAuthInfo(data);
       });
