@@ -3,7 +3,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../shared/session/session.dart';
 import '../student_auth/student_auth_provider.dart';
 
-final sessionTestProvider = Provider((ref) {
+part 'session_provider.g.dart';
+
+@riverpod
+Stream<Session?> session(SessionRef ref) {
   final studentAuth = ref.watch(studentAuthProvider);
   final state = studentAuth.accountState();
   return state.map((studentAuthInfo) {
@@ -11,4 +14,4 @@ final sessionTestProvider = Provider((ref) {
         ? null
         : Session(studentAuthInfo.studentId, studentAuthInfo.isVerified);
   });
-});
+}
