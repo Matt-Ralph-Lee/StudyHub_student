@@ -6,7 +6,7 @@ import '../student_auth/student_auth_provider.dart';
 part 'session_provider.g.dart';
 
 @riverpod
-Stream<Session?> sessionStreamDi(SessionStreamDiRef ref) {
+Stream<Session?> _sessionStreamDi(_SessionStreamDiRef ref) {
   final studentAuth = ref.watch(studentAuthDiProvider);
   final state = studentAuth.accountState();
   return state.map((studentAuthInfo) {
@@ -18,7 +18,7 @@ Stream<Session?> sessionStreamDi(SessionStreamDiRef ref) {
 
 @riverpod
 Session? sessionDi(SessionDiRef ref) {
-  final sessionStream = ref.watch(sessionStreamDiProvider);
+  final sessionStream = ref.watch(_sessionStreamDiProvider);
   return sessionStream.when(
     data: (session) => session,
     error: (_, __) => null, // TODO: error時の処理,

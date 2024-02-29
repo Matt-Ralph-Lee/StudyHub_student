@@ -6,13 +6,13 @@ part of 'session_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sessionStreamDiHash() => r'b16c4cb8c7c822cc443aa1f1968729f753013a5a';
+String _$sessionStreamDiHash() => r'3712188d44b24d1cc910b64d0b9e6d66feb5c76e';
 
-/// See also [sessionStreamDi].
-@ProviderFor(sessionStreamDi)
-final sessionStreamDiProvider = AutoDisposeStreamProvider<Session?>.internal(
-  sessionStreamDi,
-  name: r'sessionStreamDiProvider',
+/// See also [_sessionStreamDi].
+@ProviderFor(_sessionStreamDi)
+final _sessionStreamDiProvider = AutoDisposeStreamProvider<Session?>.internal(
+  _sessionStreamDi,
+  name: r'_sessionStreamDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$sessionStreamDiHash,
@@ -20,8 +20,8 @@ final sessionStreamDiProvider = AutoDisposeStreamProvider<Session?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef SessionStreamDiRef = AutoDisposeStreamProviderRef<Session?>;
-String _$sessionDiHash() => r'169229d6268d86df22263e3c482be231aaf8154d';
+typedef _SessionStreamDiRef = AutoDisposeStreamProviderRef<Session?>;
+String _$sessionDiHash() => r'4fabd47c8b83679f6c85e7e50bec096d38c79d32';
 
 /// See also [sessionDi].
 @ProviderFor(sessionDi)
