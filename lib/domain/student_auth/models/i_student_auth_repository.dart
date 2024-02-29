@@ -19,8 +19,8 @@ abstract class IStudentAuthRepository {
   });
   void sendPasswordResetEmail(final EmailAddress emailAddress);
   void verifyWithEmail(final StudentId studentId);
-  StudentAuthInfo? getAccountState(final StudentId studentId);
-  Stream<StudentAuthInfo?> accountState(final StudentId studentId);
+  StudentAuthInfo? getAccountState();
+  Stream<StudentAuthInfo?> accountState();
   StudentAuthInfo? findById(final StudentId studentId);
   StudentAuthInfo? findByEmailAddress(final EmailAddress emailAddress);
 }

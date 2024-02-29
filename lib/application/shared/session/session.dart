@@ -1,6 +1,6 @@
 import '../../../domain/student/models/student_id.dart';
 
-abstract class Session {
+class Session {
   final StudentId _studentId;
   final bool _isVerified;
 
