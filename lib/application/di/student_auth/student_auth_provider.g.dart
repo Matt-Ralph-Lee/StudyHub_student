@@ -6,20 +6,21 @@ part of 'student_auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$studentAuthHash() => r'33bcf7f68c98529a6497b5d488c6efa448fbafa1';
+String _$studentAuthDiHash() => r'e1a14a5acfeeb5bf200c7763cf7b8ae6f8536c0f';
 
-/// See also [studentAuth].
-@ProviderFor(studentAuth)
-final studentAuthProvider =
+/// See also [studentAuthDi].
+@ProviderFor(studentAuthDi)
+final studentAuthDiProvider =
     AutoDisposeProvider<IStudentAuthRepository>.internal(
-  studentAuth,
-  name: r'studentAuthProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$studentAuthHash,
+  studentAuthDi,
+  name: r'studentAuthDiProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$studentAuthDiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef StudentAuthRef = AutoDisposeProviderRef<IStudentAuthRepository>;
+typedef StudentAuthDiRef = AutoDisposeProviderRef<IStudentAuthRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

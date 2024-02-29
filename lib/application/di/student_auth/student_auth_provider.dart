@@ -8,7 +8,7 @@ import '../../shared/flavor/flavor_config.dart';
 part 'student_auth_provider.g.dart';
 
 @riverpod
-IStudentAuthRepository studentAuth(StudentAuthRef ref) {
+IStudentAuthRepository studentAuthDi(StudentAuthDiRef ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryStudentAuthRepository();
