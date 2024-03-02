@@ -7,12 +7,12 @@ part of 'favorite_teachers_controller.dart';
 // **************************************************************************
 
 String _$favoriteTeacherControllerHash() =>
-    r'f37e9855e445a408c83996af566ba46de60a6327';
+    r'1ca61e401873e981fc21e04afbde82b7f245cf30';
 
 /// See also [FavoriteTeacherController].
 @ProviderFor(FavoriteTeacherController)
-final favoriteTeacherControllerProvider =
-    AutoDisposeAsyncNotifierProvider<FavoriteTeacherController, void>.internal(
+final favoriteTeacherControllerProvider = AutoDisposeAsyncNotifierProvider<
+    FavoriteTeacherController, List<GetFavoriteTeacherDto>>.internal(
   FavoriteTeacherController.new,
   name: r'favoriteTeacherControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,7 @@ final favoriteTeacherControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$FavoriteTeacherController = AutoDisposeAsyncNotifier<void>;
+typedef _$FavoriteTeacherController
+    = AutoDisposeAsyncNotifier<List<GetFavoriteTeacherDto>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

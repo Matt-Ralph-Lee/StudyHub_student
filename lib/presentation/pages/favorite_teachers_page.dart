@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/components/parts/text_for_error.dart';
+import 'package:studyhub/presentation/components/parts/text_for_no_favorite_teacher_found.dart';
 import 'package:studyhub/presentation/shared/constants/color_set.dart';
 
 import '../components/widgets/favorite_teacher_card_widget.dart';
+import '../components/widgets/loading_overlay_widget.dart';
+import '../controllers/favorite_teachers_controller/favorite_teachers_controller.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 
-class FavoriteTeachersPage extends StatelessWidget {
+class FavoriteTeachersPage extends ConsumerWidget {
   const FavoriteTeachersPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final horizontalPadding = screenWidth * 0.1;
     final screenHeight = MediaQuery.of(context).size.height;
     final verticalPadding = screenHeight * 0.05;
+
+    final favoriteTeachersState = ref.watch(favoriteTeacherControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -39,12 +47,29 @@ class FavoriteTeachersPage extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding, vertical: verticalPadding),
-        //実際はfirebaseから諸々取得しながらリストビューで回す
-        child: const FavoriteTeacherCardWidget(
-          name: 'モリ',
-          bio: 'よろしくお願いします！',
-          iconUrl:
-              'https://lh3.google.com/pw/AP1GczMrGbt8sXjhH7nP09rTJx1tZ0cqgqwOHNU_hYkILaSr-RsqgLhdmwbv_D5okjYpt8ZZOnmNiG-Br5rbLsdiRZwt8eIxMQ=w862-h1148-s-no-gm?authuser=0',
+        child: favoriteTeachersState.when(
+          data: (teachers) => teachers.isNotEmpty
+              ? ListView.builder(
+                  itemCount: teachers.length,
+                  itemBuilder: (context, index) {
+                    final teacher = teachers[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: FavoriteTeacherCardWidget(
+                        name: teacher.teacherName,
+                        bio: teacher.bio,
+                        iconUrl: teacher.profilePhotoPath,
+                      ),
+                    );
+                  },
+                )
+              : const Center(
+                  child: TextForNoFavoriteTeacherFound(),
+                ),
+          //ログイン時のやつ使い回すor専用に作る？
+          loading: () => const LoadingOverlay(),
+          //エラーときはテキストだけじゃなくてステップアップのログとかと一緒に表示するのもありかも？
+          error: (error, _) => const Center(child: TextForError()),
         ),
       ),
     );

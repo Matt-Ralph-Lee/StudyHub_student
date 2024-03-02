@@ -76,4 +76,10 @@ class L10n {
   static const editAccountInformationButtonText = "アカウント情報編集";
   static const logoutButtonText = "ログアウト";
   static const deleteAccountButtonText = "アカウント削除";
+
+  //favorite_teacher_page
+  static const noFavoriteTeacherFoundText = "お気に入りの講師はいません";
+
+  //shared
+  static const errorText = "エラーです。時間をおいてから再度お試しください";
 }
