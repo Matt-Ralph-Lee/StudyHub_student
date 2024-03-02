@@ -7,7 +7,7 @@ part of 'favorite_teachers_controller.dart';
 // **************************************************************************
 
 String _$favoriteTeacherControllerHash() =>
-    r'6dd133f697b1387ad5f942f0da6c0db8994e9d65';
+    r'f37e9855e445a408c83996af566ba46de60a6327';
 
 /// See also [FavoriteTeacherController].
 @ProviderFor(FavoriteTeacherController)

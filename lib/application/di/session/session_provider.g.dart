@@ -21,7 +21,7 @@ final _sessionStreamDiProvider = AutoDisposeStreamProvider<Session?>.internal(
 );
 
 typedef _SessionStreamDiRef = AutoDisposeStreamProviderRef<Session?>;
-String _$sessionDiHash() => r'4fabd47c8b83679f6c85e7e50bec096d38c79d32';
+String _$sessionDiHash() => r'73d1666726f9b2d52e4359f07ca249af94875c66';
 
 /// See also [sessionDi].
 @ProviderFor(sessionDi)
