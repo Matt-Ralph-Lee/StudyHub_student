@@ -49,9 +49,10 @@ class NotificationPage extends ConsumerWidget {
     final List<Notification> notificationsTest = [
       Notification(
           postedAt: today1,
-          title: "今日のお知らせ1",
+          title: "今日のお知らせ1今日のお知らせ1今日のお知らせ1今日のお知らせ1v今日のお知らせ1今日のお知らせ1今日のお知らせ1",
           iconUrl: "iconUrl",
-          content: "今日のお知らせ1です"),
+          content:
+              "今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です"),
       Notification(
           postedAt: today2,
           title: "今日のお知らせ2",
@@ -103,7 +104,7 @@ class NotificationPage extends ConsumerWidget {
           !isLastWeekAdded) {
         notifications.add(const Padding(
           padding: EdgeInsets.only(top: 40),
-          child: TextForNotificationSectionHeader(text: "過去"), //過去より適切な言葉募集中
+          child: TextForNotificationSectionHeader(text: "それ以前"),
         ));
         isLastWeekAdded = true;
       }
