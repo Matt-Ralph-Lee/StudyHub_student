@@ -1,5 +1,4 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:studyhub/application/shared/session/session.dart";
 
 import "../../../application/di/favorite_teacher/query_service/get_favorite_teacher_query_service_provider.dart";
 import "../../../application/di/session/session_provider.dart";
