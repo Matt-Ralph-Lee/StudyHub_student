@@ -5,10 +5,11 @@ import "package:studyhub/presentation/auth/tmp.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
-import "package:studyhub/presentation/pages/profile_input_page.dart";
 
 import "../pages/auth_page.dart";
 import "../pages/menu_page.dart";
+import "../pages/notification_page.dart";
+import "../pages/profile_input_page.dart";
 import "../pages/reset_password_page.dart";
 import "../pages/search_teachers_page.dart";
 import '../shared/utils/accessibility.dart';
@@ -90,6 +91,11 @@ GoRouter router(RouterRef ref) {
       path: PageId.searchTeachers.path,
       name: PageId.searchTeachers.name,
       builder: (context, state) => const SearchTeachersPage(),
+    ),
+    GoRoute(
+      path: PageId.notifications.path,
+      name: PageId.notifications.name,
+      builder: (context, state) => const NotificationPage(),
     ),
   ];
 
