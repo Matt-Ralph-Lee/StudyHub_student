@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 import "package:studyhub/presentation/auth/tmp.dart";
+import "package:studyhub/presentation/pages/notification_page.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
@@ -90,6 +91,11 @@ GoRouter router(RouterRef ref) {
       path: PageId.searchTeachers.path,
       name: PageId.searchTeachers.name,
       builder: (context, state) => const SearchTeachersPage(),
+    ),
+    GoRoute(
+      path: PageId.notifications.path,
+      name: PageId.notifications.name,
+      builder: (context, state) => const NotificationPage(),
     ),
   ];
 
