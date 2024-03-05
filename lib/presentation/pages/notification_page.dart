@@ -87,7 +87,7 @@ class NotificationPage extends ConsumerWidget {
       if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
         notifications.add(const Padding(
           padding: EdgeInsets.only(top: 40),
-          child: SectionHeader(text: "今日"),
+          child: TextForNotificationSectionHeader(text: "今日"),
         ));
         isTodayAdded = true;
       } else if (postedAtDateTime
@@ -96,14 +96,14 @@ class NotificationPage extends ConsumerWidget {
           !isThisWeekAdded) {
         notifications.add(const Padding(
           padding: EdgeInsets.only(top: 40),
-          child: SectionHeader(text: "今週"),
+          child: TextForNotificationSectionHeader(text: "今週"),
         ));
         isThisWeekAdded = true;
       } else if (postedAtDateTime.isBefore(firstDayOfWeek) &&
           !isLastWeekAdded) {
         notifications.add(const Padding(
           padding: EdgeInsets.only(top: 40),
-          child: SectionHeader(text: "過去"), //過去より適切な言葉募集中
+          child: TextForNotificationSectionHeader(text: "過去"), //過去より適切な言葉募集中
         ));
         isLastWeekAdded = true;
       }

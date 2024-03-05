@@ -4,10 +4,11 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class SectionHeader extends StatelessWidget {
+class TextForNotificationSectionHeader extends StatelessWidget {
   final String text;
 
-  const SectionHeader({Key? key, required this.text}) : super(key: key);
+  const TextForNotificationSectionHeader({Key? key, required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
