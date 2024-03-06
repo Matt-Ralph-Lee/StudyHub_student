@@ -1,206 +1,135 @@
 import 'dart:async';
 
+import '../../../application/student_auth/application_service/student_auth_info_without_password.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
 import '../../../domain/student_auth/models/student_auth_info.dart';
-import 'exception/student_auth_infrastructure_exception.dart';
-import 'exception/student_auth_infrastructure_exception_detail.dart';
+import '../../exceptions/student_auth/student_auth_infrastructure_exception.dart';
+import '../../exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
 
 class InMemoryStudentAuthRepository implements IStudentAuthRepository {
-  final signedInStore = <StudentId, bool>{};
+  final count = 0;
   final store = <StudentId, StudentAuthInfo>{};
   final emailToIdMap = <EmailAddress, StudentId>{};
-  final streamControllers = <StudentId, StreamController<StudentAuthInfo?>>{};
+  // about current Student
+  final streamController = StreamController<StudentAuthInfoWithoutPassword?>();
+  StudentId? currentStudentId;
 
-  // implement this later
   @override
-  Stream<StudentAuthInfo?> accountState() {
-    throw UnimplementedError();
-    // final streamController = streamControllers[studentId];
-    // if (streamController == null) {
-    //   throw const StudentAuthInfrastructureException(
-    //       StudentAuthInfrastructureExceptionDetail.notFound);
-    // }
-    // return streamController.stream;
+  Future<void> createWithEmailAndPassword({
+    required final EmailAddress emailAddress,
+    required final Password password,
+  }) async {
+    if (emailToIdMap.containsKey(emailAddress)) {
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.emailAddressAlreadyInUse);
+    }
+    final studentId =
+        StudentId(count.toString().padLeft(StudentId.minLength + 10, '0'));
+    final studentAuthInfo = StudentAuthInfo(
+      studentId: studentId,
+      emailAddress: emailAddress,
+      password: password,
+      isVerified: false,
+    );
+
+    currentStudentId = studentId;
+    store[studentId] = studentAuthInfo;
+    emailToIdMap[emailAddress] = studentId;
+
+    streamController.add(StudentAuthInfoWithoutPassword(
+      studentId: studentId,
+      emailAddress: emailAddress,
+      isVerified: false,
+    ));
   }
 
   @override
-  void create(final StudentAuthInfo studentAuthInfo) {
-    if (studentAuthInfo.password == null) {
+  Future<void> sendEmailVerification() async {
+    if (currentStudentId == null) {
       throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.noPassword);
+          StudentAuthInfrastructureExceptionDetail.notSignedIn);
     }
-    final studentId = studentAuthInfo.studentId;
-    final emailAddress = studentAuthInfo.emailAddress;
+    final studentAuth = store[currentStudentId];
+    if (studentAuth == null) {
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.unexpected);
+    }
+    studentAuth.changeIsVerified(true);
 
-    signedInStore[studentId] = false;
-    store[studentId] = studentAuthInfo;
-    emailToIdMap[emailAddress] = studentId;
-    streamControllers[studentId] = StreamController<StudentAuthInfo?>();
+    streamController.add(StudentAuthInfoWithoutPassword(
+      studentId: studentAuth.studentId,
+      emailAddress: studentAuth.emailAddress,
+      isVerified: studentAuth.isVerified,
+    ));
+  }
 
-    final streamController = streamControllers[studentId]!;
+  @override
+  Future<void> delete() async {
+    store.remove(currentStudentId);
+    emailToIdMap.removeWhere((email, id) => id == currentStudentId);
+    currentStudentId = null;
     streamController.add(null);
   }
 
   @override
-  void delete(final StudentId studentId) {
-    signedInStore.remove(studentId);
-    store.remove(studentId);
-    emailToIdMap.removeWhere((email, id) => id == studentId);
-    streamControllers.remove(studentId);
-  }
-
-  @override
-  StudentAuthInfo? findByEmailAddress(final EmailAddress emailAddress) {
-    final studentId = emailToIdMap[emailAddress];
-    if (studentId == null) {
-      return null;
+  Future<void> updateEmailAddress(final EmailAddress emailAddress) async {
+    if (currentStudentId == null) {
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.notSignedIn);
     }
-    return findById(studentId);
-  }
-
-  @override
-  StudentAuthInfo? findById(final StudentId studentId) {
-    final storedStudentAuth = store[studentId];
-    if (storedStudentAuth == null) {
-      return null;
+    final studentAuthInfo = store[currentStudentId];
+    if (studentAuthInfo == null) {
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.unexpected);
     }
-    return _maskPassword(storedStudentAuth);
+    studentAuthInfo.changeEmailAddress(emailAddress);
   }
 
   @override
-  StudentAuthInfo? getAccountState() {
-    throw UnimplementedError();
-    // if (signedInStore[studentId] == null) {
-    //   return null;
-    // }
-    // final storedStudentAuth = store[studentId];
-    // if (storedStudentAuth == null) {
-    //   return null;
-    // }
-    // return _maskPassword(storedStudentAuth);
-  }
+  Future<void> sendPasswordResetEmail(
+      {required final EmailAddress emailAddress}) async {}
 
   @override
-  void signIn(
-      {required final EmailAddress emailAddress,
-      required final Password password}) {
+  Future<void> signIn({
+    required final EmailAddress emailAddress,
+    required final Password password,
+  }) async {
     final storedStudentAuthInfo = _getByEmailAddress(emailAddress);
 
     if (storedStudentAuthInfo == null) {
       throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.wrongEmailOrPassword);
+          StudentAuthInfrastructureExceptionDetail.studentNotFound);
     }
 
-    final storedPassword = storedStudentAuthInfo.password;
-    if (password != storedPassword) {
+    if (password != storedStudentAuthInfo.password) {
       throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.wrongEmailOrPassword);
+          StudentAuthInfrastructureExceptionDetail.wrongPassword);
     }
 
     final studentId = storedStudentAuthInfo.studentId;
-    signedInStore[studentId] = true;
-    streamControllers[studentId]!.add(_maskPassword(storedStudentAuthInfo));
+    currentStudentId = studentId;
+    streamController.add(StudentAuthInfoWithoutPassword(
+      studentId: studentId,
+      emailAddress: emailAddress,
+      isVerified: storedStudentAuthInfo.isVerified,
+    ));
   }
 
   @override
-  void signOut(final StudentId studentId) {
-    signedInStore[studentId] = false;
-    streamControllers[studentId]!.add(null);
-  }
-
-  @override
-  void sendPasswordResetEmail(EmailAddress emailAddress) {
-    throw UnimplementedError();
-  }
-
-  @override
-  void updatePassword(
-      {required StudentId studentId,
-      required Password currentPassword,
-      required Password newPassword}) {
-    final storedStudentAuth = _getById(studentId);
-    if (storedStudentAuth == null) {
+  Future<void> signOut() async {
+    if (currentStudentId == null) {
       throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.notFound);
+          StudentAuthInfrastructureExceptionDetail.notSignedIn);
     }
-
-    if (currentPassword != storedStudentAuth.password) {
-      throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.wrongEmailOrPassword);
-    }
-
-    storedStudentAuth.changePassword(newPassword);
-    store[studentId] = storedStudentAuth;
-  }
-
-  @override
-  void updateEmailAddress(final StudentAuthInfo updatedStudentAuth) {
-    final storedStudentAuth = _getById(updatedStudentAuth.studentId);
-    if (storedStudentAuth == null) {
-      throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.notFound);
-    }
-
-    final password = storedStudentAuth.password!;
-    updatedStudentAuth.changePassword(password);
-    updatedStudentAuth.changeIsVerified(false);
-
-    final oldEmailAddress = updatedStudentAuth.emailAddress;
-    emailToIdMap.remove(oldEmailAddress);
-
-    final studentId = updatedStudentAuth.studentId;
-    final emailAddress = updatedStudentAuth.emailAddress;
-    store[studentId] = updatedStudentAuth;
-    emailToIdMap[emailAddress] = studentId;
-    streamControllers[studentId]!.add(findById(studentId));
-  }
-
-  @override
-  void verifyWithEmail(final StudentId studentId) {
-    final studentAuthInfo = _getById(studentId);
-    if (studentAuthInfo == null) {
-      throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.notFound);
-    }
-    studentAuthInfo.changeIsVerified(true);
-    store[studentId] = studentAuthInfo;
-    streamControllers[studentId]!.add(findById(studentId));
-  }
-
-  StudentAuthInfo _maskPassword(final StudentAuthInfo studentAuthInfo) {
-    return StudentAuthInfo(
-      studentId: studentAuthInfo.studentId,
-      emailAddress: studentAuthInfo.emailAddress,
-      password: null,
-      isVerified: studentAuthInfo.isVerified,
-    );
+    currentStudentId = null;
+    streamController.add(null);
   }
 
   StudentAuthInfo? _getByEmailAddress(final EmailAddress emailAddress) {
     final studentId = emailToIdMap[emailAddress];
-    if (studentId == null) {
-      return null;
-    }
-    return _getById(studentId);
-  }
-
-  StudentAuthInfo? _getById(final StudentId studentId) {
-    final data = store[studentId];
-    if (data == null) {
-      return null;
-    }
-    return _clone(data);
-  }
-
-  StudentAuthInfo _clone(final StudentAuthInfo studentAuthInfo) {
-    return StudentAuthInfo(
-      studentId: studentAuthInfo.studentId,
-      emailAddress: studentAuthInfo.emailAddress,
-      password: studentAuthInfo.password,
-      isVerified: studentAuthInfo.isVerified,
-    );
+    return studentId == null ? null : store[studentId];
   }
 }

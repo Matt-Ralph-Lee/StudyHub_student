@@ -22,7 +22,7 @@ void main() {
 
       final usecase = StudentCreateUseCase(
         service: service,
-        repository: repository,
+        studentAuthRepository: repository,
         factory: factory,
         studentRepository: studentRepository,
       );

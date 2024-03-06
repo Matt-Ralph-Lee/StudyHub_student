@@ -178,13 +178,13 @@ void main() {
 
       repository.create(studentAuthInfo1);
 
-      final stream = repository.accountState();
+      final stream = repository.userChanges();
       stream.listen((data) {
         _printStudentAuthInfo(data);
       });
 
       await Future.delayed(const Duration(seconds: 1));
-      repository.verifyWithEmail(studentId1);
+      repository.senf(studentId1);
       await Future.delayed(const Duration(seconds: 1));
       repository.signIn(emailAddress: emailAddress1, password: password1);
       await Future.delayed(const Duration(seconds: 1));

@@ -6,7 +6,7 @@ part of 'session_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sessionStreamDiHash() => r'3712188d44b24d1cc910b64d0b9e6d66feb5c76e';
+String _$sessionStreamDiHash() => r'65ecc79d5409d8afa89a85654be5c1b4e50986aa';
 
 /// See also [_sessionStreamDi].
 @ProviderFor(_sessionStreamDi)
@@ -21,7 +21,7 @@ final _sessionStreamDiProvider = AutoDisposeStreamProvider<Session?>.internal(
 );
 
 typedef _SessionStreamDiRef = AutoDisposeStreamProviderRef<Session?>;
-String _$sessionDiHash() => r'4fabd47c8b83679f6c85e7e50bec096d38c79d32';
+String _$sessionDiHash() => r'73d1666726f9b2d52e4359f07ca249af94875c66';
 
 /// See also [sessionDi].
 @ProviderFor(sessionDi)

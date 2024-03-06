@@ -5,7 +5,7 @@ import 'password.dart';
 class StudentAuthInfo {
   final StudentId _studentId;
   EmailAddress _emailAddress;
-  Password? _password;
+  Password _password;
   bool _isVerified;
 
   StudentId get studentId => _studentId;
@@ -16,7 +16,7 @@ class StudentAuthInfo {
   StudentAuthInfo({
     required final StudentId studentId,
     required final EmailAddress emailAddress,
-    required final Password? password,
+    required final Password password,
     required final bool isVerified,
   })  : _studentId = studentId,
         _emailAddress = emailAddress,
