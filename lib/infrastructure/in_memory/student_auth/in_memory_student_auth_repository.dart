@@ -94,7 +94,12 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
 
   @override
   Future<void> sendPasswordResetEmail(
-      {required final EmailAddress emailAddress}) async {}
+      {required final EmailAddress emailAddress}) async {
+    if (emailToIdMap[emailAddress] == null) {
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.studentNotFound);
+    }
+  }
 
   @override
   Future<void> signIn({

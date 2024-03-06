@@ -119,11 +119,28 @@ void main() async {
       await repository.updateEmailAddress(emailAddress1);
     });
   });
+
+  group('sendPasswordResetEmail function', () {
+    test('should send password reset email', () async {
+      await repository.sendPasswordResetEmail(emailAddress: emailAddress1);
+    });
+
+    test('should throw exception on student-not-found', () async {
+      expect(() async {
+        await repository.sendPasswordResetEmail(
+            emailAddress: EmailAddress('unexisted@example.com'));
+      },
+          throwsA(isA<StudentAuthInfrastructureException>().having(
+              (p0) => p0.detail,
+              'detail',
+              StudentAuthInfrastructureExceptionDetail.studentNotFound)));
+    });
+  });
 }
 
 void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
   if (studentAuthInfo == null) {
-    debugPrint(null);
+    debugPrint('${null}\n');
     return;
   }
   final studentId = studentAuthInfo.studentId;
@@ -138,7 +155,7 @@ void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
 void _printStudentAuthInfoWithoutPassword(
     final StudentAuthInfoWithoutPassword? studentAuthInfoWithoutPassword) {
   if (studentAuthInfoWithoutPassword == null) {
-    debugPrint(null);
+    debugPrint('${null}\n');
     return;
   }
   final studentId = studentAuthInfoWithoutPassword.studentId;
