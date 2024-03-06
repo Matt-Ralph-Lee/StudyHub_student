@@ -76,4 +76,10 @@ class L10n {
   static const editAccountInformationButtonText = "アカウント情報編集";
   static const logoutButtonText = "ログアウト";
   static const deleteAccountButtonText = "アカウント削除";
+
+  //profile_edit_page
+  static const cancelText = "キャンセル";
+  static const saveText = "保存する";
+  static const takePictureText = "写真を撮る";
+  static const selectPictureFromGalleryText = "ギャラリーから選ぶ";
 }

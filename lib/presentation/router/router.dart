@@ -7,6 +7,7 @@ import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
 
 import "../pages/auth_page.dart";
+import "../pages/edit_profile_page.dart";
 import "../pages/menu_page.dart";
 import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
@@ -96,6 +97,11 @@ GoRouter router(RouterRef ref) {
       path: PageId.notifications.path,
       name: PageId.notifications.name,
       builder: (context, state) => const NotificationPage(),
+    ),
+    GoRoute(
+      path: PageId.editProfile.path,
+      name: PageId.editProfile.name,
+      builder: (context, state) => const EditProfilePage(),
     ),
   ];
 
