@@ -10,7 +10,7 @@ class StudentAuthInfo {
 
   StudentId get studentId => _studentId;
   EmailAddress get emailAddress => _emailAddress;
-  Password? get password => _password;
+  Password get password => _password;
   bool get isVerified => _isVerified;
 
   StudentAuthInfo({

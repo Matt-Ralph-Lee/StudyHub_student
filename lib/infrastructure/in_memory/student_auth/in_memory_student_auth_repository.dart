@@ -10,7 +10,7 @@ import '../../exceptions/student_auth/student_auth_infrastructure_exception.dart
 import '../../exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
 
 class InMemoryStudentAuthRepository implements IStudentAuthRepository {
-  final count = 0;
+  int count = 1;
   final store = <StudentId, StudentAuthInfo>{};
   final emailToIdMap = <EmailAddress, StudentId>{};
   // about current Student
@@ -44,6 +44,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
       emailAddress: emailAddress,
       isVerified: false,
     ));
+    count++;
   }
 
   @override
@@ -75,7 +76,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   }
 
   @override
-  Future<void> updateEmailAddress(final EmailAddress emailAddress) async {
+  Future<void> updateEmailAddress(final EmailAddress newEmailAddress) async {
     if (currentStudentId == null) {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.notSignedIn);
@@ -85,7 +86,10 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.unexpected);
     }
-    studentAuthInfo.changeEmailAddress(emailAddress);
+    final oldEmailAddress = studentAuthInfo.emailAddress;
+    studentAuthInfo.changeEmailAddress(newEmailAddress);
+    emailToIdMap[newEmailAddress] = studentAuthInfo.studentId;
+    emailToIdMap.remove(oldEmailAddress);
   }
 
   @override
@@ -121,8 +125,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   @override
   Future<void> signOut() async {
     if (currentStudentId == null) {
-      throw const StudentAuthInfrastructureException(
-          StudentAuthInfrastructureExceptionDetail.notSignedIn);
+      return;
     }
     currentStudentId = null;
     streamController.add(null);
