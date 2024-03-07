@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:studyhub/presentation/components/parts/circle_avatar_for_profile_edit.dart';
 
 import '../../../domain/student/models/occupation.dart';
+import '../parts/circle_avatar_for_profile_edit.dart';
 import '../parts/radio_button_for_gender_input.dart';
 import '../parts/radio_button_for_occupation_input.dart';
 import '../parts/radio_button_for_others_grade_input.dart';
@@ -19,7 +18,7 @@ class EditProfileWidget extends HookWidget {
   final void Function() uploadPhotoFromCamera;
   final void Function() uploadPhotoFromGallery;
   final String iconUrl;
-  final XFile? imageFile;
+  final String? imageFilePath;
   final String? genderValue;
   final String? occupationValue;
   final String? studentGradeValue;
@@ -37,7 +36,7 @@ class EditProfileWidget extends HookWidget {
     required this.uploadPhotoFromCamera,
     required this.uploadPhotoFromGallery,
     required this.iconUrl,
-    required this.imageFile,
+    required this.imageFilePath,
     required this.genderValue,
     required this.occupationValue,
     required this.studentGradeValue,
@@ -60,7 +59,7 @@ class EditProfileWidget extends HookWidget {
             iconUrl: iconUrl,
             takePhoto: uploadPhotoFromCamera,
             pickPhoto: uploadPhotoFromGallery,
-            imageFile: imageFile,
+            imageFilePath: imageFilePath,
           ),
           const SizedBox(height: 25),
           TextFormFieldForUserNameInput(

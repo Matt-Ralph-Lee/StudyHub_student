@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,7 +17,7 @@ class EditProfilePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final picker = ImagePicker();
-    final image = useState<XFile?>(null);
+    final imageFilePath = useState<String?>(null);
     const defaultImage = "ユーザーの今のアイコンのパス";
     //()内側はユーザーの今の値
     final gender = useState<String?>("回答しない");
@@ -61,7 +60,9 @@ class EditProfilePage extends HookConsumerWidget {
       final pickedFile = await picker.pickImage(
         source: source,
       );
-      image.value = pickedFile;
+      if (pickedFile != null) {
+        imageFilePath.value = pickedFile.path;
+      }
     }
 
     return Scaffold(
@@ -129,7 +130,7 @@ class EditProfilePage extends HookConsumerWidget {
               studentSchoolNameInputController:
                   studentSchoolNameInputController,
               iconUrl: defaultImage,
-              imageFile: image.value,
+              imageFilePath: imageFilePath.value,
               genderValue: gender.value,
               occupationValue: occupation.value,
               studentGradeValue: studentGrade.value,
