@@ -45,6 +45,7 @@ dependencies:
   english_words:
   image:
   image_size_getter: ^2.1.2
+  image_picker:
   file_picker: ^6.1.1
   flutter_image_compress: ^2.1.0
   go_router:
