@@ -1,238 +1,146 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:studyhub/application/student_auth/application_service/student_auth_info_without_password.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/models/password.dart';
 import 'package:studyhub/domain/student_auth/models/student_auth_info.dart';
+import 'package:studyhub/infrastructure/exceptions/student_auth/student_auth_infrastructure_exception.dart';
+import 'package:studyhub/infrastructure/exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
+import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_get_student_auth_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
-import 'package:studyhub/infrastructure/shared/infrastructure_exception.dart';
 
-void main() {
-  setUp(() {});
+void main() async {
+  final repository = InMemoryStudentAuthRepository();
+  final queryService =
+      InMemoryGetStudentAuthQueryService(repository: repository);
 
-  final studentId1 = StudentId('111111111111111111111');
   final emailAddress1 = EmailAddress('test1@example.com');
   final password1 = Password('password1');
-  final studentAuthInfo1 = StudentAuthInfo(
-    studentId: studentId1,
-    emailAddress: emailAddress1,
-    password: password1,
-    isVerified: false,
-  );
+  final studentId1 = StudentId('${'0' * (StudentId.minLength + 9)}1');
 
-  final studentId2 = StudentId('222222222222222222222');
-  final emailAddress2 = EmailAddress('test2@example.com');
-  final password2 = Password('password2');
-  final studentAuthInfo2 = StudentAuthInfo(
-    studentId: studentId2,
-    emailAddress: emailAddress2,
-    password: password2,
-    isVerified: false,
-  );
-
-  group('create', () {
-    test('test create studentAuthInfo with password', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-
-      final storedStudentAuthInfo = repository.store[studentId1];
-      expect(storedStudentAuthInfo?.studentId, studentId1);
-
-      final signedIn = repository.signedInStore[studentId1];
-      expect(signedIn, equals(false));
-
-      final mappedId = repository.emailToIdMap[emailAddress1];
-      expect(mappedId, equals(studentId1));
-      _printStudentAuthInfo(storedStudentAuthInfo);
-    });
-
-    test('test throw exception when creating studentAuthInfo without password',
-        () {
-      final repository = InMemoryStudentAuthRepository();
-      final studentId = StudentId('01234567890123456789');
-      final emailAddress = EmailAddress('test@example.com');
-
-      final studentAuthInfo = StudentAuthInfo(
-        studentId: studentId,
-        emailAddress: emailAddress,
-        password: null,
-        isVerified: false,
-      );
-      expect(() => repository.create(studentAuthInfo),
-          throwsA(isA<InfrastructureException>()));
-    });
+  final stream = queryService.userChanges();
+  stream.listen((data) {
+    debugPrint('from stream');
+    _printStudentAuthInfoWithoutPassword(data);
   });
 
-  group('delete', () {
-    test('delete normally', () {
-      final repository = InMemoryStudentAuthRepository();
+  await repository.createWithEmailAndPassword(
+      emailAddress: emailAddress1, password: password1);
 
-      repository.create(studentAuthInfo1);
-      repository.create(studentAuthInfo2);
+  setUp(() {});
 
-      debugPrint('store size before deletion: ${repository.store.length}');
+  group('createWithEmailAndPassword function', () {
+    final emailAddress2 = EmailAddress('test2@example.com');
+    final password2 = Password('password2');
+    test('should create studentAuthInfo', () async {
+      await repository.createWithEmailAndPassword(
+        emailAddress: emailAddress2,
+        password: password2,
+      );
 
-      final storedStudentAuthInfo2 = repository.store[studentId2];
-      expect(storedStudentAuthInfo2?.studentId, equals(studentId2));
+      final studentId = repository.emailToIdMap[emailAddress2];
+      expect(studentId, isNotNull);
 
-      repository.delete(studentId2);
+      final storedStudentAuthInfo = repository.store[studentId];
+      expect(storedStudentAuthInfo, isNotNull);
 
-      final currentlyStoredStudentAuth = repository.store[studentId2];
-      expect(currentlyStoredStudentAuth?.studentId, equals(null));
-
-      final signedIn = repository.signedInStore[studentId2];
-      expect(signedIn, equals(null));
+      expect(repository.currentStudentId, studentId);
 
       final mappedId = repository.emailToIdMap[emailAddress2];
-      expect(mappedId, equals(null));
-
-      debugPrint('store size after deletion: ${repository.store.length}');
+      expect(mappedId, studentId);
+      _printStudentAuthInfo(storedStudentAuthInfo);
     });
   });
 
-  group('findById', () {
-    test('find by id normally', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-      repository.create(studentAuthInfo2);
-
-      final found = repository.findById(studentId1);
-      expect(found?.studentId, equals(studentId1));
-      expect(found?.password, equals(null));
-      _printStudentAuthInfo(found);
+  group('signIn function', () {
+    test('should sign in', () async {
+      await repository.signIn(emailAddress: emailAddress1, password: password1);
+      expect(repository.currentStudentId, studentId1);
     });
 
-    test('cannot find', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-      repository.create(studentAuthInfo2);
-
-      repository.delete(studentId1);
-
-      final found = repository.findById(studentId1);
-      expect(found?.studentId, equals(null));
-      _printStudentAuthInfo(found);
+    test('should throw error on wrong Password', () async {
+      expect(() async {
+        await repository.signIn(
+            emailAddress: emailAddress1, password: Password('wrong-password'));
+      },
+          throwsA(isA<StudentAuthInfrastructureException>().having(
+            (p0) => p0.detail,
+            'detail',
+            StudentAuthInfrastructureExceptionDetail.wrongPassword,
+          )));
     });
   });
 
-  group('findByEmail', () {
-    test('find by email normally', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-      repository.create(studentAuthInfo2);
-
-      final found = repository.findByEmailAddress(emailAddress1);
-      expect(found?.studentId, equals(studentId1));
-      expect(found?.password, equals(null));
-      _printStudentAuthInfo(found);
-    });
-
-    test('cannot find', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-      repository.create(studentAuthInfo2);
-
-      repository.delete(studentId1);
-
-      final found = repository.findByEmailAddress(emailAddress1);
-      expect(found?.studentId, equals(null));
-      _printStudentAuthInfo(found);
+  group('signOut function', () {
+    test('should sign out', () async {
+      await repository.signIn(emailAddress: emailAddress1, password: password1);
+      await repository.signOut();
+      expect(repository.currentStudentId, isNull);
     });
   });
 
-  group('signIn', () {
-    test('sign in normally', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-      bool? signedIn = repository.signedInStore[studentId1];
-      expect(signedIn, equals(false));
-      repository.signIn(emailAddress: emailAddress1, password: password1);
-      signedIn = repository.signedInStore[studentId1];
-      expect(signedIn, equals(true));
+  group('sendEmailVerification function', () {
+    test('should change isVerified', () async {
+      await repository.signIn(emailAddress: emailAddress1, password: password1);
+      await repository.sendEmailVerification();
+      expect(repository.store[studentId1]!.isVerified, isTrue);
     });
   });
 
-  group('signOut', () {
-    test('sign out normally', () {
-      final repository = InMemoryStudentAuthRepository();
+  group('delete function', () {
+    final emailAddress3 = EmailAddress('test3@example.com');
+    final password3 = Password('password3');
+    test('should delete', () async {
+      await repository.createWithEmailAndPassword(
+          emailAddress: emailAddress3, password: password3);
+      final studentId = repository.emailToIdMap[emailAddress3];
+      expect(repository.store[studentId], isNotNull);
 
-      repository.create(studentAuthInfo1);
-      repository.signIn(emailAddress: emailAddress1, password: password1);
-      bool? signedIn = repository.signedInStore[studentId1];
-      expect(signedIn, equals(true));
-      repository.signOut(studentId1);
-      signedIn = repository.signedInStore[studentId1];
-      expect(signedIn, equals(false));
+      await repository.delete();
+
+      expect(repository.store[studentId], isNull);
+      expect(repository.currentStudentId, isNull);
+      expect(repository.emailToIdMap[emailAddress3], isNull);
+      expect(repository.currentStudentId, isNull);
     });
   });
 
-  group('getAccountState', () {
-    test('get account state normally', () async {
-      final repository = InMemoryStudentAuthRepository();
+  group('updateEmailAddress function', () {
+    test('should update email address', () async {
+      await repository.signIn(emailAddress: emailAddress1, password: password1);
 
-      repository.create(studentAuthInfo1);
+      final newEmailAddress = EmailAddress('newaddress@example.com');
+      await repository.updateEmailAddress(newEmailAddress);
+      expect(repository.store[studentId1]?.emailAddress, newEmailAddress);
+      expect(repository.emailToIdMap[newEmailAddress], studentId1);
+      expect(repository.emailToIdMap[emailAddress1], isNull);
 
-      final stream = repository.accountState();
-      stream.listen((data) {
-        _printStudentAuthInfo(data);
-      });
-
-      await Future.delayed(const Duration(seconds: 1));
-      repository.verifyWithEmail(studentId1);
-      await Future.delayed(const Duration(seconds: 1));
-      repository.signIn(emailAddress: emailAddress1, password: password1);
-      await Future.delayed(const Duration(seconds: 1));
-      repository.signOut(studentId1);
+      await repository.updateEmailAddress(emailAddress1);
     });
   });
 
-  group('update', () {
-    test('update emailAddress normally', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-
-      final newEmailAddress = EmailAddress('newtest1@example.com');
-      final updatedStudentAuth = _clone(studentAuthInfo1);
-      updatedStudentAuth.changeEmailAddress(newEmailAddress);
-
-      repository.updateEmailAddress(updatedStudentAuth);
-
-      final found = repository.findByEmailAddress(newEmailAddress);
-
-      expect(found?.emailAddress, newEmailAddress);
+  group('sendPasswordResetEmail function', () {
+    test('should send password reset email', () async {
+      await repository.sendPasswordResetEmail(emailAddress: emailAddress1);
     });
 
-    test('update password normally', () {
-      final repository = InMemoryStudentAuthRepository();
-
-      repository.create(studentAuthInfo1);
-
-      final newPassword = Password('newpassword1');
-      final studentId = studentAuthInfo1.studentId;
-
-      repository.updatePassword(
-          studentId: studentId,
-          currentPassword: password1,
-          newPassword: newPassword);
-
-      repository.signOut(studentId);
-      repository.signIn(emailAddress: emailAddress1, password: newPassword);
-      bool? signedIn = repository.signedInStore[studentId1];
-      expect(signedIn, equals(true));
+    test('should throw exception on student-not-found', () async {
+      expect(() async {
+        await repository.sendPasswordResetEmail(
+            emailAddress: EmailAddress('unexisted@example.com'));
+      },
+          throwsA(isA<StudentAuthInfrastructureException>().having(
+              (p0) => p0.detail,
+              'detail',
+              StudentAuthInfrastructureExceptionDetail.studentNotFound)));
     });
   });
 }
 
 void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
   if (studentAuthInfo == null) {
-    debugPrint(null);
+    debugPrint('${null}\n');
     return;
   }
   final studentId = studentAuthInfo.studentId;
@@ -241,14 +149,19 @@ void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
   final isVerified = studentAuthInfo.isVerified;
 
   debugPrint(
-      'studentId: ${studentId.value}\nemailAddress: ${emailAddress.value}\npassword: ${password?.value}\nisVerified: $isVerified');
+      'studentId: ${studentId.value}\nemailAddress: ${emailAddress.value}\npassword: ${password.value}\nisVerified: $isVerified\n');
 }
 
-StudentAuthInfo _clone(final StudentAuthInfo studentAuthInfo) {
-  return StudentAuthInfo(
-    studentId: studentAuthInfo.studentId,
-    emailAddress: studentAuthInfo.emailAddress,
-    password: studentAuthInfo.password,
-    isVerified: studentAuthInfo.isVerified,
-  );
+void _printStudentAuthInfoWithoutPassword(
+    final StudentAuthInfoWithoutPassword? studentAuthInfoWithoutPassword) {
+  if (studentAuthInfoWithoutPassword == null) {
+    debugPrint('${null}\n');
+    return;
+  }
+  final studentId = studentAuthInfoWithoutPassword.studentId;
+  final emailAddress = studentAuthInfoWithoutPassword.emailAddress;
+  final isVerified = studentAuthInfoWithoutPassword.isVerified;
+
+  debugPrint(
+      'studentId: ${studentId.value}\nemailAddress: ${emailAddress.value}\nisVerified: $isVerified\n');
 }

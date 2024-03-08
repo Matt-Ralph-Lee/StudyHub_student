@@ -7,8 +7,8 @@ part 'session_provider.g.dart';
 
 @riverpod
 Stream<Session?> _sessionStreamDi(_SessionStreamDiRef ref) {
-  final studentAuth = ref.watch(studentAuthDiProvider);
-  final state = studentAuth.accountState();
+  final queryService = ref.watch(getStudentAuthQueryServiceProvider);
+  final state = queryService.userChanges();
   return state.map((studentAuthInfo) {
     return studentAuthInfo == null
         ? null
