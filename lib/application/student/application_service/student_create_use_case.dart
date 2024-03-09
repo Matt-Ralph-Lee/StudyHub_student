@@ -11,29 +11,23 @@ import '../../../domain/student/models/status.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
-import '../../../domain/student_auth/models/i_student_auth_factory.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
-import '../../../domain/student_auth/service/student_auth_domain_service.dart';
-import '../../student_auth/exception/student_auth_use_case_exception.dart';
-import '../../student_auth/exception/student_auth_use_case_exception_detail.dart';
+import '../../shared/session/session.dart';
 import 'utils/photo_processing.dart';
 
 class StudentCreateUseCase {
-  final StudentAuthDomainService _service;
-  final IStudentAuthRepository _repository;
-  final IStudentAuthFactory _factory;
+  final IStudentAuthRepository _studentAuthRepository;
   final IStudentRepository _studentRepository;
+  final Session? _session;
 
   StudentCreateUseCase({
-    required final StudentAuthDomainService service,
-    required final IStudentAuthRepository repository,
-    required final IStudentAuthFactory factory,
+    required final IStudentAuthRepository studentAuthRepository,
     required final IStudentRepository studentRepository,
-  })  : _factory = factory,
-        _repository = repository,
-        _service = service,
-        _studentRepository = studentRepository;
+    required final Session? session,
+  })  : _studentAuthRepository = studentAuthRepository,
+        _studentRepository = studentRepository,
+        _session = session;
 
   Future<void> execute({
     required final String emailAddressData,
@@ -41,23 +35,24 @@ class StudentCreateUseCase {
   }) async {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
-    final studentAuthInfo = await _factory.createWithEmailAndPassword(
+    await _studentAuthRepository.createWithEmailAndPassword(
       emailAddress: emailAddress,
       password: password,
     );
-    if (_service.exists(studentAuthInfo)) {
-      throw const StudentAuthUseCaseException(
-          StudentAuthUseCaseExceptionDetail.alreadyExists);
-    }
-    _repository.create(studentAuthInfo);
-    _service.requireVerification(studentAuthInfo);
 
-    final student = _createInitially(studentAuthInfo.studentId);
+    await _studentAuthRepository.sendEmailVerification();
+
+    // TODO: what if email is not verified for a long time?
+    while (_session == null || _session!.isVerified == false) {
+      Future.delayed(const Duration(seconds: 1));
+    }
+
+    final student = _createInitially(_session!.studentId);
     _studentRepository.save(student);
   }
 }
 
-Student _createInitially(StudentId studentId) {
+Student _createInitially(final StudentId studentId) {
   final studentName = Name(WordPair.random().asLowerCase);
   final profilePhotoPath = createPath('initial_photo');
   const gender = Gender.noAnswer;

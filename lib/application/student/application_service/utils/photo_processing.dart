@@ -48,6 +48,6 @@ Image convertToJpegAndResize(String localPhotoPath) {
     return croppedImage;
   } else {
     throw const StudentUseCaseException(
-        StudentUseCaseExceptionDetail.imageNotFound);
+        StudentUseCaseExceptionDetail.photoNotFound);
   }
 }

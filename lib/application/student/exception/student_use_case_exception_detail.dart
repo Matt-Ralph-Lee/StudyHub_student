@@ -1,11 +1,12 @@
 import '../../shared/exception/use_case_exception_detail.dart';
 
 enum StudentUseCaseExceptionDetail implements UseCaseExceptionDetail {
-  notFound('ユーザーが見つかりませんでした'),
-  failedInImageProcessing('画像の処理に失敗しました'),
-  noSuchSchool('存在しない学校名です'),
-  noProfileFound('プロフィールがみつかりませんでした'),
-  imageNotFound('プロフィール画像が見つかりませんでした。');
+  notFound('student not found'),
+  failedInImageProcessing('failed in image processing'),
+  noSchoolfound('no school found'),
+  noProfileFound('no profile found'),
+  photoNotFound('image not found'),
+  ;
 
   const StudentUseCaseExceptionDetail(this._message);
 
