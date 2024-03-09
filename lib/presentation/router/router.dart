@@ -13,6 +13,7 @@ import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
 import "../pages/reset_password_page.dart";
 import "../pages/search_teachers_page.dart";
+import "../pages/my_page.dart";
 import '../shared/utils/accessibility.dart';
 import "scaffold_with_navbar.dart";
 import '../shared/constants/page_path.dart';
@@ -102,6 +103,11 @@ GoRouter router(RouterRef ref) {
       path: PageId.editProfile.path,
       name: PageId.editProfile.name,
       builder: (context, state) => const EditProfilePage(),
+    ),
+    GoRoute(
+      path: PageId.myPage.path,
+      name: PageId.myPage.name,
+      builder: (context, state) => const MyPage(),
     ),
   ];
 

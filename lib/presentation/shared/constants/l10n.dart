@@ -82,4 +82,16 @@ class L10n {
   static const saveText = "保存する";
   static const takePictureText = "写真を撮る";
   static const selectPictureFromGalleryText = "ギャラリーから選ぶ";
+
+  //my_page
+  static const favoriteTeacherText = "お気に入りの講師";
+  static const upToNoviceText = "Novice まで";
+  static const upToAdvanceText = "Advance まで";
+  static const upToExpertText = "Expert まで";
+  static const myQuestionTabText = "MyQuestion";
+  static const bookmarkTabText = "BookMark";
+
+  //question_card_widget
+  static const questionIconText = "Q.";
+  static const answerIconText = "A.";
 }
