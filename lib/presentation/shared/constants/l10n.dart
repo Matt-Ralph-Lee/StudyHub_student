@@ -85,9 +85,6 @@ class L10n {
 
   //my_page
   static const favoriteTeacherText = "お気に入りの講師";
-  static const upToNoviceText = "Novice まで";
-  static const upToAdvanceText = "Advance まで";
-  static const upToExpertText = "Expert まで";
   static const myQuestionTabText = "MyQuestion";
   static const bookmarkTabText = "BookMark";
 

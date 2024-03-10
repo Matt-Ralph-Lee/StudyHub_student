@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/widgets/user_detail_widget.dart';
@@ -47,12 +45,13 @@ class QuestionDto {
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final paddingHorizontal = screenWidth * 0.1;
 
     //authenticatedUser
-    const studentDto = StudentDto(
+    final studentDto = StudentDto(
         userName: "もりわきかずはる",
         userIconUrl: "アイコンurl",
         numberOfFavoriteTeachers: "1",
@@ -282,7 +281,9 @@ class MyPage extends StatelessWidget {
 }
 
 class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
-  const _StickyTabBarDelegate({required this.tabBar});
+  const _StickyTabBarDelegate({
+    required this.tabBar,
+  });
 
   final TabBar tabBar;
 
@@ -299,7 +300,7 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     return Container(
-      color: Colors.white,
+      color: ColorSet.of(context).background,
       child: tabBar,
     );
   }

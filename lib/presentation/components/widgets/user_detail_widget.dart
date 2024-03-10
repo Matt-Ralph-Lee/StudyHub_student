@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:studyhub/presentation/components/widgets/rank_description_modal.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -8,18 +7,30 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
 //ランクの定義どうする
-Map<String, Map<String, dynamic>> rankRequirements = {
-  'beginner': {'questions': 10, 'color': Colors.orange},
-  'novice': {'questions': 20, 'color': Colors.red},
-  'advanced': {'questions': 30, 'color': Colors.blue},
-  'expert': {'questions': 40, 'color': Colors.green},
-};
+Map<String, Map<String, dynamic>> createRankRequirements(BuildContext context) {
+  return {
+    'beginner': {'questions': 3, 'color': ColorSet.of(context).primary},
+    'novice': {
+      'questions': 6,
+      'color': ColorSet.of(context).primary.withOpacity(0.7)
+    },
+    'advanced': {
+      'questions': 9,
+      'color': ColorSet.of(context).primary.withOpacity(0.4)
+    },
+    'expert': {
+      'questions': 12,
+      'color': ColorSet.of(context).primary.withOpacity(0.1)
+    },
+  };
+}
 
 //現在のランクを受け取って次のランクと必要な質問数を返す関数（とりまここにおいるけどどこにおく？）
-Map<String, dynamic> getNextRankInfo(String currentRank) {
+Map<String, dynamic> getNextRankInfo(BuildContext context, String currentRank) {
   String nextRank = '';
   int questionsForNextRank = 0;
-  List<String> ranks = rankRequirements.keys.toList();
+  final rankRequirements = createRankRequirements(context);
+  final List<String> ranks = rankRequirements.keys.toList();
 
   for (int i = 0; i < ranks.length; i++) {
     if (ranks[i] == currentRank) {
@@ -35,6 +46,20 @@ Map<String, dynamic> getNextRankInfo(String currentRank) {
     'nextRank': nextRank,
     'questionsForNextRank': questionsForNextRank,
   };
+}
+
+void showStatusDescriptionDialog(BuildContext context) {
+  showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: const Dialog(
+          child: RankDescriptionModal(),
+        ),
+      );
+    },
+  );
 }
 
 class UserDetailWidget extends StatelessWidget {
@@ -55,10 +80,12 @@ class UserDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> nextRankInfo = getNextRankInfo(userRank);
+    final Map<String, dynamic> nextRankInfo =
+        getNextRankInfo(context, userRank);
     final String nextRank = nextRankInfo['nextRank'];
     final String numberOfQuestionsForNextRank =
         (nextRankInfo['questionsForNextRank'] - numberOfQuestions).toString();
+    final rankRequirements = createRankRequirements(context);
     final Color userRankColor = rankRequirements[userRank]!['color'];
     final double ratioForNextRank =
         numberOfQuestions / nextRankInfo['questionsForNextRank'];
@@ -175,23 +202,28 @@ class UserDetailWidget extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //これってツールチップ？
-            Icon(
-              Icons.question_mark,
-              color: ColorSet.of(context).text,
-              size: 10,
+            IconButton(
+              icon: const Icon(Icons.help_outline),
+              onPressed: () {
+                showStatusDescriptionDialog(context);
+              },
+              color: ColorSet.of(context).greyText,
+              iconSize: 15,
             ),
+            /*
             const SizedBox(
               width: 5,
             ),
+            */
             Text(
               "$nextRankまで",
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
                   fontSize:
                       FontSizeSet.getFontSize(context, FontSizeSet.annotation),
-                  color: ColorSet.of(context).text),
+                  color: ColorSet.of(context).greyText),
             ),
             const SizedBox(
               width: 5,
@@ -202,7 +234,7 @@ class UserDetailWidget extends StatelessWidget {
                   fontWeight: FontWeightSet.normal,
                   fontSize:
                       FontSizeSet.getFontSize(context, FontSizeSet.annotation),
-                  color: ColorSet.of(context).text),
+                  color: ColorSet.of(context).greyText),
             ),
           ],
         ),
