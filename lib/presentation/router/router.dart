@@ -5,11 +5,13 @@ import "package:studyhub/presentation/auth/tmp.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
-import "package:studyhub/presentation/pages/profile_input_page.dart";
 
 import "../pages/auth_page.dart";
 import '../pages/favorite_teachers_page.dart';
+import "../pages/edit_profile_page.dart";
 import "../pages/menu_page.dart";
+import "../pages/notification_page.dart";
+import "../pages/profile_input_page.dart";
 import "../pages/reset_password_page.dart";
 import "../pages/search_teachers_page.dart";
 import '../shared/utils/accessibility.dart';
@@ -96,6 +98,16 @@ GoRouter router(RouterRef ref) {
       path: PageId.favoriteTeachers.path,
       name: PageId.favoriteTeachers.name,
       builder: (context, state) => const FavoriteTeachersPage(),
+    ),
+    GoRoute(
+      path: PageId.notifications.path,
+      name: PageId.notifications.name,
+      builder: (context, state) => const NotificationPage(),
+    ),
+    GoRoute(
+      path: PageId.editProfile.path,
+      name: PageId.editProfile.name,
+      builder: (context, state) => const EditProfilePage(),
     ),
   ];
 

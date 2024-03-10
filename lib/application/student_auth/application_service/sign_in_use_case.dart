@@ -9,12 +9,12 @@ class SignInUseCase {
     required final IStudentAuthRepository repository,
   }) : _repository = repository;
 
-  void execute({
+  Future<void> execute({
     required final String emailAddressData,
     required final String passwordData,
-  }) {
+  }) async {
     final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
-    _repository.signIn(emailAddress: emailAddress, password: password);
+    await _repository.signIn(emailAddress: emailAddress, password: password);
   }
 }

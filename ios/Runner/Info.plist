@@ -28,6 +28,10 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>投稿に追加する写真やプロフィール画像に追加する写真を選択するためにライブラリにアクセスします</string>
+	<key>NSCameraUsageDescription</key>
+	<string>投稿に追加する写真やプロフィール画像に追加する写真を撮るためにカメラにアクセスします</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

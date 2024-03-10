@@ -82,4 +82,9 @@ class L10n {
 
   //shared
   static const errorText = "エラーです。時間をおいてから再度お試しください";
+  //profile_edit_page
+  static const cancelText = "キャンセル";
+  static const saveText = "保存する";
+  static const takePictureText = "写真を撮る";
+  static const selectPictureFromGalleryText = "ギャラリーから選ぶ";
 }

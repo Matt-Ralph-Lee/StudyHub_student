@@ -20,7 +20,8 @@ class StudentDeleteUseCase {
         _studentRepository = studentRepository,
         _photoRepository = photoRepository;
 
-  void execute() {
+// TODO: try-catch statement for all usecases
+  Future<void> execute() async {
     final studentId = _session.studentId;
     final student = _studentRepository.findById(studentId);
     if (student == null) {
@@ -29,6 +30,6 @@ class StudentDeleteUseCase {
     }
     _studentRepository.delete(studentId);
     _photoRepository.delete(student.profilePhotoPath);
-    _studentAuthRepository.delete(studentId);
+    await _studentAuthRepository.delete();
   }
 }

@@ -1,4 +1,4 @@
-import '../../../shared/infrastructure_exception.dart';
+import '../../shared/infrastructure_exception.dart';
 import 'student_auth_infrastructure_exception_detail.dart';
 
 class StudentAuthInfrastructureException extends InfrastructureException {

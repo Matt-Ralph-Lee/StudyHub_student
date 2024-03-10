@@ -6,21 +6,55 @@ part of 'student_auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$studentAuthDiHash() => r'e1a14a5acfeeb5bf200c7763cf7b8ae6f8536c0f';
+String _$studentAuthRepositoryDiHash() =>
+    r'73cc17ce864bbbe8f9c022f2d90ec936ad30e960';
 
-/// See also [studentAuthDi].
-@ProviderFor(studentAuthDi)
-final studentAuthDiProvider =
+/// See also [studentAuthRepositoryDi].
+@ProviderFor(studentAuthRepositoryDi)
+final studentAuthRepositoryDiProvider =
     AutoDisposeProvider<IStudentAuthRepository>.internal(
-  studentAuthDi,
-  name: r'studentAuthDiProvider',
+  studentAuthRepositoryDi,
+  name: r'studentAuthRepositoryDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$studentAuthDiHash,
+      : _$studentAuthRepositoryDiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef StudentAuthDiRef = AutoDisposeProviderRef<IStudentAuthRepository>;
+typedef StudentAuthRepositoryDiRef
+    = AutoDisposeProviderRef<IStudentAuthRepository>;
+String _$getStudentAuthQueryServiceHash() =>
+    r'348ed1b856dc881f0f8ff24d137c95af95f09303';
+
+/// See also [getStudentAuthQueryService].
+@ProviderFor(getStudentAuthQueryService)
+final getStudentAuthQueryServiceProvider =
+    AutoDisposeProvider<IGetStudentAuthQueryService>.internal(
+  getStudentAuthQueryService,
+  name: r'getStudentAuthQueryServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getStudentAuthQueryServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef GetStudentAuthQueryServiceRef
+    = AutoDisposeProviderRef<IGetStudentAuthQueryService>;
+String _$firebaseAuthHash() => r'7791bf70ce0f01bf991a53a76abc915478673c0b';
+
+/// See also [firebaseAuth].
+@ProviderFor(firebaseAuth)
+final firebaseAuthProvider = AutoDisposeProvider<FirebaseAuth>.internal(
+  firebaseAuth,
+  name: r'firebaseAuthProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$firebaseAuthHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseAuthRef = AutoDisposeProviderRef<FirebaseAuth>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
