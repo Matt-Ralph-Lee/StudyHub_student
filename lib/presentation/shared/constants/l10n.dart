@@ -78,6 +78,7 @@ class L10n {
   static const deleteAccountButtonText = "アカウント削除";
 
   //favorite_teacher_page
+  static const favoriteTeacherText = "お気に入りの講師";
   static const noFavoriteTeacherFoundText = "お気に入りの講師はいません";
 
   //shared

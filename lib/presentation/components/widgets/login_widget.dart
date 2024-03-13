@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../controllers/sample_controller/sample_controller.dart';
+import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/page_path.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_form_field_for_email_address_input.dart';
 import '../parts/text_form_field_for_password_input.dart';
@@ -25,6 +27,10 @@ class LoginWidget extends HookConsumerWidget {
       isPasswordFilled.value = text.isNotEmpty;
     }
 
+    void push(BuildContext context) {
+      context.push(PageId.favoriteTeachers.path);
+    }
+
     return Column(
       children: [
         TextFormFieldForEmailAddressInput(
@@ -40,7 +46,15 @@ class LoginWidget extends HookConsumerWidget {
         ElevatedButtonForAuth(
           buttonText: L10n.loginButtonText,
           onPressed: isEmailFilled.value && isPasswordFilled.value
-              ? ref.read(sampleControllerProvider.notifier).login
+              ? () {
+                  ref
+                      .read(studentAuthControllerProvider.notifier)
+                      .login(loginEmailController.text,
+                          loginPassWordController.text)
+                      .then((_) {
+                    push(context);
+                  });
+                }
               : null,
         ),
       ],

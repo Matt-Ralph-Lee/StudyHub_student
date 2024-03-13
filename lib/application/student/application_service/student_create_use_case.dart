@@ -34,7 +34,9 @@ class StudentCreateUseCase {
     required final String passwordData,
   }) async {
     final emailAddress = EmailAddress(emailAddressData);
+
     final password = Password(passwordData);
+
     await _studentAuthRepository.createWithEmailAndPassword(
       emailAddress: emailAddress,
       password: password,
@@ -42,12 +44,15 @@ class StudentCreateUseCase {
 
     await _studentAuthRepository.sendEmailVerification();
 
+    /*
     // TODO: what if email is not verified for a long time?
     while (_session == null || _session!.isVerified == false) {
       Future.delayed(const Duration(seconds: 1));
     }
+    */
 
     final student = _createInitially(_session!.studentId);
+
     _studentRepository.save(student);
   }
 }

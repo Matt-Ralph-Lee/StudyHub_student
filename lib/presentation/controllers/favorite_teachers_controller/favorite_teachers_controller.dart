@@ -28,7 +28,7 @@ class FavoriteTeacherController extends _$FavoriteTeacherController {
 
   @override
   Future<List<GetFavoriteTeacherDto>> build() async {
-    final session = ref.watch(sessionDiProvider);
+    final session = ref.read(sessionDiProvider);
     if (session == null) {
       throw Exception('Session is null');
     }
