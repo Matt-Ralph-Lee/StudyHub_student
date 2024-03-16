@@ -6,7 +6,7 @@ part of 'session_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sessionStreamDiHash() => r'65ecc79d5409d8afa89a85654be5c1b4e50986aa';
+String _$sessionStreamDiHash() => r'2a7229a1a9e11d5a6a93dc497225d25b90d0a58f';
 
 /// See also [_sessionStreamDi].
 @ProviderFor(_sessionStreamDi)
@@ -35,5 +35,34 @@ final sessionDiProvider = AutoDisposeProvider<Session?>.internal(
 );
 
 typedef SessionDiRef = AutoDisposeProviderRef<Session?>;
+String _$isSignedInHash() => r'b3a2c44f1e877bb04d4e7ee6f35597c6c285707d';
+
+/// See also [isSignedIn].
+@ProviderFor(isSignedIn)
+final isSignedInProvider = AutoDisposeProvider<bool>.internal(
+  isSignedIn,
+  name: r'isSignedInProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$isSignedInHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef IsSignedInRef = AutoDisposeProviderRef<bool>;
+String _$nonNullSessionHash() => r'34e3c22c1c0088ace632f96e67f1183a5d819821';
+
+/// See also [nonNullSession].
+@ProviderFor(nonNullSession)
+final nonNullSessionProvider = AutoDisposeProvider<Session>.internal(
+  nonNullSession,
+  name: r'nonNullSessionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$nonNullSessionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef NonNullSessionRef = AutoDisposeProviderRef<Session>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

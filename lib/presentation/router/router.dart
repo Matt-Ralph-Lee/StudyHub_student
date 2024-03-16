@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
-import "package:studyhub/presentation/auth/tmp.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
 
+import "../../application/di/session/session_provider.dart";
 import "../pages/auth_page.dart";
 import '../pages/favorite_teachers_page.dart';
 import "../pages/edit_profile_page.dart";
@@ -113,11 +113,10 @@ GoRouter router(RouterRef ref) {
 
   String? redirect(BuildContext context, GoRouterState state) {
     final pagePath = state.uri.toString();
-    final isLoggedIn = ref.read(tmpProvider);
-
-    if (isLoggedIn && requiresLoggedOut(pagePath)) {
+    final isSignedIn = ref.read(isSignedInProvider);
+    if (isSignedIn && requiresLoggedOut(pagePath)) {
       return PageId.page1.path;
-    } else if (!isLoggedIn && isPrivate(pagePath)) {
+    } else if (!isSignedIn && isPrivate(pagePath)) {
       return PageId.authPage.path;
     } else {
       return null;

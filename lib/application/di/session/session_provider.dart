@@ -7,6 +7,7 @@ part 'session_provider.g.dart';
 
 @riverpod
 Stream<Session?> _sessionStreamDi(_SessionStreamDiRef ref) {
+  ref.keepAlive();
   final queryService = ref.watch(getStudentAuthQueryServiceProvider);
   final state = queryService.userChanges();
   return state.map((studentAuthInfo) {
@@ -24,4 +25,16 @@ Session? sessionDi(SessionDiRef ref) {
     error: (_, __) => null, // TODO: error時の処理,
     loading: () => null,
   );
+}
+
+@riverpod
+bool isSignedIn(IsSignedInRef ref) {
+  final session = ref.watch(sessionDiProvider);
+  return session != null;
+}
+
+@riverpod
+Session nonNullSession(NonNullSessionRef ref) {
+  final session = ref.watch(sessionDiProvider);
+  return session!;
 }
