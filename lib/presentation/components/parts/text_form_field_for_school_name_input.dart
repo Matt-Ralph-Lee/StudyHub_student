@@ -45,6 +45,8 @@ class TextFormFieldForSchoolNameInput extends StatelessWidget {
                 fontWeight: FontWeightSet.normal,
                 fontSize: FontSizeSet.annotation,
                 color: ColorSet.of(context).text),
+            cursorColor: ColorSet.of(context).text,
+            cursorWidth: 1,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 20.0),
