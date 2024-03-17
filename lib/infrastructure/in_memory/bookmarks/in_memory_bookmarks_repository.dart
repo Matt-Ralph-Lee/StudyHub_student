@@ -3,7 +3,18 @@ import '../../../domain/bookmarks/models/i_bookmarks_repository.dart';
 import '../../../domain/student/models/student_id.dart';
 
 class InMemoryBookmarksRepository implements IBookmarksRepository {
-  final store = <StudentId, Bookmarks>{};
+  late Map<StudentId, Bookmarks> store;
+  static final InMemoryBookmarksRepository _instance =
+      InMemoryBookmarksRepository._internal();
+
+  factory InMemoryBookmarksRepository() {
+    return _instance;
+  }
+
+  InMemoryBookmarksRepository._internal() {
+    store = {};
+  }
+
   @override
   void save(Bookmarks bookmarks) {
     store[bookmarks.studentId] = bookmarks;
