@@ -1,3 +1,6 @@
+import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
+import '../../../domain/student_auth/models/password.dart';
+
 class L10n {
   //auth_page
   static const loginToggleText = "ログイン";
@@ -8,6 +11,21 @@ class L10n {
   static const signUpButtonText = "サインアップ";
   static const resetPasswordTextButtonText = "パスワードを忘れた方はこちら";
   static const loginByGoogleButtonText = "Goggleでログイン";
+  static const singUpErrorText = "サインアップ中にエラーが生じました。\nもう一度やり直してください。";
+
+  static String getStudentAuthExceptionMessage(
+      StudentAuthDomainExceptionDetail detail) {
+    switch (detail) {
+      case StudentAuthDomainExceptionDetail.invalidCharacter:
+        return "使用できない文字が含まれています。再度やり直してください";
+      case StudentAuthDomainExceptionDetail.invalidEmailFormat:
+        return "メールアドレスの形式ではありません。再度やり直してください";
+      case StudentAuthDomainExceptionDetail.shortPassword:
+        return "パスワードが短すぎます。${Password.minLength}文字以上にしてください";
+      case StudentAuthDomainExceptionDetail.longPassword:
+        return "パスワードが長すぎます。${Password.maxLength}文字以下にしてください";
+    }
+  }
 
   //password_reset_page
   static const passwordResetTitle = "パスワード再設定";
@@ -83,6 +101,9 @@ class L10n {
 
   //shared
   static const errorText = "エラーです。時間をおいてから再度お試しください";
+  static const errorModalText = "エラーです！";
+  static const modalBackText = "閉じる";
+
   //profile_edit_page
   static const cancelText = "キャンセル";
   static const saveText = "保存する";

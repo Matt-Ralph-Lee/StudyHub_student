@@ -7,6 +7,7 @@ import "package:studyhub/presentation/pages/page3.dart";
 
 import "../../application/di/session/session_provider.dart";
 import "../pages/auth_page.dart";
+import "../pages/evaluation_page.dart";
 import '../pages/favorite_teachers_page.dart';
 import "../pages/edit_profile_page.dart";
 import "../pages/menu_page.dart";
@@ -108,6 +109,11 @@ GoRouter router(RouterRef ref) {
       path: PageId.editProfile.path,
       name: PageId.editProfile.name,
       builder: (context, state) => const EditProfilePage(),
+    ),
+    GoRoute(
+      path: PageId.evaluationPage.path,
+      name: PageId.evaluationPage.name,
+      builder: (context, state) => const EvaluationPage(),
     ),
   ];
 
