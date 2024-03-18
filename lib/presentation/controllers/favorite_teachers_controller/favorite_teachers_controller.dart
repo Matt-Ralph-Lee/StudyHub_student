@@ -29,23 +29,10 @@ class FavoriteTeacherController extends _$FavoriteTeacherController {
   @override
   Future<List<GetFavoriteTeacherDto>> build() async {
     final session = ref.read(nonNullSessionProvider);
-    if (session == null) {
-      throw Exception('Session cannot be null.');
-    }
-    final queriService = ref.watch(getFavoriteTeacherQueryServiceDiProvider);
-    if (queriService == null) {
-      throw Exception('queriService cannot be null.');
-    }
+    final queryService = ref.watch(getFavoriteTeacherQueryServiceDiProvider);
     final getFavoriteTeacherUseCase =
-        GetFavoriteTeacherUseCase(session: session, queryService: queriService);
-    if (getFavoriteTeacherUseCase == null) {
-      throw Exception('getFavoriteTeacherUseCase cannot be null.');
-    }
-
+        GetFavoriteTeacherUseCase(session: session, queryService: queryService);
     final favoriteTeachers = getFavoriteTeacherUseCase.execute();
-    if (favoriteTeachers == null) {
-      throw Exception('favoriteTeachers cannot be null.');
-    }
     return favoriteTeachers;
   }
 }

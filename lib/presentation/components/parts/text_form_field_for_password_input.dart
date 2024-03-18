@@ -8,9 +8,13 @@ import '../../shared/constants/l10n.dart';
 class TextFormFieldForPasswordInput extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String)? onChanged;
+  final String? errorText;
 
   const TextFormFieldForPasswordInput(
-      {super.key, required this.controller, this.onChanged});
+      {super.key,
+      required this.controller,
+      required this.onChanged,
+      required this.errorText});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +25,6 @@ class TextFormFieldForPasswordInput extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,
-        /*
-        validator: (value) {
-          //云々カンヌン
-        },
-        */
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.annotation,
@@ -46,6 +45,12 @@ class TextFormFieldForPasswordInput extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide.none,
           ),
+          errorText: errorText,
+          errorStyle: const TextStyle(
+              fontWeight: FontWeightSet.normal,
+              fontSize: FontSizeSet.annotation,
+              color: Colors.red),
+          errorMaxLines: 2,
         ),
       ),
     );

@@ -23,12 +23,35 @@ class SignUpWidget extends HookConsumerWidget {
     final signUpPassWordController = useTextEditingController();
     final isEmailFilled = useState<bool>(false);
     final isPasswordFilled = useState<bool>(false);
+    final emailInputErrorText = useState<String?>(null);
+    final passwordInputErrorText = useState<String?>(null);
 
     void checkEmailFilled(String text) {
-      isEmailFilled.value = text.isNotEmpty;
+      final RegExp emailRegExp =
+          RegExp(r'^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$');
+      if (text.isEmpty) {
+        isEmailFilled.value = false;
+        emailInputErrorText.value = 'メールアドレスが空です';
+      } else if (!emailRegExp.hasMatch(text)) {
+        isEmailFilled.value = false;
+        final numOfAts = RegExp(r'@').allMatches(text).length;
+        if (numOfAts != 1) {
+          emailInputErrorText.value = '@が含まれておらず、メールアドレスの形式ではありません';
+        } else if (!text.contains('.')) {
+          emailInputErrorText.value = '.が含まれておらず、メールアドレスの形式ではありません';
+        } else {
+          emailInputErrorText.value = 'メールアドレスの形式ではありません';
+        }
+      } else {
+        isEmailFilled.value = true;
+        emailInputErrorText.value = null;
+      }
     }
 
     void checkPasswordFilled(String text) {
+      if (text.isEmpty) {
+        passwordInputErrorText.value = "パスワードが空です";
+      }
       isPasswordFilled.value = text.isNotEmpty;
     }
 
@@ -41,13 +64,15 @@ class SignUpWidget extends HookConsumerWidget {
         TextFormFieldForEmailAddressInput(
           controller: signUpEmailController,
           onChanged: checkEmailFilled,
+          errorText: emailInputErrorText.value,
         ),
         const SizedBox(height: 25),
         TextFormFieldForPasswordInput(
           controller: signUpPassWordController,
           onChanged: checkPasswordFilled,
+          errorText: passwordInputErrorText.value,
         ),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         ElevatedButtonForAuth(
           buttonText: L10n.signUpButtonText,
           onPressed: isEmailFilled.value && isPasswordFilled.value

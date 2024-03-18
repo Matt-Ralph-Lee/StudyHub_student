@@ -13,9 +13,29 @@ class ResetPasswordWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final emailInputErrorText = useState<String?>(null);
     final isEmailFilled = useState<bool>(false);
+
     void checkEmailFilled(String text) {
-      isEmailFilled.value = text.isNotEmpty;
+      final RegExp emailRegExp =
+          RegExp(r'^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$');
+      if (text.isEmpty) {
+        isEmailFilled.value = false;
+        emailInputErrorText.value = 'メールアドレスが空です';
+      } else if (!emailRegExp.hasMatch(text)) {
+        isEmailFilled.value = false;
+        final numOfAts = RegExp(r'@').allMatches(text).length;
+        if (numOfAts != 1) {
+          emailInputErrorText.value = '@が含まれておらず、メールアドレスの形式ではありません';
+        } else if (!text.contains('.')) {
+          emailInputErrorText.value = '.が含まれておらず、メールアドレスの形式ではありません';
+        } else {
+          emailInputErrorText.value = 'メールアドレスの形式ではありません';
+        }
+      } else {
+        isEmailFilled.value = true;
+        emailInputErrorText.value = null;
+      }
     }
 
     final forgetPasswordEmailController = useTextEditingController();
@@ -27,6 +47,7 @@ class ResetPasswordWidget extends HookConsumerWidget {
         TextFormFieldForEmailAddressInput(
           controller: forgetPasswordEmailController,
           onChanged: checkEmailFilled,
+          errorText: emailInputErrorText.value,
         ),
         const SizedBox(height: 80),
         ElevatedButtonForAuth(
