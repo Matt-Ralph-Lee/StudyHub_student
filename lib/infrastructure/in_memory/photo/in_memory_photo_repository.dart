@@ -6,7 +6,17 @@ import '../../../domain/photo/models/photo_path.dart';
 import '../../../domain/photo/models/photo_path_list.dart';
 
 class InMemoryPhotoRepository implements IPhotoRepository {
-  final store = <PhotoPath, Uint8List>{};
+  late Map<PhotoPath, Uint8List> store;
+  static final InMemoryPhotoRepository _instance =
+      InMemoryPhotoRepository._internal();
+
+  factory InMemoryPhotoRepository() {
+    return _instance;
+  }
+
+  InMemoryPhotoRepository._internal() {
+    store = {};
+  }
 
   @override
   void save(List<Photo> photoList) {

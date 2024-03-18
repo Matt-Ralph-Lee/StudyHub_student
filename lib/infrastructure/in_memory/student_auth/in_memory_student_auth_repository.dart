@@ -10,12 +10,27 @@ import '../../exceptions/student_auth/student_auth_infrastructure_exception.dart
 import '../../exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
 
 class InMemoryStudentAuthRepository implements IStudentAuthRepository {
-  int count = 1;
-  final store = <StudentId, StudentAuthInfo>{};
-  final emailToIdMap = <EmailAddress, StudentId>{};
+  late int count;
+  late Map<StudentId, StudentAuthInfo> store;
+  late Map<EmailAddress, StudentId> emailToIdMap;
   // about current Student
-  final streamController = StreamController<StudentAuthInfoWithoutPassword?>();
-  StudentId? currentStudentId;
+  late StreamController<StudentAuthInfoWithoutPassword?> streamController;
+  late StudentId? currentStudentId;
+
+  static final InMemoryStudentAuthRepository _instance =
+      InMemoryStudentAuthRepository._internal();
+
+  factory InMemoryStudentAuthRepository() {
+    return _instance;
+  }
+
+  InMemoryStudentAuthRepository._internal() {
+    count = 1;
+    store = {};
+    emailToIdMap = {};
+    streamController = StreamController<StudentAuthInfoWithoutPassword?>();
+    currentStudentId = null;
+  }
 
   @override
   Future<void> createWithEmailAndPassword({

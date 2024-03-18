@@ -7,7 +7,7 @@ import '../components/widgets/login_by_google_button_widget.dart';
 import '../components/widgets/login_widget.dart';
 import '../components/widgets/reset_password_text_button_widget.dart';
 import '../components/widgets/sign_up_widget.dart';
-import '../controllers/sample_controller/sample_controller.dart';
+import '../controllers/student_auth_controller/student_auth_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -52,7 +52,7 @@ class AuthPage extends ConsumerWidget {
       ),
     );
 
-    final state = ref.watch(sampleControllerProvider);
+    final state = ref.watch(studentAuthControllerProvider);
 
     return DefaultTabController(
       length: 2,
@@ -86,31 +86,35 @@ class AuthPage extends ConsumerWidget {
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: paddingHorizontal),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 50),
+                              const LoginWidget(),
+                              const SizedBox(height: 20),
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [ResetPasswordTextButtonWidget()],
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [orLine]),
+                              const SizedBox(height: 50),
+                              const LoginByGoogleButtonWidget(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 50),
-                            const LoginWidget(),
-                            const SizedBox(height: 20),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [ResetPasswordTextButtonWidget()],
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [orLine]),
-                            const SizedBox(height: 50),
-                            const LoginByGoogleButtonWidget(),
+                            SizedBox(height: 50),
+                            SignUpWidget(),
                           ],
                         ),
-                      ),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 50),
-                          SignUpWidget(),
-                        ],
                       ),
                     ],
                   ),

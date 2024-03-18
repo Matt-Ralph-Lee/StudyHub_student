@@ -4,7 +4,18 @@ import '../../../domain/teacher/models/teacher_id.dart';
 
 class InMemoryTeacherEvaluationRepository
     implements ITeacherEvaluationRepository {
-  final store = <TeacherId, List<TeacherEvaluation>>{};
+  late Map<TeacherId, List<TeacherEvaluation>> store;
+  static final InMemoryTeacherEvaluationRepository _instance =
+      InMemoryTeacherEvaluationRepository._internal();
+
+  factory InMemoryTeacherEvaluationRepository() {
+    return _instance;
+  }
+
+  InMemoryTeacherEvaluationRepository._internal() {
+    store = {};
+  }
+
   @override
   Future<void> save(TeacherEvaluation evaluation) async {
     final teacherId = evaluation.to;
