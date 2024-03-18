@@ -4,7 +4,18 @@ import '../../../domain/student/models/student_id.dart';
 
 class InMemoryFavoriteTeachersRepository
     implements IFavoriteTeachersRepository {
-  final store = <StudentId, FavoriteTeachers>{};
+  late Map<StudentId, FavoriteTeachers> store;
+  static final InMemoryFavoriteTeachersRepository _instance =
+      InMemoryFavoriteTeachersRepository._internal();
+
+  factory InMemoryFavoriteTeachersRepository() {
+    return _instance;
+  }
+
+  InMemoryFavoriteTeachersRepository._internal() {
+    store = {};
+  }
+
   @override
   void save(FavoriteTeachers favoriteTeachers) {
     store[favoriteTeachers.studentId] = favoriteTeachers;

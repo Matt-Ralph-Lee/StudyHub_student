@@ -3,7 +3,17 @@ import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
 
 class InMemoryStudentRepository implements IStudentRepository {
-  final store = <StudentId, Student>{};
+  late Map<StudentId, Student> store;
+  static final InMemoryStudentRepository _instance =
+      InMemoryStudentRepository._internal();
+
+  factory InMemoryStudentRepository() {
+    return _instance;
+  }
+
+  InMemoryStudentRepository._internal() {
+    store = {};
+  }
 
   @override
   void delete(StudentId studentId) {

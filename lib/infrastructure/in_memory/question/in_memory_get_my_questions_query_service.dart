@@ -16,9 +16,9 @@ class InMemoryGetMyQuestionsQueryService
   final InMemoryTeacherRepository _teacherRepository;
 
   InMemoryGetMyQuestionsQueryService({
-    required InMemoryQuestionRepository repository,
-    required InMemoryStudentRepository studentRepository,
-    required InMemoryTeacherRepository teacherRepository,
+    required final InMemoryQuestionRepository repository,
+    required final InMemoryStudentRepository studentRepository,
+    required final InMemoryTeacherRepository teacherRepository,
   })  : _repository = repository,
         _studentRepository = studentRepository,
         _teacherRepository = teacherRepository;

@@ -3,8 +3,19 @@ import '../../../domain/question/models/question.dart';
 import '../../../domain/question/models/question_id.dart';
 
 class InMemoryQuestionRepository implements IQuestionRepository {
-  final store = <QuestionId, Question>{};
-  int _idInt = 1000000;
+  late Map<QuestionId, Question> store;
+  late int _idInt;
+  static final InMemoryQuestionRepository _instance =
+      InMemoryQuestionRepository._internal();
+
+  factory InMemoryQuestionRepository() {
+    return _instance;
+  }
+
+  InMemoryQuestionRepository._internal() {
+    store = {};
+    _idInt = 1000000;
+  }
 
   @override
   void delete(QuestionId questionId) {

@@ -3,7 +3,17 @@ import '../../../domain/report/models/report.dart';
 import '../../../domain/student/models/student_id.dart';
 
 class InMemoryReportRepository implements IReportRepository {
-  final store = <StudentId, List<Report>>{};
+  late Map<StudentId, List<Report>> store;
+  static final InMemoryReportRepository _instance =
+      InMemoryReportRepository._internal();
+
+  factory InMemoryReportRepository() {
+    return _instance;
+  }
+
+  InMemoryReportRepository._internal() {
+    store = {};
+  }
 
   @override
   void submit(final Report report) {
