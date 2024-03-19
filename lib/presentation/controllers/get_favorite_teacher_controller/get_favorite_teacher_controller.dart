@@ -5,10 +5,10 @@ import "../../../application/di/session/session_provider.dart";
 import "../../../application/favorite_teachers/application_service/get_favorite_teacher_dto.dart";
 import "../../../application/favorite_teachers/application_service/get_favorite_teacher_use_case.dart";
 
-part "favorite_teachers_controller.g.dart";
+part "get_favorite_teacher_controller.g.dart";
 
 @riverpod
-class FavoriteTeacherController extends _$FavoriteTeacherController {
+class GetFavoriteTeacherController extends _$GetFavoriteTeacherController {
   /*
   Future<void> fetchFavoriteTeachers() async {
     final session = ref.read(sessionDiProvider);

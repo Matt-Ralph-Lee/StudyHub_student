@@ -56,11 +56,7 @@ class SignUpWidget extends HookConsumerWidget {
     }
 
     void push(BuildContext context) {
-<<<<<<< HEAD
       context.push(PageId.myPage.path);
-=======
-      context.push(PageId.evaluationPage.path);
->>>>>>> main
     }
 
     return Column(

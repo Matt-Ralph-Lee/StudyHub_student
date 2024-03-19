@@ -117,4 +117,5 @@ class L10n {
   //question_card_widget
   static const questionIconText = "Q.";
   static const answerIconText = "A.";
+  static const noAnswerText = "回答までしばらくお待ちください";
 }

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../domain/teacher/models/teacher_id.dart';
-import '../controllers/add_favorite_teacher_controller.dart/add_favorite_teacher_controller.dart';
+import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';

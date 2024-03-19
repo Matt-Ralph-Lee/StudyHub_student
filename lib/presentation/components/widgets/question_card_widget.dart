@@ -9,8 +9,8 @@ class QuestionCardWidget extends StatelessWidget {
   final String questionTitle;
   final String question;
   final String studentIconUrl;
-  final String teacherIconUrl;
-  final String answer;
+  final String? teacherIconUrl;
+  final String? answer;
   final bool isBookmarked;
 
   const QuestionCardWidget({
@@ -161,7 +161,7 @@ class QuestionCardWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    answer,
+                    answer != null ? answer! : L10n.noAnswerText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize:
@@ -177,7 +177,9 @@ class QuestionCardWidget extends StatelessWidget {
                 CircleAvatar(
                   radius: 15,
                   backgroundImage: NetworkImage(
-                    teacherIconUrl,
+                    teacherIconUrl != null
+                        ? teacherIconUrl!
+                        : 'assets/images/sample_user_icon2.jpg',
                   ),
                 ),
               ],

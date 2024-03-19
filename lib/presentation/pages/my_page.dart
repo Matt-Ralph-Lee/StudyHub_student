@@ -1,159 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/components/parts/text_for_error.dart';
 
+import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/user_detail_widget.dart';
 import '../components/widgets/question_card_widget.dart';
+import '../controllers/get_my_question_controller/get_my_question_controller.dart';
+import '../controllers/student_controller/student_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/page_path.dart';
 
-//生徒のDto的なもの
-class StudentDto {
-  final String userName;
-  final String userIconUrl;
-  final String numberOfFavoriteTeachers;
-  final String userRank;
-  final int numberOfQuestions;
-  const StudentDto({
-    required this.userName,
-    required this.userIconUrl,
-    required this.numberOfFavoriteTeachers,
-    required this.userRank,
-    required this.numberOfQuestions,
-  });
-}
 
-//質問&回答のDto的なもの。とりまセットにしてある
-class QuestionDto {
-  final String questionTitle;
-  final String question;
-  final String studentIconUrl;
-  final String answer;
-  final String teacherIconUrl;
-  final bool isBookMarked;
-  const QuestionDto({
-    required this.questionTitle,
-    required this.question,
-    required this.studentIconUrl,
-    required this.answer,
-    required this.teacherIconUrl,
-    required this.isBookMarked,
-  });
-}
-
-class MyPage extends StatelessWidget {
+class MyPage extends ConsumerWidget {
   const MyPage({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final paddingHorizontal = screenWidth * 0.1;
-
-    //authenticatedUser
-    final studentDto = StudentDto(
-        userName: "もりわきかずはる",
-        userIconUrl: "アイコンurl",
-        numberOfFavoriteTeachers: "1",
-        userRank: "beginner",
-        numberOfQuestions: 10);
-
-    //↑のMyQuestions
-    const List<QuestionDto> myQuestions = [
-      QuestionDto(
-          questionTitle: "質問1",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-      QuestionDto(
-          questionTitle: "質問2",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: false),
-      QuestionDto(
-          questionTitle: "質問3",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-      QuestionDto(
-          questionTitle: "質問4",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-      QuestionDto(
-          questionTitle: "質問4",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-      QuestionDto(
-          questionTitle: "質問4",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-    ];
-    //↑のBookMarks
-    const List<QuestionDto> bookMarks = [
-      QuestionDto(
-          questionTitle: "質問1",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-      QuestionDto(
-          questionTitle: "質問2",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-      QuestionDto(
-          questionTitle: "質問3",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-      QuestionDto(
-          questionTitle: "質問4",
-          question:
-              "質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です質問です",
-          studentIconUrl: "生徒のアイコンurl",
-          answer:
-              "回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です回答です",
-          teacherIconUrl: "先生のアイコンurl",
-          isBookMarked: true),
-    ];
+    final studentState = ref.watch(studentControllerProvider);
+    final myQuestionState = ref.watch(getMyQuestionControllerProvider);
 
     void pushToNotificationPage(BuildContext context) {
       context.push(PageId.notifications.path);
@@ -200,13 +69,23 @@ class MyPage extends StatelessWidget {
                             right: paddingHorizontal,
                             left: paddingHorizontal,
                             bottom: 20),
-                        child: UserDetailWidget(
-                          userName: studentDto.userName,
-                          numberOfFavoriteTeachers:
-                              studentDto.numberOfFavoriteTeachers,
-                          userRank: studentDto.userRank,
-                          numberOfQuestions: studentDto.numberOfQuestions,
-                          userIconUrl: studentDto.userIconUrl,
+                        child: studentState.when(
+                          data:(studentDto) => UserDetailWidget(
+                            userName: studentDto.studentName,
+                            numberOfFavoriteTeachers:
+                                studentDto.,
+                            userRank: studentDto.status.english,
+                            numberOfQuestions: studentDto.questionCount,
+                            userIconUrl: studentDto.profilePhotoPath,
+                          ),
+                          loading: () => const LoadingOverlay(),
+                          error: (error, stackTrace){
+                            return const Center(
+                              child: Column(
+                                children: [TextForError()],
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -236,12 +115,13 @@ class MyPage extends StatelessWidget {
               ];
             },
             body: TabBarView(children: [
-              ListView.builder(
-                padding: const EdgeInsets.only(bottom: 20),
-                itemCount: myQuestions.length,
-                itemBuilder: (context, index) {
-                  final myQuestion = myQuestions[index];
-                  return Padding(
+              myQuestionState.when(
+                data: (myQuestions) => myQuestions.isNotEmpty
+                ? ListView.builder(
+                    itemCount: myQuestions.length,
+                    itemBuilder: (context, index) {
+                      final myQuestion = myQuestions[index];
+                      return Padding(
                     padding: const EdgeInsets.only(
                       top: 30,
                       right: 20,
@@ -249,31 +129,30 @@ class MyPage extends StatelessWidget {
                     ),
                     child: QuestionCardWidget(
                         questionTitle: myQuestion.questionTitle,
-                        question: myQuestion.question,
-                        studentIconUrl: myQuestion.studentIconUrl,
-                        teacherIconUrl: myQuestion.teacherIconUrl,
-                        answer: myQuestion.answer,
+                        question: myQuestion.questionText,
+                        studentIconUrl: myQuestion.studentProfilePhotoPath,
+                        teacherIconUrl: myQuestion.teacherProfilePhotoPath,
+                        answer: myQuestion.answerText,
                         isBookmarked: myQuestion.isBookMarked),
                   );
-                },
+                    },
+                  )
+                : const Center(
+                    child: Text("質問がねえじゃん！"),
+                  ),
+                loading: () => const LoadingOverlay(),
+            error: (error, stack) {
+              print("エラーはこれです${error}");
+              print(stack);
+              return const Center(
+                  child: Column(
+                children: [
+                  TextForError(),
+                ],
               ),
-              ListView.builder(
-                itemCount: bookMarks.length,
-                itemBuilder: (context, index) {
-                  final bookMarkedQuestion = bookMarks[index];
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, right: 20, left: 20),
-                    child: QuestionCardWidget(
-                        questionTitle: bookMarkedQuestion.questionTitle,
-                        question: bookMarkedQuestion.question,
-                        studentIconUrl: bookMarkedQuestion.studentIconUrl,
-                        teacherIconUrl: bookMarkedQuestion.teacherIconUrl,
-                        answer: bookMarkedQuestion.answer,
-                        isBookmarked: bookMarkedQuestion.isBookMarked),
-                  );
-                },
-              ),
+              );
+            },
+                ),
             ])),
       ),
     );
