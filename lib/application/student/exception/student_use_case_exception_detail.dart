@@ -3,7 +3,7 @@ import '../../shared/exception/use_case_exception_detail.dart';
 enum StudentUseCaseExceptionDetail implements UseCaseExceptionDetail {
   notFound('student not found'),
   failedInImageProcessing('failed in image processing'),
-  noSchoolfound('no school found'),
+  noSchoolFound('no school found'),
   noProfileFound('no profile found'),
   photoNotFound('image not found'),
   ;

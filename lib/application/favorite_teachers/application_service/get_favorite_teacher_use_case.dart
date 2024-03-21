@@ -5,11 +5,11 @@ import '../../shared/session/session.dart';
 
 class GetFavoriteTeacherUseCase {
   final Session _session;
-  final IGetMyBookmarksQueryService _queryService;
+  final IGetFavoriteTeacherQueryService _queryService;
 
   GetFavoriteTeacherUseCase({
     required final Session session,
-    required final IGetMyBookmarksQueryService queryService,
+    required final IGetFavoriteTeacherQueryService queryService,
   })  : _session = session,
         _queryService = queryService;
 

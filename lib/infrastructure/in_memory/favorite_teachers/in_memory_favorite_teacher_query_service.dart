@@ -8,7 +8,7 @@ import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/favorite_teachers/models/favorite_teachers.dart';
 
 class InMemoryFavoriteTeacherQueryService
-    implements IGetMyBookmarksQueryService {
+    implements IGetFavoriteTeacherQueryService {
   final InMemoryFavoriteTeachersRepository _repository;
   final InMemoryTeacherRepository _teacherRepository;
 

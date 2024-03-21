@@ -7,7 +7,7 @@ part of 'get_my_bookmarks_repository_provider.dart';
 // **************************************************************************
 
 String _$getMyBookmarksRepositoryDiHash() =>
-    r'8b6590cb6c07edf60944bd993b27624c2436848e';
+    r'89909497d8fc750aa4273166881f7b7c0067667c';
 
 /// See also [getMyBookmarksRepositoryDi].
 @ProviderFor(getMyBookmarksRepositoryDi)

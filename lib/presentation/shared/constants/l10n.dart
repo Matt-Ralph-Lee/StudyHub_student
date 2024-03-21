@@ -1,3 +1,4 @@
+import '../../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
 
@@ -24,6 +25,22 @@ class L10n {
         return "パスワードが短すぎます。${Password.minLength}文字以上にしてください";
       case StudentAuthDomainExceptionDetail.longPassword:
         return "パスワードが長すぎます。${Password.maxLength}文字以下にしてください";
+    }
+  }
+
+  static String getStudentUseCaseExceptionMessage(
+      StudentUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case StudentUseCaseExceptionDetail.notFound:
+        return "見つかりませんでした。再度やり直してください。";
+      case StudentUseCaseExceptionDetail.failedInImageProcessing:
+        return "画像の読み込みに失敗しました。再度やり直してください";
+      case StudentUseCaseExceptionDetail.noSchoolFound:
+        return "学校名が見つかりませんでした。";
+      case StudentUseCaseExceptionDetail.noProfileFound:
+        return "プロフィールが見つかりませんでした。";
+      case StudentUseCaseExceptionDetail.photoNotFound:
+        return "画像が見つかりませんでした。";
     }
   }
 

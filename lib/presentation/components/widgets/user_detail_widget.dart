@@ -65,7 +65,7 @@ void showStatusDescriptionDialog(BuildContext context) {
 class UserDetailWidget extends StatelessWidget {
   final String userName;
   final String userIconUrl;
-  final String numberOfFavoriteTeachers;
+  final int numberOfFavoriteTeachers;
   final String userRank;
   final int numberOfQuestions;
 
@@ -107,7 +107,7 @@ class UserDetailWidget extends StatelessWidget {
                 //favorite_teacher_pageマージしたらonTap時にそこ飛ぶように加筆する
                 children: [
                   Text(
-                    numberOfFavoriteTeachers,
+                    numberOfFavoriteTeachers.toString(),
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize:

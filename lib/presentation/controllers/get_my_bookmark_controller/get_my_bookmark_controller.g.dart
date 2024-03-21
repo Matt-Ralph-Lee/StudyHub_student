@@ -7,7 +7,7 @@ part of 'get_my_bookmark_controller.dart';
 // **************************************************************************
 
 String _$getMyBookmarksControllerHash() =>
-    r'8b6cb9b0807cc838c93a9b557f828a21b6839965';
+    r'c24ad5404061637cc2bbcf89f682270c2280927b';
 
 /// See also [GetMyBookmarksController].
 @ProviderFor(GetMyBookmarksController)

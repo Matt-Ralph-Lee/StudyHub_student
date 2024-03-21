@@ -10,16 +10,16 @@ import '../parts/text_for_input_explanation.dart';
 import '../parts/text_form_field_for_school_name_input.dart';
 
 class AcademicHistoryInputWidget extends HookWidget {
-  final VoidCallback incrementProgressCounter;
   final VoidCallback decrementProgressCounter;
+  final VoidCallback updateProfile;
   final TextEditingController academicHistoryInputController;
   final String? othersGradeValue;
   final ValueChanged<String?> handleOthersGradeChanged;
 
   const AcademicHistoryInputWidget(
       {super.key,
-      required this.incrementProgressCounter,
       required this.decrementProgressCounter,
+      required this.updateProfile,
       required this.academicHistoryInputController,
       required this.othersGradeValue,
       required this.handleOthersGradeChanged});
@@ -56,12 +56,12 @@ class AcademicHistoryInputWidget extends HookWidget {
               decrementCounter: decrementProgressCounter,
             ),
             ButtonForProfileInputSkip(
-              skipCounter: incrementProgressCounter,
+              skipCounter: updateProfile,
             ),
             ButtonForProfileInputNext(
               incrementCounter:
                   (isAcademicHistoryFilled.value && othersGradeValue != null)
-                      ? incrementProgressCounter
+                      ? updateProfile
                       : null,
             )
           ],

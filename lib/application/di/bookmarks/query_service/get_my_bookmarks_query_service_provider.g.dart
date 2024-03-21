@@ -7,12 +7,12 @@ part of 'get_my_bookmarks_query_service_provider.dart';
 // **************************************************************************
 
 String _$getMyBookmarksQueryServiceDiHash() =>
-    r'51c877804b7d98c1b27ae090df6331acf524c073';
+    r'532d7f82bbb5dca8d5e126755bb6dd7928d9d205';
 
 /// See also [getMyBookmarksQueryServiceDi].
 @ProviderFor(getMyBookmarksQueryServiceDi)
 final getMyBookmarksQueryServiceDiProvider =
-    AutoDisposeProvider<IGetMyBookmarksQueryService>.internal(
+    AutoDisposeProvider<IGetBookmarksQueryService>.internal(
   getMyBookmarksQueryServiceDi,
   name: r'getMyBookmarksQueryServiceDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,6 +23,6 @@ final getMyBookmarksQueryServiceDiProvider =
 );
 
 typedef GetMyBookmarksQueryServiceDiRef
-    = AutoDisposeProviderRef<IGetMyBookmarksQueryService>;
+    = AutoDisposeProviderRef<IGetBookmarksQueryService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

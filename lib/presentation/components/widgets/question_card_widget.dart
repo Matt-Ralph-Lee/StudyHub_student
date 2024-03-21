@@ -11,7 +11,6 @@ class QuestionCardWidget extends StatelessWidget {
   final String studentIconUrl;
   final String? teacherIconUrl;
   final String? answer;
-  final bool isBookmarked;
 
   const QuestionCardWidget({
     super.key,
@@ -20,7 +19,6 @@ class QuestionCardWidget extends StatelessWidget {
     required this.studentIconUrl,
     required this.teacherIconUrl,
     required this.answer,
-    required this.isBookmarked,
   });
 
   @override
@@ -47,26 +45,6 @@ class QuestionCardWidget extends StatelessWidget {
         ),
         child: Column(
           children: [
-            isBookmarked
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Icon(
-                          Icons.bookmark,
-                          color: ColorSet.of(context).primary,
-                          size: FontSizeSet.getFontSize(
-                              context, FontSizeSet.header3),
-                        ),
-                      ),
-                    ],
-                  )
-                : SizedBox(
-                    height:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header3),
-                  ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
