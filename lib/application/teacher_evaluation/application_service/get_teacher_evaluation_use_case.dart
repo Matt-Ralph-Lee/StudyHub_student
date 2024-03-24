@@ -23,7 +23,8 @@ class GetTeacherEvaluationUseCase {
             from: teacherEvaluation.from,
             to: teacherEvaluation.to,
             rating: teacherEvaluation.rating.value,
-            comment: teacherEvaluation.comment.value),
+            comment: teacherEvaluation.comment.value,
+            createdAt: teacherEvaluation.createdAt),
       );
     }
 
