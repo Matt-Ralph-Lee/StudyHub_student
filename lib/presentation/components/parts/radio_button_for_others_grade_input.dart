@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:studyhub/domain/student/models/graduate_status.dart';
 
+import '../../../domain/student/models/grade_or_graduate_status.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -17,8 +17,10 @@ class RadioButtonForOthersGradeInput extends HookWidget {
     required this.onChanged,
   });
 
-  final othersGradeOptions =
-      GraduateStatus.values.map((e) => e.japanese).toList();
+  final othersGradeOptions = GradeOrGraduateStatus.values
+      .where((element) => element != GradeOrGraduateStatus.graduate)
+      .map((e) => e.japanese)
+      .toList();
 
   List<Widget> buildRadioButtons(BuildContext context) {
     return othersGradeOptions.map((option) {

@@ -38,7 +38,7 @@ class ProfileUpdateUseCase {
     final newGender = command.gender;
     final newOccupation = command.occupation;
     final newSchoolData = command.school;
-    final newGrade = command.grade;
+    final newGradeOrGraduateStatus = command.gradeOrGraduateStatus;
     final newLocalPhotoPath = command.localPhotoPath;
 
     if (newStudentNameData != null) {
@@ -65,8 +65,8 @@ class ProfileUpdateUseCase {
       student.changeSchool(School(newSchoolData));
     }
 
-    if (newGrade != null) {
-      student.changeGrade(newGrade);
+    if (newGradeOrGraduateStatus != null) {
+      student.changeGradeOrGraduateStatus(newGradeOrGraduateStatus);
     }
 
     if (newLocalPhotoPath != null) {
