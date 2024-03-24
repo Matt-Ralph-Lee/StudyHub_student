@@ -25,8 +25,13 @@ class TeacherEvaluationAddUseCase {
     final rating = TeacherEvaluationRating(ratingData);
     final comment = TeacherEvaluationComment(commentData);
 
-    final teacherEvaluation =
-        TeacherEvaluation(from: from, to: to, rating: rating, comment: comment);
+    final teacherEvaluation = TeacherEvaluation(
+      from: from,
+      to: to,
+      rating: rating,
+      comment: comment,
+      createdAt: DateTime.now(),
+    );
 
     await _repository.save(teacherEvaluation);
   }

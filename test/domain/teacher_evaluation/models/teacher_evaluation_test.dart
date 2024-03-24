@@ -14,6 +14,7 @@ void main() {
         to: TeacherId("01234567890123456789"),
         rating: TeacherEvaluationRating(5),
         comment: TeacherEvaluationComment("hello, that was great"),
+        createdAt: DateTime.now(),
       );
       expect(() => teacherEvaluation, returnsNormally);
     });
@@ -25,6 +26,7 @@ void main() {
                 to: TeacherId("01234567890123456789"),
                 rating: TeacherEvaluationRating(0),
                 comment: TeacherEvaluationComment("hello, that was great"),
+                createdAt: DateTime.now(),
               ),
           throwsA(isA<DomainException>()));
     });
@@ -36,6 +38,7 @@ void main() {
                 to: TeacherId("01234567890123456789"),
                 rating: TeacherEvaluationRating(4),
                 comment: TeacherEvaluationComment("a"),
+                createdAt: DateTime.now(),
               ),
           throwsA(isA<DomainException>()));
     });
