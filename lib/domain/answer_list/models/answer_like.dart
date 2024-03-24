@@ -46,4 +46,7 @@ class AnswerLike {
       return false;
     }
   }
+
+  @override
+  int get hashCode => _value.hashCode;
 }
