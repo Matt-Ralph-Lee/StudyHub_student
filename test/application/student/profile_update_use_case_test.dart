@@ -9,7 +9,7 @@ import 'package:studyhub/domain/school/models/school.dart';
 import 'package:studyhub/domain/school/services/school_service.dart';
 import 'package:studyhub/domain/shared/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/gender.dart';
-import 'package:studyhub/domain/student/models/grade.dart';
+import 'package:studyhub/domain/student/models/grade_or_graduate_status.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
 import 'package:studyhub/domain/student/models/question_count.dart';
 import 'package:studyhub/domain/student/models/status.dart';
@@ -35,7 +35,7 @@ void main() {
     const gender = Gender.noAnswer;
     const occupation = Occupation.student;
     final school = School.noAnswer;
-    const grade = Grade.other;
+    const gradeOrGraduateStatus = GradeOrGraduateStatus.other;
     final questionCount = QuestionCount(0);
     const status = Status.beginner;
 
@@ -46,7 +46,7 @@ void main() {
       gender: gender,
       occupation: occupation,
       school: school,
-      grade: grade,
+      gradeOrGraduateStatus: gradeOrGraduateStatus,
       questionCount: questionCount,
       status: status,
     );
@@ -60,7 +60,7 @@ void main() {
         gender: Gender.male,
         occupation: null,
         school: '第一高校',
-        grade: null,
+        gradeOrGraduateStatus: null,
         localPhotoPath: 'assets/images/sample_user_icon.jpg',
       );
       final usecase = ProfileUpdateUseCase(
@@ -83,7 +83,7 @@ void main() {
         gender: null,
         occupation: null,
         school: null,
-        grade: null,
+        gradeOrGraduateStatus: null,
         localPhotoPath: 'assets/images/sample_user_icon2.jpg',
       );
       final usecase = ProfileUpdateUseCase(
@@ -111,7 +111,7 @@ void main() {
         gender: null,
         occupation: null,
         school: '第二高校',
-        grade: null,
+        gradeOrGraduateStatus: null,
         localPhotoPath: null,
       );
       final usecase = ProfileUpdateUseCase(

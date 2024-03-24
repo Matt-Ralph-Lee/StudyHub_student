@@ -3,7 +3,7 @@ import 'package:english_words/english_words.dart';
 import '../../../domain/school/models/school.dart';
 import '../../../domain/shared/name.dart';
 import '../../../domain/student/models/gender.dart';
-import '../../../domain/student/models/grade.dart';
+import '../../../domain/student/models/grade_or_graduate_status.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/student/models/occupation.dart';
 import '../../../domain/student/models/question_count.dart';
@@ -63,7 +63,7 @@ Student _createInitially(final StudentId studentId) {
   const gender = Gender.noAnswer;
   const occupation = Occupation.others;
   final school = School.noAnswer;
-  const grade = Grade.other;
+  const gradeOrGraduateStatus = GradeOrGraduateStatus.other;
   final questionCount = QuestionCount(0);
   const status = Status.beginner;
 
@@ -74,7 +74,7 @@ Student _createInitially(final StudentId studentId) {
     gender: gender,
     occupation: occupation,
     school: school,
-    grade: grade,
+    gradeOrGraduateStatus: gradeOrGraduateStatus,
     questionCount: questionCount,
     status: status,
   );

@@ -10,6 +10,8 @@ enum StudentDomainExceptionDetail implements DomainExceptionDetail {
   invalidPhotoSize(
       'プロフィール画像の大きさは${ProfilePhoto.avaliableHeight}x${ProfilePhoto.availableWidth}にしてください'),
   invalidQuestionCount('質問数が不正です'),
+  invalidConvination(
+      "gradeOrGraduateStatus and occupation has a invalid convination"),
   ;
 
   const StudentDomainExceptionDetail(this._message);
