@@ -57,7 +57,7 @@ class FavoriteTeachersPage extends ConsumerWidget {
                       final teacher = teachers[index];
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: FavoriteTeacherCardWidget(
+                        child: teacherSmallCardWidget(
                           name: teacher.teacherName,
                           bio: teacher.bio,
                           iconUrl: teacher.profilePhotoPath,

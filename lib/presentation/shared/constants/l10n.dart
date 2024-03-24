@@ -1,4 +1,7 @@
+import 'package:studyhub/application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
+
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
+import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
 
@@ -41,6 +44,22 @@ class L10n {
         return "プロフィールが見つかりませんでした。";
       case StudentUseCaseExceptionDetail.photoNotFound:
         return "画像が見つかりませんでした。";
+    }
+  }
+
+  static String favoriteTeacherUseCaseExceptionMessage(
+      FavoriteTeachersUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case FavoriteTeachersUseCaseExceptionDetail.favoriteTeacherNotFound:
+        return "お気に入りの講師が見つかりませんでした。";
+    }
+  }
+
+  static String evaluationUseCaseExceptionMessage(
+      EvaluationUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case EvaluationUseCaseExceptionDetail.favoriteTeacherNotFound:
+        return "お気に入りの講師が見つかりませんでした。"; //これfavoriteTeacherNotFoundではないよね？元書き換えて
     }
   }
 
@@ -119,7 +138,10 @@ class L10n {
   //shared
   static const errorText = "エラーです。時間をおいてから再度お試しください";
   static const errorModalText = "エラーです！";
-  static const modalBackText = "閉じる";
+  static const confirmModalTitleText = "以下の内容でよろしいですか？";
+  static const modalOkText = "ok";
+  static const modalCancelText = "キャンセル";
+  static const modalCloseText = "閉じる";
 
   //profile_edit_page
   static const cancelText = "キャンセル";

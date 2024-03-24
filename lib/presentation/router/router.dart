@@ -4,8 +4,10 @@ import "package:go_router/go_router.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
+import "package:studyhub/presentation/pages/select_teachers_page.dart";
 
 import "../../application/di/session/session_provider.dart";
+import "../../domain/teacher/models/teacher_id.dart";
 import "../pages/auth_page.dart";
 import "../pages/evaluation_page.dart";
 import '../pages/favorite_teachers_page.dart';
@@ -120,6 +122,15 @@ GoRouter router(RouterRef ref) {
       path: PageId.evaluationPage.path,
       name: PageId.evaluationPage.name,
       builder: (context, state) => const EvaluationPage(),
+    ),
+    GoRoute(
+      path: PageId.selectTeachers.path,
+      name: PageId.selectTeachers.name,
+      builder: (context, state) {
+        final getTeacherProfileDto = state.extra as Function(List<TeacherId>);
+        return SelectTeachersPage(
+            onPressed: getTeacherProfileDto); //引数渡す際はこれでいいかね？
+      },
     ),
   ];
 

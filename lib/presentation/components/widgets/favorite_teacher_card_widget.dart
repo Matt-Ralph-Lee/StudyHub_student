@@ -4,16 +4,19 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class FavoriteTeacherCardWidget extends StatelessWidget {
+class teacherSmallCardWidget extends StatelessWidget {
   final String name;
   final String bio;
   final String iconUrl;
+  final bool isSelected;
 
-  const FavoriteTeacherCardWidget(
-      {super.key,
-      required this.name,
-      required this.bio,
-      required this.iconUrl});
+  const teacherSmallCardWidget({
+    super.key,
+    required this.name,
+    required this.bio,
+    required this.iconUrl,
+    required this.isSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,9 @@ class FavoriteTeacherCardWidget extends StatelessWidget {
               blurRadius: 16,
               offset: const Offset(0, 0)),
         ],
+        border: isSelected
+            ? Border.all(color: ColorSet.of(context).text, width: 2)
+            : null,
       ),
       child: Padding(
         padding: const EdgeInsets.all(20),

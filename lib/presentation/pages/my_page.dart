@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/user_detail_widget.dart';
-import '../components/widgets/question_card_widget.dart';
+import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../controllers/get_my_bookmark_controller/get_my_bookmark_controller.dart';
 import '../controllers/get_my_question_controller/get_my_question_controller.dart';
@@ -137,7 +137,7 @@ class MyPage extends ConsumerWidget {
                               right: 20,
                               left: 20,
                             ),
-                            child: QuestionCardWidget(
+                            child: QuestionAndAnswerCardWidget(
                               questionTitle: myQuestion.questionTitle,
                               question: myQuestion.questionText,
                               studentIconUrl:
@@ -177,7 +177,7 @@ class MyPage extends ConsumerWidget {
                               right: 20,
                               left: 20,
                             ),
-                            child: QuestionCardWidget(
+                            child: QuestionAndAnswerCardWidget(
                               questionTitle: myBookmark.questionTitle,
                               question: myBookmark.questionText,
                               studentIconUrl:

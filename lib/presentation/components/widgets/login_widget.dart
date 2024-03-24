@@ -11,7 +11,7 @@ import '../../shared/constants/page_path.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_form_field_for_email_address_input.dart';
 import '../parts/text_form_field_for_password_input.dart';
-import 'show_domain_exception_modal_widget.dart';
+import 'specific_exception_modal_widget.dart';
 import 'show_error_modal_widget.dart';
 
 class LoginWidget extends HookConsumerWidget {
@@ -89,7 +89,7 @@ class LoginWidget extends HookConsumerWidget {
                       if (error is StudentAuthDomainException) {
                         final errorText = L10n.getStudentAuthExceptionMessage(
                             error.detail as StudentAuthDomainExceptionDetail);
-                        showDomainExceptionModalWidget(context, errorText);
+                        SpecificExceptionModalWidget(context, errorText);
                       } else {
                         showErrorModalWidget(context);
                       }

@@ -15,7 +15,7 @@ import '../components/parts/progress_bar.dart';
 import '../components/parts/text_for_profile_completion_welcome.dart';
 import '../components/widgets/academic_history_input_widget.dart';
 import '../components/widgets/gender_and_job_input_widget.dart';
-import '../components/widgets/show_domain_exception_modal_widget.dart';
+import '../components/widgets/specific_exception_modal_widget.dart';
 import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/student_school_name_and_grade_input_widget.dart';
 import '../components/widgets/user_name_input_widget.dart';
@@ -83,7 +83,7 @@ class ProfileInputPage extends HookConsumerWidget {
         gender: genderMap[gender.value],
         occupation: occupationMap[job],
         school: schoolNameForCommand, //schoolドメインが定義されていない
-        grade: gradeForCommand, //graduateStatusを打ち込めない
+        grade: null /*gradeForCommand*/, //graduateStatusを打ち込めない
         localPhotoPath: "assets/images/sample_user_icon.jpg",
       );
 
@@ -97,7 +97,7 @@ class ProfileInputPage extends HookConsumerWidget {
           if (error is StudentUseCaseException) {
             final errorText = L10n.getStudentUseCaseExceptionMessage(
                 error.detail as StudentUseCaseExceptionDetail);
-            showDomainExceptionModalWidget(context, errorText);
+            SpecificExceptionModalWidget(context, errorText);
           } else {
             showErrorModalWidget(context);
           }

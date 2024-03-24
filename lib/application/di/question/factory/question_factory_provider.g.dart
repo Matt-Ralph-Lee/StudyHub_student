@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'profile_update_controller.dart';
+part of 'question_factory_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$profileUpdateControllerHash() =>
-    r'e10b52d71f5f1f07a493e2e9fda13488fdb32713';
+String _$questionFactoryDiHash() => r'9731598a245f7d8b9f26fface9a88eee0097adf3';
 
-/// See also [ProfileUpdateController].
-@ProviderFor(ProfileUpdateController)
-final profileUpdateControllerProvider =
-    AutoDisposeAsyncNotifierProvider<ProfileUpdateController, void>.internal(
-  ProfileUpdateController.new,
-  name: r'profileUpdateControllerProvider',
+/// See also [questionFactoryDi].
+@ProviderFor(questionFactoryDi)
+final questionFactoryDiProvider =
+    AutoDisposeProvider<IQuestionFactory>.internal(
+  questionFactoryDi,
+  name: r'questionFactoryDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$profileUpdateControllerHash,
+      : _$questionFactoryDiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ProfileUpdateController = AutoDisposeAsyncNotifier<void>;
+typedef QuestionFactoryDiRef = AutoDisposeProviderRef<IQuestionFactory>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
