@@ -20,7 +20,7 @@ import 'package:studyhub/domain/shared/name.dart';
 import 'package:studyhub/domain/shared/profile_photo_path.dart';
 import 'package:studyhub/domain/shared/subject.dart';
 import 'package:studyhub/domain/student/models/gender.dart';
-import 'package:studyhub/domain/student/models/grade.dart';
+import 'package:studyhub/domain/student/models/grade_or_graduate_status.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
 import 'package:studyhub/domain/student/models/question_count.dart';
 import 'package:studyhub/domain/student/models/status.dart';
@@ -59,7 +59,7 @@ void main() {
       gender: Gender.male,
       occupation: Occupation.student,
       school: School('第一高校'),
-      grade: Grade.first,
+      gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(2),
       status: Status.beginner,
     );
@@ -75,7 +75,7 @@ void main() {
       gender: Gender.male,
       occupation: Occupation.student,
       school: School('第一高校'),
-      grade: Grade.first,
+      gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
     );
@@ -91,7 +91,7 @@ void main() {
       gender: Gender.male,
       occupation: Occupation.student,
       school: School('第一高校'),
-      grade: Grade.first,
+      gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
     );
