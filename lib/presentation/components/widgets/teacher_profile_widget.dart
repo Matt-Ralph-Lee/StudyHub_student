@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:studyhub/application/teacher/application_service/get_teacher_profile_dto.dart';
 
-import '../../../application/shared/application_service/question_card_dto.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
 class TeacherProfileWidget extends StatelessWidget {
   final GetTeacherProfileDto teacherProfileDto;
-
-  //DTOで受け取るようにする？
 
   const TeacherProfileWidget({super.key, required this.teacherProfileDto});
 
@@ -51,7 +48,7 @@ class TeacherProfileWidget extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      teacherProfileDto.name, //これどうやって取得する？questionDtoからは取得できない
+                      teacherProfileDto.name,
                       style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(

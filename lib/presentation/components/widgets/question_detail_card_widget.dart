@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:studyhub/application/shared/application_service/question_card_dto.dart';
-
+import '../../../application/question/application_service/question_detail_dto.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class QuestionCardWidget extends StatelessWidget {
-  final QuestionCardDto questionCardDto;
+class QuestionDetailCardWidget extends StatelessWidget {
+  final QuestionDetailDto questionDetailDto;
 
-  const QuestionCardWidget({
+  const QuestionDetailCardWidget({
     super.key,
-    required this.questionCardDto,
+    required this.questionDetailDto,
   });
 
   @override
@@ -43,7 +42,7 @@ class QuestionCardWidget extends StatelessWidget {
                 CircleAvatar(
                   radius: 15,
                   backgroundImage: NetworkImage(
-                    questionCardDto.studentProfilePhotoPath,
+                    questionDetailDto.studentProfilePhotoPath,
                   ),
                 ),
               ],
@@ -57,7 +56,7 @@ class QuestionCardWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        questionCardDto.questionTitle,
+                        questionDetailDto.questionTitle,
                         style: TextStyle(
                           fontWeight: FontWeightSet.normal,
                           fontSize: FontSizeSet.getFontSize(
@@ -78,7 +77,7 @@ class QuestionCardWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          questionCardDto.questionText,
+                          questionDetailDto.questionText,
                           style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(

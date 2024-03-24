@@ -5,7 +5,7 @@ import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
 class TextButtonForFollowTeacher extends StatelessWidget {
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   const TextButtonForFollowTeacher({
     Key? key,
@@ -15,7 +15,7 @@ class TextButtonForFollowTeacher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: () => onPressed,
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),

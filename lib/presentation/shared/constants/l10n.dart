@@ -1,5 +1,6 @@
 import 'package:studyhub/application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 
+import '../../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
@@ -60,6 +61,22 @@ class L10n {
     switch (detail) {
       case EvaluationUseCaseExceptionDetail.favoriteTeacherNotFound:
         return "お気に入りの講師が見つかりませんでした。"; //これfavoriteTeacherNotFoundではないよね？元書き換えて
+    }
+  }
+
+  static String getQuestionExceptionMessage(
+      QuestionUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case QuestionUseCaseExceptionDetail.failedDeleting:
+        return "Questionを削除する権限がありませんでした。";
+      case QuestionUseCaseExceptionDetail.failedEditing:
+        return "'Questionを編集する権限がありませんでした。";
+      case QuestionUseCaseExceptionDetail.questionNotFound:
+        return "Questionが見つかりません。";
+      case QuestionUseCaseExceptionDetail.imageNotFound:
+        return "画像が見つかりませんでした。";
+      case QuestionUseCaseExceptionDetail.failedImageProcessing:
+        return "画像の処理に失敗しました。";
     }
   }
 

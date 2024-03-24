@@ -10,8 +10,8 @@ import '../parts/text_button_for_unfollow_teacher.dart';
 
 class TeacherProfileForEvaluationPageWidget extends StatelessWidget {
   final GetTeacherProfileDto getTeacherProfileDto;
-  final VoidCallback? followFunction;
-  final VoidCallback? unFollowFunction;
+  final VoidCallback followFunction;
+  final VoidCallback unFollowFunction;
   final bool isFollowed;
   const TeacherProfileForEvaluationPageWidget({
     super.key,

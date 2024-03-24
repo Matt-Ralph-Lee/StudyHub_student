@@ -24,14 +24,14 @@ class ElevatedButtonForAddingPicture extends StatelessWidget {
       width: screenWidth * 0.8,
       child: ElevatedButton(
         onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: ((builder) => BottomSheetForPickImage(
-                          takePhoto: takePhoto,
-                          pickPhoto: pickPhoto,
-                        )),
-                  );
-                },,
+          showModalBottomSheet(
+            context: context,
+            builder: ((builder) => BottomSheetForPickImage(
+                  takePhoto: takePhoto,
+                  pickPhoto: pickPhoto,
+                )),
+          );
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: ColorSet.of(context).primary,
           disabledBackgroundColor: ColorSet.of(context).inactiveGreySurface,

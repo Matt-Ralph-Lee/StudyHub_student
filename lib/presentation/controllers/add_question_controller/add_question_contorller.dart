@@ -1,6 +1,7 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:studyhub/application/di/photo/photo_repository_provider.dart";
 import "package:studyhub/application/question/application_service/question_create_use_case.dart";
+import "package:studyhub/domain/teacher/models/teacher_id.dart";
 
 import "../../../application/di/question/factory/question_factory_provider.dart";
 import "../../../application/di/question/repository/question_repository_provider.dart";
@@ -19,7 +20,7 @@ class AddQuestionController extends _$AddQuestionController {
     String question,
     Subject subject,
     List<String> photos,
-    List<int> selectedTeachersId,
+    List<TeacherId> selectedTeachersId,
   ) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
@@ -37,8 +38,8 @@ class AddQuestionController extends _$AddQuestionController {
         questionTitleData: questionTitle,
         questionTextData: question,
         localPathList: photos,
-        questionSubject: null,
-        selectedTeacherListData: [],
+        questionSubject: subject,
+        selectedTeacherListData: selectedTeachersId,
       );
     });
   }

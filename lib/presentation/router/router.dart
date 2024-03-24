@@ -121,7 +121,12 @@ GoRouter router(RouterRef ref) {
     GoRoute(
       path: PageId.evaluationPage.path,
       name: PageId.evaluationPage.name,
-      builder: (context, state) => const EvaluationPage(),
+      builder: (context, state) {
+        final getTeacherProfileDto = state.extra as Function(List<TeacherId>);
+        return EvaluationPage(
+          getTeacherProfileDto: null,
+        ); //引数渡す際はこれでいいかね？
+      },
     ),
     GoRoute(
       path: PageId.selectTeachers.path,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/text_for_error.dart';
@@ -10,16 +8,13 @@ import '../components/parts/text_for_no_favorite_teacher_found.dart';
 import '../components/parts/text_form_field_for_search_teachers.dart';
 import '../components/widgets/favorite_teacher_card_widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
+import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../controllers/search_for_teachers_controller/search_for_teachers_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 
-//①searchForTeachersControllerの実装→diの実装→インメモリのsearchForTeachersクエリサービスの実装
-//②getPopularTeachersControllerの実装→getPopularTeacherのインターフェイスとインメモリのgetPopularTeacherクエリサービスの実装
-//③createQuestionPageの方で、idためるリストと、リストをトグルずる関数を実装して渡す
-//④検索されたときに、一枚目から検索結果に切り替えるロジック考える&実装する
-
+// final searchForTeachersState = ref.watch(earchForTeachersControllerProvider(searchTerm.value)); null受け取れないけどじゃあデフォはどうする？適当にユニークな値渡しておくとか？
 class SelectTeachersPage extends ConsumerWidget {
   final void Function(List<TeacherId>) onPressed;
   const SelectTeachersPage({

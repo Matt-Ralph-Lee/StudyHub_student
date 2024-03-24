@@ -7,12 +7,12 @@ part of 'get_popular_teacher_query_service_provider.dart';
 // **************************************************************************
 
 String _$getPopularTeacherQueryServiceDiHash() =>
-    r'3dad84d8887703ac3970732b1bce743f8c1f5684';
+    r'8c7b67007f3113eeafdb758d0f845259fab113bd';
 
 /// See also [getPopularTeacherQueryServiceDi].
 @ProviderFor(getPopularTeacherQueryServiceDi)
 final getPopularTeacherQueryServiceDiProvider =
-    AutoDisposeProvider<IGetTeacherProfileQueryService>.internal(
+    AutoDisposeProvider<IGetPopularTeachersQueryService>.internal(
   getPopularTeacherQueryServiceDi,
   name: r'getPopularTeacherQueryServiceDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,6 +23,6 @@ final getPopularTeacherQueryServiceDiProvider =
 );
 
 typedef GetPopularTeacherQueryServiceDiRef
-    = AutoDisposeProviderRef<IGetTeacherProfileQueryService>;
+    = AutoDisposeProviderRef<IGetPopularTeachersQueryService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -7,7 +7,7 @@ part of 'get_teacher_profile_controller.dart';
 // **************************************************************************
 
 String _$getTeacherProfileControllerHash() =>
-    r'8b665696e742c32938b6c9301155edf28ee797a9';
+    r'ce4517019bd7a95d25c184e7a347857a33306df5';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,11 +33,9 @@ class _SystemHash {
 abstract class _$GetTeacherProfileController
     extends BuildlessAutoDisposeAsyncNotifier<GetTeacherProfileDto?> {
   late final TeacherId teacherID;
-  late final IGetTeacherProfileQueryService iGetTeacherProfileQueryService;
 
   FutureOr<GetTeacherProfileDto?> build(
     TeacherId teacherID,
-    IGetTeacherProfileQueryService iGetTeacherProfileQueryService,
   );
 }
 
@@ -54,11 +52,9 @@ class GetTeacherProfileControllerFamily
   /// See also [GetTeacherProfileController].
   GetTeacherProfileControllerProvider call(
     TeacherId teacherID,
-    IGetTeacherProfileQueryService iGetTeacherProfileQueryService,
   ) {
     return GetTeacherProfileControllerProvider(
       teacherID,
-      iGetTeacherProfileQueryService,
     );
   }
 
@@ -68,7 +64,6 @@ class GetTeacherProfileControllerFamily
   ) {
     return call(
       provider.teacherID,
-      provider.iGetTeacherProfileQueryService,
     );
   }
 
@@ -94,11 +89,8 @@ class GetTeacherProfileControllerProvider
   /// See also [GetTeacherProfileController].
   GetTeacherProfileControllerProvider(
     TeacherId teacherID,
-    IGetTeacherProfileQueryService iGetTeacherProfileQueryService,
   ) : this._internal(
-          () => GetTeacherProfileController()
-            ..teacherID = teacherID
-            ..iGetTeacherProfileQueryService = iGetTeacherProfileQueryService,
+          () => GetTeacherProfileController()..teacherID = teacherID,
           from: getTeacherProfileControllerProvider,
           name: r'getTeacherProfileControllerProvider',
           debugGetCreateSourceHash:
@@ -109,7 +101,6 @@ class GetTeacherProfileControllerProvider
           allTransitiveDependencies:
               GetTeacherProfileControllerFamily._allTransitiveDependencies,
           teacherID: teacherID,
-          iGetTeacherProfileQueryService: iGetTeacherProfileQueryService,
         );
 
   GetTeacherProfileControllerProvider._internal(
@@ -120,11 +111,9 @@ class GetTeacherProfileControllerProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.teacherID,
-    required this.iGetTeacherProfileQueryService,
   }) : super.internal();
 
   final TeacherId teacherID;
-  final IGetTeacherProfileQueryService iGetTeacherProfileQueryService;
 
   @override
   FutureOr<GetTeacherProfileDto?> runNotifierBuild(
@@ -132,7 +121,6 @@ class GetTeacherProfileControllerProvider
   ) {
     return notifier.build(
       teacherID,
-      iGetTeacherProfileQueryService,
     );
   }
 
@@ -141,16 +129,13 @@ class GetTeacherProfileControllerProvider
     return ProviderOverride(
       origin: this,
       override: GetTeacherProfileControllerProvider._internal(
-        () => create()
-          ..teacherID = teacherID
-          ..iGetTeacherProfileQueryService = iGetTeacherProfileQueryService,
+        () => create()..teacherID = teacherID,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         teacherID: teacherID,
-        iGetTeacherProfileQueryService: iGetTeacherProfileQueryService,
       ),
     );
   }
@@ -164,15 +149,13 @@ class GetTeacherProfileControllerProvider
   @override
   bool operator ==(Object other) {
     return other is GetTeacherProfileControllerProvider &&
-        other.teacherID == teacherID &&
-        other.iGetTeacherProfileQueryService == iGetTeacherProfileQueryService;
+        other.teacherID == teacherID;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, teacherID.hashCode);
-    hash = _SystemHash.combine(hash, iGetTeacherProfileQueryService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -182,9 +165,6 @@ mixin GetTeacherProfileControllerRef
     on AutoDisposeAsyncNotifierProviderRef<GetTeacherProfileDto?> {
   /// The parameter `teacherID` of this provider.
   TeacherId get teacherID;
-
-  /// The parameter `iGetTeacherProfileQueryService` of this provider.
-  IGetTeacherProfileQueryService get iGetTeacherProfileQueryService;
 }
 
 class _GetTeacherProfileControllerProviderElement
@@ -195,10 +175,6 @@ class _GetTeacherProfileControllerProviderElement
   @override
   TeacherId get teacherID =>
       (origin as GetTeacherProfileControllerProvider).teacherID;
-  @override
-  IGetTeacherProfileQueryService get iGetTeacherProfileQueryService =>
-      (origin as GetTeacherProfileControllerProvider)
-          .iGetTeacherProfileQueryService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

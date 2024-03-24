@@ -61,6 +61,7 @@ class FavoriteTeachersPage extends ConsumerWidget {
                           name: teacher.teacherName,
                           bio: teacher.bio,
                           iconUrl: teacher.profilePhotoPath,
+                          isSelected: false, //ここ変えた
                         ),
                       );
                     },

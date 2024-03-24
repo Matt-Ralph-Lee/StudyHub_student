@@ -97,7 +97,13 @@ class ProfileInputPage extends HookConsumerWidget {
           if (error is StudentUseCaseException) {
             final errorText = L10n.getStudentUseCaseExceptionMessage(
                 error.detail as StudentUseCaseExceptionDetail);
-            SpecificExceptionModalWidget(context, errorText);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SpecificExceptionModalWidget(
+                    errorMessage: errorText,
+                  );
+                });
           } else {
             showErrorModalWidget(context);
           }

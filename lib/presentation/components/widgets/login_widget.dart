@@ -89,7 +89,14 @@ class LoginWidget extends HookConsumerWidget {
                       if (error is StudentAuthDomainException) {
                         final errorText = L10n.getStudentAuthExceptionMessage(
                             error.detail as StudentAuthDomainExceptionDetail);
-                        SpecificExceptionModalWidget(context, errorText);
+                        //ここ変えてある
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SpecificExceptionModalWidget(
+                                errorMessage: errorText,
+                              );
+                            });
                       } else {
                         showErrorModalWidget(context);
                       }

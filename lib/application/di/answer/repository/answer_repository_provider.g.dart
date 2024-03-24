@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_question_contorller.dart';
+part of 'answer_repository_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addQuestionControllerHash() =>
-    r'da6cf5ccc1c9c41c256aaa34cd39fc8cc9b3b600';
+String _$answerRepositoryDiHash() =>
+    r'9fdd08433d193e8aabbc082e78bb1016dc070653';
 
-/// See also [AddQuestionController].
-@ProviderFor(AddQuestionController)
-final addQuestionControllerProvider =
-    AutoDisposeAsyncNotifierProvider<AddQuestionController, void>.internal(
-  AddQuestionController.new,
-  name: r'addQuestionControllerProvider',
+/// See also [answerRepositoryDi].
+@ProviderFor(answerRepositoryDi)
+final answerRepositoryDiProvider =
+    AutoDisposeProvider<IAnswerRepository>.internal(
+  answerRepositoryDi,
+  name: r'answerRepositoryDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$addQuestionControllerHash,
+      : _$answerRepositoryDiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AddQuestionController = AutoDisposeAsyncNotifier<void>;
+typedef AnswerRepositoryDiRef = AutoDisposeProviderRef<IAnswerRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

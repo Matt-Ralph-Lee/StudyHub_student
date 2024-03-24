@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../application/teacher_evaluation/application_service/get_teacher_evaluation_dto.dart';
+import '../../controllers/get_student_controller/get_student_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../parts/text_for_error.dart';
+import 'loading_overlay_widget.dart';
 
-class EvaluationsWidget extends StatelessWidget {
-  final List<GetTeacherEvaluationDto> teacherEvaluationsDto;
+class EvaluationCardWidget extends ConsumerWidget {
+  final GetTeacherEvaluationDto teacherEvaluationsDto;
 
-  const EvaluationsWidget({
+  const EvaluationCardWidget({
     Key? key,
     required this.teacherEvaluationsDto,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final getStudentControllerState =
+        ref.watch(getStudentControllerProvider(teacherEvaluationsDto.from));
     return Column(
       children: [
         Text("生徒からの評価",
@@ -27,11 +33,7 @@ class EvaluationsWidget extends StatelessWidget {
                           ),
                           ),
         const SizedBox(height: 20,),
-        ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: teacherEvaluationsDto.length,
-          itemBuilder: (context, index) {
-            return Container(
+        Container(
         height: screenWidth < 600 ? 155 : 220,
         decoration: BoxDecoration(
           color: ColorSet.of(context).surface,
@@ -55,20 +57,35 @@ class EvaluationsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  CircleAvatar(
+                  getStudentControllerState.when(
+                  data: (getStudentDto) => CircleAvatar(
                     radius: 15,
                     backgroundImage: NetworkImage(
-                      teacherEvaluationsDto[index]., //生徒の写真はどうやって取得する？
+                      getStudentDto.profilePhotoPath
                     ),
-                  ),
-                  Text(
-                    teacherEvaluationsDto[index]., //日時はどうやって取得する？
-                  style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text,
-                          ),), 
+                  ) ,
+                  loading: () => const LoadingOverlay(),
+                  error: (error, stack) {
+                    print("エラーはこれです${error}");
+                    print(stack);
+                    return const Center(
+                        child: Column(
+                      children: [
+                        TextForError(),
+                      ],
+                    ));
+                  },
+                ),
+                Text(
+                  teacherEvaluationsDto., 
+                  //日時はどうやって取得する？
+                  //これはdtoにプロパティ追加するしかなくね？
+                style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.header3),
+                          color: ColorSet.of(context).text,
+                        ),), 
                 ],
               ),
               Column(
@@ -80,7 +97,7 @@ class EvaluationsWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          teacherEvaluationsDto[index].comment,
+                          teacherEvaluationsDto.comment,
                           style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
@@ -97,8 +114,6 @@ class EvaluationsWidget extends StatelessWidget {
           ),
         ),
             );
-          },
-        ),
       ],
     );
   }

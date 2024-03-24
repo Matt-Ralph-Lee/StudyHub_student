@@ -26,6 +26,7 @@ import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
 
+//idを受け取ってdtoをgetする形にしてもらって
 class EvaluationPage extends HookConsumerWidget {
   final GetTeacherProfileDto getTeacherProfileDto;
   const EvaluationPage({
@@ -73,7 +74,13 @@ class EvaluationPage extends HookConsumerWidget {
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
                 error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            SpecificExceptionModalWidget(context, errorText);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SpecificExceptionModalWidget(
+                    errorMessage: errorText,
+                  );
+                });
           } else {
             showErrorModalWidget(context);
           }
@@ -102,7 +109,13 @@ class EvaluationPage extends HookConsumerWidget {
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
                 error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            SpecificExceptionModalWidget(context, errorText);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SpecificExceptionModalWidget(
+                    errorMessage: errorText,
+                  );
+                });
           } else {
             showErrorModalWidget(context);
           }
@@ -139,7 +152,13 @@ class EvaluationPage extends HookConsumerWidget {
             if (error is EvaluationUseCaseException) {
               final errorText = L10n.evaluationUseCaseExceptionMessage(
                   error.detail as EvaluationUseCaseExceptionDetail);
-              SpecificExceptionModalWidget(context, errorText);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SpecificExceptionModalWidget(
+                      errorMessage: errorText,
+                    );
+                  });
             } else {
               showErrorModalWidget(context);
             }

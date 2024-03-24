@@ -5,7 +5,7 @@ import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
 class TextButtonForUnFollowTeacher extends StatelessWidget {
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   const TextButtonForUnFollowTeacher({
     Key? key,
