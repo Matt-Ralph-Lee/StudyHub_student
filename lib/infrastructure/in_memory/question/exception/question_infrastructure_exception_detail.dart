@@ -4,6 +4,7 @@ enum QuestionInfrastructureExceptionDetail
     implements InfrastructureExceptionDetail {
   studentNotFound('student not found'),
   teacherNotFound('teacher not found'),
+  questionNotFound('question not found'),
   ;
 
   const QuestionInfrastructureExceptionDetail(this._message);
