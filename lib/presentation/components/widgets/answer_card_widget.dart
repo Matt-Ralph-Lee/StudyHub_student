@@ -7,7 +7,6 @@ import '../../../application/favorite_teachers/exception/favorite_teachers_use_c
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
-import '../../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -146,7 +145,7 @@ class AnswerCardWidget extends ConsumerWidget {
                         color: ColorSet.of(context).text,
                       ),
                     ),
-                    isFollowed
+                    answerDto.
                         ? TextButtonForFollowTeacher(
                             onPressed: addFavoriteTeacher)
                         : TextButtonForUnFollowTeacher(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/text_for_error.dart';
@@ -13,12 +14,11 @@ import '../controllers/search_for_teachers_controller/search_for_teachers_contro
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/page_path.dart';
 
-class SelectTeachersPage extends ConsumerWidget {
-  final void Function(List<TeacherId>) onPressed;
-  const SelectTeachersPage({
+class SearchForTeachersPage extends ConsumerWidget {
+  const SearchForTeachersPage({
     super.key,
-    required this.onPressed,
   });
 
   @override
@@ -39,6 +39,13 @@ class SelectTeachersPage extends ConsumerWidget {
       searchTerm.value = text;
     }
 
+    void push(BuildContext context, TeacherId teacherId) {
+      context.push(
+        PageId.teacherProfile.path,
+        extra: teacherId,
+      );
+    }
+
     void addTeacherId(
       TeacherId teacherId,
     ) {
@@ -54,19 +61,6 @@ class SelectTeachersPage extends ConsumerWidget {
 
     return Scaffold(
         backgroundColor: ColorSet.of(context).background,
-        floatingActionButton: FloatingActionButton(
-          onPressed: selectedTeachersIdList.value.isNotEmpty
-              ? () => onPressed(selectedTeachersIdList.value)
-              : null,
-          backgroundColor: selectedTeachersIdList.value.isNotEmpty
-              ? ColorSet.of(context).primary
-              : ColorSet.of(context).greySurface,
-          child: Icon(
-            Icons.check,
-            color: ColorSet.of(context).icon,
-            size: FontSizeSet.getFontSize(context, FontSizeSet.header2),
-          ),
-        ),
         body: searchTerm.value.isNotEmpty
             ? CustomScrollView(
                 slivers: <Widget>[
@@ -133,7 +127,7 @@ class SelectTeachersPage extends ConsumerWidget {
                                             false,
                                       ),
                                       onTap: () =>
-                                          addTeacherId(teacher.teacherId),
+                                          push(context, teacher.teacherId),
                                     ),
                                   );
                                 },
@@ -185,7 +179,7 @@ class SelectTeachersPage extends ConsumerWidget {
                                             false,
                                       ),
                                       onTap: () =>
-                                          addTeacherId(teacher.teacherId),
+                                          push(context, teacher.teacherId),
                                     ),
                                   );
                                 },
@@ -227,7 +221,7 @@ class SelectTeachersPage extends ConsumerWidget {
                                           false,
                                     ),
                                     onTap: () =>
-                                        addTeacherId(teacher.teacherId),
+                                        push(context, teacher.teacherId),
                                   ),
                                 );
                               },

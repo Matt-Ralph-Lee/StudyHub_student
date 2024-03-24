@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
+import "package:studyhub/presentation/pages/create_question_page.dart";
 import "package:studyhub/presentation/pages/page1.dart";
 import "package:studyhub/presentation/pages/page2.dart";
 import "package:studyhub/presentation/pages/page3.dart";
 import "package:studyhub/presentation/pages/select_teachers_page.dart";
+import "package:studyhub/presentation/pages/teacher_profile_page.dart";
 
 import "../../application/di/session/session_provider.dart";
 import "../../domain/teacher/models/teacher_id.dart";
@@ -16,7 +18,7 @@ import "../pages/menu_page.dart";
 import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
 import "../pages/reset_password_page.dart";
-import "../pages/search_teachers_page.dart";
+import "../pages/search_for_teachers_page.dart";
 import "../pages/my_page.dart";
 import '../shared/utils/accessibility.dart';
 import "scaffold_with_navbar.dart";
@@ -26,8 +28,9 @@ part "router.g.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _page1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page1');
-final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page2');
-final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page3');
+final _page2NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'questionPage');
+final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'myPage');
 
 @riverpod
 GoRouter router(RouterRef ref) {
@@ -38,22 +41,22 @@ GoRouter router(RouterRef ref) {
         return ScaffoldWithNavBar(navigationShell: navigationShell);
       },
       branches: [
+        // StatefulShellBranch(
+        //   routes: [
+        //     GoRoute(
+        //       path: PageId.page1.path,
+        //       name: PageId.page1.name,
+        //       builder: (context, state) => const Page1(),
+        //     )
+        //   ],
+        //   navigatorKey: _page1NavigatorKey,
+        // ),
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: PageId.page1.path,
-              name: PageId.page1.name,
-              builder: (context, state) => const Page1(),
-            )
-          ],
-          navigatorKey: _page1NavigatorKey,
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: PageId.page2.path,
-              name: PageId.page2.name,
-              builder: (context, state) => const Page2(),
+              path: PageId.addQuestion.path,
+              name: PageId.addQuestion.name,
+              builder: (context, state) => const CreateQuestionPage(),
             )
           ],
           navigatorKey: _page2NavigatorKey,
@@ -61,9 +64,9 @@ GoRouter router(RouterRef ref) {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: PageId.page3.path,
-              name: PageId.page3.name,
-              builder: (context, state) => const Page3(),
+              path: PageId.myPage.path,
+              name: PageId.myPage.name,
+              builder: (context, state) => const MyPage(),
             ),
           ],
           navigatorKey: _page3NavigatorKey,
@@ -96,7 +99,7 @@ GoRouter router(RouterRef ref) {
     GoRoute(
       path: PageId.searchTeachers.path,
       name: PageId.searchTeachers.name,
-      builder: (context, state) => const SearchTeachersPage(),
+      builder: (context, state) => const SearchForTeachersPage(),
     ),
     GoRoute(
       path: PageId.favoriteTeachers.path,
@@ -122,9 +125,9 @@ GoRouter router(RouterRef ref) {
       path: PageId.evaluationPage.path,
       name: PageId.evaluationPage.name,
       builder: (context, state) {
-        final getTeacherProfileDto = state.extra as Function(List<TeacherId>);
+        final teacherId = state.extra as TeacherId;
         return EvaluationPage(
-          getTeacherProfileDto: null,
+          teacherId: teacherId,
         ); //引数渡す際はこれでいいかね？
       },
     ),
@@ -134,7 +137,23 @@ GoRouter router(RouterRef ref) {
       builder: (context, state) {
         final getTeacherProfileDto = state.extra as Function(List<TeacherId>);
         return SelectTeachersPage(
-            onPressed: getTeacherProfileDto); //引数渡す際はこれでいいかね？
+          onPressed: getTeacherProfileDto,
+        ); //引数渡す際はこれでいいかね？
+      },
+    ),
+    GoRoute(
+      path: PageId.addQuestion.path,
+      name: PageId.addQuestion.name,
+      builder: (context, state) => const CreateQuestionPage(),
+    ),
+    GoRoute(
+      path: PageId.teacherProfile.path,
+      name: PageId.teacherProfile.name,
+      builder: (context, state) {
+        final teacherId = state.extra as TeacherId;
+        return TeacherProfilePage(
+          teacherId: teacherId,
+        );
       },
     ),
   ];

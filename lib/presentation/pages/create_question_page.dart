@@ -8,6 +8,7 @@ import '../../application/question/exception/question_use_case_exception.dart';
 import '../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../domain/question/models/question_photo_path_list.dart';
 import '../../domain/question/models/selected_teacher_list.dart';
+import '../../domain/shared/subject.dart';
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/completion_snack_bar.dart';
 import '../components/parts/elevated_button_for_create_question.dart';
@@ -31,6 +32,7 @@ class CreateQuestionPage extends ConsumerWidget {
     final questionTitleController = useTextEditingController();
     final questionController = useTextEditingController();
     final picker = ImagePicker();
+    final selectedSubject = useState<Subject?>(null);
     final selectedPhotos = useState<List<String>>([]);
     final selectedTeachersId = useState<List<TeacherId>>([]);
     final isQuestionTitleFilled = useState<bool>(false);
@@ -44,6 +46,10 @@ class CreateQuestionPage extends ConsumerWidget {
 
     void checkQuestionFilled(String text) {
       isQuestionFilled.value = text.isNotEmpty;
+    }
+
+    void setSubject(Subject? subject) {
+      selectedSubject.value = subject;
     }
 
     //デフォで直接枚数制限はできないぽいので、予め注意&選択後にチェックの二刀流で
@@ -104,7 +110,7 @@ class CreateQuestionPage extends ConsumerWidget {
           .addQuestion(
             questionTitleController.text,
             questionController.text,
-            null, //科目
+            selectedSubject.value!, //活性非活性のために既にボタンでnullチェックしているため
             selectedPhotos.value,
             selectedTeachersId.value,
           )
@@ -152,12 +158,14 @@ class CreateQuestionPage extends ConsumerWidget {
                   checkQuestionFilledFunction: checkQuestionFilled,
                   checkQuestionTitleFilledFunction: checkQuestionTitleFilled,
                   selectTeachersFunction: selectTeachers,
+                  selectSubjectFunction: setSubject,
                 ),
                 ElevatedButtonForCreateQuestion(
-                  onPressed:
-                      isQuestionTitleFilled.value && isQuestionFilled.value
-                          ? () => addQuestion()
-                          : null,
+                  onPressed: isQuestionTitleFilled.value &&
+                          isQuestionFilled.value &&
+                          selectedSubject.value != null
+                      ? () => addQuestion()
+                      : null,
                 )
               ],
             ),

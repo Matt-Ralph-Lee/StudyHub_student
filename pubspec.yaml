@@ -49,6 +49,7 @@ dependencies:
   file_picker: ^6.1.1
   flutter_image_compress: ^2.1.0
   go_router:
+  intl:
 
 dev_dependencies:
   flutter_test:

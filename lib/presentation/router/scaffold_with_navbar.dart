@@ -19,17 +19,17 @@ class ScaffoldWithNavBar extends StatelessWidget {
         surfaceTintColor: const Color(0x00000000),
         backgroundColor: ColorSet.of(context).background,
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Page1',
-          ),
+          // NavigationDestination(
+          //   icon: Icon(Icons.home),
+          //   label: 'Page1',
+          // ),
           NavigationDestination(
             icon: Icon(Icons.add),
-            label: 'Page2',
+            label: 'questionPage',
           ),
           NavigationDestination(
             icon: Icon(Icons.person),
-            label: "Page3",
+            label: "myPage",
           )
         ],
         selectedIndex: navigationShell.currentIndex,

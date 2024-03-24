@@ -3,14 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/components/parts/completion_snack_bar.dart';
 
 import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
 import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
-import '../../application/teacher/application_service/get_teacher_profile_dto.dart';
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception.dart';
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../domain/teacher/models/teacher_id.dart';
+import '../components/parts/completion_snack_bar.dart';
 import '../components/widgets/confirm_teacher_evaluation_modal_widget.dart';
 import '../components/widgets/evaluation_stars_widget.dart';
 import '../components/widgets/evaluation_text_field_widget.dart';
@@ -26,12 +25,12 @@ import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
 
-//idを受け取ってdtoをgetする形にしてもらって
+//i
 class EvaluationPage extends HookConsumerWidget {
-  final GetTeacherProfileDto getTeacherProfileDto;
+  final TeacherId teacherId;
   const EvaluationPage({
     super.key,
-    required this.getTeacherProfileDto,
+    required this.teacherId,
   });
 
   @override
@@ -61,13 +60,7 @@ class EvaluationPage extends HookConsumerWidget {
     void addFavoriteTeacher() async {
       ref
           .read(addFavoriteTeacherControllerProvider.notifier)
-          .addFavoriteTeacher(
-            TeacherId(
-                '00000000000000000001'), //getTeacherProfileDtoではteacherIDを取得できない。
-            //teacherIDを取得できるのはsearchTeachersDtoの方だが
-            //これ使うにはそのユースケースが必要でそのためには検索ワードが必要で本来の使い方とは違うので、、
-            //getTeacherProfileDtoにteacherIdをもたせるのがいい？と思うけどどうします？
-          )
+          .addFavoriteTeacher(teacherId)
           .then((_) {
         if (addFavoriteTeacherControllerState is AsyncError) {
           final error = addFavoriteTeacherControllerState.error;
@@ -96,13 +89,7 @@ class EvaluationPage extends HookConsumerWidget {
     void deleteFavoriteTeacher() async {
       ref
           .read(deleteFavoriteTeacherControllerProvider.notifier)
-          .deleteFavoriteTeacher(
-            TeacherId(
-                '00000000000000000001'), //getTeacherProfileDtoではteacherIDを取得できない。
-            //teacherIDを取得できるのはsearchTeachersDtoの方だが
-            //これ使うにはそのユースケースが必要でそのためには検索ワードが必要で本来の使い方とは違うので、、
-            //getTeacherProfileDtoにteacherIdをもたせるのがいい？と思うけどどうします？
-          )
+          .deleteFavoriteTeacher(teacherId)
           .then((_) {
         if (deleteFavoriteTeacherControllerState is AsyncError) {
           final error = deleteFavoriteTeacherControllerState.error;
@@ -142,7 +129,7 @@ class EvaluationPage extends HookConsumerWidget {
         ref
             .read(addTeacherEvaluationControllerProvider.notifier)
             .addTeacherEvaluation(
-              TeacherId('00000000000000000001'),
+              teacherId,
               numOfSelectedStars.value,
               evaluationTextController.text,
             )
@@ -208,11 +195,7 @@ class EvaluationPage extends HookConsumerWidget {
           child: Column(
             children: [
               TeacherProfileForEvaluationPageWidget(
-                getTeacherProfileDto: getTeacherProfileDto,
-                isFollowed:
-                    null, //普通にgetFavoriteTeacherUseCaseしたあとに、該当のteacherGtoが含まれるか否かをpresentationの方で判定する？それともそういうユースケースを作ってもらえる？多分ここ想定してなかった？
-                followFunction: addFavoriteTeacher,
-                unFollowFunction: deleteFavoriteTeacher,
+                teacherId: teacherId,
               ),
               EvaluationStarsWidget(
                 numOfSelectedStars: numOfSelectedStars.value,
