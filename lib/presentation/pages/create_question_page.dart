@@ -122,7 +122,7 @@ class CreateQuestionPage extends HookConsumerWidget {
             selectedTeachersId.value,
           )
           .then((_) {
-        if (addQuestionControllerState is AsyncError) {
+        if (addQuestionControllerState.hasError) {
           final error = addQuestionControllerState.error;
           if (error is QuestionUseCaseException) {
             final errorText = L10n.getQuestionExceptionMessage(

@@ -62,7 +62,7 @@ class EvaluationPage extends HookConsumerWidget {
           .read(addFavoriteTeacherControllerProvider.notifier)
           .addFavoriteTeacher(teacherId)
           .then((_) {
-        if (addFavoriteTeacherControllerState is AsyncError) {
+        if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
@@ -91,7 +91,7 @@ class EvaluationPage extends HookConsumerWidget {
           .read(deleteFavoriteTeacherControllerProvider.notifier)
           .deleteFavoriteTeacher(teacherId)
           .then((_) {
-        if (deleteFavoriteTeacherControllerState is AsyncError) {
+        if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
@@ -133,7 +133,7 @@ class EvaluationPage extends HookConsumerWidget {
               evaluationTextController.text,
             )
             .then((_) {
-          if (teacherEvaluationControllerState is AsyncError) {
+          if (teacherEvaluationControllerState.hasError) {
             final error = teacherEvaluationControllerState.error;
             if (error is EvaluationUseCaseException) {
               final errorText = L10n.evaluationUseCaseExceptionMessage(

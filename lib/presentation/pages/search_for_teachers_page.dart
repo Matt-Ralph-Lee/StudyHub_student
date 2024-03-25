@@ -147,7 +147,6 @@ class SearchForTeachersPage extends HookConsumerWidget {
               ),
               SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                //getPopularTeachersControllerを実装してウォッチするようにする
                 sliver: favoriteTeachersState.when(
                   data: (teachers) => teachers.isNotEmpty
                       ? SliverList(

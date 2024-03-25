@@ -152,14 +152,6 @@ class L10n {
   static const favoriteTeacherText = "お気に入りの講師";
   static const noFavoriteTeacherFoundText = "お気に入りの講師はいません";
 
-  //shared
-  static const errorText = "エラーです。時間をおいてから再度お試しください";
-  static const errorModalText = "エラーです！";
-  static const confirmModalTitleText = "以下の内容でよろしいですか？";
-  static const modalOkText = "ok";
-  static const modalCancelText = "キャンセル";
-  static const modalCloseText = "閉じる";
-
   //profile_edit_page
   static const cancelText = "キャンセル";
   static const saveText = "保存する";
@@ -174,4 +166,48 @@ class L10n {
   static const questionIconText = "Q.";
   static const answerIconText = "A.";
   static const noAnswerText = "回答までしばらくお待ちください";
+
+  //add_question_page
+  static const questionTitleHintText = "タイトルを入力してください";
+  static const questionHintText = "質問を入力してください";
+  static const addImagesTextButtonText = "写真を追加";
+  static const selectTeachersTextButtonText = "講師を希望する";
+  static const addQuestionButtonText = "質問する";
+  static const addImagesButtonText = "写真を追加する";
+
+  //selectTeachersPage
+  static const favoriteTeacherTextForSelectTeachersPage = "お気に入りの講師";
+  static const popularTeachersText = "人気の講師";
+
+  //evaluationPage
+  static const evaluationText = "評価する";
+  static const evaluationStarsText = "5段階で評価してください";
+  static const evaluationContentText = "ご自由にコメントしてください";
+
+  //shared
+  static const errorText = "エラーです。時間をおいてから再度お試しください";
+  static const errorModalText = "エラーです！";
+  static const confirmModalTitleText = "以下の内容でよろしいですか？";
+  static const modalOkText = "ok";
+  static const modalCancelText = "キャンセル";
+  static const closeText = "閉じる";
+  static const followButtonText = "Follow";
+  static const unFollowButtonText = "UnFollow";
+
+  //questionPage
+  static const questionAndAnswerPageTitleText = "Q&A";
+  static const answersTitleText = "講師からの回答";
+  static const navigateToEvaluationPage = "この教師を評価する";
+
+  //teacher_profile_page
+  static const teacherProfilePageTitle = "教師のプロフィール";
+  static const evaluationsTitleText = "生徒からの評価";
+
+  //search_questions_page
+  static const titleText = "StudyHub";
+  static const allTabText = "全て";
+  static const middleSchoolMathTabText = "中学英語";
+  static const middleSchoolEnglishTabText = "中学数学";
+  static const highSchoolMathTabText = "高校数学";
+  static const highSchoolEnglishTabText = "高校英語";
 }

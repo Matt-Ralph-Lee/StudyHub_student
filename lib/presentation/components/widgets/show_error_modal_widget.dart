@@ -35,7 +35,7 @@ void showErrorModalWidget(BuildContext context) {
               ),
               TextButton(
                 child: Text(
-                  L10n.modalCloseText,
+                  L10n.closeText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
                       fontSize: FontSizeSet.body,
