@@ -9,8 +9,7 @@ import '../../application/student/application_service/profile_update_command.dar
 import '../../application/student/exception/student_use_case_exception.dart';
 import '../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../domain/student/models/gender.dart';
-import '../../domain/student/models/grade.dart';
-import '../../domain/student/models/graduate_status.dart';
+import '../../domain/student/models/grade_or_graduate_status.dart';
 import '../components/parts/progress_bar.dart';
 import '../components/parts/text_for_profile_completion_welcome.dart';
 import '../components/widgets/academic_history_input_widget.dart';
@@ -63,11 +62,11 @@ class ProfileInputPage extends HookConsumerWidget {
         for (var occupation in Occupation.values)
           occupation.japanese: occupation,
       };
-      final Map<String, Grade> gradeMap = {
-        for (var grade in Grade.values) grade.japanese: grade,
+      final Map<String, GradeOrGraduateStatus> gradeMap = {
+        for (var grade in GradeOrGraduateStatus.values) grade.japanese: grade,
       };
-      final Map<String, GraduateStatus> graduateStatusMap = {
-        for (var graduateStatus in GraduateStatus.values)
+      final Map<String, GradeOrGraduateStatus> graduateStatusMap = {
+        for (var graduateStatus in GradeOrGraduateStatus.values)
           graduateStatus.japanese: graduateStatus,
       };
       final gradeForCommand = (job.value == '学生')
@@ -83,7 +82,7 @@ class ProfileInputPage extends HookConsumerWidget {
         gender: genderMap[gender.value],
         occupation: occupationMap[job],
         school: schoolNameForCommand, //schoolドメインが定義されていない
-        grade: null /*gradeForCommand*/, //graduateStatusを打ち込めない
+        gradeOrGraduateStatus: gradeForCommand,
         localPhotoPath: "assets/images/sample_user_icon.jpg",
       );
 

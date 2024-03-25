@@ -116,11 +116,11 @@ GoRouter router(RouterRef ref) {
       name: PageId.editProfile.name,
       builder: (context, state) => const EditProfilePage(),
     ),
-    GoRoute(
-      path: PageId.myPage.path,
-      name: PageId.myPage.name,
-      builder: (context, state) => const MyPage(),
-    ),
+    // GoRoute(
+    //   path: PageId.myPage.path,
+    //   name: PageId.myPage.name,
+    //   builder: (context, state) => const MyPage(),
+    // ),
     GoRoute(
       path: PageId.evaluationPage.path,
       name: PageId.evaluationPage.name,
@@ -141,11 +141,11 @@ GoRouter router(RouterRef ref) {
         ); //引数渡す際はこれでいいかね？
       },
     ),
-    GoRoute(
-      path: PageId.addQuestion.path,
-      name: PageId.addQuestion.name,
-      builder: (context, state) => const CreateQuestionPage(),
-    ),
+    // GoRoute(
+    //   path: PageId.addQuestion.path,
+    //   name: PageId.addQuestion.name,
+    //   builder: (context, state) => const CreateQuestionPage(),
+    // ),
     GoRoute(
       path: PageId.teacherProfile.path,
       name: PageId.teacherProfile.name,

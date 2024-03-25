@@ -145,7 +145,7 @@ class AnswerCardWidget extends ConsumerWidget {
                         color: ColorSet.of(context).text,
                       ),
                     ),
-                    answerDto.
+                    answerDto.isFollowing
                         ? TextButtonForFollowTeacher(
                             onPressed: addFavoriteTeacher)
                         : TextButtonForUnFollowTeacher(
