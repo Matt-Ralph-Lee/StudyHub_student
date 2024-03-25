@@ -26,12 +26,42 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
             top: 20,
             left: 20,
             right: 20,
-            bottom: 12), //textButtonが領域多めに取るのでバランス的にbottomだけ12px
+            bottom: 20), //textButtonが領域多めに取るのでバランス的にbottomだけ12px
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  L10n.confirmModalTitleText,
+                  style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize: FontSizeSet.body,
+                      color: ColorSet.of(context).text),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: List.generate(5, (index) {
+                return Icon(
+                  Icons.star,
+                  color: index < numOfEvaluationStars
+                      ? ColorSet.of(context).primary
+                      : ColorSet.of(context).inactiveGreySurface, // この色どうする
+                );
+              }),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Text(
-              L10n.confirmModalTitleText,
+              evaluationText,
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
                   fontSize: FontSizeSet.body,
@@ -41,30 +71,9 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
               height: 50,
             ),
             Row(
-              children: List.generate(5, (index) {
-                return Icon(
-                  Icons.star,
-                  color: index < numOfEvaluationStars
-                      ? ColorSet.of(context).primary
-                      : ColorSet.of(context)
-                          .inactiveGreySurface, // 指定された数までの星に色を付ける
-                );
-              }),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Text(
-              evaluationText,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.body,
-                  color: ColorSet.of(context).text),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 TextButton(
                   child: Text(

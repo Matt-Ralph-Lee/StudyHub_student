@@ -6,6 +6,7 @@ import '../../shared/constants/font_weight_set.dart';
 
 SnackBar CompletionSnackBar(BuildContext context, String content) {
   return SnackBar(
+    backgroundColor: ColorSet.of(context).greySurface,
     content: Text(
       content,
       style: TextStyle(

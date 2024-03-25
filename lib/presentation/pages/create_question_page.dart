@@ -107,6 +107,7 @@ class CreateQuestionPage extends HookConsumerWidget {
             List<TeacherId>.from(selectedTeachersId.value ?? []);
         updatedList.addAll(teacherIds);
         selectedTeachersId.value = updatedList;
+        context.pop();
       }
     }
 
@@ -133,14 +134,17 @@ class CreateQuestionPage extends HookConsumerWidget {
                     errorMessage: errorText,
                   );
                 });
+            context.pop();
           } else {
             showErrorModalWidget(context);
+            context.pop();
           }
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
             CompletionSnackBar(context, "質問しました！"),
           );
+          context.pop();
         }
       });
     }

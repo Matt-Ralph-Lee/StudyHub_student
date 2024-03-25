@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
@@ -94,62 +95,57 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
       });
     }
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        getTeacherProfileControllerState.when(
-          data: (getTeacherProfileDto) => getTeacherProfileDto != null
-              ? Row(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundImage: NetworkImage(
-                            getTeacherProfileDto.profilePhotoPath,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          getTeacherProfileDto.name,
-                          style: TextStyle(
-                              fontWeight: FontWeightSet.normal,
-                              fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header2),
-                              color: ColorSet.of(context).text),
-                        ),
-                      ],
-                    ),
-                    getTeacherProfileDto.isFollowing
-                        ? TextButtonForFollowTeacher(
-                            onPressed: addFavoriteTeacher,
-                          )
-                        : TextButtonForUnFollowTeacher(
-                            onPressed: deleteFavoriteTeacher,
-                          ),
-                  ],
-                )
-              : Text("プロフないっす、アカウント消したかもっす"),
-          loading: () => const LoadingOverlay(),
-          error: (error, stack) {
-            print("エラーはこれです！❗❗${error}");
-            print(stack);
-            return const Center(
-                child: Column(
+    return getTeacherProfileControllerState.when(
+      data: (getTeacherProfileDto) => getTeacherProfileDto != null
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "あ",
-                  style: TextStyle(color: Colors.red),
-                )
-                // TextForError(),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                        getTeacherProfileDto.profilePhotoPath,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      getTeacherProfileDto.name,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.header2),
+                          color: ColorSet.of(context).text),
+                    ),
+                  ],
+                ),
+                getTeacherProfileDto.isFollowing
+                    ? TextButtonForFollowTeacher(
+                        onPressed: addFavoriteTeacher,
+                      )
+                    : TextButtonForUnFollowTeacher(
+                        onPressed: deleteFavoriteTeacher,
+                      ),
               ],
-            ));
-          },
-        ),
-      ],
+            )
+          : Text("プロフないっす、アカウント消したかもっす"),
+      loading: () => const LoadingOverlay(),
+      error: (error, stack) {
+        print("エラーはこれです！❗❗${error}");
+        print(stack);
+        return const Center(
+            child: Column(
+          children: [
+            Text(
+              "あ",
+              style: TextStyle(color: Colors.red),
+            )
+            // TextForError(),
+          ],
+        ));
+      },
     );
   }
 }

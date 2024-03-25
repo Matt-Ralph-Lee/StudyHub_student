@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../domain/student_auth/exception/student_auth_domain_exception.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
@@ -56,7 +57,8 @@ class SignUpWidget extends HookConsumerWidget {
     }
 
     void push(BuildContext context) {
-      context.push(PageId.profileInput.path);
+      context.push(PageId.evaluationPage.path,
+          extra: TeacherId('00000000000000000001'));
     }
 
     return Column(

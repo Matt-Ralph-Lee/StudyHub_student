@@ -71,7 +71,7 @@ class ProfileInputPage extends HookConsumerWidget {
       };
       final gradeForCommand = (job.value == '学生')
           ? gradeMap[studentGrade.value]
-          : graduateStatusMap[othersGrade.value];
+          : gradeMap[othersGrade.value];
 
       final schoolNameForCommand = (job.value == '学生')
           ? studentSchoolNameInputController.text

@@ -30,7 +30,7 @@ class TextButtonForFollowTeacher extends StatelessWidget {
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-            color: ColorSet.of(context).primary),
+            color: ColorSet.of(context).text),
       ),
     );
   }

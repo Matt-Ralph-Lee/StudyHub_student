@@ -148,3 +148,63 @@ class EditProfilePage extends HookConsumerWidget {
         )));
   }
 }
+
+//  void updateProfile() async {
+//       incrementProgressCounter();
+
+//       final Map<String, Gender> genderMap = {
+//         for (var gender in Gender.values) gender.japanese: gender,
+//       };
+//       final Map<String, Occupation> occupationMap = {
+//         for (var occupation in Occupation.values)
+//           occupation.japanese: occupation,
+//       };
+//       final Map<String, GradeOrGraduateStatus> gradeMap = {
+//         for (var grade in GradeOrGraduateStatus.values) grade.japanese: grade,
+//       };
+//       final Map<String, GradeOrGraduateStatus> graduateStatusMap = {
+//         for (var graduateStatus in GradeOrGraduateStatus.values)
+//           graduateStatus.japanese: graduateStatus,
+//       };
+//       final gradeForCommand = (job.value == '学生')
+//           ? gradeMap[studentGrade.value]
+//           : graduateStatusMap[othersGrade.value];
+
+//       final schoolNameForCommand = (job.value == '学生')
+//           ? studentSchoolNameInputController.text
+//           : academicHistoryInputController.text;
+
+//       final profileUpdateCommand = ProfileUpdateCommand(
+//         studentName: userNameInputController.text,
+//         gender: genderMap[gender.value],
+//         occupation: occupationMap[job],
+//         school: schoolNameForCommand, //schoolドメインが定義されていない
+//         gradeOrGraduateStatus: gradeForCommand,
+//         localPhotoPath: "assets/images/sample_user_icon.jpg",
+//       );
+
+//       ref
+//           .read(profileUpdateControllerProvider.notifier)
+//           .profileUpdate(profileUpdateCommand)
+//           .then((_) {
+//         final currentState = ref.read(profileUpdateControllerProvider);
+//         if (currentState is AsyncError) {
+//           final error = currentState.error;
+//           if (error is StudentUseCaseException) {
+//             final errorText = L10n.getStudentUseCaseExceptionMessage(
+//                 error.detail as StudentUseCaseExceptionDetail);
+//             showDialog(
+//                 context: context,
+//                 builder: (BuildContext context) {
+//                   return SpecificExceptionModalWidget(
+//                     errorMessage: errorText,
+//                   );
+//                 });
+//           } else {
+//             showErrorModalWidget(context);
+//           }
+//         } else {
+//           push(context);
+//         }
+//       });
+//     }

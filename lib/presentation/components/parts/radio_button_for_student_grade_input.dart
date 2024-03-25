@@ -19,8 +19,8 @@ class RadioButtonForStudentGradeInput extends HookWidget {
 
   final studentGradeOptions = GradeOrGraduateStatus.values
       .where((element) =>
-          element == GradeOrGraduateStatus.graduate ||
-          element == GradeOrGraduateStatus.other)
+          element != GradeOrGraduateStatus.graduate ||
+          element != GradeOrGraduateStatus.other)
       .map((e) => e.japanese)
       .toList();
 

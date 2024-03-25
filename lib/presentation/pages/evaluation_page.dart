@@ -119,7 +119,6 @@ class EvaluationPage extends HookConsumerWidget {
       final result = await showDialog(
           context: context,
           builder: (BuildContext context) {
-            final evaluationTextController = useTextEditingController();
             return ConfirmTeacherEvaluationModalWidget(
               numOfEvaluationStars: numOfSelectedStars.value,
               evaluationText: evaluationTextController.text,
@@ -151,7 +150,6 @@ class EvaluationPage extends HookConsumerWidget {
             }
           } else {
             HapticFeedback.lightImpact();
-            context.pop();
             ScaffoldMessenger.of(context).showSnackBar(
               CompletionSnackBar(context, "講師を評価しました"),
             );

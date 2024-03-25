@@ -57,7 +57,8 @@ class LoginWidget extends HookConsumerWidget {
     }
 
     void push(BuildContext context) {
-      context.push(PageId.notifications.path);
+      context.push(PageId.evaluationPage.path,
+          extra: TeacherId('00000000000000000001'));
     }
 
     return Column(

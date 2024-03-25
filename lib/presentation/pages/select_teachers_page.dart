@@ -101,8 +101,8 @@ class SelectTeachersPage extends HookConsumerWidget {
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text),
+                                context, FontSizeSet.annotation),
+                            color: ColorSet.of(context).greyText),
                       ),
                       const SizedBox(height: 20),
                     ],
@@ -162,8 +162,8 @@ class SelectTeachersPage extends HookConsumerWidget {
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text),
+                                context, FontSizeSet.annotation),
+                            color: ColorSet.of(context).greyText),
                       ),
                       const SizedBox(height: 20),
                     ],
@@ -209,7 +209,8 @@ class SelectTeachersPage extends HookConsumerWidget {
               ),
             ] else ...[
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                padding: EdgeInsets.only(
+                    top: 30, right: horizontalPadding, left: horizontalPadding),
                 sliver: searchForTeachersState.when(
                   data: (teachers) => teachers != null && teachers.isNotEmpty
                       ? SliverList(

@@ -35,7 +35,7 @@ class TextButtonForSelectingTeacher extends StatelessWidget {
         children: [
           Icon(Icons.people,
               size: FontSizeSet.header1, color: ColorSet.of(context).primary),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Text(

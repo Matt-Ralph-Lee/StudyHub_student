@@ -16,14 +16,11 @@ class ProfileUpdateController extends _$ProfileUpdateController {
   Future<void> build() async {}
 
   Future<void> profileUpdate(ProfileUpdateCommand command) async {
-    final session = ref.watch(sessionDiProvider);
+    final session = ref.watch(nonNullSessionProvider);
     final studentRepository = ref.read(studentRepositoryDiProvider);
     final schoolRepository = ref.read(schoolRepositoryDiProvider);
     final schoolService = SchoolService(schoolRepository);
     final photoRepository = ref.read(photoRepositoryDiProvider);
-    if (session == null) {
-      throw Exception('Session is null');
-    }
 
     final profileUpdateUseCase = ProfileUpdateUseCase(
       session: session,

@@ -37,7 +37,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
               Icons.person,
               color: ColorSet.of(context).text,
             ),
-            label: "notifications",
+            label: "evaluationPage",
           )
         ],
         selectedIndex: navigationShell.currentIndex,
