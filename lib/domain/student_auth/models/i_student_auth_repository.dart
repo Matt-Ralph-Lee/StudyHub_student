@@ -1,3 +1,4 @@
+import '../../student/models/student_id.dart';
 import 'email_address.dart';
 import 'password.dart';
 
@@ -16,4 +17,5 @@ abstract class IStudentAuthRepository {
     required final Password password,
   });
   Future<void> signOut();
+  StudentId? getStudentIdSnapshot();
 }

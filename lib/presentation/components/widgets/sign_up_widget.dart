@@ -57,12 +57,47 @@ class SignUpWidget extends HookConsumerWidget {
     }
 
     void push(BuildContext context) {
-      context.push(PageId.evaluationPage.path,
-          extra: TeacherId('00000000000000000001'));
+      // context.push(PageId.evaluationPage.path,
+      //     extra: TeacherId('00000000000000000001'));
+      context.push(PageId.teacherProfile.path,
+          extra: TeacherId("00000000000000000001"));
+    }
+
+    void dummySignUp(BuildContext context) async {
+      ref
+          .read(studentAuthControllerProvider.notifier)
+          .signUp("hoge@gmail.com", "hogehoge")
+          .then((_) {
+        final currentState = ref.read(studentAuthControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          if (error is StudentAuthDomainException) {
+            final errorText = L10n.getStudentAuthExceptionMessage(
+                error.detail as StudentAuthDomainExceptionDetail);
+            //ここ変えてある
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SpecificExceptionModalWidget(
+                    errorMessage: errorText,
+                  );
+                });
+          } else {
+            showErrorModalWidget(context);
+          }
+        } else {
+          push(context);
+        }
+      });
     }
 
     return Column(
       children: [
+        ElevatedButton(
+            onPressed: () => dummySignUp(context),
+            child: Text("a"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red))),
         TextFormFieldForEmailAddressInput(
           controller: signUpEmailController,
           onChanged: checkEmailFilled,
@@ -86,7 +121,7 @@ class SignUpWidget extends HookConsumerWidget {
                       .then((_) {
                     final currentState =
                         ref.read(studentAuthControllerProvider);
-                    if (currentState is AsyncError) {
+                    if (currentState.hasError) {
                       final error = currentState.error;
                       if (error is StudentAuthDomainException) {
                         final errorText = L10n.getStudentAuthExceptionMessage(

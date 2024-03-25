@@ -15,7 +15,7 @@ class TextButtonForFollowTeacher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => onPressed,
+      onPressed: onPressed,
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),

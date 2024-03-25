@@ -53,6 +53,5 @@ class DropDownForQuestionSubject extends HookWidget {
         }).toList(),
       ),
     );
-    ;
   }
 }

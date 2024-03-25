@@ -40,16 +40,24 @@ GoRouter router(RouterRef ref) {
       branches: [
         StatefulShellBranch(
           routes: [
+            // GoRoute(
+            //   path: PageId.evaluationPage.path,
+            //   name: PageId.evaluationPage.name,
+            //   builder: (context, state) {
+            //     final teacherId = state.extra as TeacherId;
+            //     return EvaluationPage(
+            //       teacherId: TeacherId('00000000000000000001'),
+            //     ); //引数渡す際はこれでいいかね？
+            //   },
+            // ),
             GoRoute(
-              path: PageId.evaluationPage.path,
-              name: PageId.evaluationPage.name,
+              path: PageId.teacherProfile.path,
+              name: PageId.teacherProfile.name,
               builder: (context, state) {
                 final teacherId = state.extra as TeacherId;
-                return EvaluationPage(
-                  teacherId: TeacherId('00000000000000000001'),
-                ); //引数渡す際はこれでいいかね？
+                return TeacherProfilePage(teacherId: teacherId);
               },
-            ),
+            )
           ],
           navigatorKey: _page1NavigatorKey,
         ),
@@ -138,16 +146,16 @@ GoRouter router(RouterRef ref) {
         ); //引数渡す際はこれでいいかね？
       },
     ),
-    GoRoute(
-      path: PageId.teacherProfile.path,
-      name: PageId.teacherProfile.name,
-      builder: (context, state) {
-        final teacherId = state.extra as TeacherId;
-        return TeacherProfilePage(
-          teacherId: teacherId,
-        );
-      },
-    ),
+    // GoRoute(
+    //   path: PageId.teacherProfile.path,
+    //   name: PageId.teacherProfile.name,
+    //   builder: (context, state) {
+    //     final teacherId = state.extra as TeacherId;
+    //     return TeacherProfilePage(
+    //       teacherId: teacherId,
+    //     );
+    //   },
+    // ),
   ];
 
   String? redirect(BuildContext context, GoRouterState state) {

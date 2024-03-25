@@ -7,7 +7,7 @@ part of 'get_teacher_profile_query_service.dart';
 // **************************************************************************
 
 String _$getTeacherProfileQueryServiceDiHash() =>
-    r'd4cd8d59ff9b0b933034d13d0b385b6ff76358ea';
+    r'03618e45eb263d43c30b239058a8f5f70d3b4af5';
 
 /// See also [getTeacherProfileQueryServiceDi].
 @ProviderFor(getTeacherProfileQueryServiceDi)

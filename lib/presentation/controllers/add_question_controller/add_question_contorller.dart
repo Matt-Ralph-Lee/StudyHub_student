@@ -2,6 +2,8 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:studyhub/application/di/photo/photo_repository_provider.dart";
 import "package:studyhub/application/question/application_service/question_create_use_case.dart";
 import "package:studyhub/domain/teacher/models/teacher_id.dart";
+import "package:studyhub/presentation/controllers/get_my_bookmark_controller/get_my_bookmark_controller.dart";
+import "package:studyhub/presentation/controllers/get_my_question_controller/get_my_question_controller.dart";
 
 import "../../../application/di/question/factory/question_factory_provider.dart";
 import "../../../application/di/question/repository/question_repository_provider.dart";
@@ -41,6 +43,8 @@ class AddQuestionController extends _$AddQuestionController {
         questionSubject: subject,
         selectedTeacherListData: selectedTeachersId,
       );
+      ref.invalidate(getMyQuestionControllerProvider);
+      ref.invalidate(getMyBookmarksControllerProvider);
     });
   }
 }

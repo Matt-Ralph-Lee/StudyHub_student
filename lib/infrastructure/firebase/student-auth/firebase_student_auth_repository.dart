@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:studyhub/domain/student/models/student_id.dart';
 
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
@@ -123,6 +124,12 @@ class FirebaseStudentAuthRepository implements IStudentAuthRepository {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.unexpected);
     }
+  }
+
+  @override
+  StudentId? getStudentIdSnapshot() {
+    if (_firebaseAuth.currentUser != null) return null;
+    return StudentId(_firebaseAuth.currentUser!.uid);
   }
 }
 
