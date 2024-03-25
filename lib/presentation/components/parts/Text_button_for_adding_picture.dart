@@ -5,12 +5,12 @@ import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import 'bottom_sheet_for_pick_image.dart';
 
-class ElevatedButtonForAddingPicture extends StatelessWidget {
+class TextButtonForAddingPicture extends StatelessWidget {
   final List<String>? imageFilePath;
   final void Function() takePhoto;
   final void Function() pickPhoto;
 
-  const ElevatedButtonForAddingPicture({
+  const TextButtonForAddingPicture({
     Key? key,
     required this.imageFilePath,
     required this.takePhoto,
@@ -19,10 +19,8 @@ class ElevatedButtonForAddingPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: screenWidth * 0.8,
-      child: ElevatedButton(
+      child: TextButton(
         onPressed: () {
           showModalBottomSheet(
             context: context,
@@ -32,24 +30,25 @@ class ElevatedButtonForAddingPicture extends StatelessWidget {
                 )),
           );
         },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: ColorSet.of(context).primary,
-          disabledBackgroundColor: ColorSet.of(context).inactiveGreySurface,
+        style: TextButton.styleFrom(
           foregroundColor: ColorSet.of(context).whiteText,
           disabledForegroundColor: ColorSet.of(context).unselectedText,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(5),
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 20),
         ),
-        child: const Text(
-          "写真を追加する",
-          style: TextStyle(
-            fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
-          ),
+        child: Row(
+          children: [
+            Icon(Icons.camera,
+                size: FontSizeSet.header1, color: ColorSet.of(context).primary),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "写真を追加",
+              style: TextStyle(
+                  fontWeight: FontWeightSet.normal,
+                  fontSize: FontSizeSet.body,
+                  color: ColorSet.of(context).greyText), //ここの色は迷う
+            ),
+          ],
         ),
       ),
     );

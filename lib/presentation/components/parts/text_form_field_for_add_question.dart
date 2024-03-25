@@ -23,26 +23,24 @@ class TextFormFieldForAddQuestion extends StatelessWidget {
         onChanged: onChanged,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
+            fontSize: FontSizeSet.body,
             color: ColorSet.of(context).text),
         cursorColor: ColorSet.of(context).text,
         cursorWidth: 1,
         decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 20.0),
+          contentPadding: const EdgeInsets.only(left: 0),
           hintText: "質問内容を入力してください",
           hintStyle: TextStyle(
               fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.annotation,
+              fontSize: FontSizeSet.body,
               color: ColorSet.of(context).greyText),
-          fillColor: ColorSet.of(context).greySurface,
-          filled: true,
+          filled: false,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide.none,
           ),
         ),
-        maxLines: 10,
+        maxLines: 15,
       ),
     );
   }

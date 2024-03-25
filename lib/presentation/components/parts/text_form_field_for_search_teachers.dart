@@ -18,6 +18,7 @@ class TextFormFieldForSearchForTeachers extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
+      height: 30,
       child: TextFormField(
         controller: controller,
         // onChanged: onChanged,
@@ -27,10 +28,11 @@ class TextFormFieldForSearchForTeachers extends StatelessWidget {
             color: ColorSet.of(context).text),
         cursorColor: ColorSet.of(context).text,
         cursorWidth: 1,
+        cursorHeight: FontSizeSet.annotation,
+        textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           contentPadding:
-              const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 20.0),
-          hintText: "キーワードを入力してください",
+              const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 20.0),
           hintStyle: TextStyle(
               fontWeight: FontWeightSet.normal,
               fontSize: FontSizeSet.annotation,

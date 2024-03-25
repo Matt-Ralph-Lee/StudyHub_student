@@ -10,7 +10,7 @@ class LoadingOverlay extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.grey.withOpacity(0.5),
+      color: Colors.red,
       child: Center(
         child: CircularProgressIndicator(
           color: ColorSet.of(context).text,

@@ -18,7 +18,7 @@ class TextButtonForSelectingTeacher extends StatelessWidget {
   Widget build(BuildContext context) {
     void push(BuildContext context) {
       context.push(
-        PageId.searchTeachers.path,
+        PageId.selectTeachers.path,
         extra: selectTeachersFunction,
       );
     }
@@ -33,20 +33,17 @@ class TextButtonForSelectingTeacher extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(
-            "講師を選択する", //L10nで定義
-            style: TextStyle(
-                fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-                color: ColorSet.of(context).text),
-          ),
-          const SizedBox(
+          Icon(Icons.people,
+              size: FontSizeSet.header1, color: ColorSet.of(context).primary),
+          SizedBox(
             width: 10,
           ),
-          Icon(
-            Icons.chevron_right,
-            color: ColorSet.of(context).icon,
-            size: FontSizeSet.getFontSize(context, FontSizeSet.body),
+          Text(
+            "講師を選択する",
+            style: TextStyle(
+                fontWeight: FontWeightSet.normal,
+                fontSize: FontSizeSet.body,
+                color: ColorSet.of(context).greyText), //ここの色は迷う
           ),
         ],
       ),

@@ -162,56 +162,85 @@ class EvaluationPage extends HookConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
-          leading: TextButton(
-            child: Text(
-              "キャンセル",
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.header3),
-                  color: ColorSet.of(context).text),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextButton(
+                  onPressed: () => context.pop(),
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
+                  child: Text(
+                    "キャンセル",
+                    style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                            context, FontSizeSet.header3),
+                        color: ColorSet.of(context).text),
+                  ),
+                ),
+              ],
             ),
-            onPressed: () => context.pop(),
           ),
-          backgroundColor: ColorSet.of(context).background,
+          leadingWidth: 130,
           actions: [
-            TextButton(
-              child: Text(
-                "評価する",
-                style: TextStyle(
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: TextButton(
+                onPressed: numOfSelectedStars.value != 0 &&
+                        isEvaluationTextFilled.value
+                    ? () => evaluateTeacher()
+                    : null,
+                style: TextButton.styleFrom(
+                    foregroundColor: ColorSet.of(context).primary,
+                    disabledForegroundColor:
+                        ColorSet.of(context).unselectedText),
+                child: Text(
+                  "評価する",
+                  style: TextStyle(
                     fontWeight: FontWeightSet.normal,
                     fontSize:
                         FontSizeSet.getFontSize(context, FontSizeSet.header3),
-                    color: ColorSet.of(context).primary),
+                  ),
+                ),
               ),
-              onPressed: () => evaluateTeacher(),
             ),
           ],
+          backgroundColor: ColorSet.of(context).background,
         ),
         backgroundColor: ColorSet.of(context).background,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding, vertical: verticalPadding),
-          child: Column(
-            children: [
-              TeacherProfileForEvaluationPageWidget(
-                teacherId: teacherId,
-              ),
-              EvaluationStarsWidget(
-                numOfSelectedStars: numOfSelectedStars.value,
-                onPressed: setEvaluationStars,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              EvaluationTextWidget(
-                controller: evaluationTextController,
-                onChanged: checkEvaluationTextFilled,
-              ),
-              if (addFavoriteTeacherControllerState.isLoading ||
-                  teacherEvaluationControllerState.isLoading)
-                const LoadingOverlay(),
-            ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding, vertical: verticalPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TeacherProfileForEvaluationPageWidget(
+                  teacherId: teacherId,
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                EvaluationStarsWidget(
+                  numOfSelectedStars: numOfSelectedStars.value,
+                  onPressed: setEvaluationStars,
+                ),
+                const SizedBox(
+                  height: 70,
+                ),
+                EvaluationTextWidget(
+                  controller: evaluationTextController,
+                  onChanged: checkEvaluationTextFilled,
+                ),
+                if (addFavoriteTeacherControllerState.isLoading ||
+                    teacherEvaluationControllerState.isLoading)
+                  const LoadingOverlay(),
+              ],
+            ),
           ),
         ));
   }

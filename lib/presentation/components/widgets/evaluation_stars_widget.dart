@@ -25,19 +25,24 @@ class EvaluationStarsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "評価する", //ここのテキストは要検討。右上のボタンが検討するなのにここも検討するなのはどうかと、、
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.header3),
-                  color: ColorSet.of(context).primary),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            const Divider(
-              height: 3,
+            IntrinsicWidth(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "評価する",
+                    style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                            context, FontSizeSet.header3),
+                        color: ColorSet.of(context).greyText),
+                  ),
+                  Divider(
+                    color: ColorSet.of(context).greyText,
+                    thickness: 0.5,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -45,8 +50,8 @@ class EvaluationStarsWidget extends StatelessWidget {
           height: 15,
         ),
         Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(5, (index) {
             return InkWell(
@@ -58,6 +63,7 @@ class EvaluationStarsWidget extends StatelessWidget {
                 color: index < numOfSelectedStars
                     ? ColorSet.of(context).primary
                     : ColorSet.of(context).unselectedText,
+                size: 50,
               ),
             );
           }),

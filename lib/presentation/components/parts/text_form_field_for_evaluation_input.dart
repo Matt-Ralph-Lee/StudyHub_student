@@ -31,7 +31,7 @@ class TextFormFieldForEvaluationInput extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 20.0),
-          hintText: L10n.passwordTextFieldHintText,
+          hintText: "分かりやすいお答えありがとうございます！",
           hintStyle: TextStyle(
               fontWeight: FontWeightSet.normal,
               fontSize: FontSizeSet.annotation,
@@ -43,7 +43,7 @@ class TextFormFieldForEvaluationInput extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-        maxLines: 5,
+        maxLines: 10,
       ),
     );
   }

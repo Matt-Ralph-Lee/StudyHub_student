@@ -16,32 +16,42 @@ class DropDownForQuestionSubject extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final selectedSubject = useState<Subject?>(null);
-    return DropdownButton<Subject>(
-      value: selectedSubject.value,
-      hint: Text(
-        "教科を選択",
-        style: TextStyle(
-          fontWeight: FontWeightSet.normal,
-          fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-          color: ColorSet.of(context).text,
-        ),
-      ),
-      onChanged: (selectedValue) {
-        setSubject(selectedValue);
-      },
-      items: Subject.values.map((Subject subject) {
-        return DropdownMenuItem<Subject>(
-          value: subject,
-          child: Text(
-            subject.japanese,
-            style: TextStyle(
-              fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-              color: ColorSet.of(context).text,
-            ),
+    return SizedBox(
+      width: double.infinity,
+      child: DropdownButton<Subject>(
+        isExpanded: true,
+        value: selectedSubject.value,
+        underline: Container(),
+        dropdownColor: ColorSet.of(context).surface,
+        borderRadius: BorderRadius.circular(10),
+        hint: Text(
+          selectedSubject.value != null
+              ? selectedSubject.value!.japanese
+              : "科目を選択",
+          style: TextStyle(
+            fontWeight: FontWeightSet.normal,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
+            color: ColorSet.of(context).greyText,
           ),
-        );
-      }).toList(),
+        ),
+        onChanged: (selectedValue) {
+          selectedSubject.value = selectedValue;
+          setSubject(selectedValue);
+        },
+        items: Subject.values.map((Subject subject) {
+          return DropdownMenuItem<Subject>(
+            value: subject,
+            child: Text(
+              subject.japanese,
+              style: TextStyle(
+                fontWeight: FontWeightSet.normal,
+                fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
+                color: ColorSet.of(context).text,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
     ;
   }

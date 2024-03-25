@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:studyhub/presentation/shared/constants/color_set.dart';
 
+import '../components/widgets/show_create_question_page_widget.dart';
+
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
     Key? key,
@@ -18,26 +20,34 @@ class ScaffoldWithNavBar extends StatelessWidget {
         indicatorColor: ColorSet.of(context).navbarIndicator,
         surfaceTintColor: const Color(0x00000000),
         backgroundColor: ColorSet.of(context).background,
-        destinations: const [
-          // NavigationDestination(
-          //   icon: Icon(Icons.home),
-          //   label: 'Page1',
-          // ),
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.add),
-            label: 'questionPage',
+            icon: Icon(
+              Icons.home,
+              color: ColorSet.of(context).text,
+            ),
+            label: 'myPage',
+          ),
+          const NavigationDestination(
+            icon: ShowCreateQuestionBottomSheet(),
+            label: 'addQuestion',
           ),
           NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "myPage",
+            icon: Icon(
+              Icons.person,
+              color: ColorSet.of(context).text,
+            ),
+            label: "notifications",
           )
         ],
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
-          );
+          if (index != 1) {
+            navigationShell.goBranch(
+              index,
+              initialLocation: index == navigationShell.currentIndex,
+            );
+          }
         },
       ),
     );

@@ -27,9 +27,9 @@ import '../shared/constants/page_path.dart';
 part "router.g.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-final _page1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page1');
-final _page2NavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'questionPage');
+final _page1NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'notifications');
+final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'addQuestion');
 final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'myPage');
 
 @riverpod
@@ -41,16 +41,16 @@ GoRouter router(RouterRef ref) {
         return ScaffoldWithNavBar(navigationShell: navigationShell);
       },
       branches: [
-        // StatefulShellBranch(
-        //   routes: [
-        //     GoRoute(
-        //       path: PageId.page1.path,
-        //       name: PageId.page1.name,
-        //       builder: (context, state) => const Page1(),
-        //     )
-        //   ],
-        //   navigatorKey: _page1NavigatorKey,
-        // ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: PageId.notifications.path,
+              name: PageId.notifications.name,
+              builder: (context, state) => const NotificationPage(),
+            )
+          ],
+          navigatorKey: _page1NavigatorKey,
+        ),
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -106,21 +106,16 @@ GoRouter router(RouterRef ref) {
       name: PageId.favoriteTeachers.name,
       builder: (context, state) => const FavoriteTeachersPage(),
     ),
-    GoRoute(
-      path: PageId.notifications.path,
-      name: PageId.notifications.name,
-      builder: (context, state) => const NotificationPage(),
-    ),
+    // GoRoute(
+    //   path: PageId.notifications.path,
+    //   name: PageId.notifications.name,
+    //   builder: (context, state) => const NotificationPage(),
+    // ),
     GoRoute(
       path: PageId.editProfile.path,
       name: PageId.editProfile.name,
       builder: (context, state) => const EditProfilePage(),
     ),
-    // GoRoute(
-    //   path: PageId.myPage.path,
-    //   name: PageId.myPage.name,
-    //   builder: (context, state) => const MyPage(),
-    // ),
     GoRoute(
       path: PageId.evaluationPage.path,
       name: PageId.evaluationPage.name,
@@ -141,11 +136,6 @@ GoRouter router(RouterRef ref) {
         ); //引数渡す際はこれでいいかね？
       },
     ),
-    // GoRoute(
-    //   path: PageId.addQuestion.path,
-    //   name: PageId.addQuestion.name,
-    //   builder: (context, state) => const CreateQuestionPage(),
-    // ),
     GoRoute(
       path: PageId.teacherProfile.path,
       name: PageId.teacherProfile.name,

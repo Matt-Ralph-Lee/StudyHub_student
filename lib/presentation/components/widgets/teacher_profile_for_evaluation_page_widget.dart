@@ -16,7 +16,6 @@ import '../../shared/constants/l10n.dart';
 import '../parts/completion_snack_bar.dart';
 import '../parts/text_button_for_follow_teacher.dart';
 import '../parts/text_button_for_unfollow_teacher.dart';
-import '../parts/text_for_error.dart';
 import 'loading_overlay_widget.dart';
 import 'show_error_modal_widget.dart';
 import 'specific_exception_modal_widget.dart';
@@ -136,12 +135,16 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
               : Text("プロフないっす、アカウント消したかもっす"),
           loading: () => const LoadingOverlay(),
           error: (error, stack) {
-            print("エラーはこれです${error}");
+            print("エラーはこれです！❗❗${error}");
             print(stack);
             return const Center(
                 child: Column(
               children: [
-                TextForError(),
+                Text(
+                  "あ",
+                  style: TextStyle(color: Colors.red),
+                )
+                // TextForError(),
               ],
             ));
           },

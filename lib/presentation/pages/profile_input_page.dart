@@ -49,7 +49,7 @@ class ProfileInputPage extends HookConsumerWidget {
     }
 
     void push(BuildContext context) {
-      context.push(PageId.myPage.path);
+      context.push(PageId.notifications.path);
     }
 
     void updateProfile() async {

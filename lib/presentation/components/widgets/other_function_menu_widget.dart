@@ -11,7 +11,6 @@ class OtherFunctionMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //遷移先ページはまだ作ってないっす
     void push(BuildContext context) {
       context.push(PageId.searchTeachers.path);
     }

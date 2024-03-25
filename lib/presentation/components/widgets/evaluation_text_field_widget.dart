@@ -23,24 +23,29 @@ class EvaluationTextWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "コメントする",
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.header3),
-                  color: ColorSet.of(context).primary),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            const Divider(
-              height: 3,
+            IntrinsicWidth(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "コメントする",
+                    style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                            context, FontSizeSet.header3),
+                        color: ColorSet.of(context).greyText),
+                  ),
+                  Divider(
+                    color: ColorSet.of(context).greyText,
+                    thickness: 0.5,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
         const SizedBox(
-          height: 15,
+          height: 18,
         ),
         TextFormFieldForEvaluationInput(
           controller: controller,

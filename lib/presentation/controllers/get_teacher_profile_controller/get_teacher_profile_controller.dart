@@ -13,14 +13,19 @@ class GetTeacherProfileController extends _$GetTeacherProfileController {
   Future<GetTeacherProfileDto?> build(
     TeacherId teacherID,
   ) async {
+    print("いくぞ");
     final getTeacherProfileQueryService =
         ref.watch(getTeacherProfileQueryServiceDiProvider);
+    print("クエリ");
     final getTeacherProfileUseCase = GetTeacherProfileUseCase(
       teacherId: teacherID,
       queryService: getTeacherProfileQueryService,
     );
+    print("ユースケース");
 
     final getTeacherProfileDto = getTeacherProfileUseCase.execute();
+    print("excute");
+    print("結果は、、{$getTeacherProfileDto}");
     return getTeacherProfileDto;
   }
 }
