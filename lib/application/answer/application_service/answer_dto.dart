@@ -9,6 +9,7 @@ class AnswerDto {
   final String _answerText;
   final int _answerLike;
   final bool _isFollowing;
+  final bool _isEvaluated; //追加
 
   AnswerId get answerId => _answerId;
   TeacherId get teacherId => _teacherId;
@@ -17,6 +18,7 @@ class AnswerDto {
   String get answerText => _answerText;
   int get answerLike => _answerLike;
   bool get isFollowing => _isFollowing;
+  bool get isEvaluated => _isEvaluated; //追加
 
   AnswerDto({
     required final AnswerId answerId,
@@ -26,11 +28,13 @@ class AnswerDto {
     required final String answerText,
     required final int answerLike,
     required final bool isFollowing,
+    required final bool isEvaluated, //追加
   })  : _answerId = answerId,
         _teacherId = teacherId,
         _teacherName = teacherName,
         _teacherProfilePath = teacherProfilePath,
         _answerText = answerText,
         _answerLike = answerLike,
-        _isFollowing = isFollowing;
+        _isFollowing = isFollowing,
+        _isEvaluated = isEvaluated;
 }

@@ -59,6 +59,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
       emailAddress: emailAddress,
       isVerified: false,
     ));
+
     count++;
   }
 
@@ -75,7 +76,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     }
     studentAuth.changeIsVerified(true);
 
-    streamController.add(StudentAuthInfoWithoutPassword(
+    streamController.sink.add(StudentAuthInfoWithoutPassword(
       studentId: studentAuth.studentId,
       emailAddress: studentAuth.emailAddress,
       isVerified: studentAuth.isVerified,
@@ -154,5 +155,10 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   StudentAuthInfo? _getByEmailAddress(final EmailAddress emailAddress) {
     final studentId = emailToIdMap[emailAddress];
     return studentId == null ? null : store[studentId];
+  }
+
+  @override
+  StudentId? getStudentIdSnapshot() {
+    return currentStudentId;
   }
 }

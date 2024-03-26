@@ -4,8 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
-import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception.dart';
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../domain/teacher/models/teacher_id.dart';
@@ -19,7 +17,6 @@ import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_evaluation_page_widget.dart';
 import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../controllers/add_teacher_evaluation_controller/add_teacher_evaluation_controller.dart';
-import '../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -44,8 +41,6 @@ class EvaluationPage extends HookConsumerWidget {
     final isEvaluationTextFilled = useState<bool>(false);
     final addFavoriteTeacherControllerState =
         ref.watch(addFavoriteTeacherControllerProvider);
-    final deleteFavoriteTeacherControllerState =
-        ref.watch(deleteFavoriteTeacherControllerProvider);
     final teacherEvaluationControllerState =
         ref.watch(addTeacherEvaluationControllerProvider);
 
@@ -55,64 +50,6 @@ class EvaluationPage extends HookConsumerWidget {
 
     void checkEvaluationTextFilled(String text) {
       isEvaluationTextFilled.value = text.isNotEmpty;
-    }
-
-    void addFavoriteTeacher() async {
-      ref
-          .read(addFavoriteTeacherControllerProvider.notifier)
-          .addFavoriteTeacher(teacherId)
-          .then((_) {
-        if (addFavoriteTeacherControllerState.hasError) {
-          final error = addFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, "お気に入りに追加しました"),
-          );
-        }
-      });
-    }
-
-    void deleteFavoriteTeacher() async {
-      ref
-          .read(deleteFavoriteTeacherControllerProvider.notifier)
-          .deleteFavoriteTeacher(teacherId)
-          .then((_) {
-        if (deleteFavoriteTeacherControllerState.hasError) {
-          final error = deleteFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, "お気に入りから削除しました"),
-          );
-        }
-      });
     }
 
     void evaluateTeacher() async {
@@ -151,7 +88,7 @@ class EvaluationPage extends HookConsumerWidget {
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(
-              CompletionSnackBar(context, "講師を評価しました"),
+              CompletionSnackBar(context, L10n.evaluationSnackBarText),
             );
           }
         });
@@ -172,7 +109,7 @@ class EvaluationPage extends HookConsumerWidget {
                     padding: EdgeInsets.zero,
                   ),
                   child: Text(
-                    "キャンセル",
+                    L10n.cancelText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
@@ -197,7 +134,7 @@ class EvaluationPage extends HookConsumerWidget {
                     disabledForegroundColor:
                         ColorSet.of(context).unselectedText),
                 child: Text(
-                  "評価する",
+                  L10n.evaluationText,
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
                     fontSize:

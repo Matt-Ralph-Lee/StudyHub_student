@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:studyhub/presentation/components/widgets/rank_description_modal.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import 'rank_description_modal.dart';
 
 //ランクの定義どうする
 Map<String, Map<String, dynamic>> createRankRequirements(BuildContext context) {
   return {
-    'beginner': {'questions': 3, 'color': ColorSet.of(context).primary},
-    'novice': {
-      'questions': 6,
-      'color': ColorSet.of(context).primary.withOpacity(0.7)
+    L10n.beginnerText: {
+      L10n.questionsText: 3,
+      L10n.colorText: ColorSet.of(context).primary
     },
-    'advanced': {
-      'questions': 9,
-      'color': ColorSet.of(context).primary.withOpacity(0.4)
+    L10n.noviceText: {
+      L10n.questionsText: 6,
+      L10n.colorText: ColorSet.of(context).primary.withOpacity(0.7)
     },
-    'expert': {
-      'questions': 12,
-      'color': ColorSet.of(context).primary.withOpacity(0.1)
+    L10n.advancedText: {
+      L10n.questionsText: 9,
+      L10n.colorText: ColorSet.of(context).primary.withOpacity(0.4)
+    },
+    L10n.expertText: {
+      L10n.questionsText: 12,
+      L10n.colorText: ColorSet.of(context).primary.withOpacity(0.1)
     },
   };
 }
@@ -36,15 +39,15 @@ Map<String, dynamic> getNextRankInfo(BuildContext context, String currentRank) {
     if (ranks[i] == currentRank) {
       if (i < ranks.length - 1) {
         nextRank = ranks[i + 1];
-        questionsForNextRank = rankRequirements[nextRank]!['questions']!;
+        questionsForNextRank = rankRequirements[nextRank]![L10n.questionsText]!;
       }
       break;
     }
   }
 
   return {
-    'nextRank': nextRank,
-    'questionsForNextRank': questionsForNextRank,
+    L10n.nextRankText: nextRank,
+    L10n.questionsForNextRankText: questionsForNextRank,
   };
 }
 
@@ -82,13 +85,14 @@ class UserDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> nextRankInfo =
         getNextRankInfo(context, userRank);
-    final String nextRank = nextRankInfo['nextRank'];
+    final String nextRank = nextRankInfo[L10n.nextRankText];
     final String numberOfQuestionsForNextRank =
-        (nextRankInfo['questionsForNextRank'] - numberOfQuestions).toString();
+        (nextRankInfo[L10n.questionsForNextRankText] - numberOfQuestions)
+            .toString();
     final rankRequirements = createRankRequirements(context);
-    final Color userRankColor = rankRequirements[userRank]!['color'];
+    final Color userRankColor = rankRequirements[userRank]![L10n.colorText];
     final double ratioForNextRank =
-        numberOfQuestions / nextRankInfo['questionsForNextRank'];
+        numberOfQuestions / nextRankInfo[L10n.questionsForNextRankText];
     final thisWidth = MediaQuery.of(context).size.width * 0.8;
 
     return Column(
@@ -218,7 +222,7 @@ class UserDetailWidget extends StatelessWidget {
             ),
             */
             Text(
-              "$nextRankまで",
+              "$nextRank${L10n.madeText}",
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
                   fontSize:

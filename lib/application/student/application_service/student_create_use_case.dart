@@ -2,6 +2,7 @@ import 'package:english_words/english_words.dart';
 
 import '../../../domain/school/models/school.dart';
 import '../../../domain/shared/name.dart';
+import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/student/models/gender.dart';
 import '../../../domain/student/models/grade_or_graduate_status.dart';
 import '../../../domain/student/models/i_student_repository.dart';
@@ -13,21 +14,16 @@ import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
-import '../../shared/session/session.dart';
-import 'utils/photo_processing.dart';
 
 class StudentCreateUseCase {
   final IStudentAuthRepository _studentAuthRepository;
   final IStudentRepository _studentRepository;
-  final Session? _session;
 
   StudentCreateUseCase({
     required final IStudentAuthRepository studentAuthRepository,
     required final IStudentRepository studentRepository,
-    required final Session? session,
   })  : _studentAuthRepository = studentAuthRepository,
-        _studentRepository = studentRepository,
-        _session = session;
+        _studentRepository = studentRepository;
 
   Future<void> execute({
     required final String emailAddressData,
@@ -51,7 +47,8 @@ class StudentCreateUseCase {
     }
     */
 
-    final student = _createInitially(_session!.studentId);
+    final student =
+        _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
 
     _studentRepository.save(student);
   }
@@ -59,7 +56,9 @@ class StudentCreateUseCase {
 
 Student _createInitially(final StudentId studentId) {
   final studentName = Name(WordPair.random().asLowerCase);
-  final profilePhotoPath = createPath('initial_photo');
+  // final profilePhotoPath = createPath('initial_photo');
+  final profilePhotoPath =
+      ProfilePhotoPath("assets/images/sample_user_icon.jpg");
   const gender = Gender.noAnswer;
   const occupation = Occupation.others;
   final school = School.noAnswer;

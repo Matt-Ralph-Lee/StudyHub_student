@@ -3,6 +3,8 @@ import 'package:studyhub/application/favorite_teachers/exception/favorite_teache
 import '../../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
+import '../../../domain/question/models/question_photo.dart';
+import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
 
@@ -17,7 +19,13 @@ class L10n {
   static const resetPasswordTextButtonText = "パスワードを忘れた方はこちら";
   static const loginByGoogleButtonText = "Goggleでログイン";
   static const singUpErrorText = "サインアップ中にエラーが生じました。\nもう一度やり直してください。";
+  static const emailIsEmptyText = "メールアドレスが空です";
+  static const notContainAtText = "@が含まれておらず、メールアドレスの形式ではありません";
+  static const notContainDotText = ".が含まれておらず、メールアドレスの形式ではありません";
+  static const invalidEmailText = "メールアドレスの形式ではありません";
+  static const isPasswordEmptyText = "パスワードが空です";
 
+  //error系
   static String getStudentAuthExceptionMessage(
       StudentAuthDomainExceptionDetail detail) {
     switch (detail) {
@@ -136,6 +144,7 @@ class L10n {
   static const nextButtonText = "次へ";
 
   //menu_page
+  static const menuText = "メニュー";
   static const otherFunctionsButtonExplanationText = "その他の機能";
   static const searchTeachersButtonText = "講師検索ページ";
 
@@ -153,16 +162,25 @@ class L10n {
   static const noFavoriteTeacherFoundText = "お気に入りの講師はいません";
 
   //profile_edit_page
-  static const cancelText = "キャンセル";
   static const saveText = "保存する";
   static const takePictureText = "写真を撮る";
   static const selectPictureFromGalleryText = "ギャラリーから選ぶ";
+  static const editSuccessText = "プロフィールを変更しました!";
 
   //my_page
   static const myQuestionTabText = "MyQuestion";
   static const bookmarkTabText = "BookMark";
+  static const madeText = "まで";
+  static const beginnerText = "beginner";
+  static const noviceText = "novice";
+  static const advancedText = "advanced";
+  static const expertText = "expert";
+  static const questionsText = "questions";
+  static const colorText = "colorText";
+  static const nextRankText = "nextRank";
+  static const questionsForNextRankText = "questionsForNextRank";
 
-  //question_card_widget
+  //question_and_answer_card_widget
   static const questionIconText = "Q.";
   static const answerIconText = "A.";
   static const noAnswerText = "回答までしばらくお待ちください";
@@ -170,29 +188,48 @@ class L10n {
   //add_question_page
   static const questionTitleHintText = "タイトルを入力してください";
   static const questionHintText = "質問を入力してください";
+  static const selectSubject = "科目を選択してください";
   static const addImagesTextButtonText = "写真を追加";
   static const selectTeachersTextButtonText = "講師を希望する";
+  static const changeTeachersTextButtonText = "講師を変更する";
   static const addQuestionButtonText = "質問する";
   static const addImagesButtonText = "写真を追加する";
+  static const changeImagesButtonText = "写真を変更する";
+  static const questionSnackBarText = "質問を投稿しました！";
+  static const confirmQuestionModalTitleText = "以下の内容でよろしいですか？";
+  static const subjectTextForConfirm = "科目";
+  static const questionTitleTextForConfirm = "質問のタイトル";
+  static const questionContentTextForConfirm = "質問内容";
+  static const photosTextForConfirm = "関連する写真";
+  static const selectedTeachersTextForConfirm = "希望する講師";
 
-  //selectTeachersPage
-  static const favoriteTeacherTextForSelectTeachersPage = "お気に入りの講師";
-  static const popularTeachersText = "人気の講師";
+  //error系
+  static const maxImagesErrorText = "写真は${QuestionPhoto.dataSize}枚まで！";
+  static const maxTeachersErrorText =
+      "希望できる講師は${SelectedTeacherList.maxLength}までです！";
 
   //evaluationPage
   static const evaluationText = "評価する";
   static const evaluationStarsText = "5段階で評価してください";
   static const evaluationContentText = "ご自由にコメントしてください";
+  static const evaluationInputHintText = "分かりやすいお答えありがとうございます!";
+  static const dateFormat = "yyyy/MM/dd";
+  static const evaluationSnackBarText = "講師を評価しました!";
 
   //shared
   static const errorText = "エラーです。時間をおいてから再度お試しください";
   static const errorModalText = "エラーです！";
   static const confirmModalTitleText = "以下の内容でよろしいですか？";
   static const modalOkText = "ok";
-  static const modalCancelText = "キャンセル";
+  static const cancelText = "キャンセル";
   static const closeText = "閉じる";
   static const followButtonText = "Follow";
   static const unFollowButtonText = "UnFollow";
+  static const addFavoriteTeacherText = "お気に入りに追加しました";
+  static const deleteFavoriteTeacherText = "お気に入りから削除しました";
+  static const favoriteTeacherTextForSelectTeachersPage = "お気に入りの講師";
+  static const popularTeachersText = "人気の講師";
+  static const noTeachersFoundText = "該当する講師は見つかりませんでした。";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";
@@ -202,6 +239,12 @@ class L10n {
   //teacher_profile_page
   static const teacherProfilePageTitle = "教師のプロフィール";
   static const evaluationsTitleText = "生徒からの評価";
+  static const fromText = "出身";
+  static const enrollmentText = "在籍";
+  static const favoriteSubjectText = "得意科目";
+  static const bioText = "ひとこと";
+  static const selfIntroductionText = "自己紹介";
+  static const noTeacherProfileFoundText = "講師のプロフィールが見つかりませんでした。";
 
   //search_questions_page
   static const titleText = "StudyHub";
@@ -210,4 +253,10 @@ class L10n {
   static const middleSchoolEnglishTabText = "中学数学";
   static const highSchoolMathTabText = "高校数学";
   static const highSchoolEnglishTabText = "高校英語";
+
+  //notification_page
+  static const notificationTitleText = "お知らせ";
+  static const todayText = "今日";
+  static const thisWeekText = "今週";
+  static const beforeText = "それ以前";
 }

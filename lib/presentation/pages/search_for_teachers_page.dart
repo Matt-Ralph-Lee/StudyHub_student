@@ -14,6 +14,7 @@ import '../controllers/search_for_teachers_controller/search_for_teachers_contro
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/l10n.dart';
 import '../shared/constants/page_path.dart';
 
 class SearchForTeachersPage extends HookConsumerWidget {
@@ -27,7 +28,6 @@ class SearchForTeachersPage extends HookConsumerWidget {
     final horizontalPadding = screenWidth * 0.1;
     final searchTeachersController = useTextEditingController();
     final searchTerm = useState<String>("");
-    final selectedTeachersIdList = useState<List<TeacherId>>([]);
 
     final favoriteTeachersState =
         ref.watch(getFavoriteTeacherControllerProvider);
@@ -53,7 +53,10 @@ class SearchForTeachersPage extends HookConsumerWidget {
                 icon: Icon(
                   Icons.chevron_left,
                   color: ColorSet.of(context).icon,
-                  size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+                  size: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.header1,
+                  ),
                 ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
@@ -74,7 +77,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
                     children: [
                       const SizedBox(height: 30),
                       Text(
-                        "お気に入りの講師",
+                        L10n.favoriteTeacherTextForSelectTeachersPage,
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
@@ -100,7 +103,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
                                     padding: const EdgeInsets.only(bottom: 10),
                                     child: InkWell(
                                       //これ、カードウィジェット編集してあるのでそっちもコピペすること忘れずに。枠を追加してる
-                                      child: teacherSmallCardWidget(
+                                      child: TeacherSmallCardWidget(
                                         name: teacher.teacherName,
                                         bio: teacher.bio,
                                         iconUrl: teacher.profilePhotoPath,
@@ -133,7 +136,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
                     children: [
                       const SizedBox(height: 30),
                       Text(
-                        "人気の講師",
+                        L10n.popularTeachersText,
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
@@ -156,7 +159,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: InkWell(
-                                  child: teacherSmallCardWidget(
+                                  child: TeacherSmallCardWidget(
                                     name: teacher.teacherName,
                                     bio: teacher.bio,
                                     iconUrl: teacher.profilePhotoPath,
@@ -194,7 +197,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
                                     child: InkWell(
-                                      child: teacherSmallCardWidget(
+                                      child: TeacherSmallCardWidget(
                                         name: teacher.name,
                                         bio: teacher.bio,
                                         iconUrl: teacher.profilePhotoPath,
@@ -212,7 +215,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
                         )
                       : SliverFillRemaining(
                           child: Center(
-                            child: Text("該当する講師は見つかりませんでした",
+                            child: Text(L10n.noTeachersFoundText,
                                 style: TextStyle(
                                     fontWeight: FontWeightSet.normal,
                                     fontSize: FontSizeSet.getFontSize(

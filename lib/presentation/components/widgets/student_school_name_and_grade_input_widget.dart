@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../../domain/student/models/grade_or_graduate_status.dart';
 import '../../shared/constants/l10n.dart';
 import '../parts/button_for_profile_input_back.dart';
 import '../parts/button_for_profile_input_next.dart';
@@ -13,8 +14,8 @@ class StudentSchoolNameAndGradeInputWidget extends HookWidget {
   final VoidCallback decrementProgressCounter;
   final VoidCallback updateProfile;
   final TextEditingController studentSchoolNameInputController;
-  final String? studentGradeValue;
-  final ValueChanged<String?> handleStudentGradeChanged;
+  final GradeOrGraduateStatus? studentGradeValue;
+  final ValueChanged<GradeOrGraduateStatus?> handleStudentGradeChanged;
 
   const StudentSchoolNameAndGradeInputWidget(
       {super.key,

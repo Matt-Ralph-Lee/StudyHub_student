@@ -25,7 +25,10 @@ class ResetPasswordTextButtonWidget extends StatelessWidget {
         L10n.resetPasswordTextButtonText,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
+            fontSize: FontSizeSet.getFontSize(
+              context,
+              FontSizeSet.annotation,
+            ),
             color: ColorSet.of(context).text),
       ),
     );

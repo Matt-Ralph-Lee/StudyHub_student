@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 import '../parts/text_form_field_for_evaluation_input.dart';
 
 class EvaluationTextWidget extends StatelessWidget {
@@ -29,7 +29,7 @@ class EvaluationTextWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "コメントする",
+                    L10n.evaluationContentText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(

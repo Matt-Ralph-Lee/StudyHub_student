@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../domain/student_auth/exception/student_auth_domain_exception.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
-import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
@@ -32,16 +31,16 @@ class SignUpWidget extends HookConsumerWidget {
           RegExp(r'^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$');
       if (text.isEmpty) {
         isEmailFilled.value = false;
-        emailInputErrorText.value = 'メールアドレスが空です';
+        emailInputErrorText.value = L10n.emailIsEmptyText;
       } else if (!emailRegExp.hasMatch(text)) {
         isEmailFilled.value = false;
         final numOfAts = RegExp(r'@').allMatches(text).length;
         if (numOfAts != 1) {
-          emailInputErrorText.value = '@が含まれておらず、メールアドレスの形式ではありません';
+          emailInputErrorText.value = L10n.notContainAtText;
         } else if (!text.contains('.')) {
-          emailInputErrorText.value = '.が含まれておらず、メールアドレスの形式ではありません';
+          emailInputErrorText.value = L10n.notContainDotText;
         } else {
-          emailInputErrorText.value = 'メールアドレスの形式ではありません';
+          emailInputErrorText.value = L10n.invalidEmailText;
         }
       } else {
         isEmailFilled.value = true;
@@ -51,18 +50,54 @@ class SignUpWidget extends HookConsumerWidget {
 
     void checkPasswordFilled(String text) {
       if (text.isEmpty) {
-        passwordInputErrorText.value = "パスワードが空です";
+        passwordInputErrorText.value = L10n.isPasswordEmptyText;
       }
       isPasswordFilled.value = text.isNotEmpty;
     }
 
     void push(BuildContext context) {
-      context.push(PageId.evaluationPage.path,
-          extra: TeacherId('00000000000000000001'));
+      context.push(PageId.profileInput.path);
+    }
+
+    void pushDummy(BuildContext context) {
+      context.push(PageId.searchQuestions.path);
+    }
+
+    void dummySignUp(BuildContext context) async {
+      ref
+          .read(studentAuthControllerProvider.notifier)
+          .signUp("hoge@gmail.com", "hogehoge")
+          .then((_) {
+        final currentState = ref.read(studentAuthControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          if (error is StudentAuthDomainException) {
+            final errorText = L10n.getStudentAuthExceptionMessage(
+                error.detail as StudentAuthDomainExceptionDetail);
+            //ここ変えてある
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SpecificExceptionModalWidget(
+                    errorMessage: errorText,
+                  );
+                });
+          } else {
+            showErrorModalWidget(context);
+          }
+        } else {
+          pushDummy(context);
+        }
+      });
     }
 
     return Column(
       children: [
+        ElevatedButton(
+            onPressed: () => dummySignUp(context),
+            child: Text("a"),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red))),
         TextFormFieldForEmailAddressInput(
           controller: signUpEmailController,
           onChanged: checkEmailFilled,
@@ -86,7 +121,7 @@ class SignUpWidget extends HookConsumerWidget {
                       .then((_) {
                     final currentState =
                         ref.read(studentAuthControllerProvider);
-                    if (currentState is AsyncError) {
+                    if (currentState.hasError) {
                       final error = currentState.error;
                       if (error is StudentAuthDomainException) {
                         final errorText = L10n.getStudentAuthExceptionMessage(

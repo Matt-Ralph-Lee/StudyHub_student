@@ -11,11 +11,15 @@ SnackBar CompletionSnackBar(BuildContext context, String content) {
       content,
       style: TextStyle(
           fontWeight: FontWeightSet.normal,
-          fontSize: FontSizeSet.body,
+          fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
           color: ColorSet.of(context).text),
     ),
     behavior: SnackBarBehavior.floating,
-    margin: const EdgeInsets.all(20.0),
+    margin: EdgeInsets.only(
+        bottom: MediaQuery.of(context).size.height -
+            (MediaQuery.of(context).size.width < 600 ? 150 : 225), //ipadレスポンシブ
+        right: 20,
+        left: 20),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20.0),
       side: BorderSide(

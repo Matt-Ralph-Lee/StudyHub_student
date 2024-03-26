@@ -27,12 +27,13 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
                 L10n.usernameTextFieldLabelText,
                 style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize: FontSizeSet.getFontSize(
+                        context, FontSizeSet.annotation),
                     color: ColorSet.of(context).greyText),
               )
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
           TextFormField(
             controller: controller,
             onChanged: onChanged,
@@ -43,13 +44,21 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
             */
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.annotation,
+                fontSize: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.body,
+                ),
                 color: ColorSet.of(context).text),
             cursorColor: ColorSet.of(context).text,
-            cursorWidth: 1,
+            cursorWidth: screenWidth < 600 ? 1 : 1.5,
+            cursorHeight:
+                FontSizeSet.getFontSize(context, FontSizeSet.annotation),
             decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 20.0),
+              contentPadding: const EdgeInsets.only(
+                top: 20.0,
+                bottom: 20.0,
+                left: 20.0,
+              ),
               fillColor: ColorSet.of(context).greySurface,
               filled: true,
               border: OutlineInputBorder(

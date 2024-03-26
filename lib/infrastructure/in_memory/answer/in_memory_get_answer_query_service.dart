@@ -35,7 +35,8 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
       final teacher = _teacherRepository.getByTeacherId(answer.teacherId);
 
       if (teacher == null) {
-        answerDtoList.add(AnswerDto(
+        answerDtoList.add(
+          AnswerDto(
             answerId: answer.answerId,
             teacherId: TeacherId("999999999999999999999999999"), // default id
             teacherName: "teacher name", // default teacher name
@@ -43,7 +44,10 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
                 "/assets/images/sample_user_icon.jpg", // default user icon
             answerText: answer.answerText.value,
             answerLike: answer.like.value,
-            isFollowing: false));
+            isFollowing: false,
+            isEvaluated: false, //追加
+          ),
+        );
       } else {
         final favoriteTeachers =
             _favoriteTeachersRepository.getByStudentId(studentId);
@@ -54,13 +58,15 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
           }
         }
         answerDtoList.add(AnswerDto(
-            answerId: answer.answerId,
-            teacherId: teacher.teacherId,
-            teacherName: teacher.name.value,
-            teacherProfilePath: teacher.profilePhotoPath.value,
-            answerText: answer.answerText.value,
-            answerLike: answer.like.value,
-            isFollowing: isFollowing));
+          answerId: answer.answerId,
+          teacherId: teacher.teacherId,
+          teacherName: teacher.name.value,
+          teacherProfilePath: teacher.profilePhotoPath.value,
+          answerText: answer.answerText.value,
+          answerLike: answer.like.value,
+          isFollowing: isFollowing,
+          isEvaluated: false, //追加
+        ));
       }
     }
 

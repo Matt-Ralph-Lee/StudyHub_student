@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 
 class TextFormFieldForAddQuestionTitle extends StatelessWidget {
   final TextEditingController controller;
@@ -16,6 +17,7 @@ class TextFormFieldForAddQuestionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       width: double.infinity,
       child: TextFormField(
@@ -23,16 +25,17 @@ class TextFormFieldForAddQuestionTitle extends StatelessWidget {
         onChanged: onChanged,
         style: TextStyle(
             fontWeight: FontWeightSet.semibold,
-            fontSize: FontSizeSet.header2,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header2),
             color: ColorSet.of(context).text),
         cursorColor: ColorSet.of(context).text,
-        cursorWidth: 1,
+        cursorWidth: screenWidth < 600 ? 1 : 1.5,
+        cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(left: 0),
-          hintText: "タイトルを入力してください",
+          hintText: L10n.questionTitleHintText,
           hintStyle: TextStyle(
               fontWeight: FontWeightSet.semibold,
-              fontSize: FontSizeSet.header2,
+              fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header2),
               color: ColorSet.of(context).greyText),
           filled: false,
           border: OutlineInputBorder(

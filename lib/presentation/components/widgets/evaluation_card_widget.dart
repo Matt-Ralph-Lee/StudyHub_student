@@ -7,6 +7,7 @@ import '../../controllers/get_student_controller/get_student_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 import '../parts/text_for_error.dart';
 import 'loading_overlay_widget.dart';
 
@@ -26,7 +27,7 @@ class EvaluationCardWidget extends ConsumerWidget {
     return Column(
       children: [
         Text(
-          "生徒からの評価",
+          L10n.evaluationsTitleText,
           style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header3),
@@ -79,7 +80,7 @@ class EvaluationCardWidget extends ConsumerWidget {
                       },
                     ),
                     Text(
-                      DateFormat('yyyy/MM/dd')
+                      DateFormat(L10n.dateFormat)
                           .format(teacherEvaluationsDto.createdAt),
                       style: TextStyle(
                         fontWeight: FontWeightSet.normal,

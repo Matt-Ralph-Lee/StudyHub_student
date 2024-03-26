@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -60,8 +59,9 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, "お気に入りに追加しました"),
+            CompletionSnackBar(context, L10n.addFavoriteTeacherText),
           );
+          ref.invalidate(getTeacherProfileControllerProvider(teacherId));
         }
       });
     }
@@ -89,8 +89,9 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, "お気に入りから削除しました"),
+            CompletionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
+          ref.invalidate(getTeacherProfileControllerProvider(teacherId));
         }
       });
     }
@@ -122,25 +123,26 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                   ],
                 ),
                 getTeacherProfileDto.isFollowing
-                    ? TextButtonForFollowTeacher(
-                        onPressed: addFavoriteTeacher,
-                      )
-                    : TextButtonForUnFollowTeacher(
+                    ? TextButtonForUnFollowTeacher(
                         onPressed: deleteFavoriteTeacher,
+                      )
+                    : TextButtonForFollowTeacher(
+                        onPressed: addFavoriteTeacher,
                       ),
               ],
             )
-          : Text("プロフないっす、アカウント消したかもっす"),
+          : Text(
+              "プロフないっす、アカウント消したかもっす",
+              style: TextStyle(color: ColorSet.of(context).text),
+            ),
       loading: () => const LoadingOverlay(),
       error: (error, stack) {
-        print("エラーはこれです！❗❗${error}");
-        print(stack);
-        return const Center(
+        return Center(
             child: Column(
           children: [
             Text(
-              "あ",
-              style: TextStyle(color: Colors.red),
+              error.toString(),
+              style: const TextStyle(color: Colors.red),
             )
             // TextForError(),
           ],

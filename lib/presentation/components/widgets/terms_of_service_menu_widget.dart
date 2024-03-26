@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 
 import "../../shared/constants/l10n.dart";
+import "../../shared/constants/padding_set.dart";
 import "../../shared/constants/page_path.dart";
 import "../parts/elevated_button_for_menu_items.dart";
 import '../parts/text_for_menu_items.dart';
@@ -20,11 +21,15 @@ class TermsOfServiceWidget extends StatelessWidget {
       children: [
         const TextForMenuItems(
             menuItemText: L10n.termsOfServiceInformationButtonExplanationText),
-        const SizedBox(height: 15),
+        SizedBox(
+          height: PaddingSet.getPaddingSize(context, 15),
+        ),
         ElevatedButtonForMenuItems(
             onPressed: () => push(context),
             buttonText: L10n.termsOfServiceButtonText),
-        const SizedBox(height: 30),
+        SizedBox(
+          height: PaddingSet.getPaddingSize(context, 15),
+        ),
         ElevatedButtonForMenuItems(
             onPressed: () => push(context),
             buttonText: L10n.privacyPolicyButtonText)

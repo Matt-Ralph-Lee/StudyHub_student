@@ -56,7 +56,7 @@ class AnswerCardWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, "お気に入りに追加しました"),
+            CompletionSnackBar(context, L10n.addFavoriteTeacherText),
           );
         }
       });
@@ -85,7 +85,7 @@ class AnswerCardWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, "お気に入りから削除しました"),
+            CompletionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
         }
       });
@@ -94,7 +94,7 @@ class AnswerCardWidget extends ConsumerWidget {
     return Column(
       children: [
         Text(
-          "講師からの回答",
+          L10n.answersTitleText,
           style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header3),
@@ -125,75 +125,66 @@ class AnswerCardWidget extends ConsumerWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
                     CircleAvatar(
                       radius: 15,
                       backgroundImage:
                           NetworkImage(answerDto.teacherProfilePath),
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      answerDto.teacherName,
-                      style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
-                        color: ColorSet.of(context).text,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          answerDto.teacherName,
+                          style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                                context, FontSizeSet.header3),
+                            color: ColorSet.of(context).text,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                     answerDto.isFollowing
                         ? TextButtonForFollowTeacher(
-                            onPressed: addFavoriteTeacher)
+                            onPressed: () => addFavoriteTeacher())
                         : TextButtonForUnFollowTeacher(
-                            onPressed: deleteFavoriteTeacher),
+                            onPressed: () => deleteFavoriteTeacher()),
                   ],
                 ),
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.heart_broken,
+                Expanded(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.heart_broken,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        answerDto.answerLike.toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
+                          color: ColorSet.of(context).text,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          answerDto.answerLike.toString(),
+                      ),
+                      Expanded(
+                        child: Text(
+                          answerDto.answerText,
                           style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
                                 context, FontSizeSet.body),
                             color: ColorSet.of(context).text,
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            answerDto.answerText,
-                            style: TextStyle(
-                              fontWeight: FontWeightSet.normal,
-                              fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.body),
-                              color: ColorSet.of(context).text,
-                            ),
-                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 
 class TextFormFieldForAddQuestion extends StatelessWidget {
   final TextEditingController controller;
@@ -16,6 +17,7 @@ class TextFormFieldForAddQuestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       width: double.infinity,
       child: TextFormField(
@@ -23,16 +25,17 @@ class TextFormFieldForAddQuestion extends StatelessWidget {
         onChanged: onChanged,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.body,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
             color: ColorSet.of(context).text),
         cursorColor: ColorSet.of(context).text,
-        cursorWidth: 1,
+        cursorWidth: screenWidth < 600 ? 1 : 1.5,
+        cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(left: 0),
-          hintText: "質問内容を入力してください",
+          hintText: L10n.questionHintText,
           hintStyle: TextStyle(
               fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.body,
+              fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
               color: ColorSet.of(context).greyText),
           filled: false,
           border: OutlineInputBorder(

@@ -20,7 +20,7 @@ class TextForProfileInputExplanation extends StatelessWidget {
             explanationText,
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.body,
+                fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
                 color: ColorSet.of(context).text),
           ),
         ],

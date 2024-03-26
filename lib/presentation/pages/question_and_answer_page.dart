@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../application/shared/application_service/question_card_dto.dart';
+
 import '../../domain/question/models/question_id.dart';
 import '../components/parts/text_button_for_navigating_to_evaluatin_page.dart';
 import '../components/parts/text_for_error.dart';
@@ -14,15 +14,14 @@ import '../controllers/get_question_detail_controller/get_question_detail_contro
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/l10n.dart';
 
 class QuestionAndAnswerPage extends ConsumerWidget {
   final QuestionId questionId;
-  final QuestionCardDto questionCardDto;
   final bool isMyQuestionNoEvaluated;
   const QuestionAndAnswerPage({
     super.key,
     required this.questionId,
-    required this.questionCardDto,
     required this.isMyQuestionNoEvaluated,
   });
 
@@ -46,7 +45,7 @@ class QuestionAndAnswerPage extends ConsumerWidget {
           backgroundColor: ColorSet.of(context).background,
           centerTitle: true,
           title: Text(
-            "Q&A",
+            L10n.questionAndAnswerPageTitleText,
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
                 fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header3),
@@ -60,31 +59,45 @@ class QuestionAndAnswerPage extends ConsumerWidget {
               getQuestionDetailControllerState.when(
                 data: (questionDetailDto) => Column(
                   children: [
-                    QuestionDetailCardWidget(
-                      questionDetailDto: questionDetailDto,
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: QuestionDetailCardWidget(
+                        questionDetailDto: questionDetailDto,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: questionDetailDto.questionPhotoPathList.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: QuestionPictureWidget(
-                            photoPath:
-                                questionDetailDto.questionPhotoPathList[index],
+                    if (questionDetailDto.questionPhotoPathList.isNotEmpty)
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
                           ),
-                        );
-                      },
-                    ),
+                          SizedBox(
+                            height: 200,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: questionDetailDto
+                                  .questionPhotoPathList.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: QuestionPictureWidget(
+                                        photoPath: questionDetailDto
+                                            .questionPhotoPathList[index],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
                   ],
                 ),
                 loading: () => const LoadingOverlay(),
                 error: (error, stack) {
-                  print("エラーはこれです${error}");
-                  print(stack);
                   return const Center(
                       child: Column(
                     children: [
@@ -97,21 +110,42 @@ class QuestionAndAnswerPage extends ConsumerWidget {
                 height: 50,
               ),
               getAnswerControllerState.when(
-                data: (answerDto) => ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: answerDto.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AnswerCardWidget(
-                          answerDto: answerDto[index],
-                        ));
-                  },
-                ),
+                data: (answerDto) => answerDto.isNotEmpty
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 300,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: answerDto.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AnswerCardWidget(
+                                          answerDto: answerDto[index],
+                                        )),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    if (answerDto[index].isEvaluated)
+                                      const TextButtonForNavigatingToEvaluationPage(),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : Text("回答までしばらくお待ちください",
+                        style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                                context, FontSizeSet.header3),
+                            color: ColorSet.of(context).text)),
                 loading: () => const LoadingOverlay(),
                 error: (error, stack) {
-                  print("エラーはこれです${error}");
-                  print(stack);
                   return const Center(
                       child: Column(
                     children: [
@@ -120,8 +154,6 @@ class QuestionAndAnswerPage extends ConsumerWidget {
                   ));
                 },
               ),
-              if (isMyQuestionNoEvaluated)
-                const TextButtonForNavigatingToEvaluationPage()
             ],
           ),
         ));

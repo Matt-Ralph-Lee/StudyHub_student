@@ -27,17 +27,21 @@ class TextFormFieldForPasswordInput extends StatelessWidget {
         onChanged: onChanged,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
             color: ColorSet.of(context).text),
         cursorColor: ColorSet.of(context).text,
-        cursorWidth: 1,
+        cursorWidth: screenWidth < 600 ? 1 : 1.5,
+        cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 20.0),
           hintText: L10n.passwordTextFieldHintText,
           hintStyle: TextStyle(
               fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.annotation,
+              fontSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.annotation,
+              ),
               color: ColorSet.of(context).greyText),
           fillColor: ColorSet.of(context).greySurface,
           filled: true,

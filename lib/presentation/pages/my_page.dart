@@ -8,8 +8,8 @@ import '../components/widgets/user_detail_widget.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../controllers/get_my_bookmark_controller/get_my_bookmark_controller.dart';
+import '../controllers/get_my_profile_controller/get_my_profile_controller.dart';
 import '../controllers/get_my_question_controller/get_my_question_controller.dart';
-import '../controllers/student_controller/student_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -22,7 +22,7 @@ class MyPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final paddingHorizontal = screenWidth * 0.1;
-    final studentState = ref.watch(studentControllerProvider);
+    final getMyProfileState = ref.watch(getMyProfileControllerProvider);
     final favoriteTeacherState =
         ref.watch(getFavoriteTeacherControllerProvider);
     final myQuestionState = ref.watch(getMyQuestionControllerProvider);
@@ -72,27 +72,25 @@ class MyPage extends ConsumerWidget {
                           right: paddingHorizontal,
                           left: paddingHorizontal,
                           bottom: 20),
-                      child: studentState.when(
-                        data: (studentDto) {
+                      child: getMyProfileState.when(
+                        data: (getMyProfileDto) {
                           final numberOfFavoriteTeachers =
                               favoriteTeacherState.maybeWhen(
                             data: (teachers) => teachers.length,
                             orElse: () => 0,
                           ); //ここはもっといい方法？があるはずではある
                           return UserDetailWidget(
-                            userName: studentDto.studentName,
+                            userName: getMyProfileDto.studentName,
                             numberOfFavoriteTeachers: numberOfFavoriteTeachers,
-                            userRank: studentDto.status.english,
-                            numberOfQuestions: studentDto.questionCount,
-                            userIconUrl: studentDto.profilePhotoPath,
+                            userRank: getMyProfileDto.status.english,
+                            numberOfQuestions: getMyProfileDto.questionCount,
+                            userIconUrl: getMyProfileDto.profilePhotoPath,
                           );
                         },
                         loading: () => const LoadingOverlay(),
                         error: (error, stackTrace) {
                           return const Center(
-                            child: Column(
-                              children: [TextForError()],
-                            ),
+                            child: TextForError(),
                           );
                         },
                       ),
@@ -108,12 +106,19 @@ class MyPage extends ConsumerWidget {
                     dividerColor: Colors.transparent,
                     labelColor: ColorSet.of(context).text,
                     unselectedLabelColor: ColorSet.of(context).unselectedText,
-                    labelStyle: const TextStyle(
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.header3,
+                      ),
+                    ),
+                    unselectedLabelStyle: TextStyle(
                         fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.header3),
-                    unselectedLabelStyle: const TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.header3),
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.header3,
+                        )),
                     tabs: const [
                       Tab(text: L10n.myQuestionTabText),
                       Tab(text: L10n.bookmarkTabText),
@@ -138,30 +143,26 @@ class MyPage extends ConsumerWidget {
                               left: 20,
                             ),
                             child: QuestionAndAnswerCardWidget(
-                              questionTitle: myQuestion.questionTitle,
-                              question: myQuestion.questionText,
-                              studentIconUrl:
-                                  myQuestion.studentProfilePhotoPath,
-                              teacherIconUrl:
-                                  myQuestion.teacherProfilePhotoPath,
-                              answer: myQuestion.answerText,
+                              questionCardDto: myQuestion,
+                              isisMyQuestionNoEvaluated: true, //ここどこから取れる
                             ),
                           );
                         },
                       )
-                    : const Center(
-                        child: Text("質問がねえじゃん！"),
+                    : Center(
+                        child: Text(
+                          "質問がありません",
+                          style: TextStyle(
+                              fontWeight: FontWeightSet.normal,
+                              fontSize: FontSizeSet.getFontSize(
+                                  context, FontSizeSet.header3),
+                              color: ColorSet.of(context).text),
+                        ),
                       ),
                 loading: () => const LoadingOverlay(),
                 error: (error, stack) {
-                  print("エラーはこれです${error}");
-                  print(stack);
                   return const Center(
-                    child: Column(
-                      children: [
-                        TextForError(),
-                      ],
-                    ),
+                    child: TextForError(),
                   );
                 },
               ),
@@ -178,30 +179,26 @@ class MyPage extends ConsumerWidget {
                               left: 20,
                             ),
                             child: QuestionAndAnswerCardWidget(
-                              questionTitle: myBookmark.questionTitle,
-                              question: myBookmark.questionText,
-                              studentIconUrl:
-                                  myBookmark.studentProfilePhotoPath,
-                              teacherIconUrl:
-                                  myBookmark.teacherProfilePhotoPath,
-                              answer: myBookmark.answerText,
+                              questionCardDto: myBookmark,
+                              isisMyQuestionNoEvaluated: true, //ここどこから取れる
                             ),
                           );
                         },
                       )
-                    : const Center(
-                        child: Text("質問がねえじゃん！"),
+                    : Center(
+                        child: Text(
+                          "ブックマークがありません",
+                          style: TextStyle(
+                              fontWeight: FontWeightSet.normal,
+                              fontSize: FontSizeSet.getFontSize(
+                                  context, FontSizeSet.header3),
+                              color: ColorSet.of(context).text),
+                        ),
                       ),
                 loading: () => const LoadingOverlay(),
                 error: (error, stack) {
-                  print("エラーはこれです${error}");
-                  print(stack);
                   return const Center(
-                    child: Column(
-                      children: [
-                        TextForError(),
-                      ],
-                    ),
+                    child: TextForError(),
                   );
                 },
               ),

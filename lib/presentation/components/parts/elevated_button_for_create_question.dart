@@ -30,11 +30,11 @@ class ElevatedButtonForCreateQuestion extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(vertical: 20),
         ),
-        child: const Text(
+        child: Text(
           "質問する",
           style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
           ),
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 
 class TextButtonForUnFollowTeacher extends StatelessWidget {
   final VoidCallback onPressed;
@@ -24,7 +25,7 @@ class TextButtonForUnFollowTeacher extends StatelessWidget {
         ),
       ),
       child: Text(
-        "unFollow", //L10nで定義
+        L10n.unFollowButtonText,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),

@@ -8,8 +8,8 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
 class RadioButtonForStudentGradeInput extends HookWidget {
-  final String? groupValue;
-  final ValueChanged<String?> onChanged;
+  final GradeOrGraduateStatus? groupValue;
+  final ValueChanged<GradeOrGraduateStatus?> onChanged;
 
   RadioButtonForStudentGradeInput({
     super.key,
@@ -19,15 +19,14 @@ class RadioButtonForStudentGradeInput extends HookWidget {
 
   final studentGradeOptions = GradeOrGraduateStatus.values
       .where((element) =>
-          element != GradeOrGraduateStatus.graduate ||
+          element != GradeOrGraduateStatus.graduate &&
           element != GradeOrGraduateStatus.other)
-      .map((e) => e.japanese)
       .toList();
 
   List<Widget> buildRadioButtons(BuildContext context) {
-    return studentGradeOptions.map((option) {
+    return studentGradeOptions.map((gradeStatus) {
       return GestureDetector(
-        onTap: () => onChanged(option),
+        onTap: () => onChanged(gradeStatus),
         child: Theme(
           data: ThemeData(
             unselectedWidgetColor: ColorSet.of(context).inactiveGreySurface,
@@ -35,19 +34,20 @@ class RadioButtonForStudentGradeInput extends HookWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Radio<String>(
-                value: option,
+              Radio<GradeOrGraduateStatus>(
+                value: gradeStatus,
                 groupValue: groupValue,
                 onChanged: (value) => onChanged(value),
                 activeColor: ColorSet.of(context).primary,
               ),
               const SizedBox(width: 3),
               Text(
-                option,
+                gradeStatus.japanese,
                 style: TextStyle(
                     height: 2,
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
                     color: ColorSet.of(context).text),
               ),
             ],
@@ -85,12 +85,13 @@ class RadioButtonForStudentGradeInput extends HookWidget {
                 L10n.gradeRadioBoxLabelText,
                 style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize: FontSizeSet.getFontSize(
+                        context, FontSizeSet.annotation),
                     color: ColorSet.of(context).greyText),
               )
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 10),
           studentGradeOptionsWidget,
         ],
       ),

@@ -8,12 +8,18 @@ import '../parts/text_button_for_selecting_teachers.dart';
 
 class AddImagesOrSelectTeachersWidget extends StatelessWidget {
   final List<String>? imageFilePath;
+  final List<TeacherId> teacherIds;
+  final bool isTeacherSelected;
+  final bool isPhotoAdded;
   final void Function() uploadPhotoFromCamera;
   final void Function() uploadPhotoFromGallery;
-  final void Function(List<TeacherId>) selectTeachersFunction;
+  final void Function(TeacherId) selectTeachersFunction;
   const AddImagesOrSelectTeachersWidget({
     super.key,
     required this.imageFilePath,
+    required this.teacherIds,
+    required this.isTeacherSelected,
+    required this.isPhotoAdded,
     required this.uploadPhotoFromCamera,
     required this.uploadPhotoFromGallery,
     required this.selectTeachersFunction,
@@ -27,7 +33,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
             color: ColorSet.of(context).background,
             border: Border(
                 top: BorderSide(
-              width: 0.4,
+              width: 0.1,
               color: ColorSet.of(context).text,
             ))),
         child: Row(
@@ -38,6 +44,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
               imageFilePath: imageFilePath,
               takePhoto: uploadPhotoFromCamera,
               pickPhoto: uploadPhotoFromGallery,
+              isPicturesAdded: isPhotoAdded,
             ),
             SizedBox(
               height: PaddingSet.getPaddingSize(
@@ -47,6 +54,8 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
             ),
             TextButtonForSelectingTeacher(
               selectTeachersFunction: selectTeachersFunction,
+              selectedTeachers: teacherIds,
+              isTeacherSelected: isTeacherSelected,
             ),
           ],
         ));

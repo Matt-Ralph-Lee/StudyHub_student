@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/shared/constants/color_set.dart';
 
 import '../components/widgets/show_create_question_page_widget.dart';
+import '../shared/constants/color_set.dart';
+import '../shared/constants/font_size_set.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
@@ -25,8 +26,12 @@ class ScaffoldWithNavBar extends StatelessWidget {
             icon: Icon(
               Icons.home,
               color: ColorSet.of(context).text,
+              size: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header1,
+              ),
             ),
-            label: 'myPage',
+            label: 'searchQuestions',
           ),
           const NavigationDestination(
             icon: ShowCreateQuestionBottomSheet(),
@@ -36,6 +41,10 @@ class ScaffoldWithNavBar extends StatelessWidget {
             icon: Icon(
               Icons.person,
               color: ColorSet.of(context).text,
+              size: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header1,
+              ),
             ),
             label: "evaluationPage",
           )

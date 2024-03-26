@@ -40,7 +40,8 @@ class BottomSheetForPickImage extends StatelessWidget {
                   L10n.takePictureText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.body,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
                       color: ColorSet.of(context).text),
                 ),
               ),
@@ -57,7 +58,8 @@ class BottomSheetForPickImage extends StatelessWidget {
                   L10n.selectPictureFromGalleryText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.body,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
                       color: ColorSet.of(context).text),
                 ),
               )

@@ -6,17 +6,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studyhub/presentation/components/widgets/add_images_or_select_teacher_widget.dart';
 
 import '../../application/question/exception/question_use_case_exception.dart';
 import '../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../domain/question/models/question_photo_path_list.dart';
-import '../../domain/question/models/selected_teacher_list.dart';
 import '../../domain/shared/subject.dart';
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/completion_snack_bar.dart';
-import '../components/parts/elevated_button_for_create_question.dart';
+import '../components/widgets/add_images_or_select_teacher_widget.dart';
 import '../components/widgets/add_question_main_content_widget.dart';
+import '../components/widgets/confirm_question_modal.widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/specific_exception_modal_widget.dart';
@@ -33,8 +32,6 @@ class CreateQuestionPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final topPadding = screenHeight * 0.1;
     final questionTitleController = useTextEditingController();
     final questionController = useTextEditingController();
     final picker = ImagePicker();
@@ -68,7 +65,7 @@ class CreateQuestionPage extends HookConsumerWidget {
             context: context,
             builder: (BuildContext context) {
               return const SpecificExceptionModalWidget(
-                  errorMessage: "写真は5枚まで❗");
+                  errorMessage: L10n.maxImagesErrorText);
             },
           );
         } else {
@@ -93,60 +90,68 @@ class CreateQuestionPage extends HookConsumerWidget {
     }
 
     //デフォで直接数制限はできないぽいので、予め注意&選択後にチェックの二刀流で
-    void selectTeachers(List<TeacherId> teacherIds) async {
-      const maxSelection = SelectedTeacherList.maxLength;
-      if (teacherIds.length > maxSelection) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const SpecificExceptionModalWidget(errorMessage: "講師は5人まで❗");
-          },
-        );
+    void toggleTeacherSelection(TeacherId teacherId) async {
+      final List<TeacherId> updatedList =
+          List<TeacherId>.from(selectedTeachersId.value ?? []);
+
+      if (updatedList.contains(teacherId)) {
+        updatedList.remove(teacherId);
       } else {
-        final List<TeacherId> updatedList =
-            List<TeacherId>.from(selectedTeachersId.value ?? []);
-        updatedList.addAll(teacherIds);
-        selectedTeachersId.value = updatedList;
-        context.pop();
+        updatedList.add(teacherId);
       }
+      selectedTeachersId.value = updatedList;
+      print(selectedTeachersId.value.length.toString());
     }
 
     void addQuestion() async {
-      ref
-          .read(addQuestionControllerProvider.notifier)
-          .addQuestion(
-            questionTitleController.text,
-            questionController.text,
-            selectedSubject.value!, //活性非活性のために既にボタンでnullチェックしているため
-            selectedPhotos.value,
-            selectedTeachersId.value,
-          )
-          .then((_) {
-        if (addQuestionControllerState.hasError) {
-          final error = addQuestionControllerState.error;
-          if (error is QuestionUseCaseException) {
-            final errorText = L10n.getQuestionExceptionMessage(
-                error.detail as QuestionUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-            context.pop();
+      final result = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ConfirmQuestionModalWidget(
+              questionTitle: questionTitleController.text,
+              questionContent: questionController.text,
+              subject: selectedSubject.value!,
+              imagesPath: selectedPhotos.value,
+              teacherId: selectedTeachersId.value,
+            );
+          });
+      if (result) {
+        ref
+            .read(addQuestionControllerProvider.notifier)
+            .addQuestion(
+              questionTitleController.text,
+              questionController.text,
+              selectedSubject.value!, //活性非活性のために既にボタンでnullチェックしているため
+              selectedPhotos.value,
+              selectedTeachersId.value,
+            )
+            .then((_) {
+          if (addQuestionControllerState.hasError) {
+            final error = addQuestionControllerState.error;
+            if (error is QuestionUseCaseException) {
+              final errorText = L10n.getQuestionExceptionMessage(
+                  error.detail as QuestionUseCaseExceptionDetail);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SpecificExceptionModalWidget(
+                      errorMessage: errorText,
+                    );
+                  });
+              context.pop();
+            } else {
+              showErrorModalWidget(context);
+              context.pop();
+            }
           } else {
-            showErrorModalWidget(context);
+            HapticFeedback.lightImpact();
+            ScaffoldMessenger.of(context).showSnackBar(
+              CompletionSnackBar(context, L10n.questionSnackBarText),
+            );
             context.pop();
           }
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, "質問しました！"),
-          );
-          context.pop();
-        }
-      });
+        });
+      }
     }
 
     return Scaffold(
@@ -155,7 +160,7 @@ class CreateQuestionPage extends HookConsumerWidget {
         toolbarHeight: FontSizeSet.getFontSize(context, 50),
         shape: Border(
             bottom: BorderSide(
-          width: 0.4,
+          width: 0.1,
           color: ColorSet.of(context).text,
         )),
         leading: Padding(
@@ -170,7 +175,7 @@ class CreateQuestionPage extends HookConsumerWidget {
                   padding: EdgeInsets.zero,
                 ),
                 child: Text(
-                  "キャンセル",
+                  L10n.cancelText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
                       fontSize:
@@ -195,7 +200,7 @@ class CreateQuestionPage extends HookConsumerWidget {
                   foregroundColor: ColorSet.of(context).primary,
                   disabledForegroundColor: ColorSet.of(context).unselectedText),
               child: Text(
-                "質問する",
+                L10n.addQuestionButtonText,
                 style: TextStyle(
                   fontWeight: FontWeightSet.semibold,
                   fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
@@ -219,13 +224,9 @@ class CreateQuestionPage extends HookConsumerWidget {
                     AddQuestionMainContentWidget(
                       questionController: questionController,
                       questionTitleController: questionTitleController,
-                      imageFilePath: selectedPhotos.value,
-                      uploadPhotoFromCamera: () => selectPhotos(),
-                      uploadPhotoFromGallery: () => takePhoto(),
                       checkQuestionFilledFunction: checkQuestionFilled,
                       checkQuestionTitleFilledFunction:
                           checkQuestionTitleFilled,
-                      selectTeachersFunction: selectTeachers,
                       selectSubjectFunction: setSubject,
                     ),
                   ],
@@ -237,7 +238,10 @@ class CreateQuestionPage extends HookConsumerWidget {
             imageFilePath: selectedPhotos.value,
             uploadPhotoFromCamera: () => takePhoto,
             uploadPhotoFromGallery: () => selectedPhotos,
-            selectTeachersFunction: selectTeachers,
+            selectTeachersFunction: toggleTeacherSelection,
+            teacherIds: selectedTeachersId.value,
+            isTeacherSelected: selectedTeachersId.value.isNotEmpty,
+            isPhotoAdded: selectedPhotos.value.isNotEmpty,
           ),
           if (addQuestionControllerState.isLoading) const LoadingOverlay(),
         ],

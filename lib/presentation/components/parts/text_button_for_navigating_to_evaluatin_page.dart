@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 
 class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
@@ -28,7 +29,7 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
         ),
       ),
       child: Text(
-        "この教師を評価する", //L10nで定義
+        L10n.navigateToEvaluationPage,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),

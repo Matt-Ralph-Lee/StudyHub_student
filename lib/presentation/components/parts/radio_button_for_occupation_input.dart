@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:studyhub/domain/student/models/occupation.dart';
 
+import '../../../domain/student/models/occupation.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
 class RadioButtonForOccupationInput extends HookWidget {
-  final String? groupValue;
-  final ValueChanged<String?> onChanged;
+  final Occupation? groupValue;
+  final ValueChanged<Occupation?> onChanged;
 
   RadioButtonForOccupationInput({
     super.key,
@@ -17,12 +17,13 @@ class RadioButtonForOccupationInput extends HookWidget {
     required this.onChanged,
   });
 
-  final occupationOptions = Occupation.values.map((e) => e.japanese).toList();
+  // Occupation.valuesを直接使用します。
+  final occupationOptions = Occupation.values;
 
   List<Widget> buildRadioButtons(BuildContext context) {
-    return occupationOptions.map((option) {
+    return occupationOptions.map((occupation) {
       return GestureDetector(
-        onTap: () => onChanged(option),
+        onTap: () => onChanged(occupation),
         child: Theme(
           data: ThemeData(
             unselectedWidgetColor: ColorSet.of(context).inactiveGreySurface,
@@ -30,19 +31,20 @@ class RadioButtonForOccupationInput extends HookWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Radio<String>(
-                value: option,
+              Radio<Occupation>(
+                value: occupation,
                 groupValue: groupValue,
                 onChanged: (value) => onChanged(value),
                 activeColor: ColorSet.of(context).primary,
               ),
               const SizedBox(width: 3),
               Text(
-                option,
+                occupation.japanese,
                 style: TextStyle(
                     height: 2,
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
                     color: ColorSet.of(context).text),
               ),
             ],
@@ -80,12 +82,13 @@ class RadioButtonForOccupationInput extends HookWidget {
                 L10n.jobRadioBoxLabelText,
                 style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize: FontSizeSet.getFontSize(
+                        context, FontSizeSet.annotation),
                     color: ColorSet.of(context).greyText),
               )
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 10),
           jobOptionsWidget,
         ],
       ),

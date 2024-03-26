@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 
 class EvaluationStarsWidget extends StatelessWidget {
   final int numOfSelectedStars;
@@ -31,7 +31,7 @@ class EvaluationStarsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "評価する",
+                    L10n.evaluationText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(

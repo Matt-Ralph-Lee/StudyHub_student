@@ -8,8 +8,8 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
 class RadioButtonForGenderInput extends HookWidget {
-  final String? groupValue;
-  final ValueChanged<String?> onChanged;
+  final Gender? groupValue;
+  final ValueChanged<Gender?> onChanged;
 
   RadioButtonForGenderInput({
     super.key,
@@ -17,12 +17,12 @@ class RadioButtonForGenderInput extends HookWidget {
     required this.onChanged,
   });
 
-  final genderOptions = Gender.values.map((e) => e.japanese).toList();
+  final genderOptions = Gender.values;
 
   List<Widget> buildRadioButtons(BuildContext context) {
-    return genderOptions.map((option) {
+    return genderOptions.map((gender) {
       return GestureDetector(
-        onTap: () => onChanged(option),
+        onTap: () => onChanged(gender),
         child: Theme(
           data: ThemeData(
             unselectedWidgetColor: ColorSet.of(context).inactiveGreySurface,
@@ -30,19 +30,20 @@ class RadioButtonForGenderInput extends HookWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Radio<String>(
-                value: option,
+              Radio<Gender>(
+                value: gender,
                 groupValue: groupValue,
                 onChanged: (value) => onChanged(value),
                 activeColor: ColorSet.of(context).primary,
               ),
               const SizedBox(width: 3),
               Text(
-                option,
+                gender.japanese,
                 style: TextStyle(
                     height: 2,
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
                     color: ColorSet.of(context).text),
               ),
             ],
@@ -80,12 +81,13 @@ class RadioButtonForGenderInput extends HookWidget {
                 L10n.genderRadioBoxLabelText,
                 style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize: FontSizeSet.getFontSize(
+                        context, FontSizeSet.annotation),
                     color: ColorSet.of(context).greyText),
               )
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 10),
           genderOptionsWidget,
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,12 +14,16 @@ import '../controllers/search_for_teachers_controller/search_for_teachers_contro
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/l10n.dart';
 
 class SelectTeachersPage extends HookConsumerWidget {
-  final void Function(List<TeacherId>) onPressed;
+  final void Function(TeacherId) onPressed;
+  final List<TeacherId> selectedTeachers;
+
   const SelectTeachersPage({
     super.key,
     required this.onPressed,
+    required this.selectedTeachers,
   });
 
   @override
@@ -51,24 +56,24 @@ class SelectTeachersPage extends HookConsumerWidget {
 
     return Scaffold(
         backgroundColor: ColorSet.of(context).background,
-        floatingActionButton: SizedBox(
-          height: 70,
-          width: 70,
-          child: FloatingActionButton(
-            onPressed: selectedTeachersIdList.value.isNotEmpty
-                ? () => onPressed(selectedTeachersIdList.value)
-                : null,
-            backgroundColor: selectedTeachersIdList.value.isNotEmpty
-                ? ColorSet.of(context).primary
-                : ColorSet.of(context).greySurface,
-            shape: const CircleBorder(),
-            child: Icon(
-              Icons.check,
-              color: ColorSet.of(context).icon,
-              size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
-            ),
-          ),
-        ),
+        // floatingActionButton: SizedBox(
+        //   height: 70,
+        //   width: 70,
+        //   child: FloatingActionButton(
+        //     onPressed: selectedTeachersIdList.value.isNotEmpty
+        //         ? () => onPressed(selectedTeachersIdList.value)
+        //         : null,
+        //     backgroundColor: selectedTeachersIdList.value.isNotEmpty
+        //         ? ColorSet.of(context).primary
+        //         : ColorSet.of(context).greySurface,
+        //     shape: const CircleBorder(),
+        //     child: Icon(
+        //       Icons.check,
+        //       color: ColorSet.of(context).icon,
+        //       size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+        //     ),
+        //   ),
+        // ),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
@@ -76,7 +81,10 @@ class SelectTeachersPage extends HookConsumerWidget {
                 icon: Icon(
                   Icons.chevron_left,
                   color: ColorSet.of(context).icon,
-                  size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+                  size: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.header1,
+                  ),
                 ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
@@ -97,7 +105,7 @@ class SelectTeachersPage extends HookConsumerWidget {
                     children: [
                       const SizedBox(height: 30),
                       Text(
-                        "お気に入りの講師",
+                        L10n.favoriteTeacherTextForSelectTeachersPage,
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
@@ -121,18 +129,15 @@ class SelectTeachersPage extends HookConsumerWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: InkWell(
+                                    child: GestureDetector(
                                       //これ、カードウィジェット編集してあるのでそっちもコピペすること忘れずに。枠を追加してる
-                                      child: teacherSmallCardWidget(
-                                        name: teacher.teacherName,
-                                        bio: teacher.bio,
-                                        iconUrl: teacher.profilePhotoPath,
-                                        isSelected: selectedTeachersIdList.value
-                                                ?.contains(teacher.teacherId) ??
-                                            false,
-                                      ),
-                                      onTap: () =>
-                                          toggleTeacherId(teacher.teacherId),
+                                      child: TeacherSmallCardWidget(
+                                          name: teacher.teacherName,
+                                          bio: teacher.bio,
+                                          iconUrl: teacher.profilePhotoPath,
+                                          isSelected: selectedTeachers
+                                              .contains(teacher.teacherId)),
+                                      onTap: () => onPressed(teacher.teacherId),
                                     ),
                                   ),
                                 ],
@@ -158,7 +163,7 @@ class SelectTeachersPage extends HookConsumerWidget {
                     children: [
                       const SizedBox(height: 30),
                       Text(
-                        "人気の講師",
+                        L10n.popularTeachersText,
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
@@ -181,17 +186,14 @@ class SelectTeachersPage extends HookConsumerWidget {
                               final teacher = teachers[index];
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
-                                child: InkWell(
-                                  child: teacherSmallCardWidget(
-                                    name: teacher.teacherName,
-                                    bio: teacher.bio,
-                                    iconUrl: teacher.profilePhotoPath,
-                                    isSelected: selectedTeachersIdList.value
-                                            ?.contains(teacher.teacherId) ??
-                                        false,
-                                  ),
-                                  onTap: () =>
-                                      toggleTeacherId(teacher.teacherId),
+                                child: GestureDetector(
+                                  child: TeacherSmallCardWidget(
+                                      name: teacher.teacherName,
+                                      bio: teacher.bio,
+                                      iconUrl: teacher.profilePhotoPath,
+                                      isSelected: selectedTeachers
+                                          .contains(teacher.teacherId)),
+                                  onTap: () => onPressed(teacher.teacherId),
                                 ),
                               );
                             },
@@ -221,17 +223,14 @@ class SelectTeachersPage extends HookConsumerWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: InkWell(
-                                      child: teacherSmallCardWidget(
-                                        name: teacher.name,
-                                        bio: teacher.bio,
-                                        iconUrl: teacher.profilePhotoPath,
-                                        isSelected: selectedTeachersIdList.value
-                                                .contains(teacher.teacherId) ??
-                                            false,
-                                      ),
-                                      onTap: () =>
-                                          toggleTeacherId(teacher.teacherId),
+                                    child: GestureDetector(
+                                      child: TeacherSmallCardWidget(
+                                          name: teacher.name,
+                                          bio: teacher.bio,
+                                          iconUrl: teacher.profilePhotoPath,
+                                          isSelected: selectedTeachers
+                                              .contains(teacher.teacherId)),
+                                      onTap: () => onPressed(teacher.teacherId),
                                     ),
                                   ),
                                 ],
@@ -242,7 +241,7 @@ class SelectTeachersPage extends HookConsumerWidget {
                         )
                       : SliverFillRemaining(
                           child: Center(
-                            child: Text("該当する講師は見つかりませんでした",
+                            child: Text(L10n.noTeachersFoundText,
                                 style: TextStyle(
                                     fontWeight: FontWeightSet.normal,
                                     fontSize: FontSizeSet.getFontSize(

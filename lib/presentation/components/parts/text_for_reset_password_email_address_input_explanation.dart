@@ -20,14 +20,15 @@ class TextForResetPasswordEmailAddressInputExplanation extends StatelessWidget {
             style: TextStyle(
                 color: ColorSet.of(context).text,
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.header1),
+                fontSize:
+                    FontSizeSet.getFontSize(context, FontSizeSet.header1)),
           ),
           const SizedBox(height: 20),
           Text(
             L10n.passwordResetMailAddressInputExplanationText,
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.body,
+                fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
                 color: ColorSet.of(context).text),
           ),
         ],

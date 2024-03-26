@@ -21,7 +21,8 @@ class TextForProfileCompletionWelcome extends StatelessWidget {
             style: TextStyle(
                 color: ColorSet.of(context).text,
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.header1),
+                fontSize:
+                    FontSizeSet.getFontSize(context, FontSizeSet.header1)),
           ),
         ],
       ),

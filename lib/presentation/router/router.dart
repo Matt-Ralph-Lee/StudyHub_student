@@ -3,6 +3,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 
 import "../../application/di/session/session_provider.dart";
+import "../../domain/question/models/question_id.dart";
 import "../../domain/teacher/models/teacher_id.dart";
 import "../pages/auth_page.dart";
 import "../pages/create_question_page.dart";
@@ -12,9 +13,11 @@ import "../pages/edit_profile_page.dart";
 import "../pages/menu_page.dart";
 import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
+import "../pages/question_and_answer_page.dart";
 import "../pages/reset_password_page.dart";
 import "../pages/search_for_teachers_page.dart";
 import "../pages/my_page.dart";
+import "../pages/search_questinos_page.dart";
 import "../pages/select_teachers_page.dart";
 import "../pages/teacher_profile_page.dart";
 import '../shared/utils/accessibility.dart';
@@ -25,7 +28,7 @@ part "router.g.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _page1NavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'evaluationPage');
+    GlobalKey<NavigatorState>(debugLabel: 'searchQuestions');
 final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'addQuestion');
 final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'myPage');
 
@@ -41,15 +44,10 @@ GoRouter router(RouterRef ref) {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: PageId.evaluationPage.path,
-              name: PageId.evaluationPage.name,
-              builder: (context, state) {
-                final teacherId = state.extra as TeacherId;
-                return EvaluationPage(
-                  teacherId: TeacherId('00000000000000000001'),
-                ); //引数渡す際はこれでいいかね？
-              },
-            ),
+              path: PageId.searchQuestions.path,
+              name: PageId.searchQuestions.name,
+              builder: (context, state) => const SearchQuestionsPage(),
+            )
           ],
           navigatorKey: _page1NavigatorKey,
         ),
@@ -118,23 +116,26 @@ GoRouter router(RouterRef ref) {
       name: PageId.editProfile.name,
       builder: (context, state) => const EditProfilePage(),
     ),
-    // GoRoute(
-    //   path: PageId.evaluationPage.path,
-    //   name: PageId.evaluationPage.name,
-    //   builder: (context, state) {
-    //     final teacherId = state.extra as TeacherId;
-    //     return EvaluationPage(
-    //       teacherId: teacherId,
-    //     ); //引数渡す際はこれでいいかね？
-    //   },
-    // ),
+    GoRoute(
+      path: PageId.evaluationPage.path,
+      name: PageId.evaluationPage.name,
+      builder: (context, state) {
+        final teacherId = state.extra as TeacherId;
+        return EvaluationPage(
+          teacherId: teacherId,
+        ); //引数渡す際はこれでいいかね？
+      },
+    ),
     GoRoute(
       path: PageId.selectTeachers.path,
       name: PageId.selectTeachers.name,
       builder: (context, state) {
-        final getTeacherProfileDto = state.extra as Function(List<TeacherId>);
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final Function(TeacherId) onPressed = args[0] as Function(TeacherId);
+        final List<TeacherId> selectedTeachers = args[1] as List<TeacherId>;
         return SelectTeachersPage(
-          onPressed: getTeacherProfileDto,
+          onPressed: onPressed,
+          selectedTeachers: selectedTeachers,
         ); //引数渡す際はこれでいいかね？
       },
     ),
@@ -145,6 +146,19 @@ GoRouter router(RouterRef ref) {
         final teacherId = state.extra as TeacherId;
         return TeacherProfilePage(
           teacherId: teacherId,
+        );
+      },
+    ),
+    GoRoute(
+      path: PageId.questionAndAnswerPage.path,
+      name: PageId.questionAndAnswerPage.name,
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final QuestionId questionId = args[0] as QuestionId;
+        final bool isMyQuestionNotEvaluated = args[1] as bool;
+        return QuestionAndAnswerPage(
+          questionId: questionId,
+          isMyQuestionNoEvaluated: isMyQuestionNotEvaluated,
         );
       },
     ),

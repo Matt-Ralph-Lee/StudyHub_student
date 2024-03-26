@@ -32,7 +32,6 @@ void main() {
       final usecase = StudentCreateUseCase(
         studentAuthRepository: repository,
         studentRepository: studentRepository,
-        session: session,
       );
 
       await usecase.execute(

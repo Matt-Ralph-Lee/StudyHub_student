@@ -34,11 +34,11 @@ class ButtonForProfileInputNext extends HookWidget {
           //padding（=実質ボタンの高さ）は要検討
           padding: const EdgeInsets.symmetric(vertical: 17),
         ),
-        child: const Text(
+        child: Text(
           L10n.nextButtonText,
           style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
           ),
         ),
       ),

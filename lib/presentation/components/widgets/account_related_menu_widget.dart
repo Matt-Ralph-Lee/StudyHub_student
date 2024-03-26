@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 
 import "../../shared/constants/l10n.dart";
+import "../../shared/constants/padding_set.dart";
 import "../../shared/constants/page_path.dart";
 import "../parts/elevated_button_for_menu_items.dart";
 import '../parts/text_for_menu_items.dart';
@@ -11,26 +12,33 @@ class AccountRelatedMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //遷移先ページはまだ作ってないっす
-    void push(BuildContext context) {
-      context.push(PageId.searchTeachers.path);
+    void navigateToEditProfilePage(BuildContext context) {
+      context.push(PageId.editProfile.path);
     }
 
     return Column(
       children: [
         const TextForMenuItems(
             menuItemText: L10n.accountRelatedButtonExplanationText),
-        const SizedBox(height: 15),
+        SizedBox(
+          height: PaddingSet.getPaddingSize(context, 15),
+        ),
         ElevatedButtonForMenuItems(
-            onPressed: () => push(context),
+            onPressed: () => navigateToEditProfilePage(context),
             buttonText: L10n.editAccountInformationButtonText),
-        const SizedBox(height: 30),
+        SizedBox(
+          height: PaddingSet.getPaddingSize(context, 30),
+        ),
         ElevatedButtonForMenuItems(
-            onPressed: () => push(context), buttonText: L10n.logoutButtonText),
-        const SizedBox(height: 30),
+            onPressed: () => navigateToEditProfilePage(context),
+            buttonText: L10n.logoutButtonText),
+        SizedBox(
+          height: PaddingSet.getPaddingSize(context, 30),
+        ),
         ElevatedButtonForMenuItems(
-            onPressed: () => push(context),
-            buttonText: L10n.deleteAccountButtonText)
+          onPressed: () => navigateToEditProfilePage(context),
+          buttonText: L10n.deleteAccountButtonText,
+        )
       ],
     );
   }

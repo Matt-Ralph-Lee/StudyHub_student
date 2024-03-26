@@ -5,6 +5,7 @@ import '../../../domain/shared/subject.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 
 class DropDownForQuestionSubject extends HookWidget {
   final void Function(Subject?) setSubject;
@@ -27,7 +28,7 @@ class DropDownForQuestionSubject extends HookWidget {
         hint: Text(
           selectedSubject.value != null
               ? selectedSubject.value!.japanese
-              : "科目を選択",
+              : L10n.selectSubject,
           style: TextStyle(
             fontWeight: FontWeightSet.normal,
             fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
@@ -53,6 +54,5 @@ class DropDownForQuestionSubject extends HookWidget {
         }).toList(),
       ),
     );
-    ;
   }
 }

@@ -77,7 +77,7 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
               children: [
                 TextButton(
                   child: Text(
-                    L10n.modalCancelText,
+                    L10n.cancelText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.body,
