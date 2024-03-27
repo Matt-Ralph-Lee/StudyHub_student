@@ -217,17 +217,6 @@ class SelectTeachersPage extends HookConsumerWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
                                     child: TeacherSmallCardWidget(
-<<<<<<< HEAD
-                                        name: teacher.name,
-                                        bio: teacher.bio,
-                                        iconUrl: teacher.profilePhotoPath,
-                                        isSelected: selectedTeachers.value
-                                            .contains(teacher.teacherId),
-                                        onTap: () {
-                                          onPressed(teacher.teacherId);
-                                          tapState.value = !tapState.value;
-                                        }),
-=======
                                       name: teacher.name,
                                       bio: teacher.bio,
                                       iconUrl: teacher.profilePhotoPath,
@@ -238,7 +227,6 @@ class SelectTeachersPage extends HookConsumerWidget {
                                         tapState.value = !tapState.value;
                                       },
                                     ),
->>>>>>> 2ed148a2dbd83af8b9601547ec3b7313decdf5b0
                                   ),
                                 ],
                               );
