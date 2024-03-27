@@ -1,3 +1,5 @@
+import 'package:studyhub/domain/shared/profile_photo_path.dart';
+
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/school/models/school.dart';
 import '../../../domain/school/services/school_service.dart';
@@ -70,25 +72,34 @@ class ProfileUpdateUseCase {
     }
 
     if (newLocalPhotoPath != null) {
-      final profilePhotoPath = createPathFromId(studentId);
-      print("ん？");
-      final image = convertToJpegAndResize(newLocalPhotoPath);
-      print("はにゃ？???");
-      final profilePhoto =
-          ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
-      print("はにょ？？");
-      _photoRepository.save([profilePhoto]);
-      final student = _repository.findById(studentId);
-      if (student == null) {
-        throw const StudentUseCaseException(
-            StudentUseCaseExceptionDetail.notFound);
-      }
-      print("nullではない");
-      final oldPhotoPath = student.profilePhotoPath;
-      student.changeProfilePhoto(profilePhotoPath);
-      print("フッ");
+      if (newLocalPhotoPath.contains("assets")) {
+        final student = _repository.findById(studentId);
+        if (student == null) {
+          throw const StudentUseCaseException(
+              StudentUseCaseExceptionDetail.notFound);
+        }
+        student.changeProfilePhoto(ProfilePhotoPath(newLocalPhotoPath));
+      } else {
+        final profilePhotoPath = createPathFromId(studentId);
+        print("ん？");
+        final image = convertToJpegAndResize(newLocalPhotoPath);
+        print("はにゃ？???");
+        final profilePhoto =
+            ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
+        print("はにょ？？");
+        _photoRepository.save([profilePhoto]);
+        final student = _repository.findById(studentId);
+        if (student == null) {
+          throw const StudentUseCaseException(
+              StudentUseCaseExceptionDetail.notFound);
+        }
+        print("nullではない");
+        final oldPhotoPath = student.profilePhotoPath;
+        student.changeProfilePhoto(profilePhotoPath);
+        print("フッ");
 
-      _photoRepository.delete(oldPhotoPath);
+        _photoRepository.delete(oldPhotoPath);
+      }
     }
 
     print("あとは保存のみ");

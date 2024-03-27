@@ -22,23 +22,23 @@ class TeacherSmallCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorSet.of(context).surface,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              color: ColorSet.of(context).cardShadow,
-              spreadRadius: 0,
-              blurRadius: 16,
-              offset: const Offset(0, 0)),
-        ],
-        border: isSelected
-            ? Border.all(color: ColorSet.of(context).text, width: 2)
-            : null,
-      ),
-      child: GestureDetector(
-        onTap: onTap,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorSet.of(context).surface,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                color: ColorSet.of(context).cardShadow,
+                spreadRadius: 0,
+                blurRadius: 16,
+                offset: const Offset(0, 0)),
+          ],
+          border: isSelected
+              ? Border.all(color: ColorSet.of(context).text, width: 2)
+              : null,
+        ),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
