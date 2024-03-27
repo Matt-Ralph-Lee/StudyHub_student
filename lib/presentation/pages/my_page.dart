@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/parts/text_for_error.dart';
 import '../components/widgets/loading_overlay_widget.dart';
@@ -16,7 +17,7 @@ import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/page_path.dart';
 
-class MyPage extends ConsumerWidget {
+class MyPage extends HookConsumerWidget {
   const MyPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,6 +28,11 @@ class MyPage extends ConsumerWidget {
         ref.watch(getFavoriteTeacherControllerProvider);
     final myQuestionState = ref.watch(getMyQuestionControllerProvider);
     final myBookmarksState = ref.watch(getMyBookmarksControllerProvider);
+
+    useEffect(() {
+      print("use effect");
+      return null;
+    }, [getMyProfileState]);
 
     void pushToNotificationPage(BuildContext context) {
       context.push(PageId.notifications.path);

@@ -76,7 +76,7 @@ class ProfileInputPage extends HookConsumerWidget {
       ref
           .read(profileUpdateControllerProvider.notifier)
           .profileUpdate(profileUpdateCommand)
-          .then((_) {
+          .then((_) async {
         final currentState = ref.read(profileUpdateControllerProvider);
         print("state読んだ");
         if (currentState.hasError) {
@@ -97,7 +97,10 @@ class ProfileInputPage extends HookConsumerWidget {
           }
         } else {
           print("pushするよ");
-          push(context);
+          Future.delayed(const Duration(seconds: 2)).then(
+            (_) => push(context),
+            // (_) => print("hoge"),
+          );
         }
       });
     }

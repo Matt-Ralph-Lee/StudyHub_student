@@ -59,6 +59,10 @@ class SignUpWidget extends HookConsumerWidget {
       context.push(PageId.profileInput.path);
     }
 
+    void pushDummy(BuildContext context) {
+      context.push(PageId.myPage.path);
+    }
+
     void dummySignUp(BuildContext context) async {
       ref
           .read(studentAuthControllerProvider.notifier)

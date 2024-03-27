@@ -52,6 +52,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) {
           if (index != 1) {
+            print(index);
+            print(navigationShell.currentIndex);
             navigationShell.goBranch(
               index,
               initialLocation: index == navigationShell.currentIndex,
