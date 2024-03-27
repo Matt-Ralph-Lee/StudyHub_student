@@ -60,8 +60,12 @@ class ProfileInputPage extends HookConsumerWidget {
         gender: gender.value,
         occupation: job.value,
         school: job.value == Occupation.student
-            ? studentSchoolNameInputController.text
-            : academicHistoryInputController.text, //schoolドメインが定義されていない
+            ? studentSchoolNameInputController.text.isEmpty
+                ? null
+                : studentSchoolNameInputController.text
+            : academicHistoryInputController.text.isEmpty
+                ? null
+                : academicHistoryInputController.text, //schoolドメインが定義されていない
         gradeOrGraduateStatus: job.value == Occupation.student
             ? studentGrade.value
             : othersGrade.value,

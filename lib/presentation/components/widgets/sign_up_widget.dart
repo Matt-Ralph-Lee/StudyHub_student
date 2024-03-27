@@ -59,10 +59,6 @@ class SignUpWidget extends HookConsumerWidget {
       context.push(PageId.profileInput.path);
     }
 
-    void pushDummy(BuildContext context) {
-      context.push(PageId.searchQuestions.path);
-    }
-
     void dummySignUp(BuildContext context) async {
       ref
           .read(studentAuthControllerProvider.notifier)
@@ -86,7 +82,7 @@ class SignUpWidget extends HookConsumerWidget {
             showErrorModalWidget(context);
           }
         } else {
-          pushDummy(context);
+          push(context);
         }
       });
     }
