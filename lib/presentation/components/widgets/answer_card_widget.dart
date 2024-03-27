@@ -56,7 +56,7 @@ class AnswerCardWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, L10n.addFavoriteTeacherText),
+            completionSnackBar(context, L10n.addFavoriteTeacherText),
           );
         }
       });
@@ -85,7 +85,7 @@ class AnswerCardWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, L10n.deleteFavoriteTeacherText),
+            completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
         }
       });
@@ -156,7 +156,7 @@ class AnswerCardWidget extends ConsumerWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.heart_broken,
                       ),
                       const SizedBox(

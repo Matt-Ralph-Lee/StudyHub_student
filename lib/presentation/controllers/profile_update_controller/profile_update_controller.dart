@@ -21,7 +21,6 @@ class ProfileUpdateController extends _$ProfileUpdateController {
     final schoolRepository = ref.read(schoolRepositoryDiProvider);
     final schoolService = SchoolService(schoolRepository);
     final photoRepository = ref.read(photoRepositoryDiProvider);
-    print("準備できたよ");
 
     final profileUpdateUseCase = ProfileUpdateUseCase(
       session: session,
@@ -29,7 +28,6 @@ class ProfileUpdateController extends _$ProfileUpdateController {
       schoolService: schoolService,
       photoRepository: photoRepository,
     );
-    print("ユースケースインスタンス化したよ");
 
     profileUpdateUseCase.execute(command);
   }

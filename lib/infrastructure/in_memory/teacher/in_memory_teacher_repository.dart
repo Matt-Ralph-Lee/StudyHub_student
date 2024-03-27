@@ -33,8 +33,8 @@ class InMemoryTeacherRepository implements ITeacherRepository {
           introduction: Introduction('数学が得意科目です。\nよろしくお願いします。'),
           rating: Rating(4.0),
           bestSubjects: [Subject.highMath],
-          profilePhotoPath:
-              ProfilePhotoPath('assets/images/sample_user_icon.jpg')),
+          profilePhotoPath: ProfilePhotoPath(
+              'assets/photos/profile_photo/sample_user_icon.jpg')),
       TeacherId('00000000000000000002'): Teacher(
         teacherId: TeacherId('00000000000000000002'),
         name: Name('testName2'),
@@ -46,8 +46,8 @@ class InMemoryTeacherRepository implements ITeacherRepository {
         introduction: Introduction('初めまして。塾講師の経験があるので、わかりやすく教えることができると思います。'),
         rating: Rating(3.5),
         bestSubjects: [Subject.midEng],
-        profilePhotoPath:
-            ProfilePhotoPath('assets/images/sample_user_icon2.jpg'),
+        profilePhotoPath: ProfilePhotoPath(
+            'assets/photos/profile_photo/sample_user_icon2.jpg'),
       )
     };
   }

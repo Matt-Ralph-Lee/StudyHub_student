@@ -101,14 +101,11 @@ class SearchForTeachersPage extends HookConsumerWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: InkWell(
-                                      //これ、カードウィジェット編集してあるのでそっちもコピペすること忘れずに。枠を追加してる
-                                      child: TeacherSmallCardWidget(
-                                        name: teacher.teacherName,
-                                        bio: teacher.bio,
-                                        iconUrl: teacher.profilePhotoPath,
-                                        isSelected: false,
-                                      ),
+                                    child: TeacherSmallCardWidget(
+                                      name: teacher.teacherName,
+                                      bio: teacher.bio,
+                                      iconUrl: teacher.profilePhotoPath,
+                                      isSelected: false,
                                       onTap: () => navigateToTeacherProfilePage(
                                           context, teacher.teacherId),
                                     ),
@@ -158,13 +155,11 @@ class SearchForTeachersPage extends HookConsumerWidget {
                               final teacher = teachers[index];
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
-                                child: InkWell(
-                                  child: TeacherSmallCardWidget(
-                                    name: teacher.teacherName,
-                                    bio: teacher.bio,
-                                    iconUrl: teacher.profilePhotoPath,
-                                    isSelected: false,
-                                  ),
+                                child: TeacherSmallCardWidget(
+                                  name: teacher.teacherName,
+                                  bio: teacher.bio,
+                                  iconUrl: teacher.profilePhotoPath,
+                                  isSelected: false,
                                   onTap: () => navigateToTeacherProfilePage(
                                       context, teacher.teacherId),
                                 ),
@@ -196,13 +191,11 @@ class SearchForTeachersPage extends HookConsumerWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: InkWell(
-                                      child: TeacherSmallCardWidget(
-                                        name: teacher.name,
-                                        bio: teacher.bio,
-                                        iconUrl: teacher.profilePhotoPath,
-                                        isSelected: false,
-                                      ),
+                                    child: TeacherSmallCardWidget(
+                                      name: teacher.name,
+                                      bio: teacher.bio,
+                                      iconUrl: teacher.profilePhotoPath,
+                                      isSelected: false,
                                       onTap: () => navigateToTeacherProfilePage(
                                           context, teacher.teacherId),
                                     ),
@@ -226,7 +219,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
                   loading: () =>
                       const SliverToBoxAdapter(child: LoadingOverlay()),
                   error: (error, stack) {
-                    print("エラーはこれです${error}");
+                    print("エラーはこれです$error");
                     print(stack);
                     return const SliverToBoxAdapter(
                       child: Center(

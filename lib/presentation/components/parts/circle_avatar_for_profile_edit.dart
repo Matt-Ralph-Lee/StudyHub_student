@@ -27,7 +27,7 @@ class CircleAvatarForProfileEdit extends StatelessWidget {
           CircleAvatar(
             radius: 50,
             backgroundImage: (imageFilePath == null)
-                ? NetworkImage(iconUrl) as ImageProvider
+                ? AssetImage(iconUrl) as ImageProvider
                 : FileImage(File(imageFilePath!)),
           ),
           Positioned(

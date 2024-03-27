@@ -33,7 +33,6 @@ class ProfileUpdateUseCase {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.notFound);
     }
-    print("studnetはnullではない");
 
     final newStudentNameData = command.studentName;
     final newGender = command.gender;
@@ -53,7 +52,6 @@ class ProfileUpdateUseCase {
     if (newOccupation != null) {
       student.changeOccupation(newOccupation);
     }
-    print("occupationはおけ");
 
     if (newSchoolData != null) {
       final newSchool = School(newSchoolData);
@@ -67,13 +65,9 @@ class ProfileUpdateUseCase {
       student.changeSchool(School(newSchoolData));
     }
 
-    print("学校はおけ");
-
     if (newGradeOrGraduateStatus != null) {
       student.changeGradeOrGraduateStatus(newGradeOrGraduateStatus);
     }
-
-    print("あとは写真のみ");
 
     if (newLocalPhotoPath != null) {
       final profilePhotoPath = createPathFromId(studentId);

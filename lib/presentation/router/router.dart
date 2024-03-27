@@ -132,7 +132,7 @@ GoRouter router(RouterRef ref) {
       builder: (context, state) {
         final List<dynamic> args = state.extra as List<dynamic>;
         final Function(TeacherId) onPressed = args[0] as Function(TeacherId);
-        final List<TeacherId> selectedTeachers = args[1] as List<TeacherId>;
+        final selectedTeachers = args[1] as ValueNotifier<List<TeacherId>>;
         return SelectTeachersPage(
           onPressed: onPressed,
           selectedTeachers: selectedTeachers,

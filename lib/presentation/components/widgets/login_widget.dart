@@ -62,10 +62,12 @@ class LoginWidget extends HookConsumerWidget {
     return Column(
       children: [
         ElevatedButton(
-            onPressed: () => push(context),
-            child: Text("a"),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red))),
+          onPressed: () => push(context),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.red),
+          ),
+          child: const Text("a"),
+        ),
         TextFormFieldForEmailAddressInput(
           controller: loginEmailController,
           onChanged: checkEmailFilled,
@@ -89,7 +91,7 @@ class LoginWidget extends HookConsumerWidget {
                       .then((_) {
                     final currentState =
                         ref.read(studentAuthControllerProvider);
-                    if (currentState is AsyncError) {
+                    if (currentState.hasError) {
                       final error = currentState.error;
                       if (error is StudentAuthDomainException) {
                         final errorText = L10n.getStudentAuthExceptionMessage(

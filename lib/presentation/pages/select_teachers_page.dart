@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +17,7 @@ import '../shared/constants/l10n.dart';
 
 class SelectTeachersPage extends HookConsumerWidget {
   final void Function(TeacherId) onPressed;
-  final List<TeacherId> selectedTeachers;
+  final ValueNotifier<List<TeacherId>> selectedTeachers;
 
   const SelectTeachersPage({
     super.key,
@@ -32,7 +31,6 @@ class SelectTeachersPage extends HookConsumerWidget {
     final horizontalPadding = screenWidth * 0.1;
     final searchTeachersController = useTextEditingController();
     final searchTerm = useState<String>("");
-    final selectedTeachersIdList = useState<List<TeacherId>>([]);
 
     final favoriteTeachersState =
         ref.watch(getFavoriteTeacherControllerProvider);
@@ -44,15 +42,7 @@ class SelectTeachersPage extends HookConsumerWidget {
       searchTerm.value = text;
     }
 
-    void toggleTeacherId(TeacherId teacherId) {
-      final updatedList = List<TeacherId>.from(selectedTeachersIdList.value);
-      if (updatedList.contains(teacherId)) {
-        updatedList.remove(teacherId);
-      } else {
-        updatedList.add(teacherId);
-      }
-      selectedTeachersIdList.value = updatedList;
-    }
+    final tapState = useState(true);
 
     return Scaffold(
         backgroundColor: ColorSet.of(context).background,
@@ -129,15 +119,18 @@ class SelectTeachersPage extends HookConsumerWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: GestureDetector(
-                                      //これ、カードウィジェット編集してあるのでそっちもコピペすること忘れずに。枠を追加してる
-                                      child: TeacherSmallCardWidget(
-                                          name: teacher.teacherName,
-                                          bio: teacher.bio,
-                                          iconUrl: teacher.profilePhotoPath,
-                                          isSelected: selectedTeachers
-                                              .contains(teacher.teacherId)),
-                                      onTap: () => onPressed(teacher.teacherId),
+                                    child: TeacherSmallCardWidget(
+                                      name: teacher.teacherName,
+                                      bio: teacher.bio,
+                                      iconUrl: teacher.profilePhotoPath,
+                                      isSelected: selectedTeachers.value
+                                          .contains(teacher.teacherId),
+                                      onTap: () {
+                                        onPressed(
+                                          teacher.teacherId,
+                                        );
+                                        tapState.value = !tapState.value;
+                                      },
                                     ),
                                   ),
                                 ],
@@ -186,15 +179,16 @@ class SelectTeachersPage extends HookConsumerWidget {
                               final teacher = teachers[index];
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
-                                child: GestureDetector(
-                                  child: TeacherSmallCardWidget(
-                                      name: teacher.teacherName,
-                                      bio: teacher.bio,
-                                      iconUrl: teacher.profilePhotoPath,
-                                      isSelected: selectedTeachers
-                                          .contains(teacher.teacherId)),
-                                  onTap: () => onPressed(teacher.teacherId),
-                                ),
+                                child: TeacherSmallCardWidget(
+                                    name: teacher.teacherName,
+                                    bio: teacher.bio,
+                                    iconUrl: teacher.profilePhotoPath,
+                                    isSelected: selectedTeachers.value
+                                        .contains(teacher.teacherId),
+                                    onTap: () {
+                                      onPressed(teacher.teacherId);
+                                      tapState.value = !tapState.value;
+                                    }),
                               );
                             },
                             childCount: teachers.length,
@@ -223,13 +217,12 @@ class SelectTeachersPage extends HookConsumerWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
-                                    child: GestureDetector(
-                                      child: TeacherSmallCardWidget(
-                                          name: teacher.name,
-                                          bio: teacher.bio,
-                                          iconUrl: teacher.profilePhotoPath,
-                                          isSelected: selectedTeachers
-                                              .contains(teacher.teacherId)),
+                                    child: TeacherSmallCardWidget(
+                                      name: teacher.name,
+                                      bio: teacher.bio,
+                                      iconUrl: teacher.profilePhotoPath,
+                                      isSelected: selectedTeachers.value
+                                          .contains(teacher.teacherId),
                                       onTap: () => onPressed(teacher.teacherId),
                                     ),
                                   ),
@@ -252,7 +245,7 @@ class SelectTeachersPage extends HookConsumerWidget {
                   loading: () =>
                       const SliverToBoxAdapter(child: LoadingOverlay()),
                   error: (error, stack) {
-                    print("エラーはこれです${error}");
+                    print("エラーはこれです$error");
                     print(stack);
                     return const SliverToBoxAdapter(
                       child: Center(

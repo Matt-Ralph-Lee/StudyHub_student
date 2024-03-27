@@ -103,7 +103,9 @@ class UserDetailWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage: NetworkImage(userIconUrl),
+              backgroundImage: userIconUrl.contains("assets")
+                  ? AssetImage(userIconUrl) as ImageProvider
+                  : NetworkImage(userIconUrl),
             ),
             Expanded(
               child: Row(

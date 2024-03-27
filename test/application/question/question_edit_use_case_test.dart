@@ -75,7 +75,7 @@ void main() {
           questionId: questionId,
           questionTitleData: null,
           questionTextData: null,
-          localPathList: ["assets/images/sample_picture_hd.png"],
+          localPathList: ["assets/photos/profile_photo/sample_picture_hd.png"],
           selectedTeacherList: null);
       final useCase = QuestionEditUseCase(
           session: session,

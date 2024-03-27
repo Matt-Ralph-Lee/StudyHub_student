@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,23 +56,24 @@ class CreateQuestionPage extends HookConsumerWidget {
     //デフォで直接枚数制限はできないぽいので、予め注意&選択後にチェックの二刀流で
     void selectPhotos() async {
       const maxSelection = QuestionPhotoPathList.maxLength;
-      final pickedFiles = await picker.pickMultiImage();
-      if (pickedFiles != null && pickedFiles.isNotEmpty) {
-        if (pickedFiles.length > maxSelection) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const SpecificExceptionModalWidget(
-                  errorMessage: L10n.maxImagesErrorText);
-            },
-          );
-        } else {
-          final List<String> updatedList =
-              List<String>.from(selectedPhotos.value ?? []);
-          updatedList.addAll(pickedFiles.map((file) => file.path));
-          selectedPhotos.value = updatedList;
+      picker.pickMultiImage().then((pickedFiles) {
+        if (pickedFiles.isNotEmpty) {
+          if (pickedFiles.length > maxSelection) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const SpecificExceptionModalWidget(
+                    errorMessage: L10n.maxImagesErrorText);
+              },
+            );
+          } else {
+            final List<String> updatedList =
+                List<String>.from(selectedPhotos.value);
+            updatedList.addAll(pickedFiles.map((file) => file.path));
+            selectedPhotos.value = updatedList;
+          }
         }
-      }
+      });
     }
 
     void takePhoto() async {
@@ -83,7 +82,7 @@ class CreateQuestionPage extends HookConsumerWidget {
       );
       if (pickedFile != null) {
         final List<String> updatedList =
-            List<String>.from(selectedPhotos.value ?? []);
+            List<String>.from(selectedPhotos.value);
         updatedList.add(pickedFile.path);
         selectedPhotos.value = updatedList;
       }
@@ -92,7 +91,7 @@ class CreateQuestionPage extends HookConsumerWidget {
     //デフォで直接数制限はできないぽいので、予め注意&選択後にチェックの二刀流で
     void toggleTeacherSelection(TeacherId teacherId) async {
       final List<TeacherId> updatedList =
-          List<TeacherId>.from(selectedTeachersId.value ?? []);
+          List<TeacherId>.from(selectedTeachersId.value);
 
       if (updatedList.contains(teacherId)) {
         updatedList.remove(teacherId);
@@ -146,7 +145,7 @@ class CreateQuestionPage extends HookConsumerWidget {
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(
-              CompletionSnackBar(context, L10n.questionSnackBarText),
+              completionSnackBar(context, L10n.questionSnackBarText),
             );
             context.pop();
           }
@@ -220,7 +219,7 @@ class CreateQuestionPage extends HookConsumerWidget {
                     horizontal: PaddingSet.getPaddingSize(context, 20)),
                 child: Column(
                   children: [
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     AddQuestionMainContentWidget(
                       questionController: questionController,
                       questionTitleController: questionTitleController,
@@ -236,10 +235,10 @@ class CreateQuestionPage extends HookConsumerWidget {
           ),
           AddImagesOrSelectTeachersWidget(
             imageFilePath: selectedPhotos.value,
-            uploadPhotoFromCamera: () => takePhoto,
-            uploadPhotoFromGallery: () => selectedPhotos,
+            uploadPhotoFromCamera: takePhoto,
+            uploadPhotoFromGallery: selectPhotos,
             selectTeachersFunction: toggleTeacherSelection,
-            teacherIds: selectedTeachersId.value,
+            teacherIds: selectedTeachersId,
             isTeacherSelected: selectedTeachersId.value.isNotEmpty,
             isPhotoAdded: selectedPhotos.value.isNotEmpty,
           ),

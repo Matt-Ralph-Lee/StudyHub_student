@@ -94,10 +94,12 @@ class SignUpWidget extends HookConsumerWidget {
     return Column(
       children: [
         ElevatedButton(
-            onPressed: () => dummySignUp(context),
-            child: Text("a"),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red))),
+          onPressed: () => dummySignUp(context),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.red),
+          ),
+          child: const Text("a"),
+        ),
         TextFormFieldForEmailAddressInput(
           controller: signUpEmailController,
           onChanged: checkEmailFilled,

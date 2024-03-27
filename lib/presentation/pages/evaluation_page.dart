@@ -88,7 +88,7 @@ class EvaluationPage extends HookConsumerWidget {
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(
-              CompletionSnackBar(context, L10n.evaluationSnackBarText),
+              completionSnackBar(context, L10n.evaluationSnackBarText),
             );
           }
         });

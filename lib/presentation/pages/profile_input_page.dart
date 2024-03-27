@@ -65,7 +65,7 @@ class ProfileInputPage extends HookConsumerWidget {
         gradeOrGraduateStatus: job.value == Occupation.student
             ? studentGrade.value
             : othersGrade.value,
-        localPhotoPath: "assets/images/sample_user_icon.jpg",
+        localPhotoPath: "assets/photos/profile_photo/sample_user_icon.jpg",
       );
       print("コマンド作った");
 

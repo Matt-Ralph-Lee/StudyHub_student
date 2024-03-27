@@ -12,7 +12,6 @@ import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student
 void main() {
   final repository = InMemoryStudentAuthRepository();
   final studentRepository = InMemoryStudentRepository();
-  final session = MockSession();
   final queryService =
       InMemoryGetStudentAuthQueryService(repository: repository);
 

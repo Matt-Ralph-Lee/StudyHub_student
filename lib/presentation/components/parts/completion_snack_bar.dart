@@ -4,7 +4,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-SnackBar CompletionSnackBar(BuildContext context, String content) {
+SnackBar completionSnackBar(BuildContext context, String content) {
   return SnackBar(
     backgroundColor: ColorSet.of(context).greySurface,
     content: Text(

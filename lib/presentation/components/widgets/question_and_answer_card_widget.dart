@@ -168,7 +168,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                     backgroundImage: NetworkImage(
                       questionCardDto.teacherProfilePhotoPath != null
                           ? questionCardDto.teacherProfilePhotoPath!
-                          : 'assets/images/sample_user_icon2.jpg',
+                          : 'assets/photos/profile_photo/sample_user_icon2.jpg',
                     ),
                   ),
                 ],

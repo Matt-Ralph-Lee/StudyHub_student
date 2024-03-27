@@ -59,7 +59,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, L10n.addFavoriteTeacherText),
+            completionSnackBar(context, L10n.addFavoriteTeacherText),
           );
           ref.invalidate(getTeacherProfileControllerProvider(teacherId));
         }
@@ -89,7 +89,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            CompletionSnackBar(context, L10n.deleteFavoriteTeacherText),
+            completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
           ref.invalidate(getTeacherProfileControllerProvider(teacherId));
         }

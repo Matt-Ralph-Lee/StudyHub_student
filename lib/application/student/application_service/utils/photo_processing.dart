@@ -5,12 +5,22 @@ import 'package:image/image.dart';
 import '../../../../domain/shared/profile_photo.dart';
 import '../../../../domain/shared/profile_photo_path.dart';
 import '../../../../domain/student/models/student_id.dart';
+import '../../../shared/flavor/flavor.dart';
+import '../../../shared/flavor/flavor_config.dart';
 import '../../exception/student_use_case_exception.dart';
 import '../../exception/student_use_case_exception_detail.dart';
 
 ProfilePhotoPath createPathFromId(final StudentId studentId) {
-  final fileName = createFileName(studentId);
-  return createPath(fileName);
+  switch (flavor) {
+    case Flavor.dev:
+      return ProfilePhotoPath(
+          "assets/photos/profile_photo/sample_user_icon.jpg");
+    case Flavor.stg:
+      throw UnimplementedError();
+    case Flavor.prd:
+      final fileName = createFileName(studentId);
+      return createPath(fileName);
+  }
 }
 
 ProfilePhotoPath createPath(final String fileName) {

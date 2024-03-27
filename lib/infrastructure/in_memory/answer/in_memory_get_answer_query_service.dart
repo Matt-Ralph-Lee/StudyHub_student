@@ -41,7 +41,7 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
             teacherId: TeacherId("999999999999999999999999999"), // default id
             teacherName: "teacher name", // default teacher name
             teacherProfilePath:
-                "/assets/images/sample_user_icon.jpg", // default user icon
+                "/assets/photos/profile_photo/sample_user_icon.jpg", // default user icon
             answerText: answer.answerText.value,
             answerLike: answer.like.value,
             isFollowing: false,

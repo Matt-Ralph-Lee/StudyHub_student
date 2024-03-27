@@ -11,6 +11,7 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/page_path.dart';
 
 class FavoriteTeachersPage extends ConsumerWidget {
   const FavoriteTeachersPage({super.key});
@@ -61,7 +62,9 @@ class FavoriteTeachersPage extends ConsumerWidget {
                           name: teacher.teacherName,
                           bio: teacher.bio,
                           iconUrl: teacher.profilePhotoPath,
-                          isSelected: false, //ここ変えた
+                          isSelected: false,
+                          onTap: () => context.push(PageId.teacherProfile.path,
+                              extra: teacher.teacherId), //ここ変えた
                         ),
                       );
                     },
@@ -72,7 +75,7 @@ class FavoriteTeachersPage extends ConsumerWidget {
             loading: () => const LoadingOverlay(),
             //エラーときはテキストだけじゃなくてステップアップのログとかと一緒に表示するのもありかも？
             error: (error, stack) {
-              print("エラーはこれです${error}");
+              print("エラーはこれです$error");
               print(stack);
               return const Center(
                   child: Column(

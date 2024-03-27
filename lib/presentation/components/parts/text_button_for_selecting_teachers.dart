@@ -10,7 +10,7 @@ import '../../shared/constants/page_path.dart';
 
 class TextButtonForSelectingTeacher extends StatelessWidget {
   final void Function(TeacherId) selectTeachersFunction;
-  final List<TeacherId> selectedTeachers;
+  final ValueNotifier<List<TeacherId>> selectedTeachers;
   final bool isTeacherSelected;
   const TextButtonForSelectingTeacher({
     Key? key,

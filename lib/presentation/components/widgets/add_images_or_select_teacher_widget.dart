@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/padding_set.dart';
-import '../parts/Text_button_for_adding_picture.dart';
+import '../parts/text_button_for_adding_picture.dart';
 import '../parts/text_button_for_selecting_teachers.dart';
 
 class AddImagesOrSelectTeachersWidget extends StatelessWidget {
   final List<String>? imageFilePath;
-  final List<TeacherId> teacherIds;
+  final ValueNotifier<List<TeacherId>> teacherIds;
   final bool isTeacherSelected;
   final bool isPhotoAdded;
   final void Function() uploadPhotoFromCamera;

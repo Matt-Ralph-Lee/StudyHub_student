@@ -46,8 +46,8 @@ void main() {
       String questionTitleData = "数学がわからない";
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [
-        "assets/images/sample_user_icon.jpg",
-        "assets/images/sample_user_icon2.jpg"
+        "assets/photos/profile_photo/sample_user_icon.jpg",
+        "assets/photos/profile_photo/sample_user_icon2.jpg"
       ];
       Subject questionSubject = Subject.highEng;
       List<TeacherId> selectedTeacherList = [];
@@ -71,7 +71,7 @@ void main() {
       String questionTitleData = "数学がわからない";
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [
-        "assets/images/sample_picture_hd.png",
+        "assets/photos/profile_photo/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
       List<TeacherId> selectedTeacherList = [];
@@ -138,7 +138,7 @@ void main() {
       String questionTitleData = "数学がわからない。ほんとうにわからない。たすけて。むり。";
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [
-        "assets/images/sample_picture_hd.png",
+        "assets/photos/profile_photo/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
       List<TeacherId> selectedTeacherList = [];
@@ -164,7 +164,7 @@ void main() {
       String questionTitleData = "";
       String questionTextData = "分数の割り算ができない";
       List<String> localPathList = [
-        "assets/images/sample_picture_hd.png",
+        "assets/photos/profile_photo/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
       List<TeacherId> selectedTeacherList = [];
@@ -190,7 +190,7 @@ void main() {
       String questionTitleData = "数学がわからない";
       String questionTextData = List.generate(500, (index) => 'a').join();
       List<String> localPathList = [
-        "assets/images/sample_picture_hd.png",
+        "assets/photos/profile_photo/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
       List<TeacherId> selectedTeacherList = [];
@@ -216,7 +216,7 @@ void main() {
       String questionTitleData = "数学がわからない";
       String questionTextData = "";
       List<String> localPathList = [
-        "assets/images/sample_picture_hd.png",
+        "assets/photos/profile_photo/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
       List<TeacherId> selectedTeacherList = [];

@@ -58,7 +58,7 @@ Student _createInitially(final StudentId studentId) {
   final studentName = Name(WordPair.random().asLowerCase);
   // final profilePhotoPath = createPath('initial_photo');
   final profilePhotoPath =
-      ProfilePhotoPath("assets/images/sample_user_icon.jpg");
+      ProfilePhotoPath("assets/photos/profile_photo/sample_user_icon.jpg");
   const gender = Gender.noAnswer;
   const occupation = Occupation.others;
   final school = School.noAnswer;

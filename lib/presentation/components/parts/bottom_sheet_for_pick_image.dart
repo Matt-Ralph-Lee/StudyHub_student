@@ -28,9 +28,7 @@ class BottomSheetForPickImage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton.icon(
-                onPressed: () {
-                  takePhoto;
-                },
+                onPressed: takePhoto,
                 icon: Icon(
                   Icons.camera,
                   color: ColorSet.of(context).primary,
@@ -46,9 +44,7 @@ class BottomSheetForPickImage extends StatelessWidget {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {
-                  pickPhoto;
-                },
+                onPressed: pickPhoto,
                 icon: Icon(
                   Icons.image,
                   color: ColorSet.of(context).primary,

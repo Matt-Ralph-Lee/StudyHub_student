@@ -9,6 +9,7 @@ class TeacherSmallCardWidget extends StatelessWidget {
   final String bio;
   final String iconUrl;
   final bool isSelected;
+  final void Function() onTap;
 
   const TeacherSmallCardWidget({
     super.key,
@@ -16,6 +17,7 @@ class TeacherSmallCardWidget extends StatelessWidget {
     required this.bio,
     required this.iconUrl,
     required this.isSelected,
+    required this.onTap,
   });
 
   @override
@@ -35,51 +37,56 @@ class TeacherSmallCardWidget extends StatelessWidget {
             ? Border.all(color: ColorSet.of(context).text, width: 2)
             : null,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //webだと？表示されない？？手元のシュミレーター動かないのでとりまこのままで
-            CircleAvatar(
-              radius: 15,
-              backgroundImage: NetworkImage(
-                iconUrl,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //webだと？表示されない？？手元のシュミレーター動かないのでとりまこのままで <= internetが理由だよ assetsだったら、AssetImage使うっていう応急処置取ってるよ
+              CircleAvatar(
+                radius: 15,
+                backgroundImage: iconUrl.contains("assets")
+                    ? AssetImage(iconUrl) as ImageProvider
+                    : NetworkImage(
+                        iconUrl,
+                      ),
               ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize:
-                            FontSizeSet.getFontSize(context, FontSizeSet.body),
-                        color: ColorSet.of(context).text),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    bio,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
-                        color: ColorSet.of(context).text),
-                  ),
-                ],
+              const SizedBox(
+                width: 20,
               ),
-            )
-          ],
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
+                          color: ColorSet.of(context).text),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      bio,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.header3),
+                          color: ColorSet.of(context).text),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

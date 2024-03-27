@@ -4,6 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studyhub/presentation/controllers/get_my_profile_controller/get_my_profile_controller.dart';
+import 'package:studyhub/presentation/shared/constants/page_path.dart';
 
 import '../../application/student/application_service/profile_update_command.dart';
 import '../../application/student/exception/student_use_case_exception.dart';
@@ -83,7 +85,6 @@ class EditProfilePage extends HookConsumerWidget {
         }
 
         void updateProfile() {
-          print("いくよ");
           final profileUpdateCommand = ProfileUpdateCommand(
             studentName: userNameInputController.text,
             gender: gender.value,
@@ -92,19 +93,16 @@ class EditProfilePage extends HookConsumerWidget {
             gradeOrGraduateStatus: occupation.value == Occupation.student
                 ? studentGrade.value
                 : othersGrade.value,
-            localPhotoPath: imageFilePath.value ?? defaultImage,
+            localPhotoPath: imageFilePath.value,
           );
-          print("コマンド作った");
 
           ref
               .read(profileUpdateControllerProvider.notifier)
               .profileUpdate(profileUpdateCommand)
               .then((_) {
             final currentState = ref.read(profileUpdateControllerProvider);
-            print("state読んだ");
             if (currentState.hasError) {
               final error = currentState.error;
-              print("haserror");
               if (error is StudentUseCaseException) {
                 final errorText = L10n.getStudentUseCaseExceptionMessage(
                     error.detail as StudentUseCaseExceptionDetail);
@@ -121,8 +119,10 @@ class EditProfilePage extends HookConsumerWidget {
             } else {
               HapticFeedback.lightImpact();
               ScaffoldMessenger.of(context).showSnackBar(
-                CompletionSnackBar(context, L10n.editSuccessText),
+                completionSnackBar(context, L10n.editSuccessText),
               );
+              ref.invalidate(getMyProfileControllerProvider);
+              context.go(PageId.myPage.path);
             }
           });
         }
