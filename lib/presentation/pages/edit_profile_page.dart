@@ -95,6 +95,8 @@ class EditProfilePage extends HookConsumerWidget {
                 : othersGrade.value,
             localPhotoPath: imageFilePath.value,
           );
+          print(imageFilePath.value);
+          print("at update profile function");
 
           ref
               .read(profileUpdateControllerProvider.notifier)

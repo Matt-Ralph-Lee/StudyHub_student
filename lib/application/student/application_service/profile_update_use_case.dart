@@ -81,31 +81,26 @@ class ProfileUpdateUseCase {
         student.changeProfilePhoto(ProfilePhotoPath(newLocalPhotoPath));
       } else {
         final profilePhotoPath = createPathFromId(studentId);
-        print("ん？");
         final image = convertToJpegAndResize(newLocalPhotoPath);
-        print("はにゃ？???");
         final profilePhoto =
             ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
-        print("はにょ？？");
         _photoRepository.save([profilePhoto]);
         final student = _repository.findById(studentId);
         if (student == null) {
           throw const StudentUseCaseException(
               StudentUseCaseExceptionDetail.notFound);
         }
-        print("nullではない");
         final oldPhotoPath = student.profilePhotoPath;
+        print("profile photo path");
         student.changeProfilePhoto(profilePhotoPath);
-        print("フッ");
 
         _photoRepository.delete(oldPhotoPath);
+        _repository.save(student);
+        print("at profile update usecase");
+        print(student.profilePhotoPath.value);
       }
     }
 
-    print("あとは保存のみ");
-
     _repository.save(student);
-
-    print("save");
   }
 }
