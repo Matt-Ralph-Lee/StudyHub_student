@@ -6,7 +6,7 @@ import '../../shared/constants/l10n.dart';
 import '../parts/button_for_profile_input_back.dart';
 import '../parts/button_for_profile_input_next.dart';
 import '../parts/button_for_profile_input_skip.dart';
-import '../parts/radio_button_for_others_grade_input.dart';
+import '../parts/drop_down_button_for_others_grade_input.dart';
 import '../parts/text_for_input_explanation.dart';
 import '../parts/text_form_field_for_school_name_input.dart';
 
@@ -45,7 +45,7 @@ class AcademicHistoryInputWidget extends HookWidget {
           onChanged: checkAcademicHistoryFilled,
         ),
         const SizedBox(height: 50),
-        RadioButtonForOthersGradeInput(
+        DropDownButtonForOthersGradeInput(
           groupValue: othersGradeValue,
           onChanged: handleOthersGradeChanged,
         ),

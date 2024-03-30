@@ -28,7 +28,6 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 60,
         decoration: BoxDecoration(
             color: ColorSet.of(context).background,
             border: Border(
@@ -37,8 +36,9 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
               color: ColorSet.of(context).text,
             ))),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
           children: [
             TextButtonForAddingPicture(
               imageFilePath: imageFilePath,

@@ -86,7 +86,7 @@ class SignUpWidget extends HookConsumerWidget {
             showErrorModalWidget(context);
           }
         } else {
-          push(context);
+          pushDummy(context);
         }
       });
     }
@@ -111,7 +111,7 @@ class SignUpWidget extends HookConsumerWidget {
           onChanged: checkPasswordFilled,
           errorText: passwordInputErrorText.value,
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 40),
         ElevatedButtonForAuth(
           buttonText: L10n.signUpButtonText,
           onPressed: isEmailFilled.value && isPasswordFilled.value

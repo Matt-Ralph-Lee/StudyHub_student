@@ -22,42 +22,44 @@ class TextButtonForAddingPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: TextButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: ((builder) => BottomSheetForPickImage(
-                  takePhoto: takePhoto,
-                  pickPhoto: pickPhoto,
-                )),
-          );
-        },
-        style: TextButton.styleFrom(
-          foregroundColor: ColorSet.of(context).whiteText,
-          disabledForegroundColor: ColorSet.of(context).unselectedText,
+    return TextButton(
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          builder: ((builder) => BottomSheetForPickImage(
+                takePhoto: takePhoto,
+                pickPhoto: pickPhoto,
+              )),
+        );
+      },
+      style: TextButton.styleFrom(
+        foregroundColor: ColorSet.of(context).whiteText,
+        disabledForegroundColor: ColorSet.of(context).unselectedText,
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 20,
         ),
-        child: Row(
-          children: [
-            Icon(Icons.camera,
-                size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
-                color: ColorSet.of(context).primary),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              isPicturesAdded
-                  ? L10n.changeImagesButtonText
-                  : L10n.addImagesButtonText,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-                  color: isPicturesAdded
-                      ? ColorSet.of(context).text
-                      : ColorSet.of(context).greyText), //ここの色は迷う
-            ),
-          ],
-        ),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.camera,
+              size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+              color: ColorSet.of(context).primary),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            isPicturesAdded
+                ? L10n.changeImagesButtonText
+                : L10n.addImagesButtonText,
+            style: TextStyle(
+                fontWeight: FontWeightSet.normal,
+                fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
+                color: isPicturesAdded
+                    ? ColorSet.of(context).text
+                    : ColorSet.of(context).greyText), //ここの色は迷う
+          ),
+        ],
       ),
     );
   }

@@ -45,16 +45,10 @@ class AddQuestionMainContentWidget extends StatelessWidget {
               context,
               30,
             ),
-          ),
+          ), //タイトルのmaxLine分空いてるからキモいけど仕方ない
           TextFormFieldForAddQuestion(
             controller: questionController,
             onChanged: checkQuestionFilledFunction,
-          ),
-          SizedBox(
-            height: PaddingSet.getPaddingSize(
-              context,
-              30,
-            ),
           ),
         ],
       ),

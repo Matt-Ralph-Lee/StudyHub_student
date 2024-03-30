@@ -56,7 +56,7 @@ GoRouter router(RouterRef ref) {
             GoRoute(
               path: PageId.addQuestion.path,
               name: PageId.addQuestion.name,
-              builder: (context, state) => const CreateQuestionPage(),
+              builder: (context, state) => CreateQuestionPage(),
             )
           ],
           navigatorKey: _page2NavigatorKey,

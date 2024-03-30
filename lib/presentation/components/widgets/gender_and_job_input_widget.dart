@@ -6,8 +6,8 @@ import '../../../domain/student/models/occupation.dart';
 import '../../shared/constants/l10n.dart';
 import '../parts/button_for_profile_input_back.dart';
 import '../parts/button_for_profile_input_next.dart';
-import '../parts/radio_button_for_gender_input.dart';
-import '../parts/radio_button_for_occupation_input.dart';
+import '../parts/drop_down_button_for_gender_input.dart';
+import '../parts/drop_down_button_for_occupation_input.dart';
 import '../parts/text_for_input_explanation.dart';
 
 class GenderAndJobInputWidget extends HookWidget {
@@ -36,12 +36,12 @@ class GenderAndJobInputWidget extends HookWidget {
         const TextForProfileInputExplanation(
             explanationText: L10n.genderAndJobInputExplanationText),
         const SizedBox(height: 100),
-        RadioButtonForGenderInput(
+        DropDownButtonForGenderInput(
           groupValue: genderValue,
           onChanged: handleGenderChanged,
         ),
         const SizedBox(height: 50),
-        RadioButtonForOccupationInput(
+        DropDownButtonForOccupationInput(
           groupValue: jobValue,
           onChanged: handleJobChanged,
         ),

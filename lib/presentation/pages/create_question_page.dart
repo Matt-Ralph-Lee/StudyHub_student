@@ -155,6 +155,7 @@ class CreateQuestionPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: ColorSet.of(context).background,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: FontSizeSet.getFontSize(context, 50),
         shape: Border(
@@ -210,40 +211,42 @@ class CreateQuestionPage extends HookConsumerWidget {
         ],
         backgroundColor: ColorSet.of(context).background,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: PaddingSet.getPaddingSize(context, 20)),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 30),
-                    AddQuestionMainContentWidget(
-                      questionController: questionController,
-                      questionTitleController: questionTitleController,
-                      checkQuestionFilledFunction: checkQuestionFilled,
-                      checkQuestionTitleFilledFunction:
-                          checkQuestionTitleFilled,
-                      selectSubjectFunction: setSubject,
-                    ),
-                  ],
-                ),
+      //キーボード出したときに下のsafeArea?的なのが出てくるの抑えたい
+      bottomNavigationBar: BottomAppBar(
+        color: ColorSet.of(context).background,
+        padding: const EdgeInsets.only(top: 0),
+        child: AddImagesOrSelectTeachersWidget(
+          imageFilePath: selectedPhotos.value,
+          uploadPhotoFromCamera: takePhoto,
+          uploadPhotoFromGallery: selectPhotos,
+          selectTeachersFunction: toggleTeacherSelection,
+          teacherIds: selectedTeachersId,
+          isTeacherSelected: selectedTeachersId.value.isNotEmpty,
+          isPhotoAdded: selectedPhotos.value.isNotEmpty,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: PaddingSet.getPaddingSize(context, 20)),
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  AddQuestionMainContentWidget(
+                    questionController: questionController,
+                    questionTitleController: questionTitleController,
+                    checkQuestionFilledFunction: checkQuestionFilled,
+                    checkQuestionTitleFilledFunction: checkQuestionTitleFilled,
+                    selectSubjectFunction: setSubject,
+                  ),
+                ],
               ),
             ),
-          ),
-          AddImagesOrSelectTeachersWidget(
-            imageFilePath: selectedPhotos.value,
-            uploadPhotoFromCamera: takePhoto,
-            uploadPhotoFromGallery: selectPhotos,
-            selectTeachersFunction: toggleTeacherSelection,
-            teacherIds: selectedTeachersId,
-            isTeacherSelected: selectedTeachersId.value.isNotEmpty,
-            isPhotoAdded: selectedPhotos.value.isNotEmpty,
-          ),
-          if (addQuestionControllerState.isLoading) const LoadingOverlay(),
-        ],
+            if (addQuestionControllerState.isLoading) const LoadingOverlay(),
+          ],
+        ),
       ),
     );
   }

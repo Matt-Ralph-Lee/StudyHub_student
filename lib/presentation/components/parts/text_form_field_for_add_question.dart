@@ -4,6 +4,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/padding_set.dart';
 
 class TextFormFieldForAddQuestion extends StatelessWidget {
   final TextEditingController controller;
@@ -29,9 +30,11 @@ class TextFormFieldForAddQuestion extends StatelessWidget {
             color: ColorSet.of(context).text),
         cursorColor: ColorSet.of(context).text,
         cursorWidth: screenWidth < 600 ? 1 : 1.5,
-        cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+        cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.body),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 0),
+          contentPadding: const EdgeInsets.only(
+            left: 0,
+          ),
           hintText: L10n.questionHintText,
           hintStyle: TextStyle(
               fontWeight: FontWeightSet.normal,
@@ -43,7 +46,7 @@ class TextFormFieldForAddQuestion extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-        maxLines: 15,
+        maxLines: 30,
       ),
     );
   }

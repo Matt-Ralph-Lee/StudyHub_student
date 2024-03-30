@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../../application/question/application_service/question_detail_dto.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -42,34 +43,36 @@ class QuestionDetailCardWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  questionDetailDto.questionTitle,
-                  style: TextStyle(
-                    fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header3),
-                    color: ColorSet.of(context).text,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    questionDetailDto.questionTitle,
+                    style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.header3),
+                      color: ColorSet.of(context).text,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  questionDetailDto.questionText,
-                  style: TextStyle(
-                    fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.body),
-                    color: ColorSet.of(context).text,
+                  const SizedBox(height: 4),
+                  Text(
+                    questionDetailDto.questionText,
+                    style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
+                      color: ColorSet.of(context).text,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

@@ -5,10 +5,10 @@ import '../../../domain/student/models/gender.dart';
 import '../../../domain/student/models/grade_or_graduate_status.dart';
 import '../../../domain/student/models/occupation.dart';
 import '../parts/circle_avatar_for_profile_edit.dart';
-import '../parts/radio_button_for_gender_input.dart';
-import '../parts/radio_button_for_occupation_input.dart';
-import '../parts/radio_button_for_others_grade_input.dart';
-import '../parts/radio_button_for_student_grade_input.dart';
+import '../parts/drop_down_button_for_gender_input.dart';
+import '../parts/drop_down_button_for_occupation_input.dart';
+import '../parts/drop_down_button_for_others_grade_input.dart';
+import '../parts/drop_down_button_for_student_grade_input.dart';
 import '../parts/text_form_field_for_school_name_input.dart';
 import '../parts/text_form_field_for_user_name_input.dart';
 
@@ -69,7 +69,7 @@ class EditProfileWidget extends HookWidget {
             onChanged: checkUserNameFilledFunction,
           ),
           const SizedBox(height: 40),
-          RadioButtonForGenderInput(
+          DropDownButtonForGenderInput(
             groupValue: genderValue,
             onChanged: handleGenderChanged,
           ),
@@ -79,17 +79,17 @@ class EditProfileWidget extends HookWidget {
             onChanged: checkSchoolNameFilledFunction,
           ),
           const SizedBox(height: 40),
-          RadioButtonForOccupationInput(
+          DropDownButtonForOccupationInput(
             groupValue: occupationValue,
             onChanged: handleOccupationChanged,
           ),
           const SizedBox(height: 40),
           (occupationValue == Occupation.student || occupationValue == null)
-              ? RadioButtonForStudentGradeInput(
+              ? DropDownButtonForStudentGradeInput(
                   groupValue: studentGradeValue,
                   onChanged: handleStudentGradeChanged,
                 )
-              : RadioButtonForOthersGradeInput(
+              : DropDownButtonForOthersGradeInput(
                   groupValue: othersGradeValue,
                   onChanged: handleOthersGradeChanged,
                 ),

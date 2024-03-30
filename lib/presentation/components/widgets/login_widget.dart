@@ -79,7 +79,7 @@ class LoginWidget extends HookConsumerWidget {
           onChanged: checkPasswordFilled,
           errorText: passwordInputErrorText.value,
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 40),
         ElevatedButtonForAuth(
           buttonText: L10n.loginButtonText,
           onPressed: isEmailFilled.value && isPasswordFilled.value

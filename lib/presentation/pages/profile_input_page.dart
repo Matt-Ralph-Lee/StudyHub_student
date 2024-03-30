@@ -142,7 +142,12 @@ class ProfileInputPage extends HookConsumerWidget {
                 othersGrade.value = newValue;
               },
             ),
-      const TextForProfileCompletionWelcome(),
+      SizedBox(
+        height: screenHeight * 0.5,
+        child: const Center(
+          child: TextForProfileCompletionWelcome(),
+        ),
+      ),
     ];
 
     return Scaffold(
@@ -163,7 +168,7 @@ class ProfileInputPage extends HookConsumerWidget {
                 transitionBuilder: (Widget child, Animation<double> animation) {
                   return FadeTransition(opacity: animation, child: child);
                 },
-                child: body[progress.value],
+                child: Center(child: body[progress.value]),
               ),
             ],
           ),
