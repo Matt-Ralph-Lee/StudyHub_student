@@ -38,8 +38,7 @@ class QuestionCreateUseCase {
     final studentId = _session.studentId;
     final questionTitle = QuestionTitle(questionTitleData);
     final questionText = QuestionText(questionTextData);
-    final selectedTeacherList =
-        SelectedTeacherList(selectedTeacherList: selectedTeacherListData);
+    final selectedTeacherList = SelectedTeacherList(selectedTeacherListData);
 
     final questionPhotoPathList = createPathListFromId(
         studentId: studentId, localPathList: localPathList);

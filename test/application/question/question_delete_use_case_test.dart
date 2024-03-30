@@ -33,7 +33,7 @@ void main() {
   final answerList = AnswerList(answerListData);
   final seenCount = SeenCount(0);
   const resolved = false;
-  final selectedTeacherList = SelectedTeacherList(selectedTeacherList: []);
+  final selectedTeacherList = SelectedTeacherList([]);
   final question = Question(
       questionId: questionId,
       questionSubject: questionSubject,

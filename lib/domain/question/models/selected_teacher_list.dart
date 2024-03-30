@@ -9,7 +9,7 @@ class SelectedTeacherList {
 
   List<TeacherId> get selectedTeacherList => _selectedTeacherList;
 
-  SelectedTeacherList({required final List<TeacherId> selectedTeacherList})
+  SelectedTeacherList(final List<TeacherId> selectedTeacherList)
       : _selectedTeacherList = selectedTeacherList {
     if (selectedTeacherList.length > maxLength) {
       throw const QuestionDomainException(

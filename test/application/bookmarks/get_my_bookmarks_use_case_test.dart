@@ -137,8 +137,10 @@ void main() {
     teacherRepository.store[teacherId2] = teacher2;
 
     // a question with 2 answers
+    final questionId1 = QuestionId('testquestion12345678901');
     final answer1 = Answer(
         answerId: AnswerId('testanswer12345678901'),
+        questionId: questionId1,
         answerText: AnswerText('強調構文とは、、、'),
         answerPhotoPathList: AnswerPhotoPathList([]),
         like: AnswerLike(2),
@@ -146,12 +148,12 @@ void main() {
         evaluated: false);
     final answer2 = Answer(
         answerId: AnswerId('testanswer12345678902'),
+        questionId: questionId1,
         answerText: AnswerText('まずthatについて、、、'),
         answerPhotoPathList: AnswerPhotoPathList([]),
         like: AnswerLike(10),
         teacherId: teacherId2,
         evaluated: false);
-    final questionId1 = QuestionId('testquestion12345678901');
     final questionWithAnswers = Question(
         questionId: questionId1,
         questionSubject: Subject.highEng,
@@ -161,7 +163,7 @@ void main() {
         studentId: studentId1,
         answerList: AnswerList([answer1, answer2]),
         seenCount: SeenCount(5),
-        selectedTeacherList: SelectedTeacherList(selectedTeacherList: []),
+        selectedTeacherList: SelectedTeacherList([]),
         resolved: false);
     questionRepository.save(questionWithAnswers);
 
@@ -176,7 +178,7 @@ void main() {
         studentId: studentId1,
         answerList: AnswerList([]),
         seenCount: SeenCount(1),
-        selectedTeacherList: SelectedTeacherList(selectedTeacherList: []),
+        selectedTeacherList: SelectedTeacherList([]),
         resolved: false);
     questionRepository.save(questionWithNoAnswers);
 
@@ -191,7 +193,7 @@ void main() {
         studentId: studentId2,
         answerList: AnswerList([]),
         seenCount: SeenCount(1),
-        selectedTeacherList: SelectedTeacherList(selectedTeacherList: []),
+        selectedTeacherList: SelectedTeacherList([]),
         resolved: false);
     questionRepository.save(questionMadeByStudent2);
 

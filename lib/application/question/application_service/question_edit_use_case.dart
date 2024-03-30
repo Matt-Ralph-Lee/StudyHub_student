@@ -58,7 +58,7 @@ class QuestionEditUseCase {
 
     if (newSelectedTeacherList != null) {
       question.changeSelectedTeacherList(SelectedTeacherList(
-          selectedTeacherList: newSelectedTeacherList
+          newSelectedTeacherList
               .map((selectedTeacher) => TeacherId(selectedTeacher))
               .toList()));
     }

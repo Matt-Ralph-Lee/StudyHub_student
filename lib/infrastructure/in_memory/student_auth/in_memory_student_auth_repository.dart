@@ -25,7 +25,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   }
 
   InMemoryStudentAuthRepository._internal() {
-    count = 1;
+    count = 10000;
     store = {};
     emailToIdMap = {};
     streamController = StreamController<StudentAuthInfoWithoutPassword?>();
