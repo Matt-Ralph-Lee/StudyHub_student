@@ -56,7 +56,7 @@ GoRouter router(RouterRef ref) {
             GoRoute(
               path: PageId.addQuestion.path,
               name: PageId.addQuestion.name,
-              builder: (context, state) => CreateQuestionPage(),
+              builder: (context, state) => const CreateQuestionPage(),
             )
           ],
           navigatorKey: _page2NavigatorKey,
@@ -155,10 +155,8 @@ GoRouter router(RouterRef ref) {
       builder: (context, state) {
         final List<dynamic> args = state.extra as List<dynamic>;
         final QuestionId questionId = args[0] as QuestionId;
-        final bool isMyQuestionNotEvaluated = args[1] as bool;
         return QuestionAndAnswerPage(
           questionId: questionId,
-          isMyQuestionNoEvaluated: isMyQuestionNotEvaluated,
         );
       },
     ),

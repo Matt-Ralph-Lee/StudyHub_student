@@ -99,7 +99,6 @@ class CreateQuestionPage extends HookConsumerWidget {
         updatedList.add(teacherId);
       }
       selectedTeachersId.value = updatedList;
-      print(selectedTeachersId.value.length.toString());
     }
 
     void addQuestion() async {

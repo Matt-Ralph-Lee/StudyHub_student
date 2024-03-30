@@ -91,13 +91,10 @@ class ProfileUpdateUseCase {
               StudentUseCaseExceptionDetail.notFound);
         }
         final oldPhotoPath = student.profilePhotoPath;
-        print("profile photo path");
         student.changeProfilePhoto(profilePhotoPath);
 
         _photoRepository.delete(oldPhotoPath);
         _repository.save(student);
-        print("at profile update usecase");
-        print(student.profilePhotoPath.value);
       }
     }
 

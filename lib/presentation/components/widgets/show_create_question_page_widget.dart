@@ -13,7 +13,6 @@ class ShowCreateQuestionBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
-          BuildContext mainContext = context;
           //ipadだと画面いっぱいに広がらないのどうにかしたい
           showModalBottomSheet<void>(
             context: context,
@@ -27,7 +26,7 @@ class ShowCreateQuestionBottomSheet extends StatelessWidget {
                     top: MediaQueryData.fromView(View.of(context)).padding.top,
                     bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
-                  child: CreateQuestionPage(),
+                  child: const CreateQuestionPage(),
                 ),
               );
             },

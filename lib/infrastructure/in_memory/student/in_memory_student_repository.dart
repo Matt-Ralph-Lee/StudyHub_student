@@ -45,6 +45,7 @@ class InMemoryStudentRepository implements IStudentRepository {
 }
 
 class InMemoryStudentInitialValue {
+  static final userStudentId = StudentId("000000000000000000000000010000");
   static final student1 = Student(
       studentId: StudentId('000000000000000000000000000001'),
       name: Name('太郎'),

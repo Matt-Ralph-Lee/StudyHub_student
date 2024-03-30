@@ -30,7 +30,6 @@ class MyPage extends HookConsumerWidget {
     final myBookmarksState = ref.watch(getMyBookmarksControllerProvider);
 
     useEffect(() {
-      print("use effect");
       return null;
     }, [getMyProfileState]);
 
@@ -150,7 +149,6 @@ class MyPage extends HookConsumerWidget {
                             ),
                             child: QuestionAndAnswerCardWidget(
                               questionCardDto: myQuestion,
-                              isisMyQuestionNoEvaluated: true, //ここどこから取れる
                             ),
                           );
                         },
@@ -186,7 +184,6 @@ class MyPage extends HookConsumerWidget {
                             ),
                             child: QuestionAndAnswerCardWidget(
                               questionCardDto: myBookmark,
-                              isisMyQuestionNoEvaluated: true, //ここどこから取れる
                             ),
                           );
                         },

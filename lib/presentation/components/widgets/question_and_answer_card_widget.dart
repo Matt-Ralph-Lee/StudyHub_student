@@ -10,12 +10,10 @@ import '../../shared/constants/page_path.dart';
 
 class QuestionAndAnswerCardWidget extends StatelessWidget {
   final QuestionCardDto questionCardDto;
-  final bool isisMyQuestionNoEvaluated;
 
   const QuestionAndAnswerCardWidget({
     super.key,
     required this.questionCardDto,
-    required this.isisMyQuestionNoEvaluated,
   });
 
   @override
@@ -25,7 +23,6 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
     void navigateToQuestionAndAnswerPage(BuildContext context) {
       context.push(PageId.questionAndAnswerPage.path, extra: [
         questionCardDto.questionId,
-        isisMyQuestionNoEvaluated,
       ]);
     }
 
@@ -57,9 +54,13 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 15,
-                      backgroundImage: NetworkImage(
-                        questionCardDto.studentProfilePhotoPath,
-                      ),
+                      backgroundImage: questionCardDto.studentProfilePhotoPath
+                              .contains("assets")
+                          ? AssetImage(questionCardDto.studentProfilePhotoPath)
+                              as ImageProvider
+                          : NetworkImage(
+                              questionCardDto.studentProfilePhotoPath,
+                            ),
                     ),
                     const SizedBox(
                       width: 20,
@@ -165,11 +166,16 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage: NetworkImage(
-                      questionCardDto.teacherProfilePhotoPath != null
-                          ? questionCardDto.teacherProfilePhotoPath!
-                          : 'assets/photos/profile_photo/sample_user_icon2.jpg',
-                    ),
+                    backgroundImage: questionCardDto.teacherProfilePhotoPath !=
+                            null
+                        ? questionCardDto.teacherProfilePhotoPath!
+                                .contains("assets")
+                            ? AssetImage(
+                                    questionCardDto.teacherProfilePhotoPath!)
+                                as ImageProvider
+                            : NetworkImage(
+                                questionCardDto.teacherProfilePhotoPath!)
+                        : null,
                   ),
                 ],
               ),

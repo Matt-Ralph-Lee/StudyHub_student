@@ -71,17 +71,14 @@ class ProfileInputPage extends HookConsumerWidget {
             : othersGrade.value,
         localPhotoPath: "assets/photos/profile_photo/sample_user_icon.jpg",
       );
-      print("コマンド作った");
 
       ref
           .read(profileUpdateControllerProvider.notifier)
           .profileUpdate(profileUpdateCommand)
           .then((_) async {
         final currentState = ref.read(profileUpdateControllerProvider);
-        print("state読んだ");
         if (currentState.hasError) {
           final error = currentState.error;
-          print("erroとったよ");
           if (error is StudentUseCaseException) {
             final errorText = L10n.getStudentUseCaseExceptionMessage(
                 error.detail as StudentUseCaseExceptionDetail);
@@ -96,10 +93,8 @@ class ProfileInputPage extends HookConsumerWidget {
             showErrorModalWidget(context);
           }
         } else {
-          print("pushするよ");
           Future.delayed(const Duration(seconds: 2)).then(
             (_) => push(context),
-            // (_) => print("hoge"),
           );
         }
       });

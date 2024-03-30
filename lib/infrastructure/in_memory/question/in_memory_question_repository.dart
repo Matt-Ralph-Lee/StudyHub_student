@@ -83,7 +83,7 @@ class InMemoryQuestionInitialValue {
     questionTitle: QuestionTitle('文型について'),
     questionText: QuestionText('文型ってなんすか？'),
     questionPhotoPathList: QuestionPhotoPathList([]),
-    studentId: InMemoryStudentInitialValue.student2.studentId,
+    studentId: InMemoryStudentInitialValue.userStudentId,
     answerList: AnswerList([
       InMemoryAnswerInitialValue.answer2FromT2ToQ2,
       InMemoryAnswerInitialValue.answer3FromT2ToQ2,
