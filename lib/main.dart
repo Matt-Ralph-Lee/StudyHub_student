@@ -6,6 +6,6 @@ import 'package:studyhub/presentation/router/app.dart';
 void main() {
   const app = App();
   const scope = ProviderScope(child: app);
-  // debugPaintSizeEnabled = true;
+  // debugPaintSizeEnabled = false;
   runApp(scope);
 }

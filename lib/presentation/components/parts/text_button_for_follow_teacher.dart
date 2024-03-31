@@ -22,7 +22,7 @@ class TextButtonForFollowTeacher extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             side: BorderSide(color: ColorSet.of(context).primary)),
         padding: const EdgeInsets.symmetric(
-          vertical: 10,
+          vertical: 5,
           horizontal: 20,
         ),
       ),
@@ -30,8 +30,8 @@ class TextButtonForFollowTeacher extends StatelessWidget {
         L10n.followButtonText,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-            color: ColorSet.of(context).text),
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+            color: ColorSet.of(context).primary),
       ),
     );
   }

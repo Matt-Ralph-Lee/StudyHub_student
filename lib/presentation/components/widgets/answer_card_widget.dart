@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
@@ -91,73 +92,80 @@ class AnswerCardWidget extends ConsumerWidget {
       });
     }
 
-    return Column(
-      children: [
-        Text(
-          L10n.answersTitleText,
-          style: TextStyle(
-            fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header3),
-            color: ColorSet.of(context).text,
-          ),
+    return Container(
+      height: screenWidth < 600 ? 155 : 220,
+      width: screenWidth * 0.8, //ここ適当。
+      decoration: BoxDecoration(
+        color: ColorSet.of(context).surface,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+              color: ColorSet.of(context).cardShadow,
+              spreadRadius: 0,
+              blurRadius: 16,
+              offset: const Offset(0, 0)),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(
+          screenWidth < 600 ? 20 : 40,
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        Container(
-          height: screenWidth < 600 ? 155 : 220,
-          decoration: BoxDecoration(
-            color: ColorSet.of(context).surface,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                  color: ColorSet.of(context).cardShadow,
-                  spreadRadius: 0,
-                  blurRadius: 16,
-                  offset: const Offset(0, 0)),
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(
-              screenWidth < 600 ? 20 : 40,
-            ),
-            child: Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CircleAvatar(
                       radius: 15,
                       backgroundImage:
-                          NetworkImage(answerDto.teacherProfilePath),
+                          answerDto.teacherProfilePath.contains("assets")
+                              ? AssetImage(answerDto.teacherProfilePath)
+                                  as ImageProvider
+                              : NetworkImage(
+                                  answerDto.teacherProfilePath,
+                                ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          answerDto.teacherName,
-                          style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      answerDto.teacherName,
+                      style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                            context, FontSizeSet.header3),
+                        color: ColorSet.of(context).text,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    answerDto.isFollowing
-                        ? TextButtonForFollowTeacher(
-                            onPressed: () => addFavoriteTeacher())
-                        : TextButtonForUnFollowTeacher(
-                            onPressed: () => deleteFavoriteTeacher()),
                   ],
                 ),
-                Expanded(
-                  child: Row(
+                answerDto.isFollowing
+                    ? TextButtonForUnFollowTeacher(
+                        onPressed: () => deleteFavoriteTeacher())
+                    : TextButtonForFollowTeacher(
+                        onPressed: () => addFavoriteTeacher()),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 30,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Icon(
-                        Icons.heart_broken,
+                        Icons.favorite,
+                        size: 17,
                       ),
                       const SizedBox(
                         width: 10,
@@ -167,30 +175,32 @@ class AnswerCardWidget extends ConsumerWidget {
                         style: TextStyle(
                           fontWeight: FontWeightSet.normal,
                           fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.body),
+                              context, FontSizeSet.annotation),
                           color: ColorSet.of(context).text,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          answerDto.answerText,
-                          style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.body),
-                            color: ColorSet.of(context).text,
-                          ),
-                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Flexible(
+                  child: Text(
+                    answerDto.answerText,
+                    style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
+                      color: ColorSet.of(context).text,
+                    ),
+                  ),
+                ),
               ],
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

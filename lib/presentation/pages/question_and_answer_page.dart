@@ -1,6 +1,8 @@
+import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/application/answer/application_service/answer_dto.dart';
 
 import '../../domain/question/models/question_id.dart';
 import '../components/parts/text_button_for_navigating_to_evaluatin_page.dart';
@@ -51,144 +53,122 @@ class QuestionAndAnswerPage extends ConsumerWidget {
         ),
       ),
       backgroundColor: ColorSet.of(context).background,
-      body: Column(
-        children: [
-          getQuestionDetailControllerState.when(
-            data: (d) => Text(
-              d.questionTitle,
-              style: TextStyle(color: ColorSet.of(context).text),
-            ),
-            error: (e, s) => Text(
-              e.toString(),
-              style: TextStyle(color: ColorSet.of(context).text),
-            ),
-            loading: () => const CircularProgressIndicator(),
-          ),
-          getAnswerControllerState.when(
-            data: (d) {
-              final widgets = <Widget>[];
-              for (final answer in d) {
-                widgets.add(Text(
-                  answer.answerText,
-                  style: TextStyle(color: ColorSet.of(context).text),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            getQuestionDetailControllerState.when(
+              data: (questionDetailDto) => Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: QuestionDetailCardWidget(
+                      questionDetailDto: questionDetailDto,
+                    ),
+                  ),
+                  // if (questionDetailDto.questionPhotoPathList.isNotEmpty)
+                  //   Column(
+                  //     children: [
+                  //       const SizedBox(
+                  //         height: 30,
+                  //       ),
+                  //       SizedBox(
+                  //         height: 200,
+                  //         child: ListView.builder(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount:
+                  //               questionDetailDto.questionPhotoPathList.length,
+                  //           itemBuilder: (context, index) {
+                  //             return Column(
+                  //               children: [
+                  //                 Padding(
+                  //                   padding: const EdgeInsets.all(8.0),
+                  //                   child: QuestionPictureWidget(
+                  //                     photoPath: questionDetailDto
+                  //                         .questionPhotoPathList[index],
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             );
+                  //           },
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   )
+                ],
+              ),
+              loading: () => const LoadingOverlay(),
+              error: (error, stack) {
+                return const Center(
+                    child: Column(
+                  children: [
+                    TextForError(),
+                  ],
                 ));
-              }
-              return Column(
-                children: widgets,
-              );
-            },
-            error: (e, s) => Text(
-              e.toString(),
-              style: TextStyle(color: ColorSet.of(context).text),
+              },
             ),
-            loading: () => const CircularProgressIndicator(),
-          ),
-        ],
+            const SizedBox(
+              height: 50,
+            ),
+            getAnswerControllerState.when(
+              data: (answerDto) => answerDto.isNotEmpty
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: 350,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: answerDto.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 20,
+                                        top: 10,
+                                      ), //shadowがlistViewで見きれないようにするようのpadding。自由に調整して頂けると（上のshadow見切れてるので）
+                                      child: Column(
+                                        children: [
+                                          AnswerCardWidget(
+                                            answerDto: answerDto[index],
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          if (!answerDto[index].isEvaluated)
+                                            TextButtonForNavigatingToEvaluationPage(
+                                              teacherId:
+                                                  answerDto[index].teacherId,
+                                            ),
+                                        ],
+                                      )),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text("回答までしばらくお待ちください",
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.header3),
+                          color: ColorSet.of(context).text)),
+              loading: () => const LoadingOverlay(),
+              error: (error, stack) {
+                return const Center(
+                    child: Column(
+                  children: [
+                    TextForError(),
+                  ],
+                ));
+              },
+            )
+          ],
+        ),
       ),
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     children: [
-      //       getQuestionDetailControllerState.when(
-      //         data: (questionDetailDto) => Column(
-      //           children: [
-      //             Padding(
-      //               padding: const EdgeInsets.all(20),
-      //               child: QuestionDetailCardWidget(
-      //                 questionDetailDto: questionDetailDto,
-      //               ),
-      //             ),
-      //             if (questionDetailDto.questionPhotoPathList.isNotEmpty)
-      //               Column(
-      //                 children: [
-      //                   const SizedBox(
-      //                     height: 30,
-      //                   ),
-      //                   SizedBox(
-      //                     height: 200,
-      //                     child: ListView.builder(
-      //                       scrollDirection: Axis.horizontal,
-      //                       itemCount:
-      //                           questionDetailDto.questionPhotoPathList.length,
-      //                       itemBuilder: (context, index) {
-      //                         return Column(
-      //                           children: [
-      //                             Padding(
-      //                               padding: const EdgeInsets.all(8.0),
-      //                               child: QuestionPictureWidget(
-      //                                 photoPath: questionDetailDto
-      //                                     .questionPhotoPathList[index],
-      //                               ),
-      //                             ),
-      //                           ],
-      //                         );
-      //                       },
-      //                     ),
-      //                   ),
-      //                 ],
-      //               )
-      //           ],
-      //         ),
-      //         loading: () => const LoadingOverlay(),
-      //         error: (error, stack) {
-      //           return const Center(
-      //               child: Column(
-      //             children: [
-      //               TextForError(),
-      //             ],
-      //           ));
-      //         },
-      //       ),
-      //       const SizedBox(
-      //         height: 50,
-      //       ),
-      //       getAnswerControllerState.when(
-      //         data: (answerDto) => answerDto.isNotEmpty
-      //             ? Column(
-      //                 children: [
-      //                   SizedBox(
-      //                     height: 300,
-      //                     child: ListView.builder(
-      //                       scrollDirection: Axis.horizontal,
-      //                       itemCount: answerDto.length,
-      //                       itemBuilder: (context, index) {
-      //                         return Column(
-      //                           children: [
-      //                             Padding(
-      //                                 padding: const EdgeInsets.all(8.0),
-      //                                 child: AnswerCardWidget(
-      //                                   answerDto: answerDto[index],
-      //                                 )),
-      //                             const SizedBox(
-      //                               height: 20,
-      //                             ),
-      //                             if (answerDto[index].isEvaluated)
-      //                               const TextButtonForNavigatingToEvaluationPage(),
-      //                           ],
-      //                         );
-      //                       },
-      //                     ),
-      //                   ),
-      //                 ],
-      //               )
-      //             : Text("回答までしばらくお待ちください",
-      //                 style: TextStyle(
-      //                     fontWeight: FontWeightSet.normal,
-      //                     fontSize: FontSizeSet.getFontSize(
-      //                         context, FontSizeSet.header3),
-      //                     color: ColorSet.of(context).text)),
-      //         loading: () => const LoadingOverlay(),
-      //         error: (error, stack) {
-      //           return const Center(
-      //               child: Column(
-      //             children: [
-      //               TextForError(),
-      //             ],
-      //           ));
-      //         },
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

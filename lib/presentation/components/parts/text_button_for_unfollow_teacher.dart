@@ -20,7 +20,7 @@ class TextButtonForUnFollowTeacher extends StatelessWidget {
       style: TextButton.styleFrom(
         backgroundColor: ColorSet.of(context).primary,
         padding: const EdgeInsets.symmetric(
-          vertical: 10,
+          vertical: 5,
           horizontal: 20,
         ),
       ),
@@ -28,8 +28,8 @@ class TextButtonForUnFollowTeacher extends StatelessWidget {
         L10n.unFollowButtonText,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-            color: ColorSet.of(context).text),
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+            color: ColorSet.of(context).whiteText),
       ),
     );
   }

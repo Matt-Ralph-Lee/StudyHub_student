@@ -37,9 +37,13 @@ class QuestionDetailCardWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 15,
-              backgroundImage: NetworkImage(
-                questionDetailDto.studentProfilePhotoPath,
-              ),
+              backgroundImage:
+                  questionDetailDto.studentProfilePhotoPath.contains("assets")
+                      ? AssetImage(questionDetailDto.studentProfilePhotoPath)
+                          as ImageProvider
+                      : NetworkImage(
+                          questionDetailDto.studentProfilePhotoPath,
+                        ),
             ),
             const SizedBox(width: 10),
             Flexible(

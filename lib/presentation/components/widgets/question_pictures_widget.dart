@@ -12,12 +12,19 @@ class QuestionPictureWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
-      child: Image.network(
-        photoPath,
-        width: 350,
-        height: 200,
-        fit: BoxFit.cover,
-      ),
+      child: photoPath.contains("assets")
+          ? Image(
+              image: AssetImage(photoPath),
+              width: 350,
+              height: 200,
+              fit: BoxFit.cover,
+            )
+          : Image.network(
+              photoPath,
+              width: 350,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
     );
   }
 }
