@@ -123,24 +123,15 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                             selectedAnswerIndex.value = newIndex;
                           },
                           itemBuilder: (context, index) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 20,
-                                      horizontal: 5,
-                                    ),
-                                    //shadowがlistViewで見きれないようにするようのpadding。自由に調整して頂けると（上のshadow見切れてるので）
-                                    child: Column(
-                                      children: [
-                                        AnswerCardWidget(
-                                          answerDto: answerDto[index],
-                                        ),
-                                      ],
-                                    )),
-                              ],
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 5,
+                              ),
+                              //shadowがlistViewで見きれないようにするようのpadding。自由に調整して頂けると（上のshadow見切れてるので）
+                              child: AnswerCardWidget(
+                                answerDto: answerDto[index],
+                              ),
                             );
                           },
                         ),
