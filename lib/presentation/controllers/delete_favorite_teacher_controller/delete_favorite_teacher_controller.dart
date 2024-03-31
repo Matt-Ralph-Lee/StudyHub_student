@@ -6,6 +6,7 @@ import "../../../application/di/favorite_teacher/repository/favorite_teacher_rep
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/favorite_teachers/application_service/favorite_teachers_delete_use_case.dart";
 import "../../../domain/teacher/models/teacher_id.dart";
+import "../get_answer_controller/get_answer_controller.dart";
 
 part "delete_favorite_teacher_controller.g.dart";
 
@@ -27,6 +28,7 @@ class DeleteFavoriteTeacherController
       );
       await deleteFavoriteTeacherUseCase.execute(teacherId);
     });
+    ref.invalidate(getAnswerControllerProvider);
     ref.invalidate(getFavoriteTeacherControllerProvider);
     ref.invalidate(getTeacherProfileControllerProvider(teacherId));
   }
