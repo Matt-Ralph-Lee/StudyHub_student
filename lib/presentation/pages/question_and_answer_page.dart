@@ -71,31 +71,27 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                     ),
                   ),
                   if (questionDetailDto.questionPhotoPathList.isNotEmpty)
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        ExpandablePageView.builder(
-                          controller: PageController(viewportFraction: 0.85),
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              questionDetailDto.questionPhotoPathList.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: QuestionPictureWidget(
-                                    photoPath: questionDetailDto
-                                        .questionPhotoPathList[index],
-                                  ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: ExpandablePageView.builder(
+                        controller: PageController(viewportFraction: 0.85),
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            questionDetailDto.questionPhotoPathList.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: QuestionPictureWidget(
+                                  photoPath: questionDetailDto
+                                      .questionPhotoPathList[index],
                                 ),
-                              ],
-                            );
-                          },
-                        ),
-                      ],
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     )
                 ],
               ),
@@ -138,43 +134,35 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                         if (answerDto[selectedAnswerIndex.value]
                             .answerPhotoList
                             .isNotEmpty)
-                          Column(
-                            children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ExpandablePageView.builder(
-                                controller:
-                                    PageController(viewportFraction: 0.85),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: answerDto[selectedAnswerIndex.value]
-                                    .answerPhotoList
-                                    .length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: AnswerPictureWidget(
-                                      photoPath:
-                                          answerDto[selectedAnswerIndex.value]
-                                              .answerPhotoList[index],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: ExpandablePageView.builder(
+                              controller:
+                                  PageController(viewportFraction: 0.85),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: answerDto[selectedAnswerIndex.value]
+                                  .answerPhotoList
+                                  .length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: AnswerPictureWidget(
+                                    photoPath:
+                                        answerDto[selectedAnswerIndex.value]
+                                            .answerPhotoList[index],
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         if (!answerDto[selectedAnswerIndex.value].isEvaluated &&
                             isMyQuestion)
-                          Column(
-                            children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              TextButtonForNavigatingToEvaluationPage(
-                                teacherId: answerDto[selectedAnswerIndex.value]
-                                    .teacherId,
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 24),
+                            child: TextButtonForNavigatingToEvaluationPage(
+                              teacherId: answerDto[selectedAnswerIndex.value]
+                                  .teacherId,
+                            ),
                           ),
                         const SizedBox(
                           height: 40,
