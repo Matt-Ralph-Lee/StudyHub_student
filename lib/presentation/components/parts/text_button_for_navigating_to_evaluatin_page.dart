@@ -36,8 +36,9 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(
             vertical: 15,
-            horizontal: 20,
           ),
+          minimumSize: Size.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         child: Text(
           L10n.navigateToEvaluationPage,

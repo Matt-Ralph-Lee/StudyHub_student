@@ -41,7 +41,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           .read(addFavoriteTeacherControllerProvider.notifier)
           .addFavoriteTeacher(teacherId)
           .then((_) {
-        if (addFavoriteTeacherControllerState is AsyncError) {
+        if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
@@ -71,7 +71,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           .read(deleteFavoriteTeacherControllerProvider.notifier)
           .deleteFavoriteTeacher(teacherId)
           .then((_) {
-        if (deleteFavoriteTeacherControllerState is AsyncError) {
+        if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
@@ -105,9 +105,13 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: NetworkImage(
-                        getTeacherProfileDto.profilePhotoPath,
-                      ),
+                      backgroundImage: getTeacherProfileDto.profilePhotoPath
+                              .contains("assets")
+                          ? AssetImage(getTeacherProfileDto.profilePhotoPath)
+                              as ImageProvider
+                          : NetworkImage(
+                              getTeacherProfileDto.profilePhotoPath,
+                            ),
                     ),
                     const SizedBox(
                       width: 20,

@@ -32,10 +32,8 @@ class TextFormFieldForEvaluationInput extends StatelessWidget {
         cursorWidth: screenWidth < 600 ? 1 : 1.5,
         cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.body),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(
-            top: PaddingSet.getPaddingSize(context, 15),
-            bottom: PaddingSet.getPaddingSize(context, 15),
-            left: PaddingSet.getPaddingSize(context, 20),
+          contentPadding: EdgeInsets.all(
+            PaddingSet.getPaddingSize(context, 20),
           ),
           hintText: L10n.evaluationInputHintText,
           hintStyle: TextStyle(

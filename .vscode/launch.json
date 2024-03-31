@@ -9,7 +9,8 @@
       "program": "lib/main.dart",
       "args": [
         "-d",
-        "sdk gphone64 x86 64",
+        // "sdk gphone64 x86 64",
+        "Chrome",
         "--dart-define-from-file=scripts/flavors/dev.json"
       ]
     },

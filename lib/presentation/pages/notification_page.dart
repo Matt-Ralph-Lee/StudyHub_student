@@ -30,8 +30,6 @@ class NotificationPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = screenWidth * 0.1;
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final currentWeekday = today.weekday;
@@ -161,7 +159,11 @@ class NotificationPage extends ConsumerWidget {
       body: ListView.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          padding: EdgeInsets.symmetric(
+              horizontal: PaddingSet.getPaddingSize(
+            context,
+            20,
+          )),
           child: notifications[index],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -18,7 +20,9 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 
+//paddingなりsizedBoxなりのレスポンシブ忘れるので暇なときに少しずつ差し替えます（ここに限らず）
 class QuestionAndAnswerPage extends HookConsumerWidget {
   final QuestionId questionId;
   final bool isMyQuestion;
@@ -30,6 +34,9 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double horizontalPadding = screenWidth * 0.07;
+    // 画面の幅を利用したウィジェットの構築
     final getQuestionDetailControllerState =
         ref.watch(getQuestionDetailControllerProvider(questionId));
     final getAnswerControllerState =
@@ -60,35 +67,49 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
       backgroundColor: ColorSet.of(context).background,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             getQuestionDetailControllerState.when(
               data: (questionDetailDto) => Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(
+                      PaddingSet.getPaddingSize(
+                        context,
+                        horizontalPadding,
+                      ),
+                    ),
                     child: QuestionDetailCardWidget(
                       questionDetailDto: questionDetailDto,
                     ),
                   ),
                   if (questionDetailDto.questionPhotoPathList.isNotEmpty)
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      padding: EdgeInsets.symmetric(
+                        vertical: PaddingSet.getPaddingSize(
+                          context,
+                          4,
+                        ),
+                      ),
                       child: ExpandablePageView.builder(
-                        controller: PageController(viewportFraction: 0.85),
+                        controller: PageController(
+                            viewportFraction:
+                                0.86), //viewportFractionを通してしかpadding設定できそうなので（他ぺーじとは違ってピクセルで左端paddingとってない）
                         scrollDirection: Axis.horizontal,
                         itemCount:
                             questionDetailDto.questionPhotoPathList.length,
                         itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: QuestionPictureWidget(
-                                  photoPath: questionDetailDto
-                                      .questionPhotoPathList[index],
-                                ),
+                          return Container(
+                            margin: EdgeInsets.only(
+                              right: PaddingSet.getPaddingSize(
+                                context,
+                                15,
                               ),
-                            ],
+                            ), //marginなので？組み込まずに外からかけてます
+                            child: QuestionPictureWidget(
+                              photoPath: questionDetailDto
+                                  .questionPhotoPathList[index],
+                            ),
                           );
                         },
                       ),
@@ -113,7 +134,7 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                   ? Column(
                       children: [
                         ExpandablePageView.builder(
-                          controller: PageController(viewportFraction: 0.85),
+                          controller: PageController(viewportFraction: 0.86),
                           itemCount: answerDto.length,
                           onPageChanged: (newIndex) {
                             selectedAnswerIndex.value = newIndex;
@@ -124,9 +145,16 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                                 vertical: 20,
                                 horizontal: 5,
                               ),
-                              //shadowがlistViewで見きれないようにするようのpadding。自由に調整して頂けると（上のshadow見切れてるので）
-                              child: AnswerCardWidget(
-                                answerDto: answerDto[index],
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  right: PaddingSet.getPaddingSize(
+                                    context,
+                                    15,
+                                  ),
+                                ), //marginなので？組み込まずに外からかけてます
+                                child: AnswerCardWidget(
+                                  answerDto: answerDto[index],
+                                ),
                               ),
                             );
                           },
@@ -138,7 +166,7 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                             padding: const EdgeInsets.symmetric(vertical: 4),
                             child: ExpandablePageView.builder(
                               controller:
-                                  PageController(viewportFraction: 0.85),
+                                  PageController(viewportFraction: 0.86),
                               scrollDirection: Axis.horizontal,
                               itemCount: answerDto[selectedAnswerIndex.value]
                                   .answerPhotoList
@@ -146,10 +174,18 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(4.0),
-                                  child: AnswerPictureWidget(
-                                    photoPath:
-                                        answerDto[selectedAnswerIndex.value]
-                                            .answerPhotoList[index],
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                      right: PaddingSet.getPaddingSize(
+                                        context,
+                                        15,
+                                      ),
+                                    ), //marginなので？組み込まずに外からかけてます
+                                    child: AnswerPictureWidget(
+                                      photoPath:
+                                          answerDto[selectedAnswerIndex.value]
+                                              .answerPhotoList[index],
+                                    ),
                                   ),
                                 );
                               },

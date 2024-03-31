@@ -35,7 +35,7 @@ class EvaluationStarsWidget extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
+                            context, FontSizeSet.annotation),
                         color: ColorSet.of(context).greyText),
                   ),
                   Divider(

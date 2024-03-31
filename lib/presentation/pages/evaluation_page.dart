@@ -17,6 +17,7 @@ import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_evaluation_page_widget.dart';
 import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../controllers/add_teacher_evaluation_controller/add_teacher_evaluation_controller.dart';
+import '../controllers/get_answer_controller/get_answer_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -90,6 +91,8 @@ class EvaluationPage extends HookConsumerWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               completionSnackBar(context, L10n.evaluationSnackBarText),
             );
+            ref.invalidate(getAnswerControllerProvider);
+            context.pop();
           }
         });
       }
@@ -158,7 +161,7 @@ class EvaluationPage extends HookConsumerWidget {
                   teacherId: teacherId,
                 ),
                 const SizedBox(
-                  height: 100,
+                  height: 70,
                 ),
                 EvaluationStarsWidget(
                   numOfSelectedStars: numOfSelectedStars.value,
@@ -167,7 +170,7 @@ class EvaluationPage extends HookConsumerWidget {
                 const SizedBox(
                   height: 70,
                 ),
-                EvaluationTextWidget(
+                EvaluationTextFieldWidget(
                   controller: evaluationTextController,
                   onChanged: checkEvaluationTextFilled,
                 ),

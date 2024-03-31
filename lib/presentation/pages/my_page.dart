@@ -21,8 +21,6 @@ class MyPage extends HookConsumerWidget {
   const MyPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final paddingHorizontal = screenWidth * 0.1;
     final getMyProfileState = ref.watch(getMyProfileControllerProvider);
     final favoriteTeacherState =
         ref.watch(getFavoriteTeacherControllerProvider);
@@ -73,10 +71,8 @@ class MyPage extends HookConsumerWidget {
                 delegate: SliverChildListDelegate(
                   [
                     Padding(
-                      padding: EdgeInsets.only(
-                          right: paddingHorizontal,
-                          left: paddingHorizontal,
-                          bottom: 20),
+                      padding: const EdgeInsets.only(
+                          right: 20, left: 20, bottom: 20),
                       child: getMyProfileState.when(
                         data: (getMyProfileDto) {
                           final numberOfFavoriteTeachers =

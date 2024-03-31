@@ -65,7 +65,12 @@ class EvaluationCardWidget extends ConsumerWidget {
                       data: (getStudentDto) => CircleAvatar(
                         radius: 15,
                         backgroundImage:
-                            NetworkImage(getStudentDto.profilePhotoPath),
+                            getStudentDto.profilePhotoPath.contains("assets")
+                                ? AssetImage(getStudentDto.profilePhotoPath)
+                                    as ImageProvider
+                                : NetworkImage(
+                                    getStudentDto.profilePhotoPath,
+                                  ),
                       ),
                       loading: () => const LoadingOverlay(),
                       error: (error, stack) {

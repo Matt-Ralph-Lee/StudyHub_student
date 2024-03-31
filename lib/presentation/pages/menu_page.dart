@@ -15,8 +15,6 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = screenWidth * 0.1;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -43,7 +41,11 @@ class MenuPage extends StatelessWidget {
       backgroundColor: ColorSet.of(context).background,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          padding: EdgeInsets.symmetric(
+              horizontal: PaddingSet.getPaddingSize(
+            context,
+            20,
+          )),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

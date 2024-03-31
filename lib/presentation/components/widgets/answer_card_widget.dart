@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyhub/domain/question/models/question_id.dart';
 import 'package:studyhub/presentation/controllers/get_answer_controller/get_answer_controller.dart';
 import 'package:studyhub/presentation/controllers/like_answer_controller/like_answer_controller.dart';
 
@@ -40,7 +42,7 @@ class AnswerCardWidget extends ConsumerWidget {
           .read(addFavoriteTeacherControllerProvider.notifier)
           .addFavoriteTeacher(answerDto.teacherId)
           .then((_) {
-        if (addFavoriteTeacherControllerState is AsyncError) {
+        if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
@@ -60,6 +62,7 @@ class AnswerCardWidget extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.addFavoriteTeacherText),
           );
+          ref.invalidate(getAnswerControllerProvider);
         }
       });
     }
@@ -69,7 +72,7 @@ class AnswerCardWidget extends ConsumerWidget {
           .read(deleteFavoriteTeacherControllerProvider.notifier)
           .deleteFavoriteTeacher(answerDto.teacherId)
           .then((_) {
-        if (deleteFavoriteTeacherControllerState is AsyncError) {
+        if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
             final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
@@ -89,6 +92,7 @@ class AnswerCardWidget extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
+          ref.invalidate(getAnswerControllerProvider);
         }
       });
     }
@@ -106,74 +110,73 @@ class AnswerCardWidget extends ConsumerWidget {
       ref.invalidate(getAnswerControllerProvider);
     }
 
-    return GestureDetector(
-      onDoubleTap: toggleLikeAnswer,
-      child: Container(
-        height: screenWidth < 600 ? 155 : 220,
-        width: screenWidth * 0.8, //ここ適当。
-        decoration: BoxDecoration(
-          color: ColorSet.of(context).surface,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-                color: ColorSet.of(context).cardShadow,
-                spreadRadius: 0,
-                blurRadius: 16,
-                offset: const Offset(0, 0)),
-          ],
+    return Container(
+      width: screenWidth * 0.8, //ここ適当。
+      decoration: BoxDecoration(
+        color: ColorSet.of(context).surface,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+              color: ColorSet.of(context).cardShadow,
+              spreadRadius: 0,
+              blurRadius: 16,
+              offset: const Offset(0, 0)),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(
+          screenWidth < 600 ? 20 : 40,
         ),
-        child: Padding(
-          padding: EdgeInsets.all(
-            screenWidth < 600 ? 20 : 40,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 15,
-                        backgroundImage:
-                            answerDto.teacherProfilePath.contains("assets")
-                                ? AssetImage(answerDto.teacherProfilePath)
-                                    as ImageProvider
-                                : NetworkImage(
-                                    answerDto.teacherProfilePath,
-                                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 15,
+                      backgroundImage:
+                          answerDto.teacherProfilePath.contains("assets")
+                              ? AssetImage(answerDto.teacherProfilePath)
+                                  as ImageProvider
+                              : NetworkImage(
+                                  answerDto.teacherProfilePath,
+                                ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      answerDto.teacherName,
+                      style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                            context, FontSizeSet.header3),
+                        color: ColorSet.of(context).text,
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        answerDto.teacherName,
-                        style: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.header3),
-                          color: ColorSet.of(context).text,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                  answerDto.isFollowing
-                      ? TextButtonForUnFollowTeacher(
-                          onPressed: () => deleteFavoriteTeacher())
-                      : TextButtonForFollowTeacher(
-                          onPressed: () => addFavoriteTeacher()),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+                answerDto.isFollowing
+                    ? TextButtonForUnFollowTeacher(
+                        onPressed: () => deleteFavoriteTeacher())
+                    : TextButtonForFollowTeacher(
+                        onPressed: () => addFavoriteTeacher()),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: toggleLikeAnswer,
+                  child: SizedBox(
                     width: 30,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -184,9 +187,10 @@ class AnswerCardWidget extends ConsumerWidget {
                               ? Icons.favorite
                               : Icons.favorite_border,
                           size: 17,
+                          color: ColorSet.of(context).primary,
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 30,
                         ),
                         Text(
                           answerDto.answerLike.toString(),
@@ -200,24 +204,24 @@ class AnswerCardWidget extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Flexible(
-                    child: Text(
-                      answerDto.answerText,
-                      style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize:
-                            FontSizeSet.getFontSize(context, FontSizeSet.body),
-                        color: ColorSet.of(context).text,
-                      ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Expanded(
+                  child: Text(
+                    answerDto.answerText,
+                    style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
+                      color: ColorSet.of(context).text,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

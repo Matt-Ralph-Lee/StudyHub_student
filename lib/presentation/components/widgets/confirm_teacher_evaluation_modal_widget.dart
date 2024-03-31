@@ -21,87 +21,89 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
       backgroundColor: ColorSet.of(context).surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 0,
-      child: Padding(
-        padding: const EdgeInsets.only(
-            top: 20,
-            left: 20,
-            right: 20,
-            bottom: 20), //textButtonが領域多めに取るのでバランス的にbottomだけ12px
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  L10n.confirmModalTitleText,
-                  style: TextStyle(
-                      fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.body,
-                      color: ColorSet.of(context).text),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: List.generate(5, (index) {
-                return Icon(
-                  Icons.star,
-                  color: index < numOfEvaluationStars
-                      ? ColorSet.of(context).primary
-                      : ColorSet.of(context).inactiveGreySurface, // この色どうする
-                );
-              }),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              evaluationText,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.body,
-                  color: ColorSet.of(context).text),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                TextButton(
-                  child: Text(
-                    L10n.cancelText,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 20), //textButtonが領域多めに取るのでバランス的にbottomだけ12px
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    L10n.confirmModalTitleText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.body,
                         color: ColorSet.of(context).text),
                   ),
-                  onPressed: () {
-                    context.pop(false);
-                  },
-                ),
-                TextButton(
-                  child: Text(
-                    L10n.modalOkText,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.body,
-                        color: ColorSet.of(context).text),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: List.generate(5, (index) {
+                  return Icon(
+                    Icons.star,
+                    color: index < numOfEvaluationStars
+                        ? ColorSet.of(context).primary
+                        : ColorSet.of(context).inactiveGreySurface, // この色どうする
+                  );
+                }),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                evaluationText,
+                style: TextStyle(
+                    fontWeight: FontWeightSet.normal,
+                    fontSize: FontSizeSet.body,
+                    color: ColorSet.of(context).text),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  TextButton(
+                    child: Text(
+                      L10n.cancelText,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.body,
+                          color: ColorSet.of(context).text),
+                    ),
+                    onPressed: () {
+                      context.pop(false);
+                    },
                   ),
-                  onPressed: () {
-                    context.pop(true);
-                  },
-                ),
-              ],
-            ),
-          ],
+                  TextButton(
+                    child: Text(
+                      L10n.modalOkText,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.body,
+                          color: ColorSet.of(context).text),
+                    ),
+                    onPressed: () {
+                      context.pop(true);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

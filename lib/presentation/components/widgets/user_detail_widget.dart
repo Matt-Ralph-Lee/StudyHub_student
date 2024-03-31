@@ -4,6 +4,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/padding_set.dart';
 import 'rank_description_modal.dart';
 
 //ランクの定義どうする
@@ -93,7 +94,11 @@ class UserDetailWidget extends StatelessWidget {
     final Color userRankColor = rankRequirements[userRank]![L10n.colorText];
     final double ratioForNextRank =
         numberOfQuestions / nextRankInfo[L10n.questionsForNextRankText];
-    final thisWidth = MediaQuery.of(context).size.width * 0.8;
+    final thisWidth = MediaQuery.of(context).size.width -
+        PaddingSet.getPaddingSize(
+          context,
+          20,
+        );
 
     return Column(
       children: [

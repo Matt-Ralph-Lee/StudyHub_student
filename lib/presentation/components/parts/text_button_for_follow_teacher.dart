@@ -19,12 +19,15 @@ class TextButtonForFollowTeacher extends StatelessWidget {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: ColorSet.of(context).primary)),
-        padding: const EdgeInsets.symmetric(
-          vertical: 5,
-          horizontal: 20,
+          borderRadius: BorderRadius.circular(15),
+          side: BorderSide(color: ColorSet.of(context).primary),
         ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        minimumSize: Size.zero,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       child: Text(
         L10n.followButtonText,

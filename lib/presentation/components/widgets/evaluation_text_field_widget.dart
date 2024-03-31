@@ -6,10 +6,10 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../parts/text_form_field_for_evaluation_input.dart';
 
-class EvaluationTextWidget extends StatelessWidget {
+class EvaluationTextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String)? onChanged;
-  const EvaluationTextWidget(
+  const EvaluationTextFieldWidget(
       {super.key, required this.controller, required this.onChanged});
 
   @override
@@ -33,7 +33,7 @@ class EvaluationTextWidget extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
+                            context, FontSizeSet.annotation),
                         color: ColorSet.of(context).greyText),
                   ),
                   Divider(
