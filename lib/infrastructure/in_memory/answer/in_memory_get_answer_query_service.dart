@@ -4,6 +4,7 @@ import '../../../application/shared/session/session.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../favorite_teachers/in_memory_favorite_teachers_repository.dart';
+import '../liked_answers/in_memory_liked_answers_repository.dart';
 import '../teacher/in_memory_teacher_repository.dart';
 import 'in_memory_answer_repository.dart';
 
@@ -12,6 +13,7 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
   final InMemoryAnswerRepository _repository;
   final InMemoryTeacherRepository _teacherRepository;
   final InMemoryFavoriteTeachersRepository _favoriteTeachersRepository;
+  final InMemoryLikedAnswersRepository _likedAnswersRepository;
 
   InMemoryGetAnswerQueryService({
     required final Session session,
@@ -19,10 +21,12 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
     required final InMemoryTeacherRepository teacherRepository,
     required final InMemoryFavoriteTeachersRepository
         favoriteTeachersRepository,
+    required final InMemoryLikedAnswersRepository likedAnswersRepository,
   })  : _session = session,
         _repository = repository,
         _teacherRepository = teacherRepository,
-        _favoriteTeachersRepository = favoriteTeachersRepository;
+        _favoriteTeachersRepository = favoriteTeachersRepository,
+        _likedAnswersRepository = likedAnswersRepository;
 
   @override
   List<AnswerDto> getById(QuestionId questionId) {
@@ -30,8 +34,11 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
 
     final result = _repository.getByQuestionId(questionId);
 
+    final studentId = _session.studentId;
+
+    final likedAnswers = _likedAnswersRepository.getByStudentId(studentId);
+
     for (final answer in result) {
-      final studentId = _session.studentId;
       final teacher = _teacherRepository.getByTeacherId(answer.teacherId);
 
       if (teacher == null) {
@@ -45,7 +52,11 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
             answerText: answer.answerText.value,
             answerLike: answer.like.value,
             isFollowing: false,
-            isEvaluated: false, //追加
+            isEvaluated: answer.evaluated,
+            answerPhotoList: answer.answerPhotoPathList
+                .map((answerPhotoPath) => answerPhotoPath.value)
+                .toList(),
+            hasLiked: likedAnswers.contains(answer.answerId),
           ),
         );
       } else {
@@ -65,7 +76,11 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
           answerText: answer.answerText.value,
           answerLike: answer.like.value,
           isFollowing: isFollowing,
-          isEvaluated: false, //追加
+          isEvaluated: answer.evaluated,
+          answerPhotoList: answer.answerPhotoPathList
+              .map((answerPhotoPath) => answerPhotoPath.value)
+              .toList(),
+          hasLiked: likedAnswers.contains(answer.answerId),
         ));
       }
     }

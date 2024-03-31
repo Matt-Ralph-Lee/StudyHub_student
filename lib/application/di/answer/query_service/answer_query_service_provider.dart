@@ -1,4 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:studyhub/application/di/liked_answers/repository/liked_answers_repository_provider.dart';
+import 'package:studyhub/infrastructure/in_memory/liked_answers/in_memory_liked_answers_repository.dart';
 
 import '../../../../infrastructure/in_memory/answer/in_memory_answer_repository.dart';
 import '../../../../infrastructure/in_memory/answer/in_memory_get_answer_query_service.dart';
@@ -19,14 +21,17 @@ IGetAnswerQueryService getAnswerQueryServiceDi(GetAnswerQueryServiceDiRef ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryGetAnswerQueryService(
-          repository: (ref.watch(answerRepositoryDiProvider))
-              as InMemoryAnswerRepository,
-          teacherRepository: (ref.watch(teacherRepositoryDiProvider))
-              as InMemoryTeacherRepository,
-          session: ref.watch(nonNullSessionProvider),
-          favoriteTeachersRepository:
-              (ref.watch(favoriteTeacherRepositoryDiProvider))
-                  as InMemoryFavoriteTeachersRepository);
+        repository:
+            (ref.watch(answerRepositoryDiProvider)) as InMemoryAnswerRepository,
+        teacherRepository: (ref.watch(teacherRepositoryDiProvider))
+            as InMemoryTeacherRepository,
+        session: ref.watch(nonNullSessionProvider),
+        favoriteTeachersRepository:
+            (ref.watch(favoriteTeacherRepositoryDiProvider))
+                as InMemoryFavoriteTeachersRepository,
+        likedAnswersRepository: ref.watch(likedAnswersRepositoryDiProvider)
+            as InMemoryLikedAnswersRepository,
+      );
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:

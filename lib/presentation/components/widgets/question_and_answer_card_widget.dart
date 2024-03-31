@@ -23,6 +23,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
     void navigateToQuestionAndAnswerPage(BuildContext context) {
       context.push(PageId.questionAndAnswerPage.path, extra: [
         questionCardDto.questionId,
+        questionCardDto.isMine,
       ]);
     }
 

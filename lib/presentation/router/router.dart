@@ -155,8 +155,10 @@ GoRouter router(RouterRef ref) {
       builder: (context, state) {
         final List<dynamic> args = state.extra as List<dynamic>;
         final QuestionId questionId = args[0] as QuestionId;
+        final bool isMyQuestion = args[1] as bool;
         return QuestionAndAnswerPage(
           questionId: questionId,
+          isMyQuestion: isMyQuestion,
         );
       },
     ),

@@ -50,6 +50,7 @@ dependencies:
   flutter_image_compress: ^2.1.0
   go_router:
   intl:
+  expandable_page_view:
 
 dev_dependencies:
   flutter_test:

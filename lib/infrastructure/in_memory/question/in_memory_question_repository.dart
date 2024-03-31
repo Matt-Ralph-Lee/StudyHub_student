@@ -2,6 +2,7 @@ import '../../../domain/answer_list/models/answer_list.dart';
 import '../../../domain/question/models/i_question_repository.dart';
 import '../../../domain/question/models/question.dart';
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/question/models/question_photo_path.dart';
 import '../../../domain/question/models/question_photo_path_list.dart';
 import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_title.dart';
@@ -82,11 +83,14 @@ class InMemoryQuestionInitialValue {
     questionSubject: Subject.midEng,
     questionTitle: QuestionTitle('文型について'),
     questionText: QuestionText('文型ってなんすか？'),
-    questionPhotoPathList: QuestionPhotoPathList([]),
+    questionPhotoPathList: QuestionPhotoPathList([
+      QuestionPhotoPath("assets/images/sample_picture_hd.jpg"),
+      QuestionPhotoPath("assets/images/sample_picture_hd.jpg"),
+    ]),
     studentId: InMemoryStudentInitialValue.userStudentId,
     answerList: AnswerList([
       InMemoryAnswerInitialValue.answer2FromT2ToQ2,
-      InMemoryAnswerInitialValue.answer3FromT2ToQ2,
+      InMemoryAnswerInitialValue.answer3FromT1ToQ2,
     ]),
     seenCount: SeenCount(20),
     selectedTeacherList: SelectedTeacherList([]),

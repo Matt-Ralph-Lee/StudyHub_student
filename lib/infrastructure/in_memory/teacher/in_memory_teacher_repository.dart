@@ -50,7 +50,7 @@ class InMemoryTeacherInitialValue {
 
   static final teacher2 = Teacher(
     teacherId: TeacherId('00000000000000000002'),
-    name: Name('かなこ先生'),
+    name: Name('しょーこ先生'),
     highSchool: HighSchool('第一高校'),
     university: University(
         school: '第二大学', enrollmentStatus: EnrollmentStatus.graduated),

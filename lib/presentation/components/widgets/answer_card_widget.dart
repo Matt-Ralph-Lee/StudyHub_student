@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyhub/presentation/controllers/get_answer_controller/get_answer_controller.dart';
+import 'package:studyhub/presentation/controllers/like_answer_controller/like_answer_controller.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
@@ -92,113 +93,131 @@ class AnswerCardWidget extends ConsumerWidget {
       });
     }
 
-    return Container(
-      height: screenWidth < 600 ? 155 : 220,
-      width: screenWidth * 0.8, //ここ適当。
-      decoration: BoxDecoration(
-        color: ColorSet.of(context).surface,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              color: ColorSet.of(context).cardShadow,
-              spreadRadius: 0,
-              blurRadius: 16,
-              offset: const Offset(0, 0)),
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(
-          screenWidth < 600 ? 20 : 40,
+    void toggleLikeAnswer() async {
+      if (answerDto.hasLiked) {
+        ref
+            .read(likeAnswerControllerProvider.notifier)
+            .decrement(answerDto.answerId);
+      } else {
+        ref
+            .read(likeAnswerControllerProvider.notifier)
+            .increment(answerDto.answerId);
+      }
+      ref.invalidate(getAnswerControllerProvider);
+    }
+
+    return GestureDetector(
+      onDoubleTap: toggleLikeAnswer,
+      child: Container(
+        height: screenWidth < 600 ? 155 : 220,
+        width: screenWidth * 0.8, //ここ適当。
+        decoration: BoxDecoration(
+          color: ColorSet.of(context).surface,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                color: ColorSet.of(context).cardShadow,
+                spreadRadius: 0,
+                blurRadius: 16,
+                offset: const Offset(0, 0)),
+          ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundImage:
-                          answerDto.teacherProfilePath.contains("assets")
-                              ? AssetImage(answerDto.teacherProfilePath)
-                                  as ImageProvider
-                              : NetworkImage(
-                                  answerDto.teacherProfilePath,
-                                ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      answerDto.teacherName,
-                      style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
-                        color: ColorSet.of(context).text,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-                answerDto.isFollowing
-                    ? TextButtonForUnFollowTeacher(
-                        onPressed: () => deleteFavoriteTeacher())
-                    : TextButtonForFollowTeacher(
-                        onPressed: () => addFavoriteTeacher()),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 30,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+        child: Padding(
+          padding: EdgeInsets.all(
+            screenWidth < 600 ? 20 : 40,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      const Icon(
-                        Icons.favorite,
-                        size: 17,
+                      CircleAvatar(
+                        radius: 15,
+                        backgroundImage:
+                            answerDto.teacherProfilePath.contains("assets")
+                                ? AssetImage(answerDto.teacherProfilePath)
+                                    as ImageProvider
+                                : NetworkImage(
+                                    answerDto.teacherProfilePath,
+                                  ),
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 20,
                       ),
                       Text(
-                        answerDto.answerLike.toString(),
+                        answerDto.teacherName,
                         style: TextStyle(
                           fontWeight: FontWeightSet.normal,
                           fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.annotation),
+                              context, FontSizeSet.header3),
                           color: ColorSet.of(context).text,
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Flexible(
-                  child: Text(
-                    answerDto.answerText,
-                    style: TextStyle(
-                      fontWeight: FontWeightSet.normal,
-                      fontSize:
-                          FontSizeSet.getFontSize(context, FontSizeSet.body),
-                      color: ColorSet.of(context).text,
+                  answerDto.isFollowing
+                      ? TextButtonForUnFollowTeacher(
+                          onPressed: () => deleteFavoriteTeacher())
+                      : TextButtonForFollowTeacher(
+                          onPressed: () => addFavoriteTeacher()),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 30,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          answerDto.hasLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 17,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          answerDto.answerLike.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                                context, FontSizeSet.annotation),
+                            color: ColorSet.of(context).text,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Flexible(
+                    child: Text(
+                      answerDto.answerText,
+                      style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize:
+                            FontSizeSet.getFontSize(context, FontSizeSet.body),
+                        color: ColorSet.of(context).text,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
