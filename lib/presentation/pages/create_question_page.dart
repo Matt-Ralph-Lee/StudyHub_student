@@ -124,8 +124,9 @@ class CreateQuestionPage extends HookConsumerWidget {
               selectedTeachersId.value,
             )
             .then((_) {
-          if (addQuestionControllerState.hasError) {
-            final error = addQuestionControllerState.error;
+          final addQuestionState = ref.read(addQuestionControllerProvider);
+          if (addQuestionState.hasError) {
+            final error = addQuestionState.error;
             if (error is QuestionUseCaseException) {
               final errorText = L10n.getQuestionExceptionMessage(
                   error.detail as QuestionUseCaseExceptionDetail);
@@ -136,10 +137,8 @@ class CreateQuestionPage extends HookConsumerWidget {
                       errorMessage: errorText,
                     );
                   });
-              context.pop();
             } else {
               showErrorModalWidget(context);
-              context.pop();
             }
           } else {
             HapticFeedback.lightImpact();

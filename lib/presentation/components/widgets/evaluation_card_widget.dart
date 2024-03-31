@@ -74,8 +74,6 @@ class EvaluationCardWidget extends ConsumerWidget {
                       ),
                       loading: () => const LoadingOverlay(),
                       error: (error, stack) {
-                        print("エラーはこれです$error");
-                        print(stack);
                         return const Center(
                             child: Column(
                           children: [

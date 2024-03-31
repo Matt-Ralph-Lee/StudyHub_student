@@ -219,8 +219,6 @@ class SearchForTeachersPage extends HookConsumerWidget {
                   loading: () =>
                       const SliverToBoxAdapter(child: LoadingOverlay()),
                   error: (error, stack) {
-                    print("エラーはこれです$error");
-                    print(stack);
                     return const SliverToBoxAdapter(
                       child: Center(
                           child: Column(

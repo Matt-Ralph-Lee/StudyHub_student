@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/presentation/controllers/get_answer_controller/get_answer_controller.dart";
 
 import "../../../application/answer/application_service/decrement_answer_like_use_case.dart";
 import "../../../application/answer/application_service/increment_answer_like_use_case.dart";
@@ -12,33 +13,43 @@ part 'like_answer_controller.g.dart';
 @riverpod
 class LikeAnswerController extends _$LikeAnswerController {
   @override
-  void build() {}
+  Future<void> build() async {}
 
   void increment(final AnswerId answerId) async {
-    final answerRepository = ref.read(answerRepositoryDiProvider);
-    final likedAnswerRepository = ref.read(likedAnswersRepositoryDiProvider);
-    final incrementAnswerLikeUseCase = IncrementAnswerLikeUseCase(
-        repository: answerRepository,
-        likedAnswersRepository: likedAnswerRepository);
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final answerRepository = ref.read(answerRepositoryDiProvider);
+      final likedAnswerRepository = ref.read(likedAnswersRepositoryDiProvider);
+      final incrementAnswerLikeUseCase = IncrementAnswerLikeUseCase(
+          repository: answerRepository,
+          likedAnswersRepository: likedAnswerRepository);
 
-    final session = ref.read(nonNullSessionProvider);
-    final studentId = session.studentId;
+      final session = ref.read(nonNullSessionProvider);
+      final studentId = session.studentId;
 
-    incrementAnswerLikeUseCase.execute(
-        studentId: studentId, answerId: answerId);
+      incrementAnswerLikeUseCase.execute(
+          studentId: studentId, answerId: answerId);
+    });
+
+    ref.invalidate(getAnswerControllerProvider);
   }
 
   void decrement(final AnswerId answerId) async {
-    final answerRepository = ref.read(answerRepositoryDiProvider);
-    final likedAnswerRepository = ref.read(likedAnswersRepositoryDiProvider);
-    final decrementAnswerLikeUseCase = DecrementAnswerLikeUseCase(
-        repository: answerRepository,
-        likedAnswersRepository: likedAnswerRepository);
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final answerRepository = ref.read(answerRepositoryDiProvider);
+      final likedAnswerRepository = ref.read(likedAnswersRepositoryDiProvider);
+      final decrementAnswerLikeUseCase = DecrementAnswerLikeUseCase(
+          repository: answerRepository,
+          likedAnswersRepository: likedAnswerRepository);
 
-    final session = ref.read(nonNullSessionProvider);
-    final studentId = session.studentId;
+      final session = ref.read(nonNullSessionProvider);
+      final studentId = session.studentId;
 
-    decrementAnswerLikeUseCase.execute(
-        answerId: answerId, studentId: studentId);
+      decrementAnswerLikeUseCase.execute(
+          answerId: answerId, studentId: studentId);
+    });
+
+    ref.invalidate(getAnswerControllerProvider);
   }
 }

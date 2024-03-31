@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:studyhub/domain/question/models/question_id.dart';
-import 'package:studyhub/presentation/controllers/get_answer_controller/get_answer_controller.dart';
-import 'package:studyhub/presentation/controllers/like_answer_controller/like_answer_controller.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
+import '../../controllers/like_answer_controller/like_answer_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -32,8 +29,6 @@ class AnswerCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final addFavoriteTeacherControllerState =
-        ref.watch(addFavoriteTeacherControllerProvider);
     final deleteFavoriteTeacherControllerState =
         ref.watch(deleteFavoriteTeacherControllerProvider);
 
@@ -42,6 +37,8 @@ class AnswerCardWidget extends ConsumerWidget {
           .read(addFavoriteTeacherControllerProvider.notifier)
           .addFavoriteTeacher(answerDto.teacherId)
           .then((_) {
+        final addFavoriteTeacherControllerState =
+            ref.read(addFavoriteTeacherControllerProvider);
         if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
@@ -62,7 +59,6 @@ class AnswerCardWidget extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.addFavoriteTeacherText),
           );
-          ref.invalidate(getAnswerControllerProvider);
         }
       });
     }
@@ -92,7 +88,6 @@ class AnswerCardWidget extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
-          ref.invalidate(getAnswerControllerProvider);
         }
       });
     }
@@ -107,7 +102,6 @@ class AnswerCardWidget extends ConsumerWidget {
             .read(likeAnswerControllerProvider.notifier)
             .increment(answerDto.answerId);
       }
-      ref.invalidate(getAnswerControllerProvider);
     }
 
     return Container(

@@ -1,4 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/presentation/controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart";
+import "package:studyhub/presentation/controllers/get_teacher_profile_controller/get_teacher_profile_controller.dart";
 
 import "../../../application/di/favorite_teacher/repository/favorite_teacher_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
@@ -25,5 +27,7 @@ class DeleteFavoriteTeacherController
       );
       await deleteFavoriteTeacherUseCase.execute(teacherId);
     });
+    ref.invalidate(getFavoriteTeacherControllerProvider);
+    ref.invalidate(getTeacherProfileControllerProvider(teacherId));
   }
 }

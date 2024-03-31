@@ -75,8 +75,6 @@ class FavoriteTeachersPage extends ConsumerWidget {
             loading: () => const LoadingOverlay(),
             //エラーときはテキストだけじゃなくてステップアップのログとかと一緒に表示するのもありかも？
             error: (error, stack) {
-              print("エラーはこれです$error");
-              print(stack);
               return const Center(
                   child: Column(
                 children: [

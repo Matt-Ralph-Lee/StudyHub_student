@@ -11,7 +11,7 @@ class TeacherEvaluationRating {
 
   TeacherEvaluationRating(this._value) {
     if (_value < minValue || _value > maxValue) {
-      throw const EvaluationDomainException(
+      throw const TeacherEvaluationDomainException(
           TeacherEvaluationDomainExceptionDetail.invalidRatingValue);
     }
   }

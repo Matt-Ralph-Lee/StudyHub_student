@@ -7,7 +7,7 @@ part of 'add_teacher_evaluation_controller.dart';
 // **************************************************************************
 
 String _$addTeacherEvaluationControllerHash() =>
-    r'46d989419d37db5fb7d9b61a2b04aab03d4dbffb';
+    r'9436a38cde3d2e33e3f5dde9a87235a44b1e5243';
 
 /// See also [AddTeacherEvaluationController].
 @ProviderFor(AddTeacherEvaluationController)

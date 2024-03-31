@@ -73,6 +73,24 @@ class InMemoryAnswerRepository implements IAnswerRepository {
       evaluated: answer.evaluated,
     );
   }
+
+  @override
+  void evaluated(AnswerId answerId) {
+    final answer = store[answerId];
+    if (answer == null) {
+      throw const AnswerInfrastructureException(
+          AnswerInfrastructureExceptionDetail.answerNotFound);
+    }
+    store[answerId] = Answer(
+      answerId: answerId,
+      questionId: answer.questionId,
+      answerText: answer.answerText,
+      answerPhotoPathList: answer.answerPhotoPathList,
+      like: AnswerLike(answer.like.value),
+      teacherId: answer.teacherId,
+      evaluated: true,
+    );
+  }
 }
 
 class InMemoryAnswerIdInitialValue {

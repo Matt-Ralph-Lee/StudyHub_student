@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studyhub/presentation/controllers/get_my_profile_controller/get_my_profile_controller.dart';
 import 'package:studyhub/presentation/shared/constants/page_path.dart';
 
 import '../../application/student/application_service/profile_update_command.dart';
@@ -121,7 +120,6 @@ class EditProfilePage extends HookConsumerWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 completionSnackBar(context, L10n.editSuccessText),
               );
-              ref.invalidate(getMyProfileControllerProvider);
               context.go(PageId.myPage.path);
             }
           });

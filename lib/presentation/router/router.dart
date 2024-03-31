@@ -3,6 +3,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 
 import "../../application/di/session/session_provider.dart";
+import "../../domain/answer_list/models/answer_id.dart";
 import "../../domain/question/models/question_id.dart";
 import "../../domain/teacher/models/teacher_id.dart";
 import "../pages/auth_page.dart";
@@ -120,8 +121,13 @@ GoRouter router(RouterRef ref) {
       path: PageId.evaluationPage.path,
       name: PageId.evaluationPage.name,
       builder: (context, state) {
-        final teacherId = state.extra as TeacherId;
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final teacherId = args[0] as TeacherId;
+        final answerId = args[1] as AnswerId;
+        final questionId = args[2] as QuestionId;
         return EvaluationPage(
+          fromAnswer: answerId,
+          fromQuestion: questionId,
           teacherId: teacherId,
         ); //引数渡す際はこれでいいかね？
       },

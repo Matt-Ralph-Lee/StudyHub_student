@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 
+import '../../../domain/answer_list/models/answer_id.dart';
+import '../../../domain/question/models/question_id.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -10,9 +12,13 @@ import '../../shared/constants/page_path.dart';
 
 class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
   final TeacherId teacherId;
+  final AnswerId fromAnswer;
+  final QuestionId fromQuestion;
   const TextButtonForNavigatingToEvaluationPage({
     Key? key,
     required this.teacherId,
+    required this.fromAnswer,
+    required this.fromQuestion,
   }) : super(key: key);
 
   @override
@@ -21,7 +27,11 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
     void push(BuildContext context) {
       context.push(
         PageId.evaluationPage.path,
-        extra: teacherId,
+        extra: [
+          teacherId,
+          fromAnswer,
+          fromQuestion,
+        ],
       );
     }
 

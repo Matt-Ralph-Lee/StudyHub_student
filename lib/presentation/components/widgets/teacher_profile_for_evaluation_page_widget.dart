@@ -31,16 +31,14 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final getTeacherProfileControllerState =
         ref.watch(getTeacherProfileControllerProvider(teacherId));
-    final addFavoriteTeacherControllerState =
-        ref.watch(addFavoriteTeacherControllerProvider);
-    final deleteFavoriteTeacherControllerState =
-        ref.watch(deleteFavoriteTeacherControllerProvider);
 
     void addFavoriteTeacher() async {
       ref
           .read(addFavoriteTeacherControllerProvider.notifier)
           .addFavoriteTeacher(teacherId)
           .then((_) {
+        final addFavoriteTeacherControllerState =
+            ref.read(addFavoriteTeacherControllerProvider);
         if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
@@ -61,7 +59,6 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.addFavoriteTeacherText),
           );
-          ref.invalidate(getTeacherProfileControllerProvider(teacherId));
         }
       });
     }
@@ -71,6 +68,8 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           .read(deleteFavoriteTeacherControllerProvider.notifier)
           .deleteFavoriteTeacher(teacherId)
           .then((_) {
+        final deleteFavoriteTeacherControllerState =
+            ref.read(deleteFavoriteTeacherControllerProvider);
         if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
@@ -91,7 +90,6 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
-          ref.invalidate(getTeacherProfileControllerProvider(teacherId));
         }
       });
     }

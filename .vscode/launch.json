@@ -8,9 +8,8 @@
       "flutterMode": "debug",
       "program": "lib/main.dart",
       "args": [
-        "-d",
+        // "-d",
         // "sdk gphone64 x86 64",
-        "Chrome",
         "--dart-define-from-file=scripts/flavors/dev.json"
       ]
     },

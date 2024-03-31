@@ -46,7 +46,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                 FontSizeSet.header1,
               ),
             ),
-            label: "evaluationPage",
+            label: "myPage",
           )
         ],
         selectedIndex: navigationShell.currentIndex,

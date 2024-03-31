@@ -6,6 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception.dart';
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
+import '../../domain/answer_list/models/answer_id.dart';
+import '../../domain/question/models/question_id.dart';
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/completion_snack_bar.dart';
 import '../components/widgets/confirm_teacher_evaluation_modal_widget.dart';
@@ -17,7 +19,6 @@ import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_evaluation_page_widget.dart';
 import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../controllers/add_teacher_evaluation_controller/add_teacher_evaluation_controller.dart';
-import '../controllers/get_answer_controller/get_answer_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -25,10 +26,14 @@ import '../shared/constants/l10n.dart';
 
 //i
 class EvaluationPage extends HookConsumerWidget {
+  final AnswerId fromAnswer;
+  final QuestionId fromQuestion;
   final TeacherId teacherId;
   const EvaluationPage({
     super.key,
     required this.teacherId,
+    required this.fromAnswer,
+    required this.fromQuestion,
   });
 
   @override
@@ -39,7 +44,7 @@ class EvaluationPage extends HookConsumerWidget {
     final verticalPadding = screenHeight * 0.05;
     final numOfSelectedStars = useState<int>(0);
     final evaluationTextController = useTextEditingController();
-    final isEvaluationTextFilled = useState<bool>(false);
+    final isEvaluationTextValid = useState<bool>(false);
     final addFavoriteTeacherControllerState =
         ref.watch(addFavoriteTeacherControllerProvider);
     final teacherEvaluationControllerState =
@@ -50,7 +55,7 @@ class EvaluationPage extends HookConsumerWidget {
     }
 
     void checkEvaluationTextFilled(String text) {
-      isEvaluationTextFilled.value = text.isNotEmpty;
+      isEvaluationTextValid.value = text.length > 10 && text.length < 200;
     }
 
     void evaluateTeacher() async {
@@ -66,13 +71,16 @@ class EvaluationPage extends HookConsumerWidget {
         ref
             .read(addTeacherEvaluationControllerProvider.notifier)
             .addTeacherEvaluation(
-              teacherId,
-              numOfSelectedStars.value,
-              evaluationTextController.text,
+              answerId: fromAnswer,
+              questionId: fromQuestion,
+              teacherId: teacherId,
+              ratingData: numOfSelectedStars.value,
+              commentData: evaluationTextController.text,
             )
             .then((_) {
-          if (teacherEvaluationControllerState.hasError) {
-            final error = teacherEvaluationControllerState.error;
+          final currentState = ref.read(addTeacherEvaluationControllerProvider);
+          if (currentState.hasError) {
+            final error = currentState.error;
             if (error is EvaluationUseCaseException) {
               final errorText = L10n.evaluationUseCaseExceptionMessage(
                   error.detail as EvaluationUseCaseExceptionDetail);
@@ -91,7 +99,6 @@ class EvaluationPage extends HookConsumerWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               completionSnackBar(context, L10n.evaluationSnackBarText),
             );
-            ref.invalidate(getAnswerControllerProvider);
             context.pop();
           }
         });
@@ -128,10 +135,10 @@ class EvaluationPage extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: TextButton(
-                onPressed: numOfSelectedStars.value != 0 &&
-                        isEvaluationTextFilled.value
-                    ? () => evaluateTeacher()
-                    : null,
+                onPressed:
+                    numOfSelectedStars.value != 0 && isEvaluationTextValid.value
+                        ? () => evaluateTeacher()
+                        : null,
                 style: TextButton.styleFrom(
                     foregroundColor: ColorSet.of(context).primary,
                     disabledForegroundColor:

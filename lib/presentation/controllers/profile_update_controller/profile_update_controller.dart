@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/presentation/controllers/get_my_profile_controller/get_my_profile_controller.dart";
 
 import "../../../application/di/photo/photo_repository_provider.dart";
 import "../../../application/di/school/school_repository_provider.dart";
@@ -16,19 +17,24 @@ class ProfileUpdateController extends _$ProfileUpdateController {
   Future<void> build() async {}
 
   Future<void> profileUpdate(ProfileUpdateCommand command) async {
-    final session = ref.watch(nonNullSessionProvider);
-    final studentRepository = ref.read(studentRepositoryDiProvider);
-    final schoolRepository = ref.read(schoolRepositoryDiProvider);
-    final schoolService = SchoolService(schoolRepository);
-    final photoRepository = ref.read(photoRepositoryDiProvider);
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final session = ref.watch(nonNullSessionProvider);
+      final studentRepository = ref.read(studentRepositoryDiProvider);
+      final schoolRepository = ref.read(schoolRepositoryDiProvider);
+      final schoolService = SchoolService(schoolRepository);
+      final photoRepository = ref.read(photoRepositoryDiProvider);
 
-    final profileUpdateUseCase = ProfileUpdateUseCase(
-      session: session,
-      repository: studentRepository,
-      schoolService: schoolService,
-      photoRepository: photoRepository,
-    );
+      final profileUpdateUseCase = ProfileUpdateUseCase(
+        session: session,
+        repository: studentRepository,
+        schoolService: schoolService,
+        photoRepository: photoRepository,
+      );
 
-    profileUpdateUseCase.execute(command);
+      profileUpdateUseCase.execute(command);
+    });
+
+    ref.invalidate(getMyProfileControllerProvider);
   }
 }

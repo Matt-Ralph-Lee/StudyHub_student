@@ -43,8 +43,8 @@ class AddQuestionController extends _$AddQuestionController {
         questionSubject: subject,
         selectedTeacherListData: selectedTeachersId,
       );
-      ref.invalidate(getMyQuestionControllerProvider);
-      ref.invalidate(getMyBookmarksControllerProvider);
     });
+    ref.invalidate(getMyQuestionControllerProvider);
+    ref.invalidate(getMyBookmarksControllerProvider);
   }
 }

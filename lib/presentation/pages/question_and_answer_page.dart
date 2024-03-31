@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -130,87 +128,93 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
               height: 40,
             ),
             getAnswerControllerState.when(
-              data: (answerDto) => answerDto.isNotEmpty
-                  ? Column(
-                      children: [
-                        ExpandablePageView.builder(
-                          controller: PageController(viewportFraction: 0.86),
-                          itemCount: answerDto.length,
-                          onPageChanged: (newIndex) {
-                            selectedAnswerIndex.value = newIndex;
-                          },
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20,
-                                horizontal: 5,
-                              ),
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  right: PaddingSet.getPaddingSize(
-                                    context,
-                                    15,
-                                  ),
-                                ), //marginなので？組み込まずに外からかけてます
-                                child: AnswerCardWidget(
-                                  answerDto: answerDto[index],
+              data: (answerDto) {
+                return answerDto.isNotEmpty
+                    ? Column(
+                        children: [
+                          ExpandablePageView.builder(
+                            controller: PageController(viewportFraction: 0.86),
+                            itemCount: answerDto.length,
+                            onPageChanged: (newIndex) {
+                              selectedAnswerIndex.value = newIndex;
+                            },
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                  horizontal: 5,
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                        if (answerDto[selectedAnswerIndex.value]
-                            .answerPhotoList
-                            .isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: ExpandablePageView.builder(
-                              controller:
-                                  PageController(viewportFraction: 0.86),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: answerDto[selectedAnswerIndex.value]
-                                  .answerPhotoList
-                                  .length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                      right: PaddingSet.getPaddingSize(
-                                        context,
-                                        15,
-                                      ),
-                                    ), //marginなので？組み込まずに外からかけてます
-                                    child: AnswerPictureWidget(
-                                      photoPath:
-                                          answerDto[selectedAnswerIndex.value]
-                                              .answerPhotoList[index],
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    right: PaddingSet.getPaddingSize(
+                                      context,
+                                      15,
                                     ),
+                                  ), //marginなので？組み込まずに外からかけてます
+                                  child: AnswerCardWidget(
+                                    answerDto: answerDto[index],
                                   ),
-                                );
-                              },
-                            ),
+                                ),
+                              );
+                            },
                           ),
-                        if (!answerDto[selectedAnswerIndex.value].isEvaluated &&
-                            isMyQuestion)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 24),
-                            child: TextButtonForNavigatingToEvaluationPage(
-                              teacherId: answerDto[selectedAnswerIndex.value]
-                                  .teacherId,
+                          if (answerDto[selectedAnswerIndex.value]
+                              .answerPhotoList
+                              .isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: ExpandablePageView.builder(
+                                controller:
+                                    PageController(viewportFraction: 0.86),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: answerDto[selectedAnswerIndex.value]
+                                    .answerPhotoList
+                                    .length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                        right: PaddingSet.getPaddingSize(
+                                          context,
+                                          15,
+                                        ),
+                                      ), //marginなので？組み込まずに外からかけてます
+                                      child: AnswerPictureWidget(
+                                        photoPath:
+                                            answerDto[selectedAnswerIndex.value]
+                                                .answerPhotoList[index],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
+                          if (!answerDto[selectedAnswerIndex.value]
+                                  .isEvaluated &&
+                              isMyQuestion)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 24),
+                              child: TextButtonForNavigatingToEvaluationPage(
+                                teacherId: answerDto[selectedAnswerIndex.value]
+                                    .teacherId,
+                                fromAnswer: answerDto[selectedAnswerIndex.value]
+                                    .answerId,
+                                fromQuestion: questionId,
+                              ),
+                            ),
+                          const SizedBox(
+                            height: 40,
                           ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                      ],
-                    )
-                  : Text("回答までしばらくお待ちください",
-                      style: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.header3),
-                          color: ColorSet.of(context).text)),
+                        ],
+                      )
+                    : Text("回答までしばらくお待ちください",
+                        style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                                context, FontSizeSet.header3),
+                            color: ColorSet.of(context).text));
+              },
               loading: () => const LoadingOverlay(),
               error: (error, stack) {
                 return const Center(
