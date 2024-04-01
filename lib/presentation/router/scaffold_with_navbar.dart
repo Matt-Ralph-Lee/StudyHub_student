@@ -31,7 +31,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                 FontSizeSet.header1,
               ),
             ),
-            label: 'searchQuestions',
+            label: 'home',
           ),
           const NavigationDestination(
             icon: ShowCreateQuestionBottomSheet(),

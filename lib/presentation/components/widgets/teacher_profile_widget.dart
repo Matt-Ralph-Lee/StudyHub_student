@@ -50,7 +50,7 @@ class TeacherProfileWidget extends StatelessWidget {
                               teacherProfileDto.profilePhotoPath,
                             ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Expanded(
@@ -129,8 +129,8 @@ class TeacherProfileWidget extends StatelessWidget {
                       subject,
                       style: TextStyle(
                         fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
+                        fontSize:
+                            FontSizeSet.getFontSize(context, FontSizeSet.body),
                         color: ColorSet.of(context).text,
                       ),
                     );
@@ -170,7 +170,7 @@ class TeacherProfileWidget extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
                     fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header3),
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
                     color: ColorSet.of(context).text,
                   ),
                 ),
@@ -208,7 +208,7 @@ class TeacherProfileWidget extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
                     fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header3),
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
                     color: ColorSet.of(context).text,
                   ),
                 ),

@@ -89,7 +89,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                                 child: Text(
                                   questionCardDto.questionTitle,
                                   style: TextStyle(
-                                      fontWeight: FontWeightSet.normal,
+                                      fontWeight: FontWeightSet.semibold,
                                       fontSize: FontSizeSet.getFontSize(
                                           context, FontSizeSet.header3),
                                       color: ColorSet.of(context).text),

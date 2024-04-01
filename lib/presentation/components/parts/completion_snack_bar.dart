@@ -6,7 +6,7 @@ import '../../shared/constants/font_weight_set.dart';
 
 SnackBar completionSnackBar(BuildContext context, String content) {
   return SnackBar(
-    backgroundColor: ColorSet.of(context).greySurface,
+    backgroundColor: ColorSet.of(context).surface,
     content: Text(
       content,
       style: TextStyle(
@@ -15,12 +15,7 @@ SnackBar completionSnackBar(BuildContext context, String content) {
           color: ColorSet.of(context).text),
     ),
     behavior: SnackBarBehavior.floating,
-    margin: const EdgeInsets.only(
-        bottom: 20,
-        // bottom: MediaQuery.of(context).size.height -
-        //     (MediaQuery.of(context).size.width < 600 ? 150 : 225), //ipadレスポンシブ
-        right: 20,
-        left: 20),
+    margin: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20.0),
       side: BorderSide(

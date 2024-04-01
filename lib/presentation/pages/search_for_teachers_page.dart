@@ -15,6 +15,7 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
 class SearchForTeachersPage extends HookConsumerWidget {
@@ -71,7 +72,8 @@ class SearchForTeachersPage extends HookConsumerWidget {
             if (searchTerm.value.isEmpty) ...[
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: PaddingSet.getPaddingSize(context, 24)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -90,7 +92,8 @@ class SearchForTeachersPage extends HookConsumerWidget {
                 ),
               ),
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                padding: EdgeInsets.symmetric(
+                    horizontal: PaddingSet.getPaddingSize(context, 24)),
                 sliver: favoriteTeachersState.when(
                   data: (teachers) => teachers.isNotEmpty
                       ? SliverList(
@@ -127,7 +130,8 @@ class SearchForTeachersPage extends HookConsumerWidget {
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: PaddingSet.getPaddingSize(context, 24)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -146,7 +150,8 @@ class SearchForTeachersPage extends HookConsumerWidget {
                 ),
               ),
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                padding: EdgeInsets.symmetric(
+                    horizontal: PaddingSet.getPaddingSize(context, 24)),
                 sliver: favoriteTeachersState.when(
                   data: (teachers) => teachers.isNotEmpty
                       ? SliverList(
@@ -180,7 +185,9 @@ class SearchForTeachersPage extends HookConsumerWidget {
             ] else ...[
               SliverPadding(
                 padding: EdgeInsets.only(
-                    top: 30, right: horizontalPadding, left: horizontalPadding),
+                    top: 30,
+                    right: PaddingSet.getPaddingSize(context, 24),
+                    left: PaddingSet.getPaddingSize(context, 24)),
                 sliver: searchForTeachersState.when(
                   data: (teachers) => teachers != null && teachers.isNotEmpty
                       ? SliverList(
@@ -219,13 +226,8 @@ class SearchForTeachersPage extends HookConsumerWidget {
                   loading: () =>
                       const SliverToBoxAdapter(child: LoadingOverlay()),
                   error: (error, stack) {
-                    return const SliverToBoxAdapter(
-                      child: Center(
-                          child: Column(
-                        children: [
-                          TextForError(),
-                        ],
-                      )),
+                    return const SliverFillRemaining(
+                      child: Center(child: TextForError()),
                     );
                   },
                 ),

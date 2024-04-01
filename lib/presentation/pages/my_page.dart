@@ -72,7 +72,7 @@ class MyPage extends HookConsumerWidget {
                   [
                     Padding(
                       padding: const EdgeInsets.only(
-                          right: 20, left: 20, bottom: 20),
+                          right: 24, left: 24, bottom: 20),
                       child: getMyProfileState.when(
                         data: (getMyProfileDto) {
                           final numberOfFavoriteTeachers =
@@ -140,8 +140,8 @@ class MyPage extends HookConsumerWidget {
                           return Padding(
                             padding: const EdgeInsets.only(
                               top: 30,
-                              right: 20,
-                              left: 20,
+                              right: 24,
+                              left: 24,
                             ),
                             child: QuestionAndAnswerCardWidget(
                               questionCardDto: myQuestion,
@@ -175,8 +175,8 @@ class MyPage extends HookConsumerWidget {
                           return Padding(
                             padding: const EdgeInsets.only(
                               top: 30,
-                              right: 20,
-                              left: 20,
+                              right: 24,
+                              left: 24,
                             ),
                             child: QuestionAndAnswerCardWidget(
                               questionCardDto: myBookmark,
