@@ -11,7 +11,7 @@ void showErrorModalWidget(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        backgroundColor: ColorSet.of(context).surface,
+        backgroundColor: ColorSet.of(context).greySurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 0,
         child: Padding(
@@ -35,7 +35,7 @@ void showErrorModalWidget(BuildContext context) {
               ),
               TextButton(
                 child: Text(
-                  L10n.modalBackText,
+                  L10n.closeText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
                       fontSize: FontSizeSet.body,

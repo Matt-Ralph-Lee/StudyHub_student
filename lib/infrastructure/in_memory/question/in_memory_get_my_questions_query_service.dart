@@ -53,26 +53,27 @@ class InMemoryGetMyQuestionsQueryService
     final mostLikedAnswer = question.getMostLikedAnswer();
     if (mostLikedAnswer == null) {
       return QuestionCardDto(
-          questionId: question.questionId,
-          studentProfilePhotoPath: student.profilePhotoPath.value,
-          questionTitle: question.questionTitle.value,
-          questionText: question.questionText.value,
-          teacherProfilePhotoPath: null,
-          answerText: null);
-    }
-
-    final teacher =
-        _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
-    if (teacher == null) {
-      throw const QuestionInfrastructureException(
-          QuestionInfrastructureExceptionDetail.teacherNotFound);
-    }
-    return QuestionCardDto(
         questionId: question.questionId,
         studentProfilePhotoPath: student.profilePhotoPath.value,
         questionTitle: question.questionTitle.value,
         questionText: question.questionText.value,
-        teacherProfilePhotoPath: teacher.profilePhotoPath.value,
-        answerText: mostLikedAnswer.answerText.value);
+        teacherProfilePhotoPath: null,
+        answerText: null,
+        isMine: question.studentId == student.studentId,
+      );
+    }
+
+    final teacher =
+        _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
+
+    return QuestionCardDto(
+      questionId: question.questionId,
+      studentProfilePhotoPath: student.profilePhotoPath.value,
+      questionTitle: question.questionTitle.value,
+      questionText: question.questionText.value,
+      teacherProfilePhotoPath: teacher?.profilePhotoPath.value,
+      answerText: mostLikedAnswer.answerText.value,
+      isMine: question.studentId == student.studentId,
+    );
   }
 }

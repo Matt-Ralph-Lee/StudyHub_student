@@ -20,9 +20,10 @@ class ProgressBar extends HookWidget {
         Text(
           progressText,
           style: TextStyle(
-              color: ColorSet.of(context).text,
-              fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.header3),
+            color: ColorSet.of(context).text,
+            fontWeight: FontWeightSet.normal,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header3),
+          ),
         ),
         const SizedBox(height: 10),
         Container(

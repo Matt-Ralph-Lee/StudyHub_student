@@ -8,6 +8,8 @@ import '../components/widgets/notification_card_widget.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 
 //notificationのdto的なやつ（まだ定義されてないよね？）ちゃんと定義されたら差し替える
 class Notification {
@@ -28,8 +30,6 @@ class NotificationPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = screenWidth * 0.1;
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final currentWeekday = today.weekday;
@@ -86,25 +86,38 @@ class NotificationPage extends ConsumerWidget {
           postedAtDateTime.year, postedAtDateTime.month, postedAtDateTime.day);
 
       if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
-        notifications.add(const Padding(
-          padding: EdgeInsets.only(top: 40),
-          child: TextForNotificationSectionHeader(text: "今日"),
+        notifications.add(Padding(
+          padding: EdgeInsets.only(
+              top: PaddingSet.getPaddingSize(
+            context,
+            40,
+          )),
+          child: const TextForNotificationSectionHeader(text: L10n.todayText),
         ));
         isTodayAdded = true;
       } else if (postedAtDateTime
               .isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
           postedAtDateTime.isBefore(today) &&
           !isThisWeekAdded) {
-        notifications.add(const Padding(
-          padding: EdgeInsets.only(top: 40),
-          child: TextForNotificationSectionHeader(text: "今週"),
+        notifications.add(Padding(
+          padding: EdgeInsets.only(
+              top: PaddingSet.getPaddingSize(
+            context,
+            40,
+          )),
+          child:
+              const TextForNotificationSectionHeader(text: L10n.thisWeekText),
         ));
         isThisWeekAdded = true;
       } else if (postedAtDateTime.isBefore(firstDayOfWeek) &&
           !isLastWeekAdded) {
-        notifications.add(const Padding(
-          padding: EdgeInsets.only(top: 40),
-          child: TextForNotificationSectionHeader(text: "それ以前"),
+        notifications.add(Padding(
+          padding: EdgeInsets.only(
+              top: PaddingSet.getPaddingSize(
+            context,
+            40,
+          )),
+          child: const TextForNotificationSectionHeader(text: L10n.beforeText),
         ));
         isLastWeekAdded = true;
       }
@@ -125,17 +138,20 @@ class NotificationPage extends ConsumerWidget {
           icon: Icon(
             Icons.chevron_left,
             color: ColorSet.of(context).icon,
-            size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+            size: FontSizeSet.getFontSize(context, 30),
           ),
           onPressed: () => context.pop(),
         ),
         backgroundColor: ColorSet.of(context).background,
         centerTitle: true,
         title: Text(
-          'お知らせ',
+          L10n.notificationTitleText,
           style: TextStyle(
               fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header3),
+              fontSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.body,
+              ),
               color: ColorSet.of(context).text),
         ),
       ),
@@ -143,7 +159,11 @@ class NotificationPage extends ConsumerWidget {
       body: ListView.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          padding: EdgeInsets.symmetric(
+              horizontal: PaddingSet.getPaddingSize(
+            context,
+            20,
+          )),
           child: notifications[index],
         ),
       ),

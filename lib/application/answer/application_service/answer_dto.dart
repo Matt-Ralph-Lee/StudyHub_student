@@ -9,6 +9,9 @@ class AnswerDto {
   final String _answerText;
   final int _answerLike;
   final bool _isFollowing;
+  final bool _isEvaluated; //追加
+  final List<String> _answerPhotoList;
+  final bool _hasLiked;
 
   AnswerId get answerId => _answerId;
   TeacherId get teacherId => _teacherId;
@@ -17,6 +20,9 @@ class AnswerDto {
   String get answerText => _answerText;
   int get answerLike => _answerLike;
   bool get isFollowing => _isFollowing;
+  bool get isEvaluated => _isEvaluated; //追加
+  List<String> get answerPhotoList => _answerPhotoList;
+  bool get hasLiked => _hasLiked;
 
   AnswerDto({
     required final AnswerId answerId,
@@ -26,11 +32,17 @@ class AnswerDto {
     required final String answerText,
     required final int answerLike,
     required final bool isFollowing,
+    required final bool isEvaluated, //追加
+    required final List<String> answerPhotoList,
+    required final bool hasLiked,
   })  : _answerId = answerId,
         _teacherId = teacherId,
         _teacherName = teacherName,
         _teacherProfilePath = teacherProfilePath,
         _answerText = answerText,
         _answerLike = answerLike,
-        _isFollowing = isFollowing;
+        _isFollowing = isFollowing,
+        _isEvaluated = isEvaluated,
+        _answerPhotoList = answerPhotoList,
+        _hasLiked = hasLiked;
 }

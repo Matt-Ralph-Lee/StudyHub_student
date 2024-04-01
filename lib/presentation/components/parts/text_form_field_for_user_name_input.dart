@@ -4,6 +4,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/padding_set.dart';
 
 class TextFormFieldForUserNameInput extends StatelessWidget {
   final TextEditingController controller;
@@ -27,12 +28,13 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
                 L10n.usernameTextFieldLabelText,
                 style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.annotation,
+                    fontSize: FontSizeSet.getFontSize(
+                        context, FontSizeSet.annotation),
                     color: ColorSet.of(context).greyText),
               )
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
           TextFormField(
             controller: controller,
             onChanged: onChanged,
@@ -43,13 +45,20 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
             */
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.annotation,
+                fontSize: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.body,
+                ),
                 color: ColorSet.of(context).text),
             cursorColor: ColorSet.of(context).text,
-            cursorWidth: 1,
+            cursorWidth: screenWidth < 600 ? 1 : 1.5,
+            cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.body),
             decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 20.0),
+              contentPadding: EdgeInsets.only(
+                top: PaddingSet.getPaddingSize(context, 15),
+                bottom: PaddingSet.getPaddingSize(context, 15),
+                left: PaddingSet.getPaddingSize(context, 20),
+              ),
               fillColor: ColorSet.of(context).greySurface,
               filled: true,
               border: OutlineInputBorder(

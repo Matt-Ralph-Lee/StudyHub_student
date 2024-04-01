@@ -17,7 +17,7 @@ class TextForNotificationSectionHeader extends StatelessWidget {
       style: TextStyle(
           color: ColorSet.of(context).text,
           fontWeight: FontWeightSet.normal,
-          fontSize: FontSizeSet.body),
+          fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body)),
     );
   }
 }

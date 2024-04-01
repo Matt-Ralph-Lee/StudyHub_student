@@ -35,9 +35,9 @@ class ElevatedButtonForAuth extends StatelessWidget {
         ),
         child: Text(
           buttonText,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
           ),
         ),
       ),

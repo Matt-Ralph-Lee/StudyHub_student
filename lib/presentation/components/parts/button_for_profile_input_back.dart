@@ -25,7 +25,8 @@ class ButtonForProfileInputBack extends HookWidget {
           L10n.backButtonText,
           style: TextStyle(
               fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.annotation,
+              fontSize:
+                  FontSizeSet.getFontSize(context, FontSizeSet.annotation),
               color: ColorSet.of(context).primary),
         ),
       ),

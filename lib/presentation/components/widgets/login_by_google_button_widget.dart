@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/shared/constants/page_path.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/page_path.dart';
 
 class LoginByGoogleButtonWidget extends StatelessWidget {
   const LoginByGoogleButtonWidget({
@@ -36,7 +36,10 @@ class LoginByGoogleButtonWidget extends StatelessWidget {
           L10n.loginByGoogleButtonText,
           style: TextStyle(
               fontWeight: FontWeightSet.normal,
-              fontSize: FontSizeSet.annotation,
+              fontSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.annotation,
+              ),
               color: ColorSet.of(context).text),
         ),
       ),

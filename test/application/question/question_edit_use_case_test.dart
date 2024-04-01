@@ -35,7 +35,7 @@ void main() {
   final answerList = AnswerList(answerListData);
   final seenCount = SeenCount(0);
   const resolved = false;
-  final selectedTeacherList = SelectedTeacherList(selectedTeacherList: []);
+  final selectedTeacherList = SelectedTeacherList([]);
   final question = Question(
       questionId: questionId,
       questionSubject: questionSubject,
@@ -75,7 +75,7 @@ void main() {
           questionId: questionId,
           questionTitleData: null,
           questionTextData: null,
-          localPathList: ["assets/images/sample_picture_hd.png"],
+          localPathList: ["assets/photos/profile_photo/sample_picture_hd.png"],
           selectedTeacherList: null);
       final useCase = QuestionEditUseCase(
           session: session,

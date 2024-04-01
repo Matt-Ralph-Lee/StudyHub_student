@@ -13,17 +13,14 @@ class TextForProfileCompletionWelcome extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       width: screenWidth * 0.8,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            L10n.welcomeText,
-            style: TextStyle(
-                color: ColorSet.of(context).text,
-                fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.header1),
-          ),
-        ],
+      child: Center(
+        child: Text(
+          L10n.welcomeText,
+          style: TextStyle(
+              color: ColorSet.of(context).text,
+              fontWeight: FontWeightSet.normal,
+              fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header1)),
+        ),
       ),
     );
   }

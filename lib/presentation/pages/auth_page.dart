@@ -29,16 +29,17 @@ class AuthPage extends ConsumerWidget {
         children: [
           Expanded(
             child: Container(
-              height: 0.5,
+              height: FontSizeSet.getFontSize(context, 0.5),
               color: Colors.grey,
             ),
           ),
           const SizedBox(width: 10),
-          const Text(
+          Text(
             "or",
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.annotation,
+                fontSize:
+                    FontSizeSet.getFontSize(context, FontSizeSet.annotation),
                 color: Colors.grey),
           ),
           const SizedBox(width: 10),
@@ -69,12 +70,14 @@ class AuthPage extends ConsumerWidget {
                   dividerColor: Colors.transparent,
                   labelColor: ColorSet.of(context).text,
                   unselectedLabelColor: ColorSet.of(context).unselectedText,
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.header3),
-                  unselectedLabelStyle: const TextStyle(
+                      fontSize: FontSizeSet.getFontSize(
+                          context, FontSizeSet.header3)),
+                  unselectedLabelStyle: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.header3),
+                      fontSize: FontSizeSet.getFontSize(
+                          context, FontSizeSet.header3)),
                   tabs: const [
                     Tab(text: L10n.loginToggleText),
                     Tab(text: L10n.signUpToggleText),

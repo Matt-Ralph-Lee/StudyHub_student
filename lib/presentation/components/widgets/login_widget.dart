@@ -11,7 +11,7 @@ import '../../shared/constants/page_path.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_form_field_for_email_address_input.dart';
 import '../parts/text_form_field_for_password_input.dart';
-import 'show_domain_exception_modal_widget.dart';
+import 'specific_exception_modal_widget.dart';
 import 'show_error_modal_widget.dart';
 
 class LoginWidget extends HookConsumerWidget {
@@ -50,17 +50,24 @@ class LoginWidget extends HookConsumerWidget {
 
     void checkPasswordFilled(String text) {
       if (text.isEmpty) {
-        passwordInputErrorText.value = "パスワードが空です";
+        passwordInputErrorText.value = L10n.isPasswordEmptyText;
       }
       isPasswordFilled.value = text.isNotEmpty;
     }
 
     void push(BuildContext context) {
-      context.push(PageId.evaluationPage.path);
+      context.push(PageId.searchQuestions.path);
     }
 
     return Column(
       children: [
+        ElevatedButton(
+          onPressed: () => push(context),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.red),
+          ),
+          child: const Text("a"),
+        ),
         TextFormFieldForEmailAddressInput(
           controller: loginEmailController,
           onChanged: checkEmailFilled,
@@ -72,7 +79,7 @@ class LoginWidget extends HookConsumerWidget {
           onChanged: checkPasswordFilled,
           errorText: passwordInputErrorText.value,
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 40),
         ElevatedButtonForAuth(
           buttonText: L10n.loginButtonText,
           onPressed: isEmailFilled.value && isPasswordFilled.value
@@ -84,12 +91,19 @@ class LoginWidget extends HookConsumerWidget {
                       .then((_) {
                     final currentState =
                         ref.read(studentAuthControllerProvider);
-                    if (currentState is AsyncError) {
+                    if (currentState.hasError) {
                       final error = currentState.error;
                       if (error is StudentAuthDomainException) {
                         final errorText = L10n.getStudentAuthExceptionMessage(
                             error.detail as StudentAuthDomainExceptionDetail);
-                        showDomainExceptionModalWidget(context, errorText);
+                        //ここ変えてある
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SpecificExceptionModalWidget(
+                                errorMessage: errorText,
+                              );
+                            });
                       } else {
                         showErrorModalWidget(context);
                       }

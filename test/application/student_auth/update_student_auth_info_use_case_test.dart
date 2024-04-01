@@ -5,7 +5,6 @@ import 'package:studyhub/application/student_auth/application_service/update_stu
 import 'package:studyhub/application/student_auth/application_service/update_student_auth_info_use_case.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/models/password.dart';
-import 'package:studyhub/domain/student_auth/models/student_auth_info.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_get_student_auth_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
 
@@ -47,20 +46,6 @@ void main() async {
       await useCase.execute(command);
     });
   });
-}
-
-void _printStudentAuthInfo(final StudentAuthInfo? studentAuthInfo) {
-  if (studentAuthInfo == null) {
-    debugPrint(null);
-    return;
-  }
-  final studentId = studentAuthInfo.studentId;
-  final emailAddress = studentAuthInfo.emailAddress;
-  final password = studentAuthInfo.password;
-  final isVerified = studentAuthInfo.isVerified;
-
-  debugPrint(
-      'studentId: ${studentId.value}\nemailAddress: ${emailAddress.value}\npassword: ${password.value}\nisVerified: $isVerified\n');
 }
 
 void _printStudentAuthInfoWithoutPassword(

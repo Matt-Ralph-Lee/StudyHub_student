@@ -1,3 +1,5 @@
+import '../../../domain/answer_list/models/answer_id.dart';
+import '../../../domain/answer_list/models/i_answer_repository.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/teacher_evaluation/models/teacher_evaluation.dart';
 import '../../../domain/teacher_evaluation/models/teacher_evaluation_comment.dart';
@@ -9,14 +11,18 @@ import '../../shared/session/session.dart';
 class TeacherEvaluationAddUseCase {
   final Session _session;
   final ITeacherEvaluationRepository _repository;
+  final IAnswerRepository _answerRepository;
 
   TeacherEvaluationAddUseCase({
     required final Session session,
     required final ITeacherEvaluationRepository repository,
+    required final IAnswerRepository answerRepository,
   })  : _session = session,
-        _repository = repository;
+        _repository = repository,
+        _answerRepository = answerRepository;
 
   Future<void> execute({
+    required final AnswerId answerId,
     required final TeacherId to,
     required final int ratingData,
     required final String commentData,
@@ -34,5 +40,7 @@ class TeacherEvaluationAddUseCase {
     );
 
     await _repository.save(teacherEvaluation);
+
+    _answerRepository.evaluated(answerId);
   }
 }

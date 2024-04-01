@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
-import "package:studyhub/presentation/pages/page1.dart";
-import "package:studyhub/presentation/pages/page2.dart";
-import "package:studyhub/presentation/pages/page3.dart";
 
 import "../../application/di/session/session_provider.dart";
+import "../../domain/answer_list/models/answer_id.dart";
+import "../../domain/question/models/question_id.dart";
+import "../../domain/teacher/models/teacher_id.dart";
 import "../pages/auth_page.dart";
+import "../pages/create_question_page.dart";
 import "../pages/evaluation_page.dart";
 import '../pages/favorite_teachers_page.dart';
 import "../pages/edit_profile_page.dart";
 import "../pages/menu_page.dart";
 import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
+import "../pages/question_and_answer_page.dart";
 import "../pages/reset_password_page.dart";
-import "../pages/search_teachers_page.dart";
+import "../pages/search_for_teachers_page.dart";
+import "../pages/my_page.dart";
+import "../pages/search_questinos_page.dart";
+import "../pages/select_teachers_page.dart";
+import "../pages/teacher_profile_page.dart";
 import '../shared/utils/accessibility.dart';
 import "scaffold_with_navbar.dart";
 import '../shared/constants/page_path.dart';
@@ -22,9 +28,10 @@ import '../shared/constants/page_path.dart';
 part "router.g.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-final _page1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page1');
-final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page2');
-final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'page3');
+final _page1NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'searchQuestions');
+final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'addQuestion');
+final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'myPage');
 
 @riverpod
 GoRouter router(RouterRef ref) {
@@ -38,9 +45,9 @@ GoRouter router(RouterRef ref) {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: PageId.page1.path,
-              name: PageId.page1.name,
-              builder: (context, state) => const Page1(),
+              path: PageId.searchQuestions.path,
+              name: PageId.searchQuestions.name,
+              builder: (context, state) => const SearchQuestionsPage(),
             )
           ],
           navigatorKey: _page1NavigatorKey,
@@ -48,9 +55,9 @@ GoRouter router(RouterRef ref) {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: PageId.page2.path,
-              name: PageId.page2.name,
-              builder: (context, state) => const Page2(),
+              path: PageId.addQuestion.path,
+              name: PageId.addQuestion.name,
+              builder: (context, state) => const CreateQuestionPage(),
             )
           ],
           navigatorKey: _page2NavigatorKey,
@@ -58,9 +65,9 @@ GoRouter router(RouterRef ref) {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: PageId.page3.path,
-              name: PageId.page3.name,
-              builder: (context, state) => const Page3(),
+              path: PageId.myPage.path,
+              name: PageId.myPage.name,
+              builder: (context, state) => const MyPage(),
             ),
           ],
           navigatorKey: _page3NavigatorKey,
@@ -93,7 +100,7 @@ GoRouter router(RouterRef ref) {
     GoRoute(
       path: PageId.searchTeachers.path,
       name: PageId.searchTeachers.name,
-      builder: (context, state) => const SearchTeachersPage(),
+      builder: (context, state) => const SearchForTeachersPage(),
     ),
     GoRoute(
       path: PageId.favoriteTeachers.path,
@@ -113,7 +120,53 @@ GoRouter router(RouterRef ref) {
     GoRoute(
       path: PageId.evaluationPage.path,
       name: PageId.evaluationPage.name,
-      builder: (context, state) => const EvaluationPage(),
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final teacherId = args[0] as TeacherId;
+        final answerId = args[1] as AnswerId;
+        final questionId = args[2] as QuestionId;
+        return EvaluationPage(
+          fromAnswer: answerId,
+          fromQuestion: questionId,
+          teacherId: teacherId,
+        ); //引数渡す際はこれでいいかね？
+      },
+    ),
+    GoRoute(
+      path: PageId.selectTeachers.path,
+      name: PageId.selectTeachers.name,
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final Function(TeacherId) onPressed = args[0] as Function(TeacherId);
+        final selectedTeachers = args[1] as ValueNotifier<List<TeacherId>>;
+        return SelectTeachersPage(
+          onPressed: onPressed,
+          selectedTeachers: selectedTeachers,
+        ); //引数渡す際はこれでいいかね？
+      },
+    ),
+    GoRoute(
+      path: PageId.teacherProfile.path,
+      name: PageId.teacherProfile.name,
+      builder: (context, state) {
+        final teacherId = state.extra as TeacherId;
+        return TeacherProfilePage(
+          teacherId: teacherId,
+        );
+      },
+    ),
+    GoRoute(
+      path: PageId.questionAndAnswerPage.path,
+      name: PageId.questionAndAnswerPage.name,
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final QuestionId questionId = args[0] as QuestionId;
+        final bool isMyQuestion = args[1] as bool;
+        return QuestionAndAnswerPage(
+          questionId: questionId,
+          isMyQuestion: isMyQuestion,
+        );
+      },
     ),
   ];
 

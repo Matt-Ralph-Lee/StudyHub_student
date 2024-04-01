@@ -28,9 +28,7 @@ class BottomSheetForPickImage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton.icon(
-                onPressed: () {
-                  takePhoto;
-                },
+                onPressed: takePhoto,
                 icon: Icon(
                   Icons.camera,
                   color: ColorSet.of(context).primary,
@@ -40,14 +38,13 @@ class BottomSheetForPickImage extends StatelessWidget {
                   L10n.takePictureText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.body,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
                       color: ColorSet.of(context).text),
                 ),
               ),
               TextButton.icon(
-                onPressed: () {
-                  pickPhoto;
-                },
+                onPressed: pickPhoto,
                 icon: Icon(
                   Icons.image,
                   color: ColorSet.of(context).primary,
@@ -57,7 +54,8 @@ class BottomSheetForPickImage extends StatelessWidget {
                   L10n.selectPictureFromGalleryText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.body,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
                       color: ColorSet.of(context).text),
                 ),
               )

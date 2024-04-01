@@ -18,7 +18,8 @@ class GetQuestionDetailUseCase {
     if (student == null) {
       return QuestionDetailDto(
           questionId: question.questionId,
-          studentProfilePhotoPath: "/assets/images/sample_user_icon.jpg",
+          studentProfilePhotoPath:
+              "/assets/photos/profile_photo/sample_user_icon.jpg",
           questionTitle: question.questionTitle.value,
           questionText: question.questionText.value,
           questionPhotoPathList: question.questionPhotoPathList

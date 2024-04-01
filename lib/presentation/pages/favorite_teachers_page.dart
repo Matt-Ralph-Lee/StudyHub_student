@@ -6,11 +6,12 @@ import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_favorite_teacher_found.dart';
 import '../components/widgets/favorite_teacher_card_widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
-import '../controllers/favorite_teachers_controller/favorite_teachers_controller.dart';
+import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/page_path.dart';
 
 class FavoriteTeachersPage extends ConsumerWidget {
   const FavoriteTeachersPage({super.key});
@@ -22,7 +23,8 @@ class FavoriteTeachersPage extends ConsumerWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final verticalPadding = screenHeight * 0.05;
 
-    final favoriteTeachersState = ref.watch(favoriteTeacherControllerProvider);
+    final favoriteTeachersState =
+        ref.watch(getFavoriteTeacherControllerProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -56,10 +58,13 @@ class FavoriteTeachersPage extends ConsumerWidget {
                       final teacher = teachers[index];
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: FavoriteTeacherCardWidget(
+                        child: TeacherSmallCardWidget(
                           name: teacher.teacherName,
                           bio: teacher.bio,
                           iconUrl: teacher.profilePhotoPath,
+                          isSelected: false,
+                          onTap: () => context.push(PageId.teacherProfile.path,
+                              extra: teacher.teacherId), //ここ変えた
                         ),
                       );
                     },
@@ -70,8 +75,6 @@ class FavoriteTeachersPage extends ConsumerWidget {
             loading: () => const LoadingOverlay(),
             //エラーときはテキストだけじゃなくてステップアップのログとかと一緒に表示するのもありかも？
             error: (error, stack) {
-              print("エラーはこれです${error}");
-              print(stack);
               return const Center(
                   child: Column(
                 children: [

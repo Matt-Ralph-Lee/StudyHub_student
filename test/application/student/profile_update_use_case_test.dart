@@ -61,7 +61,7 @@ void main() {
         occupation: null,
         school: '第一高校',
         gradeOrGraduateStatus: null,
-        localPhotoPath: 'assets/images/sample_user_icon.jpg',
+        localPhotoPath: 'assets/photos/profile_photo/sample_user_icon.jpg',
       );
       final usecase = ProfileUpdateUseCase(
         session: session,
@@ -84,7 +84,7 @@ void main() {
         occupation: null,
         school: null,
         gradeOrGraduateStatus: null,
-        localPhotoPath: 'assets/images/sample_user_icon2.jpg',
+        localPhotoPath: 'assets/photos/profile_photo/sample_user_icon2.jpg',
       );
       final usecase = ProfileUpdateUseCase(
         session: session,

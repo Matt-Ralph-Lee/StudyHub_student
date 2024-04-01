@@ -1,3 +1,5 @@
+import 'package:studyhub/domain/shared/profile_photo_path.dart';
+
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/school/models/school.dart';
 import '../../../domain/school/services/school_service.dart';
@@ -59,7 +61,7 @@ class ProfileUpdateUseCase {
       if (newSchool != School.noAnswer &&
           !_schoolService.exists(school: newSchool, schoolType: null)) {
         throw const StudentUseCaseException(
-            StudentUseCaseExceptionDetail.noSchoolfound);
+            StudentUseCaseExceptionDetail.noSchoolFound);
       }
 
       student.changeSchool(School(newSchoolData));
@@ -70,21 +72,30 @@ class ProfileUpdateUseCase {
     }
 
     if (newLocalPhotoPath != null) {
-      final profilePhotoPath = createPathFromId(studentId);
-      final image = convertToJpegAndResize(newLocalPhotoPath);
-      final profilePhoto =
-          ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
-      _photoRepository.save([profilePhoto]);
+      if (newLocalPhotoPath.contains("assets")) {
+        final student = _repository.findById(studentId);
+        if (student == null) {
+          throw const StudentUseCaseException(
+              StudentUseCaseExceptionDetail.notFound);
+        }
+        student.changeProfilePhoto(ProfilePhotoPath(newLocalPhotoPath));
+      } else {
+        final profilePhotoPath = createPathFromId(studentId);
+        final image = convertToJpegAndResize(newLocalPhotoPath);
+        final profilePhoto =
+            ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
+        _photoRepository.save([profilePhoto]);
+        final student = _repository.findById(studentId);
+        if (student == null) {
+          throw const StudentUseCaseException(
+              StudentUseCaseExceptionDetail.notFound);
+        }
+        final oldPhotoPath = student.profilePhotoPath;
+        student.changeProfilePhoto(profilePhotoPath);
 
-      final student = _repository.findById(studentId);
-      if (student == null) {
-        throw const StudentUseCaseException(
-            StudentUseCaseExceptionDetail.notFound);
+        _photoRepository.delete(oldPhotoPath);
+        _repository.save(student);
       }
-      final oldPhotoPath = student.profilePhotoPath;
-      student.changeProfilePhoto(profilePhotoPath);
-
-      _photoRepository.delete(oldPhotoPath);
     }
 
     _repository.save(student);

@@ -46,12 +46,14 @@ class InMemorySearchForQuestionsQueryService
     final mostLikedAnswer = question.getMostLikedAnswer();
     if (mostLikedAnswer == null) {
       return QuestionCardDto(
-          questionId: question.questionId,
-          studentProfilePhotoPath: student.profilePhotoPath.value,
-          questionTitle: question.questionTitle.value,
-          questionText: question.questionText.value,
-          teacherProfilePhotoPath: null,
-          answerText: null);
+        questionId: question.questionId,
+        studentProfilePhotoPath: student.profilePhotoPath.value,
+        questionTitle: question.questionTitle.value,
+        questionText: question.questionText.value,
+        teacherProfilePhotoPath: null,
+        answerText: null,
+        isMine: question.studentId == student.studentId,
+      );
     }
 
     final teacher =
@@ -61,11 +63,13 @@ class InMemorySearchForQuestionsQueryService
           QuestionInfrastructureExceptionDetail.teacherNotFound);
     }
     return QuestionCardDto(
-        questionId: question.questionId,
-        studentProfilePhotoPath: student.profilePhotoPath.value,
-        questionTitle: question.questionTitle.value,
-        questionText: question.questionText.value,
-        teacherProfilePhotoPath: teacher.profilePhotoPath.value,
-        answerText: mostLikedAnswer.answerText.value);
+      questionId: question.questionId,
+      studentProfilePhotoPath: student.profilePhotoPath.value,
+      questionTitle: question.questionTitle.value,
+      questionText: question.questionText.value,
+      teacherProfilePhotoPath: teacher.profilePhotoPath.value,
+      answerText: mostLikedAnswer.answerText.value,
+      isMine: question.studentId == student.studentId,
+    );
   }
 }

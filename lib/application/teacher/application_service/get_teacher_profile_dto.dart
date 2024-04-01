@@ -7,6 +7,7 @@ class GetTeacherProfileDto {
   final List<String> _bestSubjects;
   final String _bio;
   final String _introduction;
+  final bool _isFollowing;
 
   GetTeacherProfileDto({
     required final String name,
@@ -17,6 +18,7 @@ class GetTeacherProfileDto {
     required final List<String> bestSubjects,
     required final String bio,
     required final String introduction,
+    required final bool isFollowing,
   })  : _name = name,
         _profilePhotoPath = profilePhotoPath,
         _highSchool = highSchool,
@@ -24,7 +26,8 @@ class GetTeacherProfileDto {
         _enrollmentStatus = enrollmentStatus,
         _bestSubjects = bestSubjects,
         _bio = bio,
-        _introduction = introduction;
+        _introduction = introduction,
+        _isFollowing = isFollowing;
 
   String get name => _name;
   String get profilePhotoPath => _profilePhotoPath;
@@ -34,4 +37,5 @@ class GetTeacherProfileDto {
   List<String> get bestSubjects => _bestSubjects;
   String get bio => _bio;
   String get introduction => _introduction;
+  bool get isFollowing => _isFollowing;
 }
