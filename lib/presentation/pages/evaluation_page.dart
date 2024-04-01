@@ -23,6 +23,7 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 
 //i
 class EvaluationPage extends HookConsumerWidget {
@@ -38,10 +39,6 @@ class EvaluationPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = screenWidth * 0.1;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final verticalPadding = screenHeight * 0.05;
     final numOfSelectedStars = useState<int>(0);
     final evaluationTextController = useTextEditingController();
     final isEvaluationTextValid = useState<bool>(false);
@@ -160,7 +157,15 @@ class EvaluationPage extends HookConsumerWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: horizontalPadding, vertical: verticalPadding),
+              horizontal: PaddingSet.getPaddingSize(
+                context,
+                20,
+              ),
+              vertical: PaddingSet.getPaddingSize(
+                context,
+                20,
+              ),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -21,7 +21,7 @@ class TextButtonForUnFollowTeacher extends StatelessWidget {
         backgroundColor: ColorSet.of(context).primary,
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 10,
+          vertical: 5,
         ),
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,

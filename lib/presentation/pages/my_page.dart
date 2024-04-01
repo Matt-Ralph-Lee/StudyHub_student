@@ -46,7 +46,7 @@ class MyPage extends HookConsumerWidget {
             icon: Icon(
               Icons.notifications_none,
               color: ColorSet.of(context).icon,
-              size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+              size: FontSizeSet.getFontSize(context, 30),
             ),
             onPressed: () => pushToNotificationPage(context),
           ),
@@ -54,7 +54,7 @@ class MyPage extends HookConsumerWidget {
             icon: Icon(
               Icons.menu,
               color: ColorSet.of(context).icon,
-              size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+              size: FontSizeSet.getFontSize(context, 30),
             ),
             onPressed: () => pushToMenuPage(context),
           ),

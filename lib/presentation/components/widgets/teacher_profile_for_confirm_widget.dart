@@ -38,8 +38,14 @@ class TeacherProfileWForConfirmWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircleAvatar(
-              radius: FontSizeSet.getFontSize(context, 15),
-              backgroundImage: NetworkImage(teacherProfileDto.profilePhotoPath),
+              radius: 15,
+              backgroundImage:
+                  teacherProfileDto.profilePhotoPath.contains("assets")
+                      ? AssetImage(teacherProfileDto.profilePhotoPath)
+                          as ImageProvider
+                      : NetworkImage(
+                          teacherProfileDto.profilePhotoPath,
+                        ),
             ),
             const SizedBox(
               width: 20,

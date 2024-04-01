@@ -41,7 +41,7 @@ class TeacherProfileWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 CircleAvatar(
-                  radius: 15,
+                  radius: 40,
                   backgroundImage:
                       teacherProfileDto.profilePhotoPath.contains("assets")
                           ? AssetImage(teacherProfileDto.profilePhotoPath)
@@ -49,6 +49,9 @@ class TeacherProfileWidget extends StatelessWidget {
                           : NetworkImage(
                               teacherProfileDto.profilePhotoPath,
                             ),
+                ),
+                SizedBox(
+                  width: 20,
                 ),
                 Expanded(
                   child: Column(

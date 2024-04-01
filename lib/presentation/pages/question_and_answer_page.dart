@@ -48,7 +48,10 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
           icon: Icon(
             Icons.chevron_left,
             color: ColorSet.of(context).icon,
-            size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+            size: FontSizeSet.getFontSize(
+              context,
+              30,
+            ),
           ),
           onPressed: () => context.pop(),
         ),
@@ -208,12 +211,14 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                           ),
                         ],
                       )
-                    : Text("回答までしばらくお待ちください",
-                        style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text));
+                    : Center(
+                        child: Text(L10n.noAnswerText,
+                            style: TextStyle(
+                                fontWeight: FontWeightSet.normal,
+                                fontSize: FontSizeSet.getFontSize(
+                                    context, FontSizeSet.header3),
+                                color: ColorSet.of(context).text)),
+                      );
               },
               loading: () => const LoadingOverlay(),
               error: (error, stack) {

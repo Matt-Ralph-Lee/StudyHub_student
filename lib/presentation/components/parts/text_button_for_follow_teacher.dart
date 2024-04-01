@@ -24,7 +24,7 @@ class TextButtonForFollowTeacher extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 10,
+          vertical: 5,
         ),
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -97,32 +98,40 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
     return getTeacherProfileControllerState.when(
       data: (getTeacherProfileDto) => getTeacherProfileDto != null
           ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: getTeacherProfileDto.profilePhotoPath
-                              .contains("assets")
-                          ? AssetImage(getTeacherProfileDto.profilePhotoPath)
-                              as ImageProvider
-                          : NetworkImage(
-                              getTeacherProfileDto.profilePhotoPath,
-                            ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      getTeacherProfileDto.name,
-                      style: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.header2),
-                          color: ColorSet.of(context).text),
-                    ),
-                  ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: getTeacherProfileDto.profilePhotoPath
+                                .contains("assets")
+                            ? AssetImage(getTeacherProfileDto.profilePhotoPath)
+                                as ImageProvider
+                            : NetworkImage(
+                                getTeacherProfileDto.profilePhotoPath,
+                              ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: Text(
+                          getTeacherProfileDto.name,
+                          style: TextStyle(
+                              fontWeight: FontWeightSet.normal,
+                              fontSize: FontSizeSet.getFontSize(
+                                  context, FontSizeSet.header2),
+                              color: ColorSet.of(context).text),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
                 ),
                 getTeacherProfileDto.isFollowing
                     ? TextButtonForUnFollowTeacher(

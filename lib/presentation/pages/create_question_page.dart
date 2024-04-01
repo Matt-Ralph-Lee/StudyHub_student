@@ -78,7 +78,7 @@ class CreateQuestionPage extends HookConsumerWidget {
 
     void takePhoto() async {
       final pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
+        source: ImageSource.camera,
       );
       if (pickedFile != null) {
         final List<String> updatedList =

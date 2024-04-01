@@ -73,7 +73,7 @@ class SelectTeachersPage extends HookConsumerWidget {
                   color: ColorSet.of(context).icon,
                   size: FontSizeSet.getFontSize(
                     context,
-                    FontSizeSet.header1,
+                    30,
                   ),
                 ),
                 onPressed: () => Navigator.of(context).pop(),

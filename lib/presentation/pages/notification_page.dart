@@ -138,7 +138,7 @@ class NotificationPage extends ConsumerWidget {
           icon: Icon(
             Icons.chevron_left,
             color: ColorSet.of(context).icon,
-            size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+            size: FontSizeSet.getFontSize(context, 30),
           ),
           onPressed: () => context.pop(),
         ),

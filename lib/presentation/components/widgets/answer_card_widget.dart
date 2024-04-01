@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
@@ -12,6 +15,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
 import '../parts/text_button_for_follow_teacher.dart';
 import '../parts/text_button_for_unfollow_teacher.dart';
@@ -104,6 +108,11 @@ class AnswerCardWidget extends ConsumerWidget {
       }
     }
 
+    void navigateToTeacherProfilePage(
+        BuildContext context, TeacherId teacherId) {
+      context.push(PageId.teacherProfile.path, extra: teacherId);
+    }
+
     return Container(
       width: screenWidth * 0.8, //ここ適当。
       decoration: BoxDecoration(
@@ -125,34 +134,45 @@ class AnswerCardWidget extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundImage:
-                          answerDto.teacherProfilePath.contains("assets")
-                              ? AssetImage(answerDto.teacherProfilePath)
-                                  as ImageProvider
-                              : NetworkImage(
-                                  answerDto.teacherProfilePath,
-                                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => navigateToTeacherProfilePage(
+                        context, answerDto.teacherId),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundImage:
+                              answerDto.teacherProfilePath.contains("assets")
+                                  ? AssetImage(answerDto.teacherProfilePath)
+                                      as ImageProvider
+                                  : NetworkImage(
+                                      answerDto.teacherProfilePath,
+                                    ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Text(
+                            answerDto.teacherName,
+                            style: TextStyle(
+                              fontWeight: FontWeightSet.normal,
+                              fontSize: FontSizeSet.getFontSize(
+                                  context, FontSizeSet.header3),
+                              color: ColorSet.of(context).text,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      answerDto.teacherName,
-                      style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
-                        color: ColorSet.of(context).text,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
                 ),
                 answerDto.isFollowing
                     ? TextButtonForUnFollowTeacher(
