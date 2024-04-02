@@ -1,27 +1,27 @@
-import '../../../domain/report/models/i_report_repository.dart';
-import '../../../domain/report/models/report.dart';
+import '../../../domain/report/models/i_teacher_report_repository.dart';
+import '../../../domain/report/models/teacher_report.dart';
 import '../../../domain/report/models/report_text.dart';
 import '../../shared/session/session.dart';
-import 'report_submit_command.dart';
+import 'teacher_report_submit_command.dart';
 
-class ReportSubmitUseCase {
+class TeacherReportSubmitUseCase {
   final Session _session;
-  final IReportRepository _repository;
+  final ITeacherReportRepository _repository;
 
-  ReportSubmitUseCase({
-    required final IReportRepository repository,
+  TeacherReportSubmitUseCase({
+    required final ITeacherReportRepository repository,
     required final Session session,
   })  : _repository = repository,
         _session = session;
 
-  void execute(final ReportSubmitCommand command) {
+  void execute(final TeacherReportSubmitCommand command) {
     final studentId = _session.studentId;
     final targetTeacherId = command.teacherId;
     final reportReason = command.reportReason;
     final reportTextData = command.reportTextData;
     final reportText = ReportText(reportTextData);
 
-    final report = Report(
+    final report = TeacherReport(
         from: studentId,
         to: targetTeacherId,
         reason: reportReason,
