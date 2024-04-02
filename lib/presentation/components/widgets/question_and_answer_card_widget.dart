@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
 import '../../../application/shared/application_service/question_card_dto.dart';
 import '../../shared/constants/color_set.dart';
@@ -8,7 +10,7 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 
-class QuestionAndAnswerCardWidget extends StatelessWidget {
+class QuestionAndAnswerCardWidget extends ConsumerWidget {
   final QuestionCardDto questionCardDto;
 
   const QuestionAndAnswerCardWidget({
@@ -17,7 +19,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     void navigateToQuestionAndAnswerPage(BuildContext context) {
@@ -26,6 +28,30 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
         questionCardDto.isMine,
       ]);
     }
+
+    final widget = questionCardDto.teacherProfilePhotoPath != null
+        ? ref
+            .watch(getPhotoControllerProvider(
+                questionCardDto.teacherProfilePhotoPath!))
+            .when(
+              data: (data) => CircleAvatar(
+                radius: 15,
+                backgroundImage: Image.memory(data) as ImageProvider,
+              ),
+              error: (error, stackTrace) {
+                print(error);
+                print(stackTrace);
+                print(questionCardDto.teacherProfilePhotoPath);
+                return Text(
+                  "error",
+                  style: TextStyle(color: ColorSet.of(context).text),
+                );
+              },
+              loading: () => const CircularProgressIndicator(),
+            )
+        : const CircleAvatar(
+            backgroundImage: null,
+          );
 
     return GestureDetector(
       onTap: () => navigateToQuestionAndAnswerPage(context),
@@ -53,16 +79,17 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundImage: questionCardDto.studentProfilePhotoPath
-                              .contains("assets")
-                          ? AssetImage(questionCardDto.studentProfilePhotoPath)
-                              as ImageProvider
-                          : NetworkImage(
-                              questionCardDto.studentProfilePhotoPath,
-                            ),
-                    ),
+                    // CircleAvatar(
+                    //   radius: 15,
+                    //   backgroundImage: questionCardDto.studentProfilePhotoPath
+                    //           .contains("assets")
+                    //       ? AssetImage(questionCardDto.studentProfilePhotoPath)
+                    //           as ImageProvider
+                    //       : NetworkImage(
+                    //           questionCardDto.studentProfilePhotoPath,
+                    //         ),
+                    // ),
+                    widget,
                     const SizedBox(
                       width: 20,
                     ),
@@ -165,19 +192,20 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundImage: questionCardDto.teacherProfilePhotoPath !=
-                            null
-                        ? questionCardDto.teacherProfilePhotoPath!
-                                .contains("assets")
-                            ? AssetImage(
-                                    questionCardDto.teacherProfilePhotoPath!)
-                                as ImageProvider
-                            : NetworkImage(
-                                questionCardDto.teacherProfilePhotoPath!)
-                        : null,
-                  ),
+                  // CircleAvatar(
+                  //   radius: 15,
+                  //   backgroundImage: questionCardDto.teacherProfilePhotoPath !=
+                  //           null
+                  //       ? questionCardDto.teacherProfilePhotoPath!
+                  //               .contains("assets")
+                  //           ? AssetImage(
+                  //                   questionCardDto.teacherProfilePhotoPath!)
+                  //               as ImageProvider
+                  //           : NetworkImage(
+                  //               questionCardDto.teacherProfilePhotoPath!)
+                  //       : null,
+                  // ),
+                  widget
                 ],
               ),
             ],

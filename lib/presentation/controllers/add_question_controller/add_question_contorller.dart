@@ -1,7 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:studyhub/presentation/controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart";
 
-import "../../../application/di/photo/photo_repository_provider.dart";
+import '../../../application/di/photo/repository/photo_repository_provider.dart';
 import "../../../application/di/question/factory/question_factory_provider.dart";
 import "../../../application/di/question/repository/question_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
@@ -10,6 +9,7 @@ import "../../../domain/shared/subject.dart";
 import "../../../domain/teacher/models/teacher_id.dart";
 import "../get_my_bookmark_controller/get_my_bookmark_controller.dart";
 import "../get_my_question_controller/get_my_question_controller.dart";
+import "../get_recommended_quesiotns_controller/get_recommended_questions_controller.dart";
 
 part "add_question_contorller.g.dart";
 

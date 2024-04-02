@@ -46,7 +46,7 @@ class InMemoryTeacherInitialValue {
       rating: Rating(4.0),
       bestSubjects: [Subject.highMath],
       profilePhotoPath:
-          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'));
+          ProfilePhotoPath('photos/profile_photo/sample_user_icon.jpg'));
 
   static final teacher2 = Teacher(
     teacherId: TeacherId('00000000000000000002'),
@@ -59,6 +59,6 @@ class InMemoryTeacherInitialValue {
     rating: Rating(3.5),
     bestSubjects: [Subject.midEng],
     profilePhotoPath:
-        ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
+        ProfilePhotoPath('photos/profile_photo/sample_user_icon2.jpg'),
   );
 }
