@@ -16,9 +16,10 @@ import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
 import "../pages/question_and_answer_page.dart";
 import "../pages/reset_password_page.dart";
+import "../pages/search_for_questions_page.dart";
 import "../pages/search_for_teachers_page.dart";
 import "../pages/my_page.dart";
-import "../pages/search_questinos_page.dart";
+import "../pages/home_page.dart";
 import "../pages/select_teachers_page.dart";
 import "../pages/teacher_profile_page.dart";
 import '../shared/utils/accessibility.dart';
@@ -28,8 +29,7 @@ import '../shared/constants/page_path.dart';
 part "router.g.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-final _page1NavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'searchQuestions');
+final _page1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
 final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'addQuestion');
 final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'myPage');
 
@@ -45,9 +45,9 @@ GoRouter router(RouterRef ref) {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: PageId.searchQuestions.path,
-              name: PageId.searchQuestions.name,
-              builder: (context, state) => const SearchQuestionsPage(),
+              path: PageId.home.path,
+              name: PageId.home.name,
+              builder: (context, state) => const HomePage(),
             )
           ],
           navigatorKey: _page1NavigatorKey,
@@ -167,6 +167,11 @@ GoRouter router(RouterRef ref) {
           isMyQuestion: isMyQuestion,
         );
       },
+    ),
+    GoRoute(
+      path: PageId.searchQuestions.path,
+      name: PageId.searchQuestions.name,
+      builder: (context, state) => const SearchForQuestionsPage(),
     ),
   ];
 

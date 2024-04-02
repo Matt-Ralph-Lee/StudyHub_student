@@ -44,7 +44,7 @@ class MenuPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: PaddingSet.getPaddingSize(
             context,
-            20,
+            24,
           )),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

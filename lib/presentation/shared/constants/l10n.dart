@@ -246,7 +246,7 @@ class L10n {
   static const selfIntroductionText = "自己紹介";
   static const noTeacherProfileFoundText = "講師のプロフィールが見つかりませんでした。";
 
-  //search_questions_page
+  //home_page
   static const titleText = "StudyHub";
   static const allTabText = "全て";
   static const middleSchoolMathTabText = "中学英語";
@@ -259,4 +259,7 @@ class L10n {
   static const todayText = "今日";
   static const thisWeekText = "今週";
   static const beforeText = "それ以前";
+
+  //search_question_page
+  static const noQuestionsFound = "該当する質問がありません";
 }
