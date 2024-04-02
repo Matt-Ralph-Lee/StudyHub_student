@@ -190,19 +190,21 @@ void main() {
   group('search for questions properly', () {
     test('should hit all questions', () {
       final usecase = SearchForQuestionUseCase(queryService: queryService);
-      final questionCardList = usecase.execute('');
+      final questionCardList = usecase.execute(searchWord: "", subject: null);
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 5);
     });
     test('should hit two questions', () {
       final usecase = SearchForQuestionUseCase(queryService: queryService);
-      final questionCardList = usecase.execute('積分');
+      final questionCardList =
+          usecase.execute(searchWord: '積分', subject: Subject.midEng);
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 2);
     });
     test('should hit no questions', () {
       final usecase = SearchForQuestionUseCase(queryService: queryService);
-      final questionCardList = usecase.execute('三角関数');
+      final questionCardList =
+          usecase.execute(searchWord: '三角関数', subject: null);
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 0);
     });
