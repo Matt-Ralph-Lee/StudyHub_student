@@ -7,7 +7,7 @@ part of 'serach_questions_controller.dart';
 // **************************************************************************
 
 String _$searchQuestionsControllerHash() =>
-    r'd661bdceb33e6308fd6b6cf2f2d1b6fa0364e81d';
+    r'326bcd081be22ddeb71d24463bffb04bd974c3a6';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,9 +33,11 @@ class _SystemHash {
 abstract class _$SearchQuestionsController
     extends BuildlessAutoDisposeAsyncNotifier<List<QuestionCardDto>?> {
   late final String searchTerm;
+  late final Subject? subject;
 
   FutureOr<List<QuestionCardDto>?> build(
     String searchTerm,
+    Subject? subject,
   );
 }
 
@@ -52,9 +54,11 @@ class SearchQuestionsControllerFamily
   /// See also [SearchQuestionsController].
   SearchQuestionsControllerProvider call(
     String searchTerm,
+    Subject? subject,
   ) {
     return SearchQuestionsControllerProvider(
       searchTerm,
+      subject,
     );
   }
 
@@ -64,6 +68,7 @@ class SearchQuestionsControllerFamily
   ) {
     return call(
       provider.searchTerm,
+      provider.subject,
     );
   }
 
@@ -89,8 +94,11 @@ class SearchQuestionsControllerProvider
   /// See also [SearchQuestionsController].
   SearchQuestionsControllerProvider(
     String searchTerm,
+    Subject? subject,
   ) : this._internal(
-          () => SearchQuestionsController()..searchTerm = searchTerm,
+          () => SearchQuestionsController()
+            ..searchTerm = searchTerm
+            ..subject = subject,
           from: searchQuestionsControllerProvider,
           name: r'searchQuestionsControllerProvider',
           debugGetCreateSourceHash:
@@ -101,6 +109,7 @@ class SearchQuestionsControllerProvider
           allTransitiveDependencies:
               SearchQuestionsControllerFamily._allTransitiveDependencies,
           searchTerm: searchTerm,
+          subject: subject,
         );
 
   SearchQuestionsControllerProvider._internal(
@@ -111,9 +120,11 @@ class SearchQuestionsControllerProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.searchTerm,
+    required this.subject,
   }) : super.internal();
 
   final String searchTerm;
+  final Subject? subject;
 
   @override
   FutureOr<List<QuestionCardDto>?> runNotifierBuild(
@@ -121,6 +132,7 @@ class SearchQuestionsControllerProvider
   ) {
     return notifier.build(
       searchTerm,
+      subject,
     );
   }
 
@@ -129,13 +141,16 @@ class SearchQuestionsControllerProvider
     return ProviderOverride(
       origin: this,
       override: SearchQuestionsControllerProvider._internal(
-        () => create()..searchTerm = searchTerm,
+        () => create()
+          ..searchTerm = searchTerm
+          ..subject = subject,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         searchTerm: searchTerm,
+        subject: subject,
       ),
     );
   }
@@ -149,13 +164,15 @@ class SearchQuestionsControllerProvider
   @override
   bool operator ==(Object other) {
     return other is SearchQuestionsControllerProvider &&
-        other.searchTerm == searchTerm;
+        other.searchTerm == searchTerm &&
+        other.subject == subject;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, searchTerm.hashCode);
+    hash = _SystemHash.combine(hash, subject.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -165,6 +182,9 @@ mixin SearchQuestionsControllerRef
     on AutoDisposeAsyncNotifierProviderRef<List<QuestionCardDto>?> {
   /// The parameter `searchTerm` of this provider.
   String get searchTerm;
+
+  /// The parameter `subject` of this provider.
+  Subject? get subject;
 }
 
 class _SearchQuestionsControllerProviderElement
@@ -175,6 +195,8 @@ class _SearchQuestionsControllerProviderElement
   @override
   String get searchTerm =>
       (origin as SearchQuestionsControllerProvider).searchTerm;
+  @override
+  Subject? get subject => (origin as SearchQuestionsControllerProvider).subject;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

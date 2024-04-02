@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../domain/shared/subject.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_form_field_for_search_teachers.dart';
 import '../components/widgets/loading_overlay_widget.dart';
@@ -22,9 +23,35 @@ class SearchForQuestionsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchTeachersController = useTextEditingController();
     final searchTerm = useState<String>("");
+    final selectedSubject = useState<Subject?>(null);
+    final TabController tabController = useTabController(initialLength: 5);
+    useEffect(() {
+      tabController.addListener(() {
+        if (!tabController.indexIsChanging) {
+          switch (tabController.index) {
+            case 0:
+              selectedSubject.value = null;
+              break;
+            case 1:
+              selectedSubject.value = Subject.midEng;
+              break;
+            case 2:
+              selectedSubject.value = Subject.midMath;
+              break;
+            case 3:
+              selectedSubject.value = Subject.highEng;
+              break;
+            case 4:
+              selectedSubject.value = Subject.highMath;
+              break;
+          }
+        }
+      });
+      return () => tabController.removeListener(() {});
+    }, [tabController]);
 
-    final searchQuestionState =
-        ref.watch(searchQuestionsControllerProvider(searchTerm.value));
+    final searchQuestionState = ref.watch(searchQuestionsControllerProvider(
+        searchTerm.value, selectedSubject.value));
 
     void setSearchTerm(String text) {
       searchTerm.value = text;
@@ -52,6 +79,110 @@ class SearchForQuestionsPage extends HookConsumerWidget {
               title: TextFormFieldForSearchForTeachers(
                 controller: searchTeachersController,
                 onSearched: setSearchTerm,
+              ),
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(60),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: ColorSet.of(context).greySurface),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TabBar(
+                      tabAlignment: TabAlignment.start,
+                      controller: tabController,
+                      isScrollable: true,
+                      indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: ColorSet.of(context).primary,
+                      ),
+                      dividerColor: Colors.transparent,
+                      labelColor: ColorSet.of(context).text,
+                      unselectedLabelColor: ColorSet.of(context).unselectedText,
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.body,
+                        ),
+                      ),
+                      unselectedLabelStyle: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                            context,
+                            FontSizeSet.body,
+                          )),
+                      tabs: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Tab(
+                            child: Text(
+                              L10n.allTabText,
+                              style: TextStyle(
+                                  fontWeight: FontWeightSet.normal,
+                                  fontSize: FontSizeSet.getFontSize(
+                                      context, FontSizeSet.body),
+                                  color: ColorSet.of(context).whiteText),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Tab(
+                            child: Text(
+                              L10n.middleSchoolEnglishTabText,
+                              style: TextStyle(
+                                  fontWeight: FontWeightSet.normal,
+                                  fontSize: FontSizeSet.getFontSize(
+                                      context, FontSizeSet.body),
+                                  color: ColorSet.of(context).whiteText),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Tab(
+                            child: Text(
+                              L10n.middleSchoolMathTabText,
+                              style: TextStyle(
+                                  fontWeight: FontWeightSet.normal,
+                                  fontSize: FontSizeSet.getFontSize(
+                                      context, FontSizeSet.body),
+                                  color: ColorSet.of(context).whiteText),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Tab(
+                            child: Text(
+                              L10n.highSchoolEnglishTabText,
+                              style: TextStyle(
+                                  fontWeight: FontWeightSet.normal,
+                                  fontSize: FontSizeSet.getFontSize(
+                                      context, FontSizeSet.body),
+                                  color: ColorSet.of(context).whiteText),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Tab(
+                            child: Text(
+                              L10n.highSchoolMathTabText,
+                              style: TextStyle(
+                                  fontWeight: FontWeightSet.normal,
+                                  fontSize: FontSizeSet.getFontSize(
+                                      context, FontSizeSet.body),
+                                  color: ColorSet.of(context).whiteText),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             if (searchTerm.value.isEmpty) ...[

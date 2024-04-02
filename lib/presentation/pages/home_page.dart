@@ -5,12 +5,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../components/parts/text_for_error.dart';
-import '../components/widgets/loading_overlay_widget.dart';
+import '../../domain/shared/subject.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
-import '../controllers/get_my_bookmark_controller/get_my_bookmark_controller.dart';
-import '../controllers/get_my_profile_controller/get_my_profile_controller.dart';
-import '../controllers/get_my_question_controller/get_my_question_controller.dart';
+import '../controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -21,21 +18,42 @@ class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final getMyProfileState = ref.watch(getMyProfileControllerProvider);
-    final myQuestionState = ref.watch(getMyQuestionControllerProvider);
-    final myBookmarksState = ref.watch(getMyBookmarksControllerProvider);
+    final selectedSubject = useState<Subject?>(null);
+    final getRecommendedQuestionsState = ref.watch(
+        getRecommendedQuestionsControllerProvider(selectedSubject.value));
 
+    final TabController tabController = useTabController(initialLength: 5);
     useEffect(() {
-      return null;
-    }, [getMyProfileState]);
+      tabController.addListener(() {
+        if (!tabController.indexIsChanging) {
+          switch (tabController.index) {
+            case 0:
+              selectedSubject.value = null;
+              break;
+            case 1:
+              selectedSubject.value = Subject.midEng;
+              break;
+            case 2:
+              selectedSubject.value = Subject.midMath;
+              break;
+            case 3:
+              selectedSubject.value = Subject.highEng;
+              break;
+            case 4:
+              selectedSubject.value = Subject.highMath;
+              break;
+          }
+        }
+      });
+      return () => tabController.removeListener(() {});
+    }, [tabController]);
 
     void pushToSearchQuestionPage(BuildContext context) {
       context.push(PageId.searchQuestions.path);
     }
 
-    final TabController _tabController = useTabController(initialLength: 5);
-
     return Scaffold(
+      backgroundColor: ColorSet.of(context).background,
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
@@ -72,7 +90,7 @@ class HomePage extends HookConsumerWidget {
               padding: const EdgeInsets.all(5.0),
               child: TabBar(
                 tabAlignment: TabAlignment.start,
-                controller: _tabController,
+                controller: tabController,
                 isScrollable: true,
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -166,486 +184,61 @@ class HomePage extends HookConsumerWidget {
           ),
         ),
       ),
-      body: Container(
-        color: ColorSet.of(context).background,
-        child: TabBarView(
-          controller: _tabController,
-          children: [
-            myQuestionState.when(
-              data: (myQuestions) => myQuestions.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: myQuestions.length,
-                      itemBuilder: (context, index) {
-                        final myQuestion = myQuestions[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 30,
-                            right: 20,
-                            left: 20,
-                          ),
-                          child: QuestionAndAnswerCardWidget(
-                            questionCardDto: myQuestion,
-                          ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                        "質問がありません",
-                        style: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.header3),
-                          color: ColorSet.of(context).text,
-                        ),
-                      ),
+      body: getRecommendedQuestionsState.when(
+        data: (recommendedQuestions) => recommendedQuestions.isNotEmpty
+            ? ListView.builder(
+                itemCount: recommendedQuestions.length,
+                itemBuilder: (context, index) {
+                  final recommendedQuestion = recommendedQuestions[index];
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(top: 30, right: 20, left: 20),
+                    child: QuestionAndAnswerCardWidget(
+                      questionCardDto: recommendedQuestion,
                     ),
-              loading: () => const LoadingOverlay(),
-              error: (error, stack) {
-                return const Center(
-                  child: TextForError(),
-                );
-              },
-            ),
-            myQuestionState.when(
-              data: (myQuestions) => myQuestions.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: myQuestions.length,
-                      itemBuilder: (context, index) {
-                        final myQuestion = myQuestions[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 30,
-                            right: 20,
-                            left: 20,
-                          ),
-                          child: QuestionAndAnswerCardWidget(
-                            questionCardDto: myQuestion,
-                          ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                        "質問がありません",
-                        style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text),
-                      ),
-                    ),
-              loading: () => const LoadingOverlay(),
-              error: (error, stack) {
-                return const Center(
-                  child: TextForError(),
-                );
-              },
-            ),
-            myQuestionState.when(
-              data: (myQuestions) => myQuestions.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: myQuestions.length,
-                      itemBuilder: (context, index) {
-                        final myQuestion = myQuestions[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 30,
-                            right: 20,
-                            left: 20,
-                          ),
-                          child: QuestionAndAnswerCardWidget(
-                            questionCardDto: myQuestion,
-                          ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                        "質問がありません",
-                        style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text),
-                      ),
-                    ),
-              loading: () => const LoadingOverlay(),
-              error: (error, stack) {
-                return const Center(
-                  child: TextForError(),
-                );
-              },
-            ),
-            myQuestionState.when(
-              data: (myQuestions) => myQuestions.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: myQuestions.length,
-                      itemBuilder: (context, index) {
-                        final myQuestion = myQuestions[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 30,
-                            right: 20,
-                            left: 20,
-                          ),
-                          child: QuestionAndAnswerCardWidget(
-                            questionCardDto: myQuestion,
-                          ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                        "質問がありません",
-                        style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text),
-                      ),
-                    ),
-              loading: () => const LoadingOverlay(),
-              error: (error, stack) {
-                return const Center(
-                  child: TextForError(),
-                );
-              },
-            ),
-            myQuestionState.when(
-              data: (myQuestions) => myQuestions.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: myQuestions.length,
-                      itemBuilder: (context, index) {
-                        final myQuestion = myQuestions[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 30,
-                            right: 20,
-                            left: 20,
-                          ),
-                          child: QuestionAndAnswerCardWidget(
-                            questionCardDto: myQuestion,
-                          ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                        "質問がありません",
-                        style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
-                            color: ColorSet.of(context).text),
-                      ),
-                    ),
-              loading: () => const LoadingOverlay(),
-              error: (error, stack) {
-                return const Center(
-                  child: TextForError(),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Text(
-            L10n.titleText,
-            style: TextStyle(
-                fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-                color: ColorSet.of(context).text),
-          ),
-        ),
-        leadingWidth: 130,
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.search,
-                color: ColorSet.of(context).icon,
-                size: FontSizeSet.getFontSize(context, 30),
-              ),
-              onPressed: () => pushToSearchQuestionPage(context)),
-        ],
-        backgroundColor: ColorSet.of(context).background,
-      ),
-      backgroundColor: ColorSet.of(context).background,
-      body: DefaultTabController(
-        length: 5,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _StickyTabBarDelegate(
-                  tabBar: TabBar(
-                    isScrollable: true,
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: ColorSet.of(context).primary,
-                    ),
-                    dividerColor: Colors.transparent,
-                    labelColor: ColorSet.of(context).text,
-                    unselectedLabelColor: ColorSet.of(context).unselectedText,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.getFontSize(
-                        context,
-                        FontSizeSet.body,
-                      ),
-                    ),
-                    unselectedLabelStyle: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                          context,
-                          FontSizeSet.body,
-                        )),
-                    tabs: const [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Tab(child: Tab(text: L10n.allTabText)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Tab(text: L10n.middleSchoolEnglishTabText),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Tab(text: L10n.middleSchoolMathTabText),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Tab(text: L10n.highSchoolEnglishTabText),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Tab(text: L10n.highSchoolMathTabText),
-                      ),
-                    ],
+                  );
+                },
+              )
+            : const Center(
+                child: Text(
+                  "質問がありません",
+                  style: TextStyle(
+                    fontWeight:
+                        FontWeight.normal, // FontWeightSet.normalに適宜調整してください
+                    fontSize: 20, // FontSizeSet.getFontSizeに適宜調整してください
+                    color: Colors.black, // ColorSet.of(context).textに適宜調整してください
                   ),
                 ),
               ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              myQuestionState.when(
-                data: (myQuestions) => myQuestions.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: myQuestions.length,
-                        itemBuilder: (context, index) {
-                          final myQuestion = myQuestions[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              right: 20,
-                              left: 20,
-                            ),
-                            child: QuestionAndAnswerCardWidget(
-                              questionCardDto: myQuestion,
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          "質問がありません",
-                          style: TextStyle(
-                              fontWeight: FontWeightSet.normal,
-                              fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header3),
-                              color: ColorSet.of(context).text),
-                        ),
-                      ),
-                loading: () => const LoadingOverlay(),
-                error: (error, stack) {
-                  return const Center(
-                    child: TextForError(),
-                  );
-                },
-              ),
-              myQuestionState.when(
-                data: (myQuestions) => myQuestions.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: myQuestions.length,
-                        itemBuilder: (context, index) {
-                          final myQuestion = myQuestions[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              right: 20,
-                              left: 20,
-                            ),
-                            child: QuestionAndAnswerCardWidget(
-                              questionCardDto: myQuestion,
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          "質問がありません",
-                          style: TextStyle(
-                              fontWeight: FontWeightSet.normal,
-                              fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header3),
-                              color: ColorSet.of(context).text),
-                        ),
-                      ),
-                loading: () => const LoadingOverlay(),
-                error: (error, stack) {
-                  return const Center(
-                    child: TextForError(),
-                  );
-                },
-              ),
-              myQuestionState.when(
-                data: (myQuestions) => myQuestions.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: myQuestions.length,
-                        itemBuilder: (context, index) {
-                          final myQuestion = myQuestions[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              right: 20,
-                              left: 20,
-                            ),
-                            child: QuestionAndAnswerCardWidget(
-                              questionCardDto: myQuestion,
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          "質問がありません",
-                          style: TextStyle(
-                              fontWeight: FontWeightSet.normal,
-                              fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header3),
-                              color: ColorSet.of(context).text),
-                        ),
-                      ),
-                loading: () => const LoadingOverlay(),
-                error: (error, stack) {
-                  return const Center(
-                    child: TextForError(),
-                  );
-                },
-              ),
-              myQuestionState.when(
-                data: (myQuestions) => myQuestions.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: myQuestions.length,
-                        itemBuilder: (context, index) {
-                          final myQuestion = myQuestions[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              right: 20,
-                              left: 20,
-                            ),
-                            child: QuestionAndAnswerCardWidget(
-                              questionCardDto: myQuestion,
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          "質問がありません",
-                          style: TextStyle(
-                              fontWeight: FontWeightSet.normal,
-                              fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header3),
-                              color: ColorSet.of(context).text),
-                        ),
-                      ),
-                loading: () => const LoadingOverlay(),
-                error: (error, stack) {
-                  return const Center(
-                    child: TextForError(),
-                  );
-                },
-              ),
-              myBookmarksState.when(
-                data: (myBookmarks) => myBookmarks.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: myBookmarks.length,
-                        itemBuilder: (context, index) {
-                          final myBookmark = myBookmarks[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              right: 20,
-                              left: 20,
-                            ),
-                            child: QuestionAndAnswerCardWidget(
-                              questionCardDto: myBookmark,
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          "ブックマークがありません",
-                          style: TextStyle(
-                              fontWeight: FontWeightSet.normal,
-                              fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header3),
-                              color: ColorSet.of(context).text),
-                        ),
-                      ),
-                loading: () => const LoadingOverlay(),
-                error: (error, stack) {
-                  return const Center(
-                    child: TextForError(),
-                  );
-                },
-              ),
-            ],
-          ),
+        loading: () => const CircularProgressIndicator(),
+        error: (error, stack) => const Center(
+          child: Text('エラーが発生しました'),
         ),
       ),
+      // body: Container(
+      //   color: ColorSet.of(context).background,
+      //   child: TabBarView(
+      //     controller: tabController,
+      //     //キモいけどこうするしかない？よね？もしくはtab使わないでカスタムウィジェットを作るか？
+      //     children: [
+      //       RecommendedQuestionsWidgets(
+      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
+      //       ),
+      //       RecommendedQuestionsWidgets(
+      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
+      //       ),
+      //       RecommendedQuestionsWidgets(
+      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
+      //       ),
+      //       RecommendedQuestionsWidgets(
+      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
+      //       ),
+      //       RecommendedQuestionsWidgets(
+      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
-  }
-}
-
-class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
-  const _StickyTabBarDelegate({
-    required this.tabBar,
-  });
-
-  final TabBar tabBar;
-
-  @override
-  double get minExtent => tabBar.preferredSize.height;
-
-  @override
-  double get maxExtent => tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return Container(
-      color: ColorSet.of(context).background,
-      child: tabBar,
-    );
-  }
-
-  @override
-  bool shouldRebuild(_StickyTabBarDelegate oldDelegate) {
-    return tabBar != oldDelegate.tabBar;
   }
 }
