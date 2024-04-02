@@ -1,20 +1,20 @@
+import '../../../domain/question/models/question_id.dart';
 import '../../../domain/report/models/report_reason.dart';
-import '../../../domain/teacher/models/teacher_id.dart';
 
-class ReportSubmitCommand {
-  final TeacherId _teacherId;
+class QuestionReportSubmitCommand {
+  final QuestionId _questionId;
   final ReportReason _reportReason;
   final String _reportTextData;
 
-  TeacherId get teacherId => _teacherId;
+  QuestionId get questionId => _questionId;
   ReportReason get reportReason => _reportReason;
   String get reportTextData => _reportTextData;
 
-  ReportSubmitCommand({
-    required final TeacherId teacherId,
+  QuestionReportSubmitCommand({
+    required final QuestionId questionId,
     required final ReportReason reportReason,
     required final String reportTextData,
-  })  : _teacherId = teacherId,
+  })  : _questionId = questionId,
         _reportReason = reportReason,
         _reportTextData = reportTextData;
 }

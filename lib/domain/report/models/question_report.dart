@@ -1,17 +1,17 @@
 import '../../student/models/student_id.dart';
-import '../../teacher/models/teacher_id.dart';
+import '../../question/models/question_id.dart';
 import 'report_reason.dart';
 import 'report_text.dart';
 
-class Report {
+class QuestionReport {
   final StudentId from;
-  final TeacherId to;
+  final QuestionId about;
   final ReportReason reason;
   final ReportText text;
 
-  Report(
+  QuestionReport(
       {required this.from,
-      required this.to,
+      required this.about,
       required this.reason,
       required this.text});
 }
