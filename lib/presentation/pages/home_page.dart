@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studyhub/presentation/components/parts/text_for_error.dart';
 
 import '../../domain/shared/subject.dart';
+import '../components/parts/text_for_no_question_found.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final selectedSubject = useState<Subject?>(null);
     final getRecommendedQuestionsState = ref.watch(
         getRecommendedQuestionsControllerProvider(selectedSubject.value));
@@ -54,7 +58,11 @@ class HomePage extends HookConsumerWidget {
       backgroundColor: ColorSet.of(context).background,
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: EdgeInsets.only(
+              left: PaddingSet.getPaddingSize(
+            context,
+            20,
+          )),
           child: Center(
             child: Text(
               L10n.titleText,
@@ -75,19 +83,18 @@ class HomePage extends HookConsumerWidget {
               ),
               onPressed: () => pushToSearchQuestionPage(context)),
         ],
-        backgroundColor: ColorSet.of(context).background,
-        //高さ縮めたい（上下のデフォのpadding？縮めたい）、tab間の間隔縮めたい、colorSetに背景色として濃いグレー欲しいかも？（greySurfaceだとunselectedTextが見えづらい）
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(52),
+          preferredSize: Size.fromHeight(
+            screenWidth < 600 ? 42 : 63,
+          ),
           child: Container(
-            height:
-                52, // ここだよ。ちなみに上のfromHeightも同時に調整して整えてくれ。あと、したのpaddin, lablepaddingもやってくれ
+            height: screenWidth < 600 ? 42 : 63,
             margin: const EdgeInsets.symmetric(horizontal: 24),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: ColorSet.of(context).greySurface),
             child: Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(PaddingSet.getPaddingSize(context, 5)),
               child: TabBar(
                 tabAlignment: TabAlignment.start,
                 controller: tabController,
@@ -98,8 +105,15 @@ class HomePage extends HookConsumerWidget {
                 ),
                 indicatorSize: TabBarIndicatorSize.tab,
                 dividerColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                labelPadding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.all(PaddingSet.getPaddingSize(
+                  context,
+                  2,
+                )),
+                labelPadding: EdgeInsets.symmetric(
+                    horizontal: PaddingSet.getPaddingSize(
+                  context,
+                  20,
+                )),
                 labelStyle: TextStyle(
                   color: ColorSet.of(context).whiteText,
                   fontWeight: FontWeightSet.normal,
@@ -145,8 +159,19 @@ class HomePage extends HookConsumerWidget {
                 itemBuilder: (context, index) {
                   final recommendedQuestion = recommendedQuestions[index];
                   return Padding(
-                    padding:
-                        const EdgeInsets.only(top: 30, right: 20, left: 20),
+                    padding: EdgeInsets.only(
+                        top: PaddingSet.getPaddingSize(
+                          context,
+                          30,
+                        ),
+                        right: PaddingSet.getPaddingSize(
+                          context,
+                          20,
+                        ),
+                        left: PaddingSet.getPaddingSize(
+                          context,
+                          20,
+                        )),
                     child: QuestionAndAnswerCardWidget(
                       questionCardDto: recommendedQuestion,
                     ),
@@ -154,45 +179,13 @@ class HomePage extends HookConsumerWidget {
                 },
               )
             : const Center(
-                child: Text(
-                  "質問がありません",
-                  style: TextStyle(
-                    fontWeight:
-                        FontWeight.normal, // FontWeightSet.normalに適宜調整してください
-                    fontSize: 20, // FontSizeSet.getFontSizeに適宜調整してください
-                    color: Colors.black, // ColorSet.of(context).textに適宜調整してください
-                  ),
-                ),
+                child: TextForNoQuestionFound(),
               ),
         loading: () => const CircularProgressIndicator(),
         error: (error, stack) => const Center(
-          child: Text('エラーが発生しました'),
+          child: TextForError(),
         ),
       ),
-      // body: Container(
-      //   color: ColorSet.of(context).background,
-      //   child: TabBarView(
-      //     controller: tabController,
-      //     //キモいけどこうするしかない？よね？もしくはtab使わないでカスタムウィジェットを作るか？
-      //     children: [
-      //       RecommendedQuestionsWidgets(
-      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
-      //       ),
-      //       RecommendedQuestionsWidgets(
-      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
-      //       ),
-      //       RecommendedQuestionsWidgets(
-      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
-      //       ),
-      //       RecommendedQuestionsWidgets(
-      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
-      //       ),
-      //       RecommendedQuestionsWidgets(
-      //         getRecommendedQuestionsState: getRecommendedQuestionsState,
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

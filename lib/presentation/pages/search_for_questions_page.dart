@@ -21,6 +21,7 @@ class SearchForQuestionsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final searchTeachersController = useTextEditingController();
     final searchTerm = useState<String>("");
     final selectedSubject = useState<Subject?>(null);
@@ -81,16 +82,18 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                 onSearched: setSearchTerm,
               ),
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(52),
+                preferredSize: Size.fromHeight(
+                  screenWidth < 600 ? 42 : 63,
+                ),
                 child: Container(
-                  height:
-                      52, // ここだよ。ちなみに上のfromHeightも同時に調整して整えてくれ。あと、したのpaddin, lablepaddingもやってくれ
+                  height: screenWidth < 600 ? 42 : 63,
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorSet.of(context).greySurface),
                   child: Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding:
+                        EdgeInsets.all(PaddingSet.getPaddingSize(context, 5)),
                     child: TabBar(
                       tabAlignment: TabAlignment.start,
                       controller: tabController,
@@ -101,9 +104,15 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                       ),
                       indicatorSize: TabBarIndicatorSize.tab,
                       dividerColor: Colors.transparent,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 2, horizontal: 2),
-                      labelPadding: const EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.all(PaddingSet.getPaddingSize(
+                        context,
+                        2,
+                      )),
+                      labelPadding: EdgeInsets.symmetric(
+                          horizontal: PaddingSet.getPaddingSize(
+                        context,
+                        20,
+                      )),
                       labelStyle: TextStyle(
                         color: ColorSet.of(context).whiteText,
                         fontWeight: FontWeightSet.normal,
