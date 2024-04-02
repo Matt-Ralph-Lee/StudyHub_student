@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/presentation/controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart";
 
 import "../../../application/di/photo/photo_repository_provider.dart";
 import "../../../application/di/question/factory/question_factory_provider.dart";
@@ -46,5 +47,6 @@ class AddQuestionController extends _$AddQuestionController {
     });
     ref.invalidate(getMyQuestionControllerProvider);
     ref.invalidate(getMyBookmarksControllerProvider);
+    ref.invalidate(getRecommendedQuestionsControllerProvider);
   }
 }

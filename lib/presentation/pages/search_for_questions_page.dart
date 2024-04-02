@@ -48,7 +48,7 @@ class SearchForQuestionsPage extends HookConsumerWidget {
         }
       });
       return () => tabController.removeListener(() {});
-    }, [tabController]);
+    }, []);
 
     final searchQuestionState = ref.watch(searchQuestionsControllerProvider(
         searchTerm.value, selectedSubject.value));
@@ -81,8 +81,10 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                 onSearched: setSearchTerm,
               ),
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(60),
+                preferredSize: const Size.fromHeight(52),
                 child: Container(
+                  height:
+                      52, // ここだよ。ちなみに上のfromHeightも同時に調整して整えてくれ。あと、したのpaddin, lablepaddingもやってくれ
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -94,13 +96,16 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                       controller: tabController,
                       isScrollable: true,
                       indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(16),
                         color: ColorSet.of(context).primary,
                       ),
+                      indicatorSize: TabBarIndicatorSize.tab,
                       dividerColor: Colors.transparent,
-                      labelColor: ColorSet.of(context).text,
-                      unselectedLabelColor: ColorSet.of(context).unselectedText,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2, horizontal: 2),
+                      labelPadding: const EdgeInsets.symmetric(horizontal: 30),
                       labelStyle: TextStyle(
+                        color: ColorSet.of(context).whiteText,
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
                           context,
@@ -108,77 +113,29 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                         ),
                       ),
                       unselectedLabelStyle: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.getFontSize(
-                            context,
-                            FontSizeSet.body,
-                          )),
-                      tabs: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Tab(
-                            child: Text(
-                              L10n.allTabText,
-                              style: TextStyle(
-                                  fontWeight: FontWeightSet.normal,
-                                  fontSize: FontSizeSet.getFontSize(
-                                      context, FontSizeSet.body),
-                                  color: ColorSet.of(context).whiteText),
-                            ),
-                          ),
+                        color: ColorSet.of(context).text,
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.body,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Tab(
-                            child: Text(
-                              L10n.middleSchoolEnglishTabText,
-                              style: TextStyle(
-                                  fontWeight: FontWeightSet.normal,
-                                  fontSize: FontSizeSet.getFontSize(
-                                      context, FontSizeSet.body),
-                                  color: ColorSet.of(context).whiteText),
-                            ),
-                          ),
+                      ),
+                      tabs: const [
+                        Tab(
+                          text: L10n.allTabText,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Tab(
-                            child: Text(
-                              L10n.middleSchoolMathTabText,
-                              style: TextStyle(
-                                  fontWeight: FontWeightSet.normal,
-                                  fontSize: FontSizeSet.getFontSize(
-                                      context, FontSizeSet.body),
-                                  color: ColorSet.of(context).whiteText),
-                            ),
-                          ),
+                        Tab(
+                          text: L10n.middleSchoolEnglishTabText,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Tab(
-                            child: Text(
-                              L10n.highSchoolEnglishTabText,
-                              style: TextStyle(
-                                  fontWeight: FontWeightSet.normal,
-                                  fontSize: FontSizeSet.getFontSize(
-                                      context, FontSizeSet.body),
-                                  color: ColorSet.of(context).whiteText),
-                            ),
-                          ),
+                        Tab(
+                          text: L10n.middleSchoolMathTabText,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Tab(
-                            child: Text(
-                              L10n.highSchoolMathTabText,
-                              style: TextStyle(
-                                  fontWeight: FontWeightSet.normal,
-                                  fontSize: FontSizeSet.getFontSize(
-                                      context, FontSizeSet.body),
-                                  color: ColorSet.of(context).whiteText),
-                            ),
-                          ),
+                        Tab(
+                          text: L10n.highSchoolEnglishTabText,
                         ),
+                        Tab(
+                          text: L10n.highSchoolMathTabText,
+                        )
                       ],
                     ),
                   ),
