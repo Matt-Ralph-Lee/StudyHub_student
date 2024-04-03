@@ -1,4 +1,4 @@
-import 'notification_receiver.dart';
+import 'notification_receiver_list.dart';
 import 'notification_sender.dart';
 import 'notification_target.dart';
 import 'notification_text.dart';
@@ -8,7 +8,7 @@ import 'notification.dart';
 abstract class INotificationFactory {
   Future<Notification> create({
     required final NotificationSender sender,
-    required final NotificationReceiver receiver,
+    required final NotificationReceiverList receiverList,
     required final NotificationTarget target,
     required final NotificationTitle title,
     required final NotificationText text,

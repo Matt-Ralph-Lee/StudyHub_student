@@ -26,6 +26,8 @@ class InMemoryTeacherRepository implements ITeacherRepository {
           InMemoryTeacherInitialValue.teacher1,
       InMemoryTeacherInitialValue.teacher2.teacherId:
           InMemoryTeacherInitialValue.teacher2,
+      InMemoryTeacherInitialValue.teacher3.teacherId:
+          InMemoryTeacherInitialValue.teacher3,
     };
   }
   @override
@@ -36,17 +38,18 @@ class InMemoryTeacherRepository implements ITeacherRepository {
 
 class InMemoryTeacherInitialValue {
   static final teacher1 = Teacher(
-      teacherId: TeacherId('00000000000000000001'),
-      name: Name('ゆうき先生'),
-      highSchool: HighSchool('第二高校'),
-      university: University(
-          school: '第一大学', enrollmentStatus: EnrollmentStatus.enrolled),
-      bio: Bio('わかりやすく教えます'),
-      introduction: Introduction('数学が得意科目です。\nよろしくお願いします。'),
-      rating: Rating(4.0),
-      bestSubjects: [Subject.highMath],
-      profilePhotoPath:
-          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'));
+    teacherId: TeacherId('00000000000000000001'),
+    name: Name('ゆうき先生'),
+    highSchool: HighSchool('第二高校'),
+    university:
+        University(school: '第一大学', enrollmentStatus: EnrollmentStatus.enrolled),
+    bio: Bio('わかりやすく教えます'),
+    introduction: Introduction('数学が得意科目です。\nよろしくお願いします。'),
+    rating: Rating(4.0),
+    bestSubjects: [Subject.highMath],
+    profilePhotoPath:
+        ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'),
+  );
 
   static final teacher2 = Teacher(
     teacherId: TeacherId('00000000000000000002'),
@@ -58,6 +61,20 @@ class InMemoryTeacherInitialValue {
     introduction: Introduction('初めまして。塾講師の経験があるので、わかりやすく教えることができると思います。'),
     rating: Rating(3.5),
     bestSubjects: [Subject.midEng],
+    profilePhotoPath:
+        ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
+  );
+
+  static final teacher3 = Teacher(
+    teacherId: TeacherId('01234567890123456789'),
+    name: Name('権兵衛先生'),
+    highSchool: HighSchool('適当高校'),
+    university: University(
+        school: '適当大学', enrollmentStatus: EnrollmentStatus.graduated),
+    bio: Bio('厳密第一'),
+    introduction: Introduction('初めまして。分かりやすさより厳密さ。'),
+    rating: Rating(3.5),
+    bestSubjects: [Subject.highMath],
     profilePhotoPath:
         ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
   );

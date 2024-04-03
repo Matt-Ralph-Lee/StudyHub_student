@@ -40,4 +40,21 @@ class NotificationReceiver {
 
   NotificationReceiverType get receiverType => _receiverType;
   Id get receiverId => _receiverId;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is NotificationReceiver) {
+      return runtimeType == other.runtimeType &&
+          _receiverType == other._receiverType &&
+          _receiverId == other._receiverId;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => _receiverId.hashCode;
 }
