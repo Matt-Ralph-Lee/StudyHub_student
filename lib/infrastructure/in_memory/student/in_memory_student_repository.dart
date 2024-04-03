@@ -25,6 +25,8 @@ class InMemoryStudentRepository implements IStudentRepository {
           InMemoryStudentInitialValue.student1,
       InMemoryStudentInitialValue.student2.studentId:
           InMemoryStudentInitialValue.student2,
+      InMemoryStudentInitialValue.student3.studentId:
+          InMemoryStudentInitialValue.student3,
     };
   }
 
@@ -68,5 +70,17 @@ class InMemoryStudentInitialValue {
       school: School('第一高校'),
       gradeOrGraduateStatus: GradeOrGraduateStatus.second,
       questionCount: QuestionCount(1),
+      status: Status.beginner);
+
+  static final student3 = Student(
+      studentId: StudentId('01234567890123456789'),
+      name: Name('権兵衛'),
+      profilePhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
+      gender: Gender.male,
+      occupation: Occupation.student,
+      school: School('第三高校'),
+      gradeOrGraduateStatus: GradeOrGraduateStatus.second,
+      questionCount: QuestionCount(0),
       status: Status.beginner);
 }

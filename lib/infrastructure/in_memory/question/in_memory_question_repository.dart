@@ -82,7 +82,8 @@ class InMemoryQuestionInitialValue {
     questionId: InMemoryQuestionIdInitialValue.questionId2FromS2,
     questionSubject: Subject.midEng,
     questionTitle: QuestionTitle('文型について'),
-    questionText: QuestionText('文型ってなんすか？'),
+    questionText: QuestionText(
+        '文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？v文型ってなんすか？文型ってなんすか？文型ってなんすか？'),
     questionPhotoPathList: QuestionPhotoPathList([
       QuestionPhotoPath("assets/images/sample_picture_hd.jpg"),
       QuestionPhotoPath("assets/images/sample_picture_hd.jpg"),
