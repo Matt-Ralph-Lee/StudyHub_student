@@ -51,7 +51,6 @@ dependencies:
   go_router:
   intl:
   expandable_page_view:
-  carousel_slider:
 
 dev_dependencies:
   flutter_test:

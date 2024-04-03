@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/application/question/application_service/question_detail_dto.dart';
 
+import '../../../application/question/application_service/question_detail_dto.dart';
 import '../../shared/constants/page_path.dart';
 
 class QuestionPictureWidget extends StatelessWidget {

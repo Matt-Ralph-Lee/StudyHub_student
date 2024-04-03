@@ -37,13 +37,13 @@ class CheckAnswerImagePage extends HookWidget {
 
     return orientation == Orientation.portrait
         ? Scaffold(
-            backgroundColor: ColorSet.of(context).background,
+            backgroundColor: ColorSet.of(context).blackBackground,
             appBar: AppBar(
                 leading: dousuru.value != 0
                     ? IconButton(
                         icon: Icon(
                           Icons.chevron_left,
-                          color: ColorSet.of(context).icon,
+                          color: ColorSet.of(context).lightGreyIcon,
                           size: FontSizeSet.getFontSize(context, 30),
                         ),
                         onPressed: () => context.pop(),
@@ -56,7 +56,7 @@ class CheckAnswerImagePage extends HookWidget {
                     ? Text(
                         "${currentPage.value + 1} / ${answerDto.answerPhotoList.length}",
                         style: TextStyle(
-                          color: ColorSet.of(context).text,
+                          color: ColorSet.of(context).whiteText,
                           fontWeight: FontWeightSet.semibold,
                           fontSize: FontSizeSet.getFontSize(
                               context, FontSizeSet.body),
@@ -100,7 +100,7 @@ class CheckAnswerImagePage extends HookWidget {
                               icon: Icon(
                                 Icons.arrow_back,
                                 color: currentPage.value > 0
-                                    ? ColorSet.of(context).text
+                                    ? ColorSet.of(context).whiteText
                                     : ColorSet.of(context).greyText,
                               ),
                               onPressed: () {
@@ -119,7 +119,7 @@ class CheckAnswerImagePage extends HookWidget {
                                 Icons.arrow_forward,
                                 color: currentPage.value <
                                         (answerDto.answerPhotoList.length - 1)
-                                    ? ColorSet.of(context).text
+                                    ? ColorSet.of(context).whiteText
                                     : ColorSet.of(context).greyText,
                               ),
                               onPressed: () {
@@ -180,7 +180,8 @@ class CheckAnswerImagePage extends HookWidget {
                                         Text(
                                           answerDto.teacherName,
                                           style: TextStyle(
-                                            color: ColorSet.of(context).text,
+                                            color:
+                                                ColorSet.of(context).whiteText,
                                             fontWeight: FontWeightSet.semibold,
                                             fontSize: FontSizeSet.getFontSize(
                                                 context, FontSizeSet.body),
@@ -199,7 +200,7 @@ class CheckAnswerImagePage extends HookWidget {
                                     Text(
                                       answerDto.answerText,
                                       style: TextStyle(
-                                        color: ColorSet.of(context).text,
+                                        color: ColorSet.of(context).whiteText,
                                         fontWeight: FontWeightSet.normal,
                                         fontSize: FontSizeSet.getFontSize(
                                             context, FontSizeSet.body),
