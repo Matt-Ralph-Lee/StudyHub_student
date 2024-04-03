@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_question_contorller.dart';
+part of 'notification_factory_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addQuestionControllerHash() =>
-    r'c6c0712819200483cbccc58524b492447a98524d';
+String _$notificationFactoryDiHash() =>
+    r'4aa594f03aabb6a349d0c880759574d9e18ab04a';
 
-/// See also [AddQuestionController].
-@ProviderFor(AddQuestionController)
-final addQuestionControllerProvider =
-    AutoDisposeAsyncNotifierProvider<AddQuestionController, void>.internal(
-  AddQuestionController.new,
-  name: r'addQuestionControllerProvider',
+/// See also [notificationFactoryDi].
+@ProviderFor(notificationFactoryDi)
+final notificationFactoryDiProvider =
+    AutoDisposeProvider<INotificationFactory>.internal(
+  notificationFactoryDi,
+  name: r'notificationFactoryDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$addQuestionControllerHash,
+      : _$notificationFactoryDiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AddQuestionController = AutoDisposeAsyncNotifier<void>;
+typedef NotificationFactoryDiRef = AutoDisposeProviderRef<INotificationFactory>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

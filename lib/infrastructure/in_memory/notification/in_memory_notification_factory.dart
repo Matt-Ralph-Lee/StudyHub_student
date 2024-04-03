@@ -22,6 +22,7 @@ class InMemoryNotificationFactory implements INotificationFactory {
     required final NotificationTitle title,
     required final NotificationText text,
   }) async {
+    print("nonono");
     final notificationId = await _repository.generateId();
 
     return Notification(

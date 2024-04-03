@@ -73,12 +73,14 @@ class QuestionCreateUseCase {
 
     _repository.save(question);
 
-    final notification = await _createNotification(
-      studentId: studentId,
-      question: question,
-    );
+    if (question.selectedTeacherList.isNotEmpty) {
+      final notification = await _createNotification(
+        studentId: studentId,
+        question: question,
+      );
 
-    await _notificationRepository.save(notification);
+      await _notificationRepository.save(notification);
+    }
   }
 
   Future<Question> _createQuestion({
