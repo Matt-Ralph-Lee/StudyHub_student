@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../application/question/application_service/question_detail_dto.dart';
+import '../../application/answer/application_service/answer_dto.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 
-class CheckQuestionImagePage extends HookWidget {
-  final QuestionDetailDto questionDetailDto;
+class CheckAnswerImagePage extends HookWidget {
+  final AnswerDto answerDto;
   final int order;
-  const CheckQuestionImagePage({
+  const CheckAnswerImagePage({
     super.key,
-    required this.questionDetailDto,
+    required this.answerDto,
     required this.order,
   });
 
@@ -54,7 +54,7 @@ class CheckQuestionImagePage extends HookWidget {
                 centerTitle: true,
                 title: dousuru.value != 0
                     ? Text(
-                        "${currentPage.value + 1} / ${questionDetailDto.questionPhotoPathList.length}",
+                        "${currentPage.value + 1} / ${answerDto.answerPhotoList.length}",
                         style: TextStyle(
                           color: ColorSet.of(context).text,
                           fontWeight: FontWeightSet.semibold,
@@ -80,14 +80,13 @@ class CheckQuestionImagePage extends HookWidget {
                               screenWidth < 600 ? 300 : 500, //ここ適当、ipadレスポンシブ
                           child: PageView.builder(
                             controller: pageController,
-                            itemCount:
-                                questionDetailDto.questionPhotoPathList.length,
+                            itemCount: answerDto.answerPhotoList.length,
                             onPageChanged: (index) {
                               currentPage.value = index;
                             },
                             itemBuilder: (BuildContext context, int index) {
                               return Image.asset(
-                                questionDetailDto.questionPhotoPathList[index],
+                                answerDto.answerPhotoList[index],
                                 fit: BoxFit.contain,
                               );
                             },
@@ -119,17 +118,13 @@ class CheckQuestionImagePage extends HookWidget {
                               icon: Icon(
                                 Icons.arrow_forward,
                                 color: currentPage.value <
-                                        (questionDetailDto
-                                                .questionPhotoPathList.length -
-                                            1)
+                                        (answerDto.answerPhotoList.length - 1)
                                     ? ColorSet.of(context).text
                                     : ColorSet.of(context).greyText,
                               ),
                               onPressed: () {
                                 currentPage.value <
-                                        (questionDetailDto
-                                                .questionPhotoPathList.length -
-                                            1)
+                                        (answerDto.answerPhotoList.length - 1)
                                     ? pageController.nextPage(
                                         duration:
                                             const Duration(milliseconds: 300),
@@ -153,8 +148,7 @@ class CheckQuestionImagePage extends HookWidget {
                                   maxHeight:
                                       MediaQuery.of(context).size.height * 0.8)
                               : null,
-                          color:
-                              ColorSet.of(context).background.withOpacity(0.5),
+                          color: Colors.red,
                           child: GestureDetector(
                             onTap: () {
                               dousuru.value = 2;
@@ -169,20 +163,20 @@ class CheckQuestionImagePage extends HookWidget {
                                       children: [
                                         CircleAvatar(
                                           radius: 15,
-                                          backgroundImage: questionDetailDto
-                                                  .studentProfilePhotoPath
+                                          backgroundImage: answerDto
+                                                  .teacherProfilePath
                                                   .contains("assets")
-                                              ? AssetImage(questionDetailDto
-                                                      .studentProfilePhotoPath)
+                                              ? AssetImage(answerDto
+                                                      .teacherProfilePath)
                                                   as ImageProvider
-                                              : NetworkImage(questionDetailDto
-                                                  .studentProfilePhotoPath),
+                                              : NetworkImage(
+                                                  answerDto.teacherProfilePath),
                                         ),
                                         const SizedBox(
                                           width: 20,
                                         ),
                                         Text(
-                                          questionDetailDto.questionTitle,
+                                          answerDto.teacherName,
                                           style: TextStyle(
                                             color: ColorSet.of(context).text,
                                             fontWeight: FontWeightSet.semibold,
@@ -201,7 +195,7 @@ class CheckQuestionImagePage extends HookWidget {
                                       height: 20,
                                     ),
                                     Text(
-                                      questionDetailDto.questionText,
+                                      answerDto.answerText,
                                       style: TextStyle(
                                         color: ColorSet.of(context).text,
                                         fontWeight: FontWeightSet.normal,
@@ -227,13 +221,13 @@ class CheckQuestionImagePage extends HookWidget {
             height: screenHeight,
             child: PageView.builder(
               controller: pageController,
-              itemCount: questionDetailDto.questionPhotoPathList.length,
+              itemCount: answerDto.answerPhotoList.length,
               onPageChanged: (index) {
                 currentPage.value = index;
               },
               itemBuilder: (BuildContext context, int index) {
                 return Image.asset(
-                  questionDetailDto.questionPhotoPathList[index],
+                  answerDto.answerPhotoList[index],
                   fit: BoxFit.contain,
                 );
               },

@@ -189,6 +189,9 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                                         photoPath:
                                             answerDto[selectedAnswerIndex.value]
                                                 .answerPhotoList[index],
+                                        answerDto: answerDto[
+                                            selectedAnswerIndex.value],
+                                        order: selectedAnswerIndex.value,
                                       ),
                                     ),
                                   );
