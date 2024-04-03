@@ -110,6 +110,8 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                             child: QuestionPictureWidget(
                               photoPath: questionDetailDto
                                   .questionPhotoPathList[index],
+                              order: index,
+                              questionDetailDto: questionDetailDto,
                             ),
                           );
                         },
