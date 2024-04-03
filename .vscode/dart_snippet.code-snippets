@@ -17,6 +17,17 @@
 		"description" : "Create class whose name is filename."
 	},
 
+	"Named enum" : {
+		"scope" : "dart",
+		"prefix" : "named enum",
+		"body" : [
+			"enum ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} {"
+			"  $1",
+			"}"
+		],
+		"description" : "Create enum whose name is filename."
+	},
+
 
 	"Initialize test code": {
 		"scope": "dart",

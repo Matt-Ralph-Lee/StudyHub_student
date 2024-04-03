@@ -1,9 +1,8 @@
+import '../../teacher/models/teacher_id.dart';
 import '../exception/question_domain_exception.dart';
 import '../exception/question_domain_exception_detail.dart';
 
-import '../../teacher/models/teacher_id.dart';
-
-class SelectedTeacherList {
+class SelectedTeacherList extends Iterable<TeacherId> {
   static const maxLength = 5;
   final List<TeacherId> _selectedTeacherList;
 
@@ -16,4 +15,7 @@ class SelectedTeacherList {
           QuestionDomainExceptionDetail.invalidTeacherLength);
     }
   }
+
+  @override
+  Iterator<TeacherId> get iterator => _selectedTeacherList.iterator;
 }
