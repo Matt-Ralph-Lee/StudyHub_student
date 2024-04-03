@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 
 import '../../../domain/answer_list/models/answer_id.dart';
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
+import "package:studyhub/presentation/pages/report_page.dart";
 
 import "../../application/di/session/session_provider.dart";
 import "../../domain/answer_list/models/answer_id.dart";
@@ -172,6 +173,19 @@ GoRouter router(RouterRef ref) {
       path: PageId.searchQuestions.path,
       name: PageId.searchQuestions.name,
       builder: (context, state) => const SearchForQuestionsPage(),
+    ),
+    GoRoute(
+      path: PageId.reportQuestionPage.path,
+      name: PageId.reportQuestionPage.name,
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final QuestionId? questionId = args[0] as QuestionId?;
+        final TeacherId? teacherId = args[1] as TeacherId?;
+        return ReportPage(
+          questionId: questionId,
+          teacherId: teacherId,
+        );
+      },
     ),
   ];
 

@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
-import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
-import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
-import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
-import '../../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/like_answer_controller/like_answer_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
-import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
-import '../parts/completion_snack_bar.dart';
-import '../parts/text_button_for_follow_teacher.dart';
-import '../parts/text_button_for_unfollow_teacher.dart';
-import 'show_error_modal_widget.dart';
-import 'specific_exception_modal_widget.dart';
+import 'answer_menu_modal_widget.dart';
 
 class AnswerCardWidget extends ConsumerWidget {
   final AnswerDto answerDto;
@@ -32,68 +22,6 @@ class AnswerCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final deleteFavoriteTeacherControllerState =
-        ref.watch(deleteFavoriteTeacherControllerProvider);
-
-    void addFavoriteTeacher() async {
-      ref
-          .read(addFavoriteTeacherControllerProvider.notifier)
-          .addFavoriteTeacher(answerDto.teacherId)
-          .then((_) {
-        final addFavoriteTeacherControllerState =
-            ref.read(addFavoriteTeacherControllerProvider);
-        if (addFavoriteTeacherControllerState.hasError) {
-          final error = addFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.addFavoriteTeacherText),
-          );
-        }
-      });
-    }
-
-    void deleteFavoriteTeacher() async {
-      ref
-          .read(deleteFavoriteTeacherControllerProvider.notifier)
-          .deleteFavoriteTeacher(answerDto.teacherId)
-          .then((_) {
-        if (deleteFavoriteTeacherControllerState.hasError) {
-          final error = deleteFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.deleteFavoriteTeacherText),
-          );
-        }
-      });
-    }
 
     void toggleLikeAnswer() async {
       if (answerDto.hasLiked) {
@@ -110,6 +38,25 @@ class AnswerCardWidget extends ConsumerWidget {
     void navigateToTeacherProfilePage(
         BuildContext context, TeacherId teacherId) {
       context.push(PageId.teacherProfile.path, extra: teacherId);
+    }
+
+    void showAnswerMenuDialog(BuildContext context, AnswerDto answerDto) {
+      showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Dialog(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: AnswerMenuModalWidget(
+                  answerDto: answerDto,
+                ),
+              ),
+            ),
+          );
+        },
+      );
     }
 
     return Container(
@@ -134,7 +81,7 @@ class AnswerCardWidget extends ConsumerWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: GestureDetector(
@@ -173,11 +120,26 @@ class AnswerCardWidget extends ConsumerWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                answerDto.isFollowing
-                    ? TextButtonForUnFollowTeacher(
-                        onPressed: () => deleteFavoriteTeacher())
-                    : TextButtonForFollowTeacher(
-                        onPressed: () => addFavoriteTeacher()),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: ColorSet.of(context).text,
+                    size: FontSizeSet.getFontSize(context, FontSizeSet.body),
+                  ),
+                  onPressed: () {
+                    showAnswerMenuDialog(
+                      context,
+                      answerDto,
+                    );
+                  },
+                )
+                // answerDto.isFollowing
+                //     ? TextButtonForUnFollowTeacher(
+                //         onPressed: () => deleteFavoriteTeacher())
+                //     : TextButtonForFollowTeacher(
+                //         onPressed: () => addFavoriteTeacher()),
               ],
             ),
             const SizedBox(
@@ -219,7 +181,7 @@ class AnswerCardWidget extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 15,
+                  width: 20,
                 ),
                 Expanded(
                   child: Text(

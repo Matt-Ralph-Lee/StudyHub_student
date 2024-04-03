@@ -7,7 +7,7 @@ part of 'get_answer_controller.dart';
 // **************************************************************************
 
 String _$getAnswerControllerHash() =>
-    r'7d2d4efdd49a2d125b7cc5008be85a71af3efe58';
+    r'e2f2bb1557d841e0a81e0467e22e8afad6dd812b';
 
 /// Copied from Dart SDK
 class _SystemHash {

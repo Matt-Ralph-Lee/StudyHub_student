@@ -68,14 +68,14 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
       backgroundColor: ColorSet.of(context).background,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             getQuestionDetailControllerState.when(
               data: (questionDetailDto) => Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(
-                      PaddingSet.getPaddingSize(
+                    padding: EdgeInsets.symmetric(
+                      vertical: PaddingSet.getPaddingSize(
                         context,
                         horizontalPadding,
                       ),

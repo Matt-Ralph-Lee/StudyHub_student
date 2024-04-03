@@ -223,13 +223,17 @@ class L10n {
   static const modalOkText = "ok";
   static const cancelText = "キャンセル";
   static const closeText = "閉じる";
-  static const followButtonText = "Follow";
-  static const unFollowButtonText = "UnFollow";
+  static const followButtonText = "お気に入りに追加する";
+  static const unFollowButtonText = "お気に入りから削除する";
   static const addFavoriteTeacherText = "お気に入りに追加しました";
   static const deleteFavoriteTeacherText = "お気に入りから削除しました";
   static const favoriteTeacherTextForSelectTeachersPage = "お気に入りの講師";
   static const popularTeachersText = "人気の講師";
   static const noTeachersFoundText = "該当する講師は見つかりませんでした。";
+  static const reportText = "投稿を報告する";
+  static const reportReason = "報告理由";
+  static const reportContent = "報告内容";
+  static const reportSnackBarText = "投稿を報告しました";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";

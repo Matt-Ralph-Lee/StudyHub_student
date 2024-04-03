@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_question_contorller.dart';
+part of 'report_teacher_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addQuestionControllerHash() =>
-    r'057bc1716257d21915facfa471548fc295316eec';
+String _$reportTeacherControllerHash() =>
+    r'5d48dd2e98a800013dd519f7716d5f3066bedd64';
 
-/// See also [AddQuestionController].
-@ProviderFor(AddQuestionController)
-final addQuestionControllerProvider =
-    AutoDisposeAsyncNotifierProvider<AddQuestionController, void>.internal(
-  AddQuestionController.new,
-  name: r'addQuestionControllerProvider',
+/// See also [ReportTeacherController].
+@ProviderFor(ReportTeacherController)
+final reportTeacherControllerProvider =
+    AutoDisposeAsyncNotifierProvider<ReportTeacherController, void>.internal(
+  ReportTeacherController.new,
+  name: r'reportTeacherControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$addQuestionControllerHash,
+      : _$reportTeacherControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AddQuestionController = AutoDisposeAsyncNotifier<void>;
+typedef _$ReportTeacherController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
