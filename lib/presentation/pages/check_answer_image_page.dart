@@ -148,7 +148,9 @@ class CheckAnswerImagePage extends HookWidget {
                                   maxHeight:
                                       MediaQuery.of(context).size.height * 0.8)
                               : null,
-                          color: Colors.red,
+                          color: ColorSet.of(context)
+                              .blackBackground
+                              .withOpacity(0.5),
                           child: GestureDetector(
                             onTap: () {
                               dousuru.value = 2;
