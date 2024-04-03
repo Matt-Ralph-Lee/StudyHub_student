@@ -1,9 +1,9 @@
-import '../../../domain/report/models/i_report_repository.dart';
-import '../../../domain/report/models/report.dart';
+import '../../../domain/report/models/i_teacher_report_repository.dart';
+import '../../../domain/report/models/teacher_report.dart';
 import '../../../domain/student/models/student_id.dart';
 
-class InMemoryReportRepository implements IReportRepository {
-  late Map<StudentId, List<Report>> store;
+class InMemoryReportRepository implements ITeacherReportRepository {
+  late Map<StudentId, List<TeacherReport>> store;
   static final InMemoryReportRepository _instance =
       InMemoryReportRepository._internal();
 
@@ -16,10 +16,11 @@ class InMemoryReportRepository implements IReportRepository {
   }
 
   @override
-  void submit(final Report report) {
+  void submit(final TeacherReport report) {
     if (store.containsKey(report.from)) {
       final data = store[report.from];
       data!.add(report);
+      store[report.from] = data;
     } else {
       store[report.from] = [report];
     }
