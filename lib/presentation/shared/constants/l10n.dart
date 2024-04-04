@@ -157,6 +157,8 @@ class L10n {
   static const logoutButtonText = "ログアウト";
   static const logoutSnackBarText = "ログアウトしました";
   static const deleteAccountButtonText = "アカウント削除";
+  static const confirmDeleteAccount = "アカウントを削除します\nよろしいですか？";
+  static const deleteAccountSnackBarText = "アカウントを削除しました";
 
   //favorite_teacher_page
   static const favoriteTeacherText = "フォロー中の講師";

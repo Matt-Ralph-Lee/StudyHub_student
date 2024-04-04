@@ -7,13 +7,9 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
 
-class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
-  final int numOfEvaluationStars;
-  final String evaluationText;
-  const ConfirmTeacherEvaluationModalWidget({
+class ConfirmAccountDeleteModalWidget extends StatelessWidget {
+  const ConfirmAccountDeleteModalWidget({
     super.key,
-    required this.numOfEvaluationStars,
-    required this.evaluationText,
   });
 
   @override
@@ -25,11 +21,7 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(
-            PaddingSet.getPaddingSize(
-              context,
-              PaddingSet.horizontalPadding,
-            ),
-          ), //textButtonが領域多めに取るのでバランス的にbottomだけ12px
+              PaddingSet.getPaddingSize(context, PaddingSet.horizontalPadding)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +31,7 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    L10n.confirmModalTitleText,
+                    L10n.confirmDeleteAccount,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize:
@@ -47,30 +39,6 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
                         color: ColorSet.of(context).text),
                   ),
                 ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: List.generate(5, (index) {
-                  return Icon(
-                    Icons.star,
-                    color: index < numOfEvaluationStars
-                        ? ColorSet.of(context).primary
-                        : ColorSet.of(context).inactiveGreySurface, // この色どうする
-                  );
-                }),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                evaluationText,
-                style: TextStyle(
-                    fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.body),
-                    color: ColorSet.of(context).text),
               ),
               const SizedBox(
                 height: 50,
