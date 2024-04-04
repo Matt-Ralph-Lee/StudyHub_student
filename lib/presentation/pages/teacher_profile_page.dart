@@ -1,3 +1,4 @@
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -52,22 +53,30 @@ class TeacherProfilePage extends ConsumerWidget {
       ),
       backgroundColor: ColorSet.of(context).background,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(
-            PaddingSet.getPaddingSize(
-              context,
-              PaddingSet.horizontalPadding,
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              getTeacherProfileState.when(
-                data: (teacherProfileDto) => teacherProfileDto != null
-                    ? TeacherProfileWidget(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            getTeacherProfileState.when(
+              data: (teacherProfileDto) => teacherProfileDto != null
+                  ? Padding(
+                      padding: EdgeInsets.all(
+                        PaddingSet.getPaddingSize(
+                          context,
+                          PaddingSet.horizontalPadding,
+                        ),
+                      ),
+                      child: TeacherProfileWidget(
                         teacherProfileDto: teacherProfileDto,
-                      )
-                    : Text(
+                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.all(
+                        PaddingSet.getPaddingSize(
+                          context,
+                          PaddingSet.horizontalPadding,
+                        ),
+                      ),
+                      child: Text(
                         L10n.noTeacherProfileFoundText,
                         style: TextStyle(
                           fontWeight: FontWeightSet.normal,
@@ -76,49 +85,77 @@ class TeacherProfilePage extends ConsumerWidget {
                           color: ColorSet.of(context).text,
                         ),
                       ),
-                loading: () => const LoadingOverlay(),
-                error: (error, stack) => const Center(
-                  child: TextForError(),
-                ),
+                    ),
+              loading: () => const LoadingOverlay(),
+              error: (error, stack) => const Center(
+                child: TextForError(),
               ),
-              const SizedBox(height: 50),
-              Text(
-                L10n.evaluationsTitleText,
-                style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.annotation),
-                  color: ColorSet.of(context).greyText,
+            ),
+            const SizedBox(height: 50),
+            Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: PaddingSet.getPaddingSize(
+                    context,
+                    PaddingSet.horizontalPadding,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              getTeacherEvaluationState.when(
-                data: (evaluations) => evaluations.isNotEmpty
-                    ? SizedBox(
-                        height: 100,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: evaluations.length,
-                          itemBuilder: (context, index) {
-                            return EvaluationCardWidget(
-                              teacherEvaluationsDto: evaluations[index],
-                            );
-                          },
-                        ),
-                      )
-                    : const SizedBox(
-                        height: 100,
-                        child: Center(
-                          child: TextForNoEvaluationFound(),
-                        ),
+                child: getTeacherProfileState.when(
+                  data: (teacherProfileDto) => Text(
+                    L10n.evaluationsTitleText,
+                    style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize: FontSizeSet.getFontSize(
+                          context, FontSizeSet.annotation),
+                      color: ColorSet.of(context).greyText,
+                    ),
+                  ),
+                  loading: () => const LoadingOverlay(),
+                  error: (error, stack) => const Center(
+                    child: TextForError(), //ここは普通に評価なしで"生徒からの評価"みたいに出しとけば言い節はある
+                  ),
+                )),
+            const SizedBox(height: 10),
+            getTeacherEvaluationState.when(
+              data: (evaluations) => evaluations.isNotEmpty
+                  ? ExpandablePageView.builder(
+                      controller: PageController(viewportFraction: 0.9),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: evaluations.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.only(
+                            top: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
+                            ),
+                            left: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
+                            ),
+                            right: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
+                            ),
+                          ),
+                          child: EvaluationCardWidget(
+                            teacherEvaluationsDto: evaluations[index],
+                          ),
+                        );
+                      },
+                    )
+                  : const SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: TextForNoEvaluationFound(),
                       ),
-                loading: () => const LoadingOverlay(),
-                error: (error, stack) => const Center(
-                  child: TextForError(),
-                ),
+                    ),
+              loading: () => const LoadingOverlay(),
+              error: (error, stack) => const Center(
+                child: TextForError(),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 50),
+          ],
         ),
       ),
     );

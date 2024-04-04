@@ -37,15 +37,17 @@ class InMemoryGetTeacherProfileQueryService
     }
 
     return GetTeacherProfileDto(
-        name: teacher.name.value,
-        profilePhotoPath: teacher.profilePhotoPath.value,
-        highSchool: teacher.highSchool.value,
-        university: teacher.university.value,
-        enrollmentStatus: "", //TODO: 空にしてます。必要ですかねぇ、そもそも　在籍云々だと思うのですが
-        bestSubjects:
-            teacher.bestSubjects.map((subject) => subject.japanese).toList(),
-        bio: teacher.bio.value,
-        introduction: teacher.introduction.value,
-        isFollowing: isFollowing);
+      name: teacher.name.value,
+      profilePhotoPath: teacher.profilePhotoPath.value,
+      highSchool: teacher.highSchool.value,
+      university: teacher.university.value,
+      enrollmentStatus: "", //TODO: 空にしてます。必要ですかねぇ、そもそも　在籍云々だと思うのですが
+      bestSubjects:
+          teacher.bestSubjects.map((subject) => subject.japanese).toList(),
+      bio: teacher.bio.value,
+      introduction: teacher.introduction.value,
+      isFollowing: isFollowing,
+      rating: teacher.rating.value,
+    );
   }
 }

@@ -51,6 +51,7 @@ dependencies:
   go_router:
   intl:
   expandable_page_view:
+  flutter_rating_bar:
 
 dev_dependencies:
   flutter_test:
