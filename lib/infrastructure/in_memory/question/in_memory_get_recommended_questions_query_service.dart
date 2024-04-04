@@ -34,8 +34,13 @@ class InMemoryGetRecommendedQuestionsQueryService
     final questionCardDtoList = <QuestionCardDto>[];
     final store = _repository.store;
     final selectableQuestions = subject == null
-        ? store.values
-        : store.values.where((question) => question.questionSubject == subject);
+        ? store.values.toList()
+        : store.values
+            .where((question) => question.questionSubject == subject)
+            .toList();
+
+    selectableQuestions
+        .sort((a, b) => b.seenCount.value.compareTo(a.seenCount.value));
 
     for (final question in selectableQuestions) {
       if (questionCardDtoList.length >= _maxQuestionAmount) {

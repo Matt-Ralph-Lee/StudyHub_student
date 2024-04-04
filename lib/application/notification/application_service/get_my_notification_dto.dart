@@ -8,6 +8,7 @@ class GetMyNotificationDto {
   final NotificationTarget target;
   final String title;
   final String text;
+  final DateTime postedAt;
 
   GetMyNotificationDto({
     required this.id,
@@ -15,5 +16,6 @@ class GetMyNotificationDto {
     required this.target,
     required this.title,
     required this.text,
+    required this.postedAt,
   });
 }

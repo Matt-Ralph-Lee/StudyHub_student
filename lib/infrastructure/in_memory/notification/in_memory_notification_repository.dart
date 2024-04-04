@@ -98,6 +98,7 @@ class InMemoryNotificationInitialValue {
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText(
         'この度はアプリを入れていただきありがとうございます。今後皆様の満足感を挙げるために、アンケートにご協力お願いします。'),
+    postedAt: DateTime.now(),
   );
 
   static final firstNotificationToTeacher = Notification(
@@ -129,5 +130,6 @@ class InMemoryNotificationInitialValue {
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),
+    postedAt: DateTime.now(),
   );
 }

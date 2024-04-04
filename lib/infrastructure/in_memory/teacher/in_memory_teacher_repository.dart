@@ -10,9 +10,13 @@ import '../../../domain/teacher/models/teacher.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/teacher/models/i_teacher_repository.dart';
 import '../../../domain/teacher/models/university.dart';
+import '../../../domain/teacher_evaluation/models/teacher_evaluation.dart';
+import 'exception/teacher_infrastructure_exception.dart';
+import 'exception/teacher_infrastructure_exception_detail.dart';
 
 class InMemoryTeacherRepository implements ITeacherRepository {
   late Map<TeacherId, Teacher> store;
+  late Map<TeacherId, List<int>> ratingStore; // sum, num
   static final InMemoryTeacherRepository _instance =
       InMemoryTeacherRepository._internal();
 
@@ -29,10 +33,58 @@ class InMemoryTeacherRepository implements ITeacherRepository {
       InMemoryTeacherInitialValue.teacher3.teacherId:
           InMemoryTeacherInitialValue.teacher3,
     };
+    // make sure to change it to int that corresponds to initial rating value
+    ratingStore = {
+      InMemoryTeacherInitialValue.teacher1.teacherId: [
+        (1 * InMemoryTeacherInitialValue.teacher1.rating.value).round(),
+        1
+      ],
+      InMemoryTeacherInitialValue.teacher2.teacherId: [
+        (2 * InMemoryTeacherInitialValue.teacher2.rating.value).round(),
+        2
+      ],
+      InMemoryTeacherInitialValue.teacher3.teacherId: [
+        (2 * InMemoryTeacherInitialValue.teacher3.rating.value).round(),
+        2
+      ],
+    };
   }
   @override
   Teacher? getByTeacherId(final TeacherId teacherId) {
     return store[teacherId];
+  }
+
+  @override
+  void changeRate(TeacherEvaluation evaluation) {
+    final teacherId = evaluation.to;
+    final oldRating = ratingStore[teacherId];
+    if (oldRating == null) {
+      throw const TeacherInfrastructureException(
+          TeacherInfrastructureExceptionDetail.ratingNotFound);
+    }
+
+    final teacher = store[teacherId];
+    if (teacher == null) {
+      throw const TeacherInfrastructureException(
+          TeacherInfrastructureExceptionDetail.teacherNotFound);
+    }
+    final newRating =
+        (oldRating[0] + evaluation.rating.value) / (oldRating[1] + 1);
+    ratingStore[teacherId] = [
+      oldRating[0] + evaluation.rating.value,
+      oldRating[1] + 1
+    ];
+    store[teacherId] = Teacher(
+      teacherId: teacher.teacherId,
+      name: teacher.name,
+      highSchool: teacher.highSchool,
+      university: teacher.university,
+      bio: teacher.bio,
+      introduction: teacher.introduction,
+      rating: Rating(newRating),
+      bestSubjects: teacher.bestSubjects,
+      profilePhotoPath: teacher.profilePhotoPath,
+    );
   }
 }
 

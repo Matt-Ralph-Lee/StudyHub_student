@@ -12,5 +12,6 @@ abstract class INotificationFactory {
     required final NotificationTarget target,
     required final NotificationTitle title,
     required final NotificationText text,
+    required final DateTime postedAt,
   });
 }

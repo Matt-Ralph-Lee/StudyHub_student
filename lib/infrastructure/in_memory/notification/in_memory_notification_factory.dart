@@ -21,8 +21,8 @@ class InMemoryNotificationFactory implements INotificationFactory {
     required final NotificationTarget target,
     required final NotificationTitle title,
     required final NotificationText text,
+    required final DateTime postedAt,
   }) async {
-    print("nonono");
     final notificationId = await _repository.generateId();
 
     return Notification(
@@ -32,6 +32,7 @@ class InMemoryNotificationFactory implements INotificationFactory {
       target: target,
       title: title,
       text: text,
+      postedAt: postedAt,
     );
   }
 }

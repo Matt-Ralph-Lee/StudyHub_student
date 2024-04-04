@@ -7,7 +7,9 @@ enum TeacherEvaluationDomainExceptionDetail implements DomainExceptionDetail {
   invalidRatingValue(
       'ratingの値が不正です。${TeacherEvaluationRating.minValue}以上${TeacherEvaluationRating.maxValue}以下にしてください。'),
   invalidCommentLength(
-      "evaluation commentが不正です${TeacherEvaluationComment.minLength}以上${TeacherEvaluationComment.maxLength}以下にしてください");
+      "evaluation commentが不正です${TeacherEvaluationComment.minLength}以上${TeacherEvaluationComment.maxLength}以下にしてください"),
+  invalidId("invalid id"),
+  ;
 
   const TeacherEvaluationDomainExceptionDetail(this._message);
 

@@ -40,21 +40,23 @@ void main() {
     test('when a teacher send you a new notification.', () async {
       final newNotification =
           await InMemoryNotificationFactory(repository: repository).create(
-              sender: NotificationSender(
-                  senderType: NotificationSenderType.teacher,
-                  senderId: InMemoryTeacherInitialValue.teacher1.teacherId,
-                  senderPhotoPath: ProfilePhotoPath(
-                      'assets/photos/profile_photo/sample_user_icon2.jpg')),
-              receiverList: NotificationReceiverList([
-                NotificationReceiver(
-                    receiverType: NotificationReceiverType.student,
-                    receiverId: session.studentId)
-              ]),
-              target: NotificationTarget(
-                  targetType: NotificationTargetType.question,
-                  targetId: InMemoryQuestionIdInitialValue.questionId1FromS1),
-              title: NotificationTitle('これは回答です'),
-              text: NotificationText('これはテスト配信用の回答です。'));
+        sender: NotificationSender(
+            senderType: NotificationSenderType.teacher,
+            senderId: InMemoryTeacherInitialValue.teacher1.teacherId,
+            senderPhotoPath: ProfilePhotoPath(
+                'assets/photos/profile_photo/sample_user_icon2.jpg')),
+        receiverList: NotificationReceiverList([
+          NotificationReceiver(
+              receiverType: NotificationReceiverType.student,
+              receiverId: session.studentId)
+        ]),
+        target: NotificationTarget(
+            targetType: NotificationTargetType.question,
+            targetId: InMemoryQuestionIdInitialValue.questionId1FromS1),
+        title: NotificationTitle('これは回答です'),
+        text: NotificationText('これはテスト配信用の回答です。'),
+        postedAt: DateTime.now(),
+      );
       repository.store[newNotification.notificationId] = newNotification;
       final getMyNotificationDtoList = await useCase.execute();
       _printDtoList(getMyNotificationDtoList);

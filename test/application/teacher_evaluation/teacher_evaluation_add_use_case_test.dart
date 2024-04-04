@@ -6,12 +6,16 @@ import 'package:studyhub/domain/answer_list/models/answer_id.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/answer/in_memory_answer_repository.dart';
+import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
+import 'package:studyhub/infrastructure/in_memory/teacher_evaluation/in_memory_teacher_evaluation_factory.dart';
 import 'package:studyhub/infrastructure/in_memory/teacher_evaluation/in_memory_teacher_evaluation_repository.dart';
 
 void main() {
   final session = MockSession();
   final repository = InMemoryTeacherEvaluationRepository();
+  final factory = InMemoryTeacherEvaluationFactory(repository);
   final answerRepository = InMemoryAnswerRepository();
+  final teacherRepository = InMemoryTeacherRepository();
 
   group("evaluation add use case", () {
     test("should add favorite teachers", () async {
@@ -22,7 +26,9 @@ void main() {
       final usecase = TeacherEvaluationAddUseCase(
         session: session,
         repository: repository,
+        factory: factory,
         answerRepository: answerRepository,
+        teacherRepository: teacherRepository,
       );
       await usecase.execute(
         answerId: answerId,
