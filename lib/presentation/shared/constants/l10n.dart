@@ -155,6 +155,7 @@ class L10n {
   static const accountRelatedButtonExplanationText = "アカウント関連";
   static const editAccountInformationButtonText = "アカウント情報編集";
   static const logoutButtonText = "ログアウト";
+  static const logoutSnackBarText = "ログアウトしました";
   static const deleteAccountButtonText = "アカウント削除";
 
   //favorite_teacher_page
