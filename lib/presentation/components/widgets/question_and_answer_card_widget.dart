@@ -91,7 +91,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                                   style: TextStyle(
                                       fontWeight: FontWeightSet.semibold,
                                       fontSize: FontSizeSet.getFontSize(
-                                          context, FontSizeSet.header3),
+                                          context, FontSizeSet.body),
                                       color: ColorSet.of(context).text),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -113,7 +113,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                                           fontWeight: FontWeightSet.normal,
                                           fontSize: FontSizeSet.getFontSize(
                                               context, FontSizeSet.body),
-                                          color: ColorSet.of(context).text),
+                                          color: ColorSet.of(context).greyText),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis),
                                 ),
@@ -157,7 +157,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                           fontWeight: FontWeightSet.normal,
                           fontSize: FontSizeSet.getFontSize(
                               context, FontSizeSet.body),
-                          color: ColorSet.of(context).text),
+                          color: ColorSet.of(context).greyText),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

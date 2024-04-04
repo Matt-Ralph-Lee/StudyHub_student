@@ -120,21 +120,17 @@ class AnswerCardWidget extends ConsumerWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: Icon(
+                GestureDetector(
+                  onTap: () => showAnswerMenuDialog(
+                    context,
+                    answerDto,
+                  ),
+                  child: Icon(
                     Icons.more_vert,
                     color: ColorSet.of(context).text,
-                    size: FontSizeSet.getFontSize(context, FontSizeSet.body),
+                    size: FontSizeSet.getFontSize(context, FontSizeSet.header2),
                   ),
-                  onPressed: () {
-                    showAnswerMenuDialog(
-                      context,
-                      answerDto,
-                    );
-                  },
-                )
+                ),
                 // answerDto.isFollowing
                 //     ? TextButtonForUnFollowTeacher(
                 //         onPressed: () => deleteFavoriteTeacher())

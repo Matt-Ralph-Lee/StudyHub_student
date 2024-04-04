@@ -1,0 +1,104 @@
+Date : 2024-04-03 23:49:07
+Directory : /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure
+Total : 50 files,  2012 codes, 11 comments, 337 blanks, all 2360 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         50 |      2,012 |         11 |        337 |      2,360 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                               | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                                  |         50 |      2,012 |         11 |        337 |      2,360 |
+| exceptions                                                                                                                                         |          2 |         26 |          4 |          7 |         37 |
+| exceptions/student_auth                                                                                                                            |          2 |         26 |          4 |          7 |         37 |
+| firebase                                                                                                                                           |          2 |        175 |          1 |         18 |        194 |
+| firebase/student-auth                                                                                                                              |          2 |        175 |          1 |         18 |        194 |
+| in_memory                                                                                                                                          |         44 |      1,794 |          6 |        306 |      2,106 |
+| in_memory/answer                                                                                                                                   |          4 |        223 |          0 |         29 |        252 |
+| in_memory/answer (Files)                                                                                                                           |          2 |        205 |          0 |         22 |        227 |
+| in_memory/answer/exception                                                                                                                         |          2 |         18 |          0 |          7 |         25 |
+| in_memory/blockings                                                                                                                                |          2 |         64 |          0 |         13 |         77 |
+| in_memory/bookmarks                                                                                                                                |          4 |        113 |          0 |         24 |        137 |
+| in_memory/bookmarks (Files)                                                                                                                        |          2 |         94 |          0 |         17 |        111 |
+| in_memory/bookmarks/exception                                                                                                                      |          2 |         19 |          0 |          7 |         26 |
+| in_memory/favorite_teachers                                                                                                                        |          2 |         68 |          0 |         14 |         82 |
+| in_memory/liked_answers                                                                                                                            |          4 |         82 |          0 |         23 |        105 |
+| in_memory/liked_answers (Files)                                                                                                                    |          2 |         64 |          0 |         16 |         80 |
+| in_memory/liked_answers/exception                                                                                                                  |          2 |         18 |          0 |          7 |         25 |
+| in_memory/notification                                                                                                                             |          5 |        201 |          2 |         28 |        231 |
+| in_memory/notification (Files)                                                                                                                     |          3 |        183 |          2 |         21 |        206 |
+| in_memory/notification/exception                                                                                                                   |          2 |         18 |          0 |          7 |         25 |
+| in_memory/photo                                                                                                                                    |          1 |         32 |          0 |          8 |         40 |
+| in_memory/question                                                                                                                                 |         10 |        487 |          1 |         78 |        566 |
+| in_memory/question (Files)                                                                                                                         |          8 |        467 |          1 |         71 |        539 |
+| in_memory/question/exception                                                                                                                       |          2 |         20 |          0 |          7 |         27 |
+| in_memory/report                                                                                                                                   |          2 |         48 |          0 |         10 |         58 |
+| in_memory/school                                                                                                                                   |          1 |         25 |          0 |          5 |         30 |
+| in_memory/student                                                                                                                                  |          2 |         98 |          0 |         14 |        112 |
+| in_memory/student_auth                                                                                                                             |          2 |        156 |          1 |         26 |        183 |
+| in_memory/teacher                                                                                                                                  |          4 |        167 |          1 |         28 |        196 |
+| in_memory/teacher_evaluation                                                                                                                       |          1 |         30 |          1 |          6 |         37 |
+| shared                                                                                                                                             |          2 |         17 |          0 |          6 |         23 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                                           | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/exceptions/student_auth/student_auth_infrastructure_exception.dart                   | Dart     |          8 |          0 |          2 |         10 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/exceptions/student_auth/student_auth_infrastructure_exception_detail.dart            | Dart     |         18 |          4 |          5 |         27 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/firebase/student-auth/firebase_get_student_auth_query_service.dart                   | Dart     |         24 |          0 |          5 |         29 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/firebase/student-auth/firebase_student_auth_repository.dart                          | Dart     |        151 |          1 |         13 |        165 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/answer/exception/answer_infrastructure_exception.dart                      | Dart     |          8 |          0 |          2 |         10 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/answer/exception/answer_infrastructure_exception_detail.dart               | Dart     |         10 |          0 |          5 |         15 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/answer/in_memory_answer_repository.dart                                    | Dart     |        124 |          0 |         12 |        136 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/answer/in_memory_get_answer_query_service.dart                             | Dart     |         81 |          0 |         10 |         91 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/blockings/in_memory_blockings_query_service.dart                           | Dart     |         42 |          0 |          7 |         49 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/blockings/in_memory_blockings_repository.dart                              | Dart     |         22 |          0 |          6 |         28 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/bookmarks/exception/bookmarks_infrastructure_exception.dart                | Dart     |          8 |          0 |          2 |         10 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/bookmarks/exception/bookmarks_infrastructure_exception_detail.dart         | Dart     |         11 |          0 |          5 |         16 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/bookmarks/in_memory_bookmarks_query_service.dart                           | Dart     |         72 |          0 |         11 |         83 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/bookmarks/in_memory_bookmarks_repository.dart                              | Dart     |         22 |          0 |          6 |         28 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/favorite_teachers/in_memory_favorite_teacher_query_service.dart            | Dart     |         45 |          0 |          8 |         53 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/favorite_teachers/in_memory_favorite_teachers_repository.dart              | Dart     |         23 |          0 |          6 |         29 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/liked_answers/exception/liked_answers_infrastructure_exception.dart        | Dart     |          8 |          0 |          2 |         10 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/liked_answers/exception/liked_answers_infrastructure_exception_detail.dart | Dart     |         10 |          0 |          5 |         15 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/liked_answers/in_memory_get_liked_answers_query_service.dart               | Dart     |         20 |          0 |          8 |         28 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/liked_answers/in_memory_liked_answers_repository.dart                      | Dart     |         44 |          0 |          8 |         52 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/notification/exception/notification_infrastructure_exception.dart          | Dart     |          8 |          0 |          2 |         10 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/notification/exception/notification_infrastructure_exception_detail.dart   | Dart     |         10 |          0 |          5 |         15 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/notification/in_memory_get_my_notifications_query_service.dart             | Dart     |         30 |          0 |          4 |         34 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/notification/in_memory_notification_factory.dart                           | Dart     |         33 |          0 |          5 |         38 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/notification/in_memory_notification_repository.dart                        | Dart     |        120 |          2 |         12 |        134 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/photo/in_memory_photo_repository.dart                                      | Dart     |         32 |          0 |          8 |         40 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/exception/question_infrastructure_exception.dart                  | Dart     |          8 |          0 |          2 |         10 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/exception/question_infrastructure_exception_detail.dart           | Dart     |         12 |          0 |          5 |         17 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_get_my_questions_query_service.dart                     | Dart     |         70 |          0 |         10 |         80 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_get_question_detail_query_service.dart                  | Dart     |         20 |          0 |          6 |         26 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_get_recommended_questions_query_service.dart            | Dart     |         77 |          1 |         10 |         88 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_get_trending_question_query_service.dart                | Dart     |         72 |          0 |         11 |         83 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_question_create_query_service.dart                      | Dart     |         23 |          0 |          4 |         27 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_question_factory.dart                                   | Dart     |         42 |          0 |          5 |         47 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_question_repository.dart                                | Dart     |         87 |          0 |         14 |        101 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/question/in_memory_search_for_questions_query_service.dart                 | Dart     |         76 |          0 |         11 |         87 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/report/in_memory_question_report_repository.dart                           | Dart     |         24 |          0 |          5 |         29 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/report/in_memory_teacher_report_repository.dart                            | Dart     |         24 |          0 |          5 |         29 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/school/in_memory_school_repository.dart                                    | Dart     |         25 |          0 |          5 |         30 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/student/in_memory_student_query_service.dart                               | Dart     |         21 |          0 |          4 |         25 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/student/in_memory_student_repository.dart                                  | Dart     |         77 |          0 |         10 |         87 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/student_auth/in_memory_get_student_auth_query_service.dart                 | Dart     |         14 |          0 |          4 |         18 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart                        | Dart     |        142 |          1 |         22 |        165 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/teacher/in_memory_get_popular_teachers_query_service.dart                  | Dart     |         24 |          1 |          7 |         32 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/teacher/in_memory_get_teacher_profile_query_service.dart                   | Dart     |         45 |          0 |          7 |         52 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/teacher/in_memory_search_for_teachers_query_service.dart                   | Dart     |         23 |          0 |          7 |         30 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart                                  | Dart     |         75 |          0 |          7 |         82 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/in_memory/teacher_evaluation/in_memory_teacher_evaluation_repository.dart            | Dart     |         30 |          1 |          6 |         37 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/shared/infrastructure_exception.dart                                                 | Dart     |         13 |          0 |          4 |         17 |
+| /Users/morikazu/Downloads/StudyHub_student/lib/infrastructure/shared/infrastructure_exception_detail.dart                                          | Dart     |          4 |          0 |          2 |          6 |
+| Total                                                                                                                                              |          |      2,012 |         11 |        337 |      2,360 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

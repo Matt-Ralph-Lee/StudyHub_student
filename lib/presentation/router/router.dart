@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
+import "package:studyhub/application/notification/application_service/get_my_notification_dto.dart";
+import "package:studyhub/presentation/pages/notification_detail_page.dart";
 import "package:studyhub/presentation/pages/report_page.dart";
 
 import "../../application/answer/application_service/answer_dto.dart";
@@ -215,6 +217,16 @@ GoRouter router(RouterRef ref) {
         return CheckAnswerImagePage(
           answerDto: answerDto,
           order: order,
+        );
+      },
+    ),
+    GoRoute(
+      path: PageId.notificationDetailPage.path,
+      name: PageId.notificationDetailPage.name,
+      builder: (context, state) {
+        final getMyNotificationDto = state.extra as GetMyNotificationDto;
+        return NotificationDetailPage(
+          getMyNotificationDto: getMyNotificationDto,
         );
       },
     ),

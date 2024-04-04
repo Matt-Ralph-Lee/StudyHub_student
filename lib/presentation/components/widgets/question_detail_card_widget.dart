@@ -101,26 +101,17 @@ class QuestionDetailCardWidget extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: Icon(
+                GestureDetector(
+                  onTap: () => showQuestionMenuDialog(
+                    context,
+                    questionDetailDto,
+                  ),
+                  child: Icon(
                     Icons.more_vert,
                     color: ColorSet.of(context).text,
-                    size: FontSizeSet.getFontSize(context, FontSizeSet.body),
+                    size: FontSizeSet.getFontSize(context, FontSizeSet.header2),
                   ),
-                  onPressed: () {
-                    showQuestionMenuDialog(
-                      context,
-                      questionDetailDto,
-                    );
-                  },
-                )
-                // answerDto.isFollowing
-                //     ? TextButtonForUnFollowTeacher(
-                //         onPressed: () => deleteFavoriteTeacher())
-                //     : TextButtonForFollowTeacher(
-                //         onPressed: () => addFavoriteTeacher()),
+                ),
               ],
             ),
             const SizedBox(

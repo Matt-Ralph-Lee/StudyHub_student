@@ -263,6 +263,7 @@ class L10n {
   static const todayText = "今日";
   static const thisWeekText = "今週";
   static const beforeText = "それ以前";
+  static const noNotificationFound = "お知らせがありません";
 
   //search_question_page
   static const noQuestionsFound = "該当する質問がありません";

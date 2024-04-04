@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
+import '../../shared/constants/page_path.dart';
 import 'rank_description_modal.dart';
 
 //ランクの定義どうする
@@ -100,6 +102,10 @@ class UserDetailWidget extends StatelessWidget {
           20,
         );
 
+    void navigateToFavoriteTeacherPage(BuildContext context) {
+      context.push(PageId.favoriteTeachers.path);
+    }
+
     return Column(
       children: [
         Row(
@@ -113,38 +119,40 @@ class UserDetailWidget extends StatelessWidget {
                   : NetworkImage(userIconUrl),
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                //favorite_teacher_pageマージしたらonTap時にそこ飛ぶように加筆する
-                children: [
-                  Text(
-                    numberOfFavoriteTeachers.toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize:
-                            FontSizeSet.getFontSize(context, FontSizeSet.body),
-                        color: ColorSet.of(context).text),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    L10n.favoriteTeacherText,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.annotation),
-                        color: ColorSet.of(context).text),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: ColorSet.of(context).text,
-                    size: 25,
-                  ),
-                ],
+              child: GestureDetector(
+                onTap: () => navigateToFavoriteTeacherPage(context),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      numberOfFavoriteTeachers.toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
+                          color: ColorSet.of(context).text),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      L10n.favoriteTeacherText,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.annotation),
+                          color: ColorSet.of(context).text),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Icon(
+                      Icons.chevron_right,
+                      color: ColorSet.of(context).text,
+                      size: 25,
+                    ),
+                  ],
+                ),
               ),
             )
           ],
