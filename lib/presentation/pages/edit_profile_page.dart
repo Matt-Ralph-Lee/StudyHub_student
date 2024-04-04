@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studyhub/presentation/shared/constants/padding_set.dart';
 import 'package:studyhub/presentation/shared/constants/page_path.dart';
 
 import '../../application/student/application_service/profile_update_command.dart';
@@ -129,7 +130,12 @@ class EditProfilePage extends HookConsumerWidget {
             appBar: AppBar(
               toolbarHeight: FontSizeSet.getFontSize(context, 50),
               leading: Padding(
-                padding: const EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(
+                  left: PaddingSet.getPaddingSize(
+                    context,
+                    PaddingSet.horizontalPadding,
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,10 +157,12 @@ class EditProfilePage extends HookConsumerWidget {
                   ],
                 ),
               ),
-              leadingWidth: 130,
+              leadingWidth: 250,
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 20),
+                  padding: EdgeInsets.only(
+                      right: PaddingSet.getPaddingSize(
+                          context, PaddingSet.horizontalPadding)),
                   child: TextButton(
                     onPressed: isUserNameFilled.value &&
                             isSchoolNameFilled.value &&
@@ -186,7 +194,10 @@ class EditProfilePage extends HookConsumerWidget {
             backgroundColor: ColorSet.of(context).background,
             body: SingleChildScrollView(
                 child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(PaddingSet.getPaddingSize(
+                context,
+                PaddingSet.horizontalPadding,
+              )),
               child: Column(
                 children: [
                   EditProfileWidget(

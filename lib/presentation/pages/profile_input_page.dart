@@ -20,6 +20,7 @@ import '../components/widgets/user_name_input_widget.dart';
 import '../controllers/profile_update_controller/profile_update_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
 class ProfileInputPage extends HookConsumerWidget {
@@ -150,7 +151,12 @@ class ProfileInputPage extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              vertical: topPadding, horizontal: horizontalPadding),
+            vertical: topPadding,
+            horizontal: PaddingSet.getPaddingSize(
+              context,
+              PaddingSet.horizontalPadding,
+            ),
+          ),
           child: Column(
             children: [
               ProgressBar(

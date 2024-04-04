@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/shared/subject.dart';
 import '../../shared/constants/padding_set.dart';
-import '../parts/dropdown_for_question_subject.dart';
+import '../parts/drop_down_button_for_question_subject.dart';
 import '../parts/text_form_field_for_add_question_title.dart';
 import '../parts/text_form_field_for_add_question.dart';
 
@@ -27,7 +27,7 @@ class AddQuestionMainContentWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          DropDownForQuestionSubject(
+          DropDownButtonForQuestionSubject(
             setSubject: selectSubjectFunction,
           ),
           SizedBox(

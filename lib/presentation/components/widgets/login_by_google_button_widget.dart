@@ -18,9 +18,8 @@ class LoginByGoogleButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: screenWidth * 0.8,
+      width: double.infinity,
       child: OutlinedButton(
         onPressed: () => push(context),
         style: OutlinedButton.styleFrom(

@@ -184,7 +184,7 @@ class CreateQuestionPage extends HookConsumerWidget {
             ],
           ),
         ),
-        leadingWidth: 130,
+        leadingWidth: 250,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),

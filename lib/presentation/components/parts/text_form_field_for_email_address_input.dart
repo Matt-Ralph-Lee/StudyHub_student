@@ -23,7 +23,7 @@ class TextFormFieldForEmailAddressInput extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return SizedBox(
-      width: screenWidth * 0.8,
+      width: double.infinity,
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,

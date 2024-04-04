@@ -89,7 +89,11 @@ class HomePage extends HookConsumerWidget {
           ),
           child: Container(
             height: screenWidth < 600 ? 42 : 63,
-            margin: const EdgeInsets.symmetric(horizontal: 24),
+            margin: EdgeInsets.symmetric(
+                horizontal: PaddingSet.getPaddingSize(
+              context,
+              PaddingSet.horizontalPadding,
+            )),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: ColorSet.of(context).greySurface),
@@ -112,7 +116,7 @@ class HomePage extends HookConsumerWidget {
                 labelPadding: EdgeInsets.symmetric(
                     horizontal: PaddingSet.getPaddingSize(
                   context,
-                  20,
+                  PaddingSet.horizontalPadding,
                 )),
                 labelStyle: TextStyle(
                   color: ColorSet.of(context).whiteText,

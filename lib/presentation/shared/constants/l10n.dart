@@ -60,7 +60,7 @@ class L10n {
       FavoriteTeachersUseCaseExceptionDetail detail) {
     switch (detail) {
       case FavoriteTeachersUseCaseExceptionDetail.favoriteTeacherNotFound:
-        return "お気に入りの講師が見つかりませんでした。";
+        return "フォロー中の講師が見つかりませんでした。";
     }
   }
 
@@ -68,7 +68,7 @@ class L10n {
       EvaluationUseCaseExceptionDetail detail) {
     switch (detail) {
       case EvaluationUseCaseExceptionDetail.favoriteTeacherNotFound:
-        return "お気に入りの講師が見つかりませんでした。"; //これfavoriteTeacherNotFoundではないよね？元書き換えて
+        return "フォロー中の講師が見つかりませんでした。"; //これfavoriteTeacherNotFoundではないよね？元書き換えて
     }
   }
 
@@ -158,8 +158,8 @@ class L10n {
   static const deleteAccountButtonText = "アカウント削除";
 
   //favorite_teacher_page
-  static const favoriteTeacherText = "お気に入りの講師";
-  static const noFavoriteTeacherFoundText = "お気に入りの講師はいません";
+  static const favoriteTeacherText = "フォロー中の講師";
+  static const noFavoriteTeacherFoundText = "フォロー中の講師はいません";
 
   //profile_edit_page
   static const saveText = "保存する";
@@ -223,11 +223,11 @@ class L10n {
   static const modalOkText = "ok";
   static const cancelText = "キャンセル";
   static const closeText = "閉じる";
-  static const followButtonText = "お気に入りに追加する";
-  static const unFollowButtonText = "お気に入りから削除する";
-  static const addFavoriteTeacherText = "お気に入りに追加しました";
-  static const deleteFavoriteTeacherText = "お気に入りから削除しました";
-  static const favoriteTeacherTextForSelectTeachersPage = "お気に入りの講師";
+  static const followButtonText = "フォローする";
+  static const unFollowButtonText = "フォローから外す";
+  static const addFavoriteTeacherText = "フォローしました";
+  static const deleteFavoriteTeacherText = "フォローから外しました";
+  static const favoriteTeacherTextForSelectTeachersPage = "フォロー中の講師";
   static const popularTeachersText = "人気の講師";
   static const noTeachersFoundText = "該当する講師は見つかりませんでした。";
   static const reportText = "投稿を報告する";

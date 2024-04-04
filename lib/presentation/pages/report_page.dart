@@ -113,7 +113,12 @@ class ReportPage extends HookConsumerWidget {
     return Scaffold(
         appBar: AppBar(
           leading: Padding(
-            padding: const EdgeInsets.only(left: 20),
+            padding: EdgeInsets.only(
+              left: PaddingSet.getPaddingSize(
+                context,
+                PaddingSet.horizontalPadding,
+              ),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,10 +140,15 @@ class ReportPage extends HookConsumerWidget {
               ],
             ),
           ),
-          leadingWidth: 130,
+          leadingWidth: 250,
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: EdgeInsets.only(
+                right: PaddingSet.getPaddingSize(
+                  context,
+                  PaddingSet.horizontalPadding,
+                ),
+              ),
               child: TextButton(
                 onPressed:
                     (reportReason.value != null && isReportContentFilled.value)
@@ -167,11 +177,15 @@ class ReportPage extends HookConsumerWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                vertical: PaddingSet.getPaddingSize(
-                  context,
-                  20,
-                ),
-                horizontal: horizontalPadding),
+              vertical: PaddingSet.getPaddingSize(
+                context,
+                20,
+              ),
+              horizontal: PaddingSet.getPaddingSize(
+                context,
+                PaddingSet.horizontalPadding,
+              ),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

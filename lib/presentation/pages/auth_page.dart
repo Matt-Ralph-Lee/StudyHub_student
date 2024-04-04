@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studyhub/presentation/shared/constants/padding_set.dart';
 
 import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/login_by_google_button_widget.dart';
@@ -18,13 +19,11 @@ class AuthPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final paddingHorizontal = screenWidth * 0.1;
     final screenHeight = MediaQuery.of(context).size.height;
     final paddingTop = screenHeight * 0.2;
     //コード長いので定数として定義しておく
     Widget orLine = SizedBox(
-      width: screenWidth * 0.8,
+      width: double.infinity,
       child: Row(
         children: [
           Expanded(
@@ -87,8 +86,12 @@ class AuthPage extends ConsumerWidget {
                   child: TabBarView(
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: paddingHorizontal),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: PaddingSet.getPaddingSize(
+                            context,
+                            PaddingSet.horizontalPadding,
+                          ),
+                        ),
                         child: SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,22 +104,28 @@ class AuthPage extends ConsumerWidget {
                                 children: [ResetPasswordTextButtonWidget()],
                               ),
                               const SizedBox(height: 20),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [orLine]),
+                              orLine,
                               const SizedBox(height: 50),
                               const LoginByGoogleButtonWidget(),
                             ],
                           ),
                         ),
                       ),
-                      const SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(height: 50),
-                            SignUpWidget(),
-                          ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: PaddingSet.getPaddingSize(
+                            context,
+                            PaddingSet.horizontalPadding,
+                          ),
+                        ),
+                        child: const SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 50),
+                              SignUpWidget(),
+                            ],
+                          ),
                         ),
                       ),
                     ],

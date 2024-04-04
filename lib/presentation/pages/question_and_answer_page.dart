@@ -20,7 +20,10 @@ import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
-//paddingなりsizedBoxなりのレスポンシブ忘れるので暇なときに少しずつ差し替えます（ここに限らず）
+//questionCardの方が、widthをdouble.infinityにして上からhorizontalPaddingかけてる一方で
+//写真なり回答なりはviewPortFractionを使って画面の横幅ベースで横幅を決めてる
+//スマホに合わせてそれっぽいviewPortFraction（0.9）セットしてるけど
+//ipadとか端末によっては左端が揃わなかったり回答が一つしかないときに萎んだり等々、絶妙に気持ち悪いけど解決策わからん
 class QuestionAndAnswerPage extends HookConsumerWidget {
   final QuestionId questionId;
   final bool isMyQuestion;
@@ -32,9 +35,6 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double horizontalPadding = screenWidth * 0.07;
-    // 画面の幅を利用したウィジェットの構築
     final getQuestionDetailControllerState =
         ref.watch(getQuestionDetailControllerProvider(questionId));
     final getAnswerControllerState =
@@ -136,17 +136,21 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                               selectedAnswerIndex.value = newIndex;
                             },
                             itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.only(
-                                  right: PaddingSet.getPaddingSize(
-                                    context,
-                                    PaddingSet.pageViewItemLightPadding,
-                                  ),
-                                ), //marginなので？組み込まずに外からかけてます
-                                child: AnswerCardWidget(
-                                  answerDto: answerDto[index],
-                                ),
-                              );
+                              return answerDto.length == 1
+                                  ? AnswerCardWidget(
+                                      answerDto: answerDto[index],
+                                    )
+                                  : Container(
+                                      margin: EdgeInsets.only(
+                                        right: PaddingSet.getPaddingSize(
+                                          context,
+                                          PaddingSet.pageViewItemLightPadding,
+                                        ),
+                                      ),
+                                      child: AnswerCardWidget(
+                                        answerDto: answerDto[index],
+                                      ),
+                                    );
                             },
                           ),
                           if (answerDto[selectedAnswerIndex.value]

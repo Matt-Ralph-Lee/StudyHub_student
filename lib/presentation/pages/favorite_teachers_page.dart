@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/shared/constants/padding_set.dart';
 
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_favorite_teacher_found.dart';
@@ -18,8 +19,6 @@ class FavoriteTeachersPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = screenWidth * 0.1;
     final screenHeight = MediaQuery.of(context).size.height;
     final verticalPadding = screenHeight * 0.05;
 
@@ -49,7 +48,11 @@ class FavoriteTeachersPage extends ConsumerWidget {
         backgroundColor: ColorSet.of(context).background,
         body: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding, vertical: verticalPadding),
+              horizontal: PaddingSet.getPaddingSize(
+                context,
+                PaddingSet.horizontalPadding,
+              ),
+              vertical: verticalPadding),
           child: favoriteTeachersState.when(
             data: (teachers) => teachers.isNotEmpty
                 ? ListView.builder(
@@ -57,7 +60,12 @@ class FavoriteTeachersPage extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final teacher = teachers[index];
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
+                        padding: EdgeInsets.only(
+                          bottom: PaddingSet.getPaddingSize(
+                            context,
+                            PaddingSet.pageViewItemLightPadding,
+                          ),
+                        ),
                         child: TeacherSmallCardWidget(
                           name: teacher.teacherName,
                           bio: teacher.bio,
@@ -73,7 +81,6 @@ class FavoriteTeachersPage extends ConsumerWidget {
                     child: TextForNoFavoriteTeacherFound(),
                   ),
             loading: () => const LoadingOverlay(),
-            //エラーときはテキストだけじゃなくてステップアップのログとかと一緒に表示するのもありかも？
             error: (error, stack) {
               return const Center(
                   child: Column(

@@ -22,6 +22,7 @@ class NotificationCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () => navigateToNotificationDetailPage(context),
       child: Container(
+        width: double.infinity,
         decoration: BoxDecoration(
           color: ColorSet.of(context).surface,
           borderRadius: BorderRadius.circular(10),
@@ -39,12 +40,6 @@ class NotificationCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(
-                  getMyNotificationDto.sender.senderPhotoPath.value,
-                ),
-              ),
               CircleAvatar(
                 radius: 15,
                 backgroundImage: getMyNotificationDto

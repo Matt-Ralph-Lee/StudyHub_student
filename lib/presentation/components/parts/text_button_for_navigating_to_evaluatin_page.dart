@@ -23,7 +23,6 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
     void push(BuildContext context) {
       context.push(
         PageId.evaluationPage.path,
@@ -37,7 +36,6 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      // width: screenWidth * 0.8, //適当。answerCardの横幅と揃える
       child: TextButton(
         onPressed: () => push(context),
         style: TextButton.styleFrom(

@@ -15,6 +15,7 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
 class MyPage extends HookConsumerWidget {
@@ -71,8 +72,12 @@ class MyPage extends HookConsumerWidget {
                 delegate: SliverChildListDelegate(
                   [
                     Padding(
-                      padding: const EdgeInsets.only(
-                          right: 24, left: 24, bottom: 20),
+                      padding: EdgeInsets.all(
+                        PaddingSet.getPaddingSize(
+                          context,
+                          PaddingSet.horizontalPadding,
+                        ),
+                      ),
                       child: getMyProfileState.when(
                         data: (getMyProfileDto) {
                           final numberOfFavoriteTeachers =
@@ -138,10 +143,11 @@ class MyPage extends HookConsumerWidget {
                         itemBuilder: (context, index) {
                           final myQuestion = myQuestions[index];
                           return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              right: 24,
-                              left: 24,
+                            padding: EdgeInsets.all(
+                              PaddingSet.getPaddingSize(
+                                context,
+                                PaddingSet.horizontalPadding,
+                              ),
                             ),
                             child: QuestionAndAnswerCardWidget(
                               questionCardDto: myQuestion,
@@ -173,10 +179,11 @@ class MyPage extends HookConsumerWidget {
                         itemBuilder: (context, index) {
                           final myBookmark = myBookmarks[index];
                           return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 30,
-                              right: 24,
-                              left: 24,
+                            padding: EdgeInsets.all(
+                              PaddingSet.getPaddingSize(
+                                context,
+                                PaddingSet.horizontalPadding,
+                              ),
                             ),
                             child: QuestionAndAnswerCardWidget(
                               questionCardDto: myBookmark,

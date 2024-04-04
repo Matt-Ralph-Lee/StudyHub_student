@@ -18,7 +18,7 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return SizedBox(
-      width: screenWidth * 0.8,
+      width: double.infinity,
       child: Column(
         children: [
           Row(

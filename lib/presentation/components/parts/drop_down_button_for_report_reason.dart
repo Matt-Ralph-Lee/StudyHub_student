@@ -22,55 +22,60 @@ class DropDownButtonForReportReason extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              L10n.reportReason,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.annotation),
-                  color: ColorSet.of(context).greyText),
-            )
-          ],
-        ),
-        const SizedBox(height: 10),
-        DropdownButtonFormField<ReportReason>(
-          decoration: InputDecoration(
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            fillColor: ColorSet.of(context).greySurface,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: PaddingSet.getPaddingSize(context, 15),
-              horizontal: PaddingSet.getPaddingSize(context, 20),
-            ),
-          ),
-          isExpanded: true,
-          value: groupValue,
-          dropdownColor: ColorSet.of(context).greySurface,
-          onChanged: onChanged,
-          items: reportReasonOptions.map((ReportReason value) {
-            return DropdownMenuItem<ReportReason>(
-              value: value,
-              child: Text(
-                value.japanese,
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                L10n.reportReason,
                 style: TextStyle(
-                    height: 2,
                     fontWeight: FontWeightSet.normal,
                     fontSize: FontSizeSet.getFontSize(
                         context, FontSizeSet.annotation),
-                    color: ColorSet.of(context).text),
+                    color: ColorSet.of(context).greyText),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonFormField<ReportReason>(
+              decoration: InputDecoration(
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                fillColor: ColorSet.of(context).greySurface,
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: PaddingSet.getPaddingSize(context, 15),
+                  horizontal: PaddingSet.getPaddingSize(context, 20),
+                ),
               ),
-            );
-          }).toList(),
-        ),
-      ],
+              isExpanded: true,
+              value: groupValue,
+              dropdownColor: ColorSet.of(context).greySurface,
+              onChanged: onChanged,
+              items: reportReasonOptions.map((ReportReason value) {
+                return DropdownMenuItem<ReportReason>(
+                  value: value,
+                  child: Text(
+                    value.japanese,
+                    style: TextStyle(
+                        height: 2,
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                            context, FontSizeSet.annotation),
+                        color: ColorSet.of(context).text),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
