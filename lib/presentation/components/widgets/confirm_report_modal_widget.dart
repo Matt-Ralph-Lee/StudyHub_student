@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/domain/report/models/report_reason.dart';
 
+import '../../../domain/report/models/report_reason.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';

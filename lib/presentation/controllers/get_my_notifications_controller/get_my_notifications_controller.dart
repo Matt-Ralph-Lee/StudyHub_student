@@ -13,9 +13,6 @@ class GetMyNotificationsController extends _$GetMyNotificationsController {
   Future<List<GetMyNotificationDto>> build() async {
     final session = ref.read(nonNullSessionProvider);
     final queryService = ref.watch(getMyNotificationsQueryServiceDiProvider);
-    if (session == null) {
-      throw Exception('Session is null');
-    }
 
     final getMyNotificationsUseCase = GetMyNotificationsUseCase(
       session: session,

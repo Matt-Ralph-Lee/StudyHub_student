@@ -29,9 +29,7 @@ class ProfileInputPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
     final topPadding = screenHeight * 0.15;
-    final horizontalPadding = screenWidth * 0.1;
     final progress = useState(0);
     final gender = useState<Gender?>(null);
     final job = useState<Occupation?>(null);

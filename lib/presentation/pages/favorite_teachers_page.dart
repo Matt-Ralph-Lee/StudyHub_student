@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/shared/constants/padding_set.dart';
 
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_favorite_teacher_found.dart';
@@ -12,6 +11,7 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
 class FavoriteTeachersPage extends ConsumerWidget {

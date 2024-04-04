@@ -4,8 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studyhub/presentation/shared/constants/padding_set.dart';
-import 'package:studyhub/presentation/shared/constants/page_path.dart';
 
 import '../../application/student/application_service/profile_update_command.dart';
 import '../../application/student/exception/student_use_case_exception.dart';
@@ -23,6 +21,8 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
+import '../shared/constants/padding_set.dart';
+import '../shared/constants/page_path.dart';
 
 class EditProfilePage extends HookConsumerWidget {
   const EditProfilePage({super.key});

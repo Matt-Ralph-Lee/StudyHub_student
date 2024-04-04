@@ -32,8 +32,6 @@ class ReportPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = screenWidth * 0.1;
     final reportReason = useState<ReportReason?>(null);
     final reportContentController = useTextEditingController();
     final isReportContentFilled =

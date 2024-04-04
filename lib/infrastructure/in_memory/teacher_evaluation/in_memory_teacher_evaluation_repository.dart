@@ -19,7 +19,19 @@ class InMemoryTeacherEvaluationRepository
   }
 
   InMemoryTeacherEvaluationRepository._internal() {
-    store = {};
+    store = {
+      InMemoryTeacherInitialValue.teacher1.teacherId: [
+        InMemoryTeacherEvaluationInitialValue.teacherEvaluation1FromS1toT1
+      ],
+      InMemoryTeacherInitialValue.teacher2.teacherId: [
+        InMemoryTeacherEvaluationInitialValue.teacherEvaluation2FromS1toT2,
+        InMemoryTeacherEvaluationInitialValue.teacherEvaluation3FromS2toT2
+      ],
+      InMemoryTeacherInitialValue.teacher3.teacherId: [
+        InMemoryTeacherEvaluationInitialValue.teacherEvaluation4FromS1toT3,
+        InMemoryTeacherEvaluationInitialValue.teacherEvaluation5FromS2toT3
+      ]
+    };
     _idInt = 1000000;
   }
 
@@ -96,7 +108,7 @@ class InMemoryTeacherEvaluationInitialValue {
     from: InMemoryStudentInitialValue.student1.studentId,
     to: InMemoryTeacherInitialValue.teacher3.teacherId,
     rating: TeacherEvaluationRating(5),
-    comment: TeacherEvaluationComment("厳密でよい先生だ"),
+    comment: TeacherEvaluationComment("厳密でよい先生だwwwwwww"),
     createdAt: DateTime.now(),
   );
   static final teacherEvaluation5FromS2toT3 = TeacherEvaluation(

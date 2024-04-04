@@ -2,12 +2,12 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:studyhub/application/student/exception/student_use_case_exception.dart";
-import "package:studyhub/application/student/exception/student_use_case_exception_detail.dart";
-import "package:studyhub/presentation/controllers/delete_account_controller/delete_account_controller.dart";
 
+import "../../../application/student/exception/student_use_case_exception.dart";
+import "../../../application/student/exception/student_use_case_exception_detail.dart";
 import "../../../domain/student_auth/exception/student_auth_domain_exception.dart";
 import "../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart";
+import "../../controllers/delete_account_controller/delete_account_controller.dart";
 import "../../controllers/student_auth_controller/student_auth_controller.dart";
 import "../../shared/constants/l10n.dart";
 import "../../shared/constants/padding_set.dart";
@@ -15,7 +15,7 @@ import "../../shared/constants/page_path.dart";
 import "../parts/completion_snack_bar.dart";
 import "../parts/elevated_button_for_menu_items.dart";
 import '../parts/text_for_menu_items.dart';
-import "confirm_account_delete_moal.dart";
+import 'confirm_account_delete_modal.dart';
 import "show_error_modal_widget.dart";
 import "specific_exception_modal_widget.dart";
 
