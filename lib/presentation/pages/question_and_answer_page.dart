@@ -74,10 +74,10 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
               data: (questionDetailDto) => Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: PaddingSet.getPaddingSize(
+                    padding: EdgeInsets.all(
+                      PaddingSet.getPaddingSize(
                         context,
-                        horizontalPadding,
+                        PaddingSet.horizontalPadding,
                       ),
                     ),
                     child: QuestionDetailCardWidget(
@@ -85,37 +85,29 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                     ),
                   ),
                   if (questionDetailDto.questionPhotoPathList.isNotEmpty)
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: PaddingSet.getPaddingSize(
-                          context,
-                          4,
-                        ),
-                      ),
-                      child: ExpandablePageView.builder(
-                        controller: PageController(
-                            viewportFraction:
-                                0.86), //viewportFractionを通してしかpadding設定できそうなので（他ぺーじとは違ってピクセルで左端paddingとってない）
-                        scrollDirection: Axis.horizontal,
-                        itemCount:
-                            questionDetailDto.questionPhotoPathList.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.only(
-                              right: PaddingSet.getPaddingSize(
-                                context,
-                                15,
-                              ),
-                            ), //marginなので？組み込まずに外からかけてます
-                            child: QuestionPictureWidget(
-                              photoPath: questionDetailDto
-                                  .questionPhotoPathList[index],
-                              order: index,
-                              questionDetailDto: questionDetailDto,
+                    ExpandablePageView.builder(
+                      // alignment: Alignment.,
+                      controller: PageController(
+                          viewportFraction:
+                              0.9), //viewportFractionを通してしかpadding設定できそうなので（他ぺーじとは違ってピクセルで左端paddingとってない）
+                      scrollDirection: Axis.horizontal,
+                      itemCount: questionDetailDto.questionPhotoPathList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.only(
+                            right: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                          child: QuestionPictureWidget(
+                            photoPath:
+                                questionDetailDto.questionPhotoPathList[index],
+                            order: index,
+                            questionDetailDto: questionDetailDto,
+                          ),
+                        );
+                      },
                     )
                 ],
               ),
@@ -138,27 +130,21 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                     ? Column(
                         children: [
                           ExpandablePageView.builder(
-                            controller: PageController(viewportFraction: 0.86),
+                            controller: PageController(viewportFraction: 0.9),
                             itemCount: answerDto.length,
                             onPageChanged: (newIndex) {
                               selectedAnswerIndex.value = newIndex;
                             },
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20,
-                                  horizontal: 5,
-                                ),
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                    right: PaddingSet.getPaddingSize(
-                                      context,
-                                      15,
-                                    ),
-                                  ), //marginなので？組み込まずに外からかけてます
-                                  child: AnswerCardWidget(
-                                    answerDto: answerDto[index],
+                              return Container(
+                                margin: EdgeInsets.only(
+                                  right: PaddingSet.getPaddingSize(
+                                    context,
+                                    PaddingSet.pageViewItemLightPadding,
                                   ),
+                                ), //marginなので？組み込まずに外からかけてます
+                                child: AnswerCardWidget(
+                                  answerDto: answerDto[index],
                                 ),
                               );
                             },
@@ -167,32 +153,29 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                               .answerPhotoList
                               .isNotEmpty)
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
                               child: ExpandablePageView.builder(
                                 controller:
-                                    PageController(viewportFraction: 0.86),
+                                    PageController(viewportFraction: 0.9),
                                 scrollDirection: Axis.horizontal,
                                 itemCount: answerDto[selectedAnswerIndex.value]
                                     .answerPhotoList
                                     .length,
                                 itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        right: PaddingSet.getPaddingSize(
-                                          context,
-                                          15,
-                                        ),
-                                      ), //marginなので？組み込まずに外からかけてます
-                                      child: AnswerPictureWidget(
-                                        photoPath:
-                                            answerDto[selectedAnswerIndex.value]
-                                                .answerPhotoList[index],
-                                        answerDto: answerDto[
-                                            selectedAnswerIndex.value],
-                                        order: selectedAnswerIndex.value,
+                                  return Container(
+                                    margin: EdgeInsets.only(
+                                      right: PaddingSet.getPaddingSize(
+                                        context,
+                                        PaddingSet.pageViewItemLightPadding,
                                       ),
+                                    ), //marginなので？組み込まずに外からかけてます
+                                    child: AnswerPictureWidget(
+                                      photoPath:
+                                          answerDto[selectedAnswerIndex.value]
+                                              .answerPhotoList[index],
+                                      answerDto:
+                                          answerDto[selectedAnswerIndex.value],
+                                      order: selectedAnswerIndex.value,
                                     ),
                                   );
                                 },
@@ -202,7 +185,12 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                                   .isEvaluated &&
                               isMyQuestion)
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 24),
+                              padding: EdgeInsets.all(
+                                PaddingSet.getPaddingSize(
+                                  context,
+                                  PaddingSet.horizontalPadding,
+                                ),
+                              ),
                               child: TextButtonForNavigatingToEvaluationPage(
                                 teacherId: answerDto[selectedAnswerIndex.value]
                                     .teacherId,

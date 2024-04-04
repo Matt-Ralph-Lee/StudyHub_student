@@ -36,7 +36,8 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
     }
 
     return SizedBox(
-      width: screenWidth * 0.8, //適当。answerCardの横幅と揃える
+      width: double.infinity,
+      // width: screenWidth * 0.8, //適当。answerCardの横幅と揃える
       child: TextButton(
         onPressed: () => push(context),
         style: TextButton.styleFrom(

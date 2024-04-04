@@ -41,7 +41,8 @@ class QuestionDetailCardWidget extends StatelessWidget {
     }
 
     return Container(
-      width: screenWidth * 0.8, //ここ適当。
+      // width: screenWidth * 0.8, //ここ適当。
+      width: double.infinity,
       decoration: BoxDecoration(
         color: ColorSet.of(context).surface,
         borderRadius: BorderRadius.circular(10),

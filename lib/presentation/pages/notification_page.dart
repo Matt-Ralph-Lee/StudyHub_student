@@ -39,228 +39,129 @@ class NotificationPage extends ConsumerWidget {
     final horizontalPadding = screenWidth * 0.1;
     final screenHeight = MediaQuery.of(context).size.height;
     final verticalPadding = screenHeight * 0.05;
-    // final now = DateTime.now();
-    // final today = DateTime(now.year, now.month, now.day);
-    // final currentWeekday = today.weekday;
-    // final firstDayOfWeek = today.subtract(Duration(days: currentWeekday));
-    // var isTodayAdded = false;
-    // var isThisWeekAdded = false;
-    // var isLastWeekAdded = false;
-    // List<Widget> notifications = [];
     final getMyNotificationsState =
         ref.watch(getMyNotificationsControllerProvider);
 
-    // //以下はテストのための例。データ取れるようになったら差し替える（decreasingでリストもらう）
-    // final today1 = Timestamp.fromDate(DateTime(2024, 3, 5, 10, 30));
-    // final today2 = Timestamp.fromDate(DateTime(2024, 3, 5, 20, 45));
-    // final thisWeek1 = Timestamp.fromDate(DateTime(2024, 3, 4, 12, 0));
-    // final thisWeek2 = Timestamp.fromDate(DateTime(2024, 3, 3, 15, 30));
-    // final lastWeek1 = Timestamp.fromDate(DateTime(2024, 2, 25, 9, 15));
-    // final lastWeek2 = Timestamp.fromDate(DateTime(2024, 2, 27, 18, 0));
-    // final List<Notification> notificationsTest = [
-    //   Notification(
-    //       postedAt: today1,
-    //       title: "今日のお知らせ1今日のお知らせ1今日のお知らせ1今日のお知らせ1v今日のお知らせ1今日のお知らせ1今日のお知らせ1",
-    //       iconUrl: "iconUrl",
-    //       content:
-    //           "今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です"),
-    //   Notification(
-    //       postedAt: today2,
-    //       title: "今日のお知らせ2",
-    //       iconUrl: "iconUrl",
-    //       content: "今日のお知らせ2です"),
-    //   Notification(
-    //       postedAt: thisWeek1,
-    //       title: "今週のお知らせ1",
-    //       iconUrl: "iconUrl",
-    //       content: "今週のお知らせ1です"),
-    //   Notification(
-    //       postedAt: thisWeek2,
-    //       title: "今週のお知らせ2",
-    //       iconUrl: "iconUrl",
-    //       content: "今週のお知らせ2です"),
-    //   Notification(
-    //       postedAt: lastWeek1,
-    //       title: "先週のお知らせ1",
-    //       iconUrl: "iconUrl",
-    //       content: "先週のお知らせ1です"),
-    //   Notification(
-    //       postedAt: lastWeek2,
-    //       title: "先週のお知らせ2",
-    //       iconUrl: "iconUrl",
-    //       content: "先週のお知らせ2です"),
-    // ];
+    // List<Widget> processNotifications(
+    //   List<GetMyNotificationDto> getMyNotificationsDto,
+    //   BuildContext context,
+    // ) {
+    //   final now = DateTime.now();
+    //   final today = DateTime(now.year, now.month, now.day);
+    //   final currentWeekday = today.weekday;
+    //   final firstDayOfWeek = today.subtract(Duration(days: currentWeekday));
 
-    // for (var notification in notificationsTest) {
-    //   final postedAtDateTime = notification.postedAt.toDate();
-    //   final postedDate = DateTime(
-    //       postedAtDateTime.year, postedAtDateTime.month, postedAtDateTime.day);
+    //   List<Widget> notifications = [];
+    //   var isTodayAdded = false;
+    //   var isThisWeekAdded = false;
+    //   var isLastWeekAdded = false;
 
-    //   if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
+    //   for (var notificationDto in getMyNotificationsDto) {
+    //     final postedAtDateTime = notificationDto.toDate();
+    //     final postedDate = DateTime(postedAtDateTime.year,
+    //         postedAtDateTime.month, postedAtDateTime.day);
+
+    //     if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
+    //       notifications.add(Padding(
+    //         padding:
+    //             EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
+    //         child: const TextForNotificationSectionHeader(text: L10n.todayText),
+    //       ));
+    //       isTodayAdded = true;
+    //     } else if (postedAtDateTime
+    //             .isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
+    //         postedAtDateTime.isBefore(today) &&
+    //         !isThisWeekAdded) {
+    //       notifications.add(Padding(
+    //         padding:
+    //             EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
+    //         child:
+    //             const TextForNotificationSectionHeader(text: L10n.thisWeekText),
+    //       ));
+    //       isThisWeekAdded = true;
+    //     } else if (postedAtDateTime.isBefore(firstDayOfWeek) &&
+    //         !isLastWeekAdded) {
+    //       notifications.add(Padding(
+    //         padding:
+    //             EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
+    //         child:
+    //             const TextForNotificationSectionHeader(text: L10n.beforeText),
+    //       ));
+    //       isLastWeekAdded = true;
+    //     }
+
     //     notifications.add(Padding(
-    //       padding: EdgeInsets.only(
-    //           top: PaddingSet.getPaddingSize(
-    //         context,
-    //         40,
-    //       )),
-    //       child: const TextForNotificationSectionHeader(text: L10n.todayText),
+    //       padding: const EdgeInsets.only(top: 20),
+    //       child: NotificationCardWidget(
+    //         getMyNotificationDto: notificationDto,
+    //       ),
     //     ));
-    //     isTodayAdded = true;
-    //   } else if (postedAtDateTime
-    //           .isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
-    //       postedAtDateTime.isBefore(today) &&
-    //       !isThisWeekAdded) {
-    //     notifications.add(Padding(
-    //       padding: EdgeInsets.only(
-    //           top: PaddingSet.getPaddingSize(
-    //         context,
-    //         40,
-    //       )),
-    //       child:
-    //           const TextForNotificationSectionHeader(text: L10n.thisWeekText),
-    //     ));
-    //     isThisWeekAdded = true;
-    //   } else if (postedAtDateTime.isBefore(firstDayOfWeek) &&
-    //       !isLastWeekAdded) {
-    //     notifications.add(Padding(
-    //       padding: EdgeInsets.only(
-    //           top: PaddingSet.getPaddingSize(
-    //         context,
-    //         40,
-    //       )),
-    //       child: const TextForNotificationSectionHeader(text: L10n.beforeText),
-    //     ));
-    //     isLastWeekAdded = true;
     //   }
 
-    //   notifications.add(Padding(
-    //     padding: const EdgeInsets.only(top: 20),
-    //     child: NotificationCardWidget(
-    //       title: notification.title,
-    //       content: notification.content,
-    //       iconUrl: notification.iconUrl,
-    //     ),
-    //   ));
+    //   return notifications;
     // }
 
-    List<Widget> processNotifications(
-      List<GetMyNotificationDto> getMyNotificationsDto,
-      BuildContext context,
-    ) {
-      final now = DateTime.now();
-      final today = DateTime(now.year, now.month, now.day);
-      final currentWeekday = today.weekday;
-      final firstDayOfWeek = today.subtract(Duration(days: currentWeekday));
-
-      List<Widget> notifications = [];
-      var isTodayAdded = false;
-      var isThisWeekAdded = false;
-      var isLastWeekAdded = false;
-
-      for (var notificationDto in getMyNotificationsDto) {
-        final postedAtDateTime = notificationDto.toDate();
-        final postedDate = DateTime(postedAtDateTime.year,
-            postedAtDateTime.month, postedAtDateTime.day);
-
-        if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
-          notifications.add(Padding(
-            padding:
-                EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
-            child: const TextForNotificationSectionHeader(text: L10n.todayText),
-          ));
-          isTodayAdded = true;
-        } else if (postedAtDateTime
-                .isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
-            postedAtDateTime.isBefore(today) &&
-            !isThisWeekAdded) {
-          notifications.add(Padding(
-            padding:
-                EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
-            child:
-                const TextForNotificationSectionHeader(text: L10n.thisWeekText),
-          ));
-          isThisWeekAdded = true;
-        } else if (postedAtDateTime.isBefore(firstDayOfWeek) &&
-            !isLastWeekAdded) {
-          notifications.add(Padding(
-            padding:
-                EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
-            child:
-                const TextForNotificationSectionHeader(text: L10n.beforeText),
-          ));
-          isLastWeekAdded = true;
-        }
-
-        notifications.add(Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: NotificationCardWidget(
-            getMyNotificationDto: notificationDto,
-          ),
-        ));
-      }
-
-      return notifications;
-    }
-
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.chevron_left,
-              color: ColorSet.of(context).icon,
-              size: FontSizeSet.getFontSize(context, 30),
-            ),
-            onPressed: () => context.pop(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.chevron_left,
+            color: ColorSet.of(context).icon,
+            size: FontSizeSet.getFontSize(context, 30),
           ),
-          backgroundColor: ColorSet.of(context).background,
-          centerTitle: true,
-          title: Text(
-            L10n.notificationTitleText,
-            style: TextStyle(
-                fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.getFontSize(
-                  context,
-                  FontSizeSet.body,
-                ),
-                color: ColorSet.of(context).text),
-          ),
+          onPressed: () => context.pop(),
         ),
         backgroundColor: ColorSet.of(context).background,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding, vertical: verticalPadding),
-          child: getMyNotificationsState.when(
-            data: (getMyNotificationsDto) {
-              if (getMyNotificationsDto.isNotEmpty) {
-                final notificationsList =
-                    processNotifications(getMyNotificationsDto, context);
-                return ListView.builder(
-                  itemCount: notificationsList.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: PaddingSet.getPaddingSize(
-                      context,
-                      24,
-                    )),
-                    child: notificationsList[index],
-                  ),
-                );
-              } else {
-                return const Center(
-                  child: TextForNoNotificationsFound(),
-                );
-              }
-            },
-            loading: () => const LoadingOverlay(),
-            error: (error, stack) {
-              return const Center(
-                  child: Column(
-                children: [
-                  TextForError(),
-                ],
-              ));
-            },
-          ),
-        ));
+        centerTitle: true,
+        title: Text(
+          L10n.notificationTitleText,
+          style: TextStyle(
+              fontWeight: FontWeightSet.normal,
+              fontSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.body,
+              ),
+              color: ColorSet.of(context).text),
+        ),
+      ),
+      backgroundColor: ColorSet.of(context).background,
+      body: Text("あいうえお"),
+      // body: Padding(
+      //   padding: EdgeInsets.symmetric(
+      //       horizontal: horizontalPadding, vertical: verticalPadding),
+      //   child: getMyNotificationsState.when(
+      //     data: (getMyNotificationsDto) {
+      //       if (getMyNotificationsDto.isNotEmpty) {
+      //         final notificationsList =
+      //             processNotifications(getMyNotificationsDto, context);
+      //         return ListView.builder(
+      //           itemCount: notificationsList.length,
+      //           itemBuilder: (context, index) => Padding(
+      //             padding: EdgeInsets.symmetric(
+      //                 horizontal: PaddingSet.getPaddingSize(
+      //               context,
+      //               24,
+      //             )),
+      //             child: notificationsList[index],
+      //           ),
+      //         );
+      //       } else {
+      //         return const Center(
+      //           child: TextForNoNotificationsFound(),
+      //         );
+      //       }
+      //     },
+      //     loading: () => const LoadingOverlay(),
+      //     error: (error, stack) {
+      //       return const Center(
+      //           child: Column(
+      //         children: [
+      //           TextForError(),
+      //         ],
+      //       ));
+      //     },
+      //   ),
+      // ),
+    );
   }
 }
