@@ -13,6 +13,7 @@ class Notification {
   final NotificationTitle _title;
   final NotificationText _text;
   final DateTime _postedAt;
+  final bool _read;
 
   NotificationId get notificationId => _notificationId;
   NotificationSender get sender => _sender;
@@ -21,6 +22,7 @@ class Notification {
   NotificationTitle get title => _title;
   NotificationText get text => _text;
   DateTime get postedAt => _postedAt;
+  bool get read => _read;
 
   Notification({
     required final NotificationId notificationId,
@@ -30,11 +32,13 @@ class Notification {
     required final NotificationTitle title,
     required final NotificationText text,
     required final DateTime postedAt,
+    required final bool read,
   })  : _notificationId = notificationId,
         _sender = sender,
         _receiverList = receiverList,
         _target = target,
         _title = title,
         _text = text,
-        _postedAt = postedAt;
+        _postedAt = postedAt,
+        _read = read;
 }

@@ -1,5 +1,3 @@
-import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
-
 import '../../../domain/notification/models/i_notification_repository.dart';
 import '../../../domain/notification/models/notification.dart';
 import '../../../domain/notification/models/notification_id.dart';
@@ -14,6 +12,7 @@ import '../../../domain/notification/models/notification_text.dart';
 import '../../../domain/notification/models/notification_title.dart';
 import '../../../domain/shared/profile_photo_path.dart';
 import '../student/in_memory_student_repository.dart';
+import '../teacher/in_memory_teacher_repository.dart';
 import 'exception/notification_infrastructure_exception.dart';
 import 'exception/notification_infrastructure_exception_detail.dart';
 
@@ -53,6 +52,32 @@ class InMemoryNotificationRepository implements INotificationRepository {
     _id++;
 
     return NotificationId(notificationId);
+  }
+
+  @override
+  void readNotification(NotificationId id) {
+    final notification = store[id];
+    if (notification == null) {
+      throw const NotificationInfrastructureException(
+          NotificationInfrastructureExceptionDetail.notificationNotFound);
+    }
+    store[id] = Notification(
+      notificationId: notification.notificationId,
+      sender: notification.sender,
+      receiverList: notification.receiverList,
+      target: notification.target,
+      title: notification.title,
+      text: notification.text,
+      postedAt: notification.postedAt,
+      read: true,
+    );
+  }
+
+  @override
+  bool checkNotificationExistence() {
+    final result = store.values.where((notification) => !notification.read);
+
+    return result.isEmpty;
   }
 }
 
@@ -100,6 +125,7 @@ class InMemoryNotificationInitialValue {
     text: NotificationText(
         'この度はアプリを入れていただきありがとうございます。今後皆様の満足感を挙げるために、アンケートにご協力お願いします。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 
   static final firstNotificationToTeacher = Notification(
@@ -133,5 +159,6 @@ class InMemoryNotificationInitialValue {
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 }

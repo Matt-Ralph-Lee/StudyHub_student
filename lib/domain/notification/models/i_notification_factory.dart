@@ -13,5 +13,6 @@ abstract class INotificationFactory {
     required final NotificationTitle title,
     required final NotificationText text,
     required final DateTime postedAt,
+    required final bool read,
   });
 }

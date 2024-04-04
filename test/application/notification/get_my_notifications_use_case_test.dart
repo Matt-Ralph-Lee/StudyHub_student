@@ -56,6 +56,7 @@ void main() {
         title: NotificationTitle('これは回答です'),
         text: NotificationText('これはテスト配信用の回答です。'),
         postedAt: DateTime.now(),
+        read: false,
       );
       repository.store[newNotification.notificationId] = newNotification;
       final getMyNotificationDtoList = await useCase.execute();

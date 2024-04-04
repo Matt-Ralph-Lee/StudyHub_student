@@ -146,6 +146,7 @@ class QuestionCreateUseCase {
       title: title,
       text: text,
       postedAt: DateTime.now(),
+      read: false,
     );
 
     return notification;
