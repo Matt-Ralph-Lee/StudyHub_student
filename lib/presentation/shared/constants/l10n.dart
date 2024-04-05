@@ -99,6 +99,7 @@ class L10n {
   static const emailVerificationTitleText = "メール認証";
   static const emailVerificationSubtitleText = "入力されたメールアドレスに認証メールを送りました";
   static const emailVerificationButtonText = "メールを再送信";
+  static const resendEmailVerificationText = "メールを再送信しました";
 
   //profile_input_page
   static const indicatorTextOneThird = "1/3";

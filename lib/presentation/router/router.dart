@@ -22,6 +22,7 @@ import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
 import "../pages/question_and_answer_page.dart";
 import "../pages/report_page.dart";
+import "../pages/resend_email_verification_page.dart";
 import "../pages/reset_password_page.dart";
 import "../pages/search_for_questions_page.dart";
 import "../pages/search_for_teachers_page.dart";
@@ -227,6 +228,16 @@ GoRouter router(RouterRef ref) {
         final getMyNotificationDto = state.extra as GetMyNotificationDto;
         return NotificationDetailPage(
           getMyNotificationDto: getMyNotificationDto,
+        );
+      },
+    ),
+    GoRoute(
+      path: PageId.emailVerificationPage.path,
+      name: PageId.emailVerificationPage.name,
+      builder: (context, state) {
+        final emailAddress = state.extra as String;
+        return ResendEmailVerificationPage(
+          emailAddress: emailAddress,
         );
       },
     ),
