@@ -16,7 +16,7 @@ class FavoriteTeachersDeleteUseCase {
 
   Future<void> execute(final TeacherId favoriteTeacherId) async {
     final studentId = _session.studentId;
-    final favoriteTeachers = _repository.getByStudentId(studentId);
+    final favoriteTeachers = await _repository.getByStudentId(studentId);
 
     if (favoriteTeachers == null) {
       throw const FavoriteTeachersUseCaseException(

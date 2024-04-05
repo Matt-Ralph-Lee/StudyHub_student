@@ -17,10 +17,10 @@ class InMemoryGetLikedAnswersQueryService extends IGetLikedAnswersQueryService {
         _repository = repository;
 
   @override
-  LikedAnswersDto getByStudentId(StudentId studentId) {
+  Future<LikedAnswersDto> getByStudentId(StudentId studentId) async {
     final studentId = _session.studentId;
 
-    final likedAnswers = _repository.getByStudentId(studentId);
+    final likedAnswers = await _repository.getByStudentId(studentId);
 
     return LikedAnswersDto(likedAnswers.value);
   }

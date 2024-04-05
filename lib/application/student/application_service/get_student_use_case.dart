@@ -13,9 +13,9 @@ class GetStudentUseCase {
       : _repository = repository,
         _session = session;
 
-  GetStudentDto execute() {
+  Future<GetStudentDto> execute() async {
     final studentId = _session.studentId;
-    final student = _repository.findById(studentId);
+    final student = await _repository.findById(studentId);
     if (student == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.notFound);

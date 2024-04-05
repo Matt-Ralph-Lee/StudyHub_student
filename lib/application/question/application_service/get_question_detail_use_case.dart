@@ -12,9 +12,9 @@ class GetQuestionDetailUseCase {
     required final IStudentRepository studentRepository,
   })  : _queryService = queryService,
         _studentRepository = studentRepository;
-  QuestionDetailDto execute(final QuestionId questionId) {
-    final question = _queryService.getByQuestionId(questionId);
-    final student = _studentRepository.findById(question.studentId);
+  Future<QuestionDetailDto> execute(final QuestionId questionId) async {
+    final question = await _queryService.getByQuestionId(questionId);
+    final student = await _studentRepository.findById(question.studentId);
     if (student == null) {
       return QuestionDetailDto(
           questionId: question.questionId,

@@ -7,8 +7,8 @@ class GetAnswerUseCase {
 
   GetAnswerUseCase(this._queryService);
 
-  List<AnswerDto> execute(final QuestionId questionId) {
-    final answers = _queryService.getById(questionId);
+  Future<List<AnswerDto>> execute(final QuestionId questionId) async {
+    final answers = await _queryService.getById(questionId);
     return answers;
   }
 }

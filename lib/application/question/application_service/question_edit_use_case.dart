@@ -1,7 +1,6 @@
-import 'package:studyhub/domain/question/models/question_photo_path_list.dart';
-
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/question/models/question_photo_path.dart';
+import '../../../domain/question/models/question_photo_path_list.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/question/models/i_question_repository.dart';
@@ -31,10 +30,10 @@ class QuestionEditUseCase {
         _repository = repository,
         _photoRepository = photoRepository;
 
-  void execute(QuestionEditCommand command) {
+  void execute(QuestionEditCommand command) async {
     final StudentId studentId = _session.studentId;
     final QuestionId questionId = command.questionId;
-    final Question? question = _repository.findById(questionId);
+    final Question? question = await _repository.findById(questionId);
 
     if (question == null) {
       throw const QuestionUseCaseException(

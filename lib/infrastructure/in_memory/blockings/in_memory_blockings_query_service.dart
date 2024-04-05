@@ -17,8 +17,8 @@ class InMemoryBlockingsQueryService implements IGetBlockingsQueryService {
   })  : _repository = repository,
         _teacherRepository = teacherRepository;
   @override
-  List<GetBlockingDto> getByStudentId(StudentId studentId) {
-    final blockings = _repository.getByStudentId(studentId);
+  Future<List<GetBlockingDto>> getByStudentId(StudentId studentId) async {
+    final blockings = await _repository.getByStudentId(studentId);
     if (blockings == null) {
       _repository.save(
         Blockings(
@@ -33,7 +33,7 @@ class InMemoryBlockingsQueryService implements IGetBlockingsQueryService {
 
     for (final TeacherId blockedTeacherId in blockings) {
       final blockedTeacher =
-          _teacherRepository.getByTeacherId(blockedTeacherId);
+          await _teacherRepository.getByTeacherId(blockedTeacherId);
       if (blockedTeacher == null) continue;
       blockedTeachers.add(
         GetBlockingDto(

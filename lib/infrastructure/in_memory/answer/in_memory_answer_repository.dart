@@ -8,8 +8,8 @@ import '../../../domain/answer_list/models/i_answer_repository.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../question/in_memory_question_repository.dart';
 import '../teacher/in_memory_teacher_repository.dart';
-import 'exception/answer_infrastructure_exception.dart';
-import 'exception/answer_infrastructure_exception_detail.dart';
+import '../../exceptions/answer/answer_infrastructure_exception.dart';
+import '../../exceptions/answer/answer_infrastructure_exception_detail.dart';
 
 class InMemoryAnswerRepository implements IAnswerRepository {
   late Map<AnswerId, Answer> store;
@@ -32,14 +32,17 @@ class InMemoryAnswerRepository implements IAnswerRepository {
   }
 
   @override
-  List<Answer> getByQuestionId(final QuestionId questionId) {
+  Future<List<Answer>> getByQuestionId(final QuestionId questionId) async {
     return store.values
         .where((answer) => answer.questionId == questionId)
         .toList();
   }
 
   @override
-  void incrementAnswerLike(AnswerId answerId) {
+  Future<void> incrementAnswerLike({
+    required AnswerId answerId,
+    required QuestionId questionId,
+  }) async {
     final answer = store[answerId];
     if (answer == null) {
       throw const AnswerInfrastructureException(
@@ -57,7 +60,10 @@ class InMemoryAnswerRepository implements IAnswerRepository {
   }
 
   @override
-  void decrementAnswerLike(AnswerId answerId) {
+  Future<void> decrementAnswerLike({
+    required AnswerId answerId,
+    required QuestionId questionId,
+  }) async {
     final answer = store[answerId];
     if (answer == null) {
       throw const AnswerInfrastructureException(
@@ -75,7 +81,10 @@ class InMemoryAnswerRepository implements IAnswerRepository {
   }
 
   @override
-  void evaluated(AnswerId answerId) {
+  Future<void> evaluated({
+    required final AnswerId answerId,
+    required final QuestionId questionId,
+  }) async {
     final answer = store[answerId];
     if (answer == null) {
       throw const AnswerInfrastructureException(

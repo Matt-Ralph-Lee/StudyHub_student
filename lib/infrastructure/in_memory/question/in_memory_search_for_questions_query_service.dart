@@ -4,8 +4,8 @@ import '../../../domain/question/models/question.dart';
 import '../../../domain/shared/subject.dart';
 import '../student/in_memory_student_repository.dart';
 import '../teacher/in_memory_teacher_repository.dart';
-import 'exception/question_infrastructure_exception.dart';
-import 'exception/question_infrastructure_exception_detail.dart';
+import '../../exceptions/question/question_infrastructure_exception.dart';
+import '../../exceptions/question/question_infrastructure_exception_detail.dart';
 import 'in_memory_question_repository.dart';
 
 class InMemorySearchForQuestionsQueryService
@@ -23,10 +23,10 @@ class InMemorySearchForQuestionsQueryService
         _teacherRepository = teacherRepository;
 
   @override
-  List<QuestionCardDto> search({
+  Future<List<QuestionCardDto>> search({
     required final String searchWord,
     required final Subject? subject,
-  }) {
+  }) async {
     final questionCardDtoList = <QuestionCardDto>[];
 
     final result = _repository.store.values.where((question) {
@@ -40,15 +40,15 @@ class InMemorySearchForQuestionsQueryService
     });
 
     for (final question in result) {
-      final dto = _toDto(question);
+      final dto = await _toDto(question);
       questionCardDtoList.add(dto);
     }
 
     return questionCardDtoList;
   }
 
-  QuestionCardDto _toDto(final Question question) {
-    final student = _studentRepository.findById(question.studentId);
+  Future<QuestionCardDto> _toDto(final Question question) async {
+    final student = await _studentRepository.findById(question.studentId);
     if (student == null) {
       throw const QuestionInfrastructureException(
           QuestionInfrastructureExceptionDetail.studentNotFound);
@@ -68,7 +68,7 @@ class InMemorySearchForQuestionsQueryService
     }
 
     final teacher =
-        _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
+        await _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
     if (teacher == null) {
       throw const QuestionInfrastructureException(
           QuestionInfrastructureExceptionDetail.teacherNotFound);

@@ -11,9 +11,9 @@ class GetMyQuestionsUseCase {
     required final IGetMyQuestionsQueryService queryService,
   })  : _session = session,
         _queryService = queryService;
-  List<QuestionCardDto> execute() {
+  Future<List<QuestionCardDto>> execute() async {
     final studentId = _session.studentId;
-    final found = _queryService.get(studentId);
+    final found = await _queryService.get(studentId);
     return found;
   }
 }

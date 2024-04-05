@@ -1,19 +1,22 @@
 import '../../../domain/answer_list/models/answer_id.dart';
+import '../../../domain/question/models/question_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 
 class AnswerDto {
   final AnswerId _answerId;
+  final QuestionId _questionId;
   final TeacherId _teacherId;
   final String _teacherName;
   final String _teacherProfilePath;
   final String _answerText;
   final int _answerLike;
   final bool _isFollowing;
-  final bool _isEvaluated; //追加
+  final bool _isEvaluated;
   final List<String> _answerPhotoList;
   final bool _hasLiked;
 
   AnswerId get answerId => _answerId;
+  QuestionId get questionId => _questionId;
   TeacherId get teacherId => _teacherId;
   String get teacherName => _teacherName;
   String get teacherProfilePath => _teacherProfilePath;
@@ -26,6 +29,7 @@ class AnswerDto {
 
   AnswerDto({
     required final AnswerId answerId,
+    required final QuestionId questionId,
     required final TeacherId teacherId,
     required final String teacherName,
     required final String teacherProfilePath,
@@ -36,6 +40,7 @@ class AnswerDto {
     required final List<String> answerPhotoList,
     required final bool hasLiked,
   })  : _answerId = answerId,
+        _questionId = questionId,
         _teacherId = teacherId,
         _teacherName = teacherName,
         _teacherProfilePath = teacherProfilePath,

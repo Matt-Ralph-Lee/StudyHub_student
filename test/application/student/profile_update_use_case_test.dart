@@ -77,7 +77,7 @@ void main() {
           repository.store[session.studentId]!.occupation, Occupation.student);
     });
 
-    test('should update profile photo with no-square photo', () {
+    test('should update profile photo with no-square photo', () async {
       final command = ProfileUpdateCommand(
         studentName: null,
         gender: null,
@@ -94,7 +94,7 @@ void main() {
       );
       usecase.execute(command);
 
-      final student = repository.findById(session.studentId);
+      final student = await repository.findById(session.studentId);
       final currentPath = student!.profilePhotoPath;
       debugPrint(currentPath.value);
 

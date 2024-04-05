@@ -19,8 +19,8 @@ class InMemoryFavoriteTeacherQueryService
         _teacherRepository = teacherRepository;
 
   @override
-  List<GetFavoriteTeacherDto> getById(StudentId studentId) {
-    final favoriteTeacherIds = _repository.getByStudentId(studentId);
+  Future<List<GetFavoriteTeacherDto>> getById(StudentId studentId) async {
+    final favoriteTeacherIds = await _repository.getByStudentId(studentId);
     if (favoriteTeacherIds == null) {
       _repository.save(
         FavoriteTeachers(
@@ -35,7 +35,7 @@ class InMemoryFavoriteTeacherQueryService
 
     for (final TeacherId favoriteTeacherId in favoriteTeacherIds) {
       final favoriteTeacher =
-          _teacherRepository.getByTeacherId(favoriteTeacherId);
+          await _teacherRepository.getByTeacherId(favoriteTeacherId);
       if (favoriteTeacher == null) continue;
       favoriteTeachers.add(
         GetFavoriteTeacherDto(

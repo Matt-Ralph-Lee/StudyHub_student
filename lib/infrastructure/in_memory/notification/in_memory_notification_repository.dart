@@ -1,5 +1,3 @@
-import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
-
 import '../../../domain/notification/models/i_notification_repository.dart';
 import '../../../domain/notification/models/notification.dart';
 import '../../../domain/notification/models/notification_id.dart';
@@ -14,8 +12,9 @@ import '../../../domain/notification/models/notification_text.dart';
 import '../../../domain/notification/models/notification_title.dart';
 import '../../../domain/shared/profile_photo_path.dart';
 import '../student/in_memory_student_repository.dart';
-import 'exception/notification_infrastructure_exception.dart';
-import 'exception/notification_infrastructure_exception_detail.dart';
+import '../../exceptions/notification/notification_infrastructure_exception.dart';
+import '../../exceptions/notification/notification_infrastructure_exception_detail.dart';
+import '../teacher/in_memory_teacher_repository.dart';
 
 class InMemoryNotificationRepository implements INotificationRepository {
   late Map<NotificationId, Notification> store;
