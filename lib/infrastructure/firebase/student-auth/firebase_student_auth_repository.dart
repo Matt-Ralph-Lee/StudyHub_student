@@ -74,7 +74,7 @@ class FirebaseStudentAuthRepository implements IStudentAuthRepository {
           StudentAuthInfrastructureExceptionDetail.notSignedIn);
     }
     try {
-      await user.updateEmail(emailAddress.value);
+      await user.verifyBeforeUpdateEmail(emailAddress.value);
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthException(e);
     } catch (e) {
