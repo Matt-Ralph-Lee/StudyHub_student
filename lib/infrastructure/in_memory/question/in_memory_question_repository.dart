@@ -33,17 +33,17 @@ class InMemoryQuestionRepository implements IQuestionRepository {
   }
 
   @override
-  void delete(final QuestionId questionId) {
+  Future<void> delete(final QuestionId questionId) async {
     store.remove(questionId);
   }
 
   @override
-  Question? findById(final QuestionId questionId) {
+  Future<Question?> findById(final QuestionId questionId) async {
     return store[questionId];
   }
 
   @override
-  QuestionId generateId() {
+  Future<QuestionId> generateId() async {
     const idStr = "thisIsATestId";
 
     String randomId = _idInt.toString() + idStr;
@@ -54,7 +54,7 @@ class InMemoryQuestionRepository implements IQuestionRepository {
   }
 
   @override
-  void save(final Question question) {
+  Future<void> save(final Question question) async {
     store[question.questionId] = question;
   }
 }

@@ -12,9 +12,9 @@ class GetRecommendedQuestionsUseCase {
     required final IGetRecommendedQuestionsQueryService queryService,
   })  : _session = session,
         _queryService = queryService;
-  List<QuestionCardDto> execute(final Subject? subject) {
+  Future<List<QuestionCardDto>> execute(final Subject? subject) async {
     final studentId = _session.studentId;
-    final recommended = _queryService.get(
+    final recommended = await _queryService.get(
       subject: subject,
       studentId: studentId,
     );

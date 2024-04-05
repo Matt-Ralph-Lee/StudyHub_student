@@ -17,12 +17,12 @@ class InMemoryFavoriteTeachersRepository
   }
 
   @override
-  void save(FavoriteTeachers favoriteTeachers) {
+  Future<void> save(FavoriteTeachers favoriteTeachers) async {
     store[favoriteTeachers.studentId] = favoriteTeachers;
   }
 
   @override
-  FavoriteTeachers? getByStudentId(StudentId studentId) {
+  Future<FavoriteTeachers?> getByStudentId(StudentId studentId) async {
     return store[studentId];
   }
 }

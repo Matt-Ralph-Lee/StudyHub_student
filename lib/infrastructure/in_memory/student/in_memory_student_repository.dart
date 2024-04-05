@@ -31,17 +31,17 @@ class InMemoryStudentRepository implements IStudentRepository {
   }
 
   @override
-  void delete(final StudentId studentId) {
+  Future<void> delete(final StudentId studentId) async {
     store.remove(studentId);
   }
 
   @override
-  Student? findById(final StudentId studentId) {
+  Future<Student?> findById(final StudentId studentId) async {
     return store[studentId];
   }
 
   @override
-  void save(final Student student) {
+  Future<void> save(final Student student) async {
     store[student.studentId] = student;
   }
 }

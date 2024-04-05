@@ -3,8 +3,17 @@ import 'answer.dart';
 import 'answer_id.dart';
 
 abstract class IAnswerRepository {
-  List<Answer> getByQuestionId(final QuestionId questionId);
-  void incrementAnswerLike(final AnswerId answerId);
-  void decrementAnswerLike(final AnswerId answerId);
-  void evaluated(final AnswerId answerId);
+  Future<List<Answer>> getByQuestionId(final QuestionId questionId);
+  Future<void> incrementAnswerLike({
+    required final AnswerId answerId,
+    required final QuestionId questionId,
+  });
+  Future<void> decrementAnswerLike({
+    required final AnswerId answerId,
+    required final QuestionId questionId,
+  });
+  Future<void> evaluated({
+    required final AnswerId answerId,
+    required final QuestionId questionId,
+  });
 }

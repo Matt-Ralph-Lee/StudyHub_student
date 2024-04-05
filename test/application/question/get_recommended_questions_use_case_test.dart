@@ -190,30 +190,30 @@ void main() {
   });
 
   group('get recommended questions properly', () {
-    test('all subjects', () {
+    test('all subjects', () async {
       final usecase = GetRecommendedQuestionsUseCase(
         session: session,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute(null);
+      final questionCardList = await usecase.execute(null);
       printQuestionCardList(questionCardList);
     });
 
-    test('highschool math', () {
+    test('highschool math', () async {
       final usecase = GetRecommendedQuestionsUseCase(
         session: session,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute(Subject.highMath);
+      final questionCardList = await usecase.execute(Subject.highMath);
       printQuestionCardList(questionCardList);
     });
 
-    test('highschool English', () {
+    test('highschool English', () async {
       final usecase = GetRecommendedQuestionsUseCase(
         session: session,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute(Subject.highEng);
+      final questionCardList = await usecase.execute(Subject.highEng);
       printQuestionCardList(questionCardList);
     });
   });

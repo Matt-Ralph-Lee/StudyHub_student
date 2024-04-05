@@ -193,34 +193,34 @@ void main() {
   });
 
   group('get my questions properly', () {
-    test('questions of student1 (session 1)', () {
+    test('questions of student1 (session 1)', () async {
       final usecase = GetMyQuestionsUseCase(
         session: session1,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute();
+      final questionCardList = await usecase.execute();
       debugPrint('student 1');
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 2);
     });
 
-    test('questions of student2 (session 2)', () {
+    test('questions of student2 (session 2)', () async {
       final usecase = GetMyQuestionsUseCase(
         session: session2,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute();
+      final questionCardList = await usecase.execute();
       debugPrint('student 2');
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 1);
     });
 
-    test('questions of student3 (session 3) (no questions)', () {
+    test('questions of student3 (session 3) (no questions)', () async {
       final usecase = GetMyQuestionsUseCase(
         session: session3,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute();
+      final questionCardList = await usecase.execute();
       debugPrint('student 3');
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 0);

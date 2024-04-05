@@ -2,7 +2,7 @@ import 'student_id.dart';
 import 'student.dart';
 
 abstract class IStudentRepository {
-  void save(final Student student);
-  void delete(final StudentId studentId);
-  Student? findById(final StudentId studentId);
+  Future<void> save(final Student student);
+  Future<void> delete(final StudentId studentId);
+  Future<Student?> findById(final StudentId studentId);
 }

@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/application/teacher_evaluation/application_service/teacher_evaluation_add_use_case.dart';
 import 'package:studyhub/domain/answer_list/models/answer_id.dart';
+import 'package:studyhub/domain/question/models/question_id.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/answer/in_memory_answer_repository.dart';
@@ -23,6 +24,7 @@ void main() {
       const ratingData = 4;
       const commentData = "すごくわかりやすかったです。また今度教えてください。";
       final answerId = AnswerId("00000000000000000000");
+      final questionId = QuestionId("00000000000000000000");
       final usecase = TeacherEvaluationAddUseCase(
         session: session,
         repository: repository,
@@ -32,6 +34,7 @@ void main() {
       );
       await usecase.execute(
         answerId: answerId,
+        questionId: questionId,
         to: to,
         ratingData: ratingData,
         commentData: commentData,

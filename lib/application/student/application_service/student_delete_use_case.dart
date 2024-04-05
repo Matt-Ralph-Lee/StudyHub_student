@@ -23,7 +23,7 @@ class StudentDeleteUseCase {
 // TODO: try-catch statement for all usecases
   Future<void> execute() async {
     final studentId = _session.studentId;
-    final student = _studentRepository.findById(studentId);
+    final student = await _studentRepository.findById(studentId);
     if (student == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.notFound);

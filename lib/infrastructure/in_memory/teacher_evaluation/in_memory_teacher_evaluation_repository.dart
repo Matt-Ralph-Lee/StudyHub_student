@@ -35,14 +35,14 @@ class InMemoryTeacherEvaluationRepository
 
 // fetch all evaluation from store and convert to evaluation
   @override
-  List<TeacherEvaluation>? getByTeacherId(TeacherId teacherId) {
+  Future<List<TeacherEvaluation>?> getByTeacherId(TeacherId teacherId) async {
     final evaluation = store[teacherId];
     if (evaluation == null) return null;
     return evaluation;
   }
 
   @override
-  TeacherEvaluationId generateId() {
+  Future<TeacherEvaluationId> generateId(TeacherId teacherId) async {
     const idStr = "thisIsATestId";
 
     String randomId = _idInt.toString() + idStr;

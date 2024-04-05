@@ -3,7 +3,7 @@ import '../../student/models/student_id.dart';
 import 'liked_answers.dart';
 
 abstract class ILikedAnswersRepository {
-  LikedAnswers getByStudentId(final StudentId studentId);
-  void add(final StudentId studentId, final AnswerId answerId);
-  void delete(final StudentId studentId, final AnswerId answerId);
+  Future<LikedAnswers> getByStudentId(final StudentId studentId);
+  Future<void> add(final StudentId studentId, final AnswerId answerId);
+  Future<void> delete(final StudentId studentId, final AnswerId answerId);
 }

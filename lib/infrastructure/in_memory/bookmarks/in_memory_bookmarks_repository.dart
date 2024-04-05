@@ -16,12 +16,12 @@ class InMemoryBookmarksRepository implements IBookmarksRepository {
   }
 
   @override
-  void save(Bookmarks bookmarks) {
+  Future<void> save(Bookmarks bookmarks) async {
     store[bookmarks.studentId] = bookmarks;
   }
 
   @override
-  Bookmarks? getByStudentId(StudentId studentId) {
+  Future<Bookmarks?> getByStudentId(StudentId studentId) async {
     return store[studentId];
   }
 }

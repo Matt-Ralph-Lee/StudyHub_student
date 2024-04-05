@@ -29,22 +29,24 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
         _likedAnswersRepository = likedAnswersRepository;
 
   @override
-  List<AnswerDto> getById(QuestionId questionId) {
+  Future<List<AnswerDto>> getById(QuestionId questionId) async {
     final answerDtoList = <AnswerDto>[];
 
-    final result = _repository.getByQuestionId(questionId);
+    final result = await _repository.getByQuestionId(questionId);
 
     final studentId = _session.studentId;
 
-    final likedAnswers = _likedAnswersRepository.getByStudentId(studentId);
+    final likedAnswers =
+        await _likedAnswersRepository.getByStudentId(studentId);
 
     for (final answer in result) {
-      final teacher = _teacherRepository.getByTeacherId(answer.teacherId);
+      final teacher = await _teacherRepository.getByTeacherId(answer.teacherId);
 
       if (teacher == null) {
         answerDtoList.add(
           AnswerDto(
             answerId: answer.answerId,
+            questionId: answer.questionId,
             teacherId: TeacherId("999999999999999999999999999"), // default id
             teacherName: "teacher name", // default teacher name
             teacherProfilePath:
@@ -61,7 +63,7 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
         );
       } else {
         final favoriteTeachers =
-            _favoriteTeachersRepository.getByStudentId(studentId);
+            await _favoriteTeachersRepository.getByStudentId(studentId);
         bool isFollowing = false;
         if (favoriteTeachers != null) {
           if (favoriteTeachers.contains(teacher.teacherId)) {
@@ -70,6 +72,7 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
         }
         answerDtoList.add(AnswerDto(
           answerId: answer.answerId,
+          questionId: answer.questionId,
           teacherId: teacher.teacherId,
           teacherName: teacher.name.value,
           teacherProfilePath: teacher.profilePhotoPath.value,

@@ -3,7 +3,7 @@ import '../exception/teacher_domain_exception_detail.dart';
 
 class Introduction {
   final String _value;
-  static const maxLength = 150;
+  static const maxLength = 250;
 
   Introduction(this._value) {
     if (_value.length > maxLength) {
