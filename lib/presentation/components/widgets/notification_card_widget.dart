@@ -1,22 +1,53 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
+import '../../../infrastructure/in_memory/notification/exception/notification_infrastructure_exception.dart';
+import '../../../infrastructure/in_memory/notification/exception/notification_infrastructure_exception_detail.dart';
+import '../../controllers/read_notification_controller/read_notification_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
+import 'show_error_modal_widget.dart';
+import 'specific_exception_modal_widget.dart';
 
-class NotificationCardWidget extends StatelessWidget {
+class NotificationCardWidget extends ConsumerWidget {
   final GetMyNotificationDto getMyNotificationDto;
 
   const NotificationCardWidget({super.key, required this.getMyNotificationDto});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     void navigateToNotificationDetailPage(BuildContext context) {
       context.push(PageId.notificationDetailPage.path,
           extra: getMyNotificationDto);
+      ref
+          .read(readNotificationControllerProvider.notifier)
+          .readNotification(getMyNotificationDto.id)
+          .then((_) {
+        final currentState = ref.read(readNotificationControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          if (error is NotificationInfrastructureException) {
+            final errorText = L10n.readNotificationExceptionMessage(
+                error.detail as NotificationInfrastructureExceptionDetail);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SpecificExceptionModalWidget(
+                    errorMessage: errorText,
+                  );
+                });
+          } else {
+            showErrorModalWidget(context);
+          }
+        }
+      });
     }
 
     return GestureDetector(
@@ -36,55 +67,73 @@ class NotificationCardWidget extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              CircleAvatar(
-                radius: 15,
-                backgroundImage: getMyNotificationDto
-                        .sender.senderPhotoPath.value
-                        .contains("assets")
-                    ? AssetImage(
-                            getMyNotificationDto.sender.senderPhotoPath.value)
-                        as ImageProvider
-                    : NetworkImage(
-                        getMyNotificationDto.sender.senderPhotoPath.value,
-                      ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      getMyNotificationDto.title,
-                      style: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.header3),
-                          color: ColorSet.of(context).text),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: getMyNotificationDto
+                            .sender.senderPhotoPath.value
+                            .contains("assets")
+                        ? AssetImage(getMyNotificationDto
+                            .sender.senderPhotoPath.value) as ImageProvider
+                        : NetworkImage(
+                            getMyNotificationDto.sender.senderPhotoPath.value,
+                          ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                getMyNotificationDto.title,
+                                style: TextStyle(
+                                    fontWeight: FontWeightSet.normal,
+                                    fontSize: FontSizeSet.getFontSize(
+                                        context, FontSizeSet.header3),
+                                    color: ColorSet.of(context).text),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            if (!getMyNotificationDto.read)
+                              const Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: Colors.red,
+                                    size: 15,
+                                  )),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(getMyNotificationDto.text,
+                            style: TextStyle(
+                                fontWeight: FontWeightSet.normal,
+                                fontSize: FontSizeSet.getFontSize(
+                                    context, FontSizeSet.body),
+                                color: ColorSet.of(context).text),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(getMyNotificationDto.text,
-                        style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.body),
-                            color: ColorSet.of(context).text),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis),
-                  ],
-                ),
-              )
+                  )
+                ],
+              ),
             ],
           ),
         ),

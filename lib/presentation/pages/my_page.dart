@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,6 +9,7 @@ import '../components/parts/text_for_error.dart';
 import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/user_detail_widget.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
+import '../controllers/check_notification_controller/check_notification_controller.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../controllers/get_my_bookmark_controller/get_my_bookmark_controller.dart';
 import '../controllers/get_my_profile_controller/get_my_profile_controller.dart';
@@ -22,6 +25,8 @@ class MyPage extends HookConsumerWidget {
   const MyPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final checkNotificationState =
+        ref.watch(checkNotificationControllerProvider);
     final getMyProfileState = ref.watch(getMyProfileControllerProvider);
     final favoriteTeacherState =
         ref.watch(getFavoriteTeacherControllerProvider);
@@ -43,21 +48,58 @@ class MyPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: ColorSet.of(context).icon,
-              size: FontSizeSet.getFontSize(context, 30),
-            ),
-            onPressed: () => pushToNotificationPage(context),
+          checkNotificationState.when(
+            data: (isNotificationRead) {
+              return isNotificationRead
+                  ? GestureDetector(
+                      child: Icon(
+                        Icons.notifications_none,
+                        color: ColorSet.of(context).icon,
+                        size: FontSizeSet.getFontSize(context, 30),
+                      ),
+                      onTap: () => pushToNotificationPage(context),
+                    )
+                  : Stack(
+                      children: [
+                        GestureDetector(
+                          child: Icon(
+                            Icons.notifications_none,
+                            color: ColorSet.of(context).icon,
+                            size: FontSizeSet.getFontSize(context, 30),
+                          ),
+                          onTap: () => pushToNotificationPage(context),
+                        ),
+                        const Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Icon(
+                              Icons.circle,
+                              color: Colors.red,
+                              size: 10,
+                            )),
+                      ],
+                    );
+            },
+            loading: () => const LoadingOverlay(),
+            error: (error, stackTrace) {
+              return const Center(
+                child: TextForError(),
+              );
+            },
           ),
-          IconButton(
-            icon: Icon(
+          const SizedBox(
+            width: 10,
+          ),
+          GestureDetector(
+            child: Icon(
               Icons.menu,
               color: ColorSet.of(context).icon,
               size: FontSizeSet.getFontSize(context, 30),
             ),
-            onPressed: () => pushToMenuPage(context),
+            onTap: () => pushToMenuPage(context),
+          ),
+          const SizedBox(
+            width: 20,
           ),
         ],
         backgroundColor: ColorSet.of(context).background,

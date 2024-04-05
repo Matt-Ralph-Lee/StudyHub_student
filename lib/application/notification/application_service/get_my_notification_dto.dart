@@ -9,6 +9,7 @@ class GetMyNotificationDto {
   final String title;
   final String text;
   final DateTime postedAt;
+  final bool read;
 
   GetMyNotificationDto({
     required this.id,
@@ -17,5 +18,6 @@ class GetMyNotificationDto {
     required this.title,
     required this.text,
     required this.postedAt,
+    required this.read,
   });
 }

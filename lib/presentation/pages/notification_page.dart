@@ -35,8 +35,6 @@ class NotificationPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final verticalPadding = screenHeight * 0.05;
     final getMyNotificationsState =
         ref.watch(getMyNotificationsControllerProvider);
 
@@ -62,7 +60,7 @@ class NotificationPage extends ConsumerWidget {
         if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
           notifications.add(Padding(
             padding:
-                EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
+                EdgeInsets.only(bottom: PaddingSet.getPaddingSize(context, 15)),
             child: const TextForNotificationSectionHeader(text: L10n.todayText),
           ));
           isTodayAdded = true;
@@ -72,7 +70,7 @@ class NotificationPage extends ConsumerWidget {
             !isThisWeekAdded) {
           notifications.add(Padding(
             padding:
-                EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
+                EdgeInsets.only(bottom: PaddingSet.getPaddingSize(context, 15)),
             child:
                 const TextForNotificationSectionHeader(text: L10n.thisWeekText),
           ));
@@ -81,7 +79,7 @@ class NotificationPage extends ConsumerWidget {
             !isLastWeekAdded) {
           notifications.add(Padding(
             padding:
-                EdgeInsets.only(top: PaddingSet.getPaddingSize(context, 40)),
+                EdgeInsets.only(bottom: PaddingSet.getPaddingSize(context, 15)),
             child:
                 const TextForNotificationSectionHeader(text: L10n.beforeText),
           ));
@@ -89,7 +87,7 @@ class NotificationPage extends ConsumerWidget {
         }
 
         notifications.add(Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(bottom: 20),
           child: NotificationCardWidget(
             getMyNotificationDto: notificationDto,
           ),
@@ -124,7 +122,7 @@ class NotificationPage extends ConsumerWidget {
       ),
       backgroundColor: ColorSet.of(context).background,
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: verticalPadding),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: getMyNotificationsState.when(
           data: (getMyNotificationsDto) {
             if (getMyNotificationsDto.isNotEmpty) {

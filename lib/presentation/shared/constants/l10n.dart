@@ -7,6 +7,7 @@ import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
+import '../../../infrastructure/in_memory/notification/exception/notification_infrastructure_exception_detail.dart';
 
 class L10n {
   //auth_page
@@ -226,8 +227,8 @@ class L10n {
   static const modalOkText = "ok";
   static const cancelText = "キャンセル";
   static const closeText = "閉じる";
-  static const followButtonText = "フォローする";
-  static const unFollowButtonText = "フォローから外す";
+  static const followButtonText = "フォロー";
+  static const unFollowButtonText = "フォロー中";
   static const addFavoriteTeacherText = "フォローしました";
   static const deleteFavoriteTeacherText = "フォローから外しました";
   static const favoriteTeacherTextForSelectTeachersPage = "フォロー中の講師";
@@ -267,6 +268,16 @@ class L10n {
   static const thisWeekText = "今週";
   static const beforeText = "それ以前";
   static const noNotificationFound = "お知らせがありません";
+
+  static String readNotificationExceptionMessage(
+      NotificationInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case NotificationInfrastructureExceptionDetail.idAlreadyExist:
+        return "通知は既読です";
+      case NotificationInfrastructureExceptionDetail.notificationNotFound:
+        return "'通知が見つかりませんでした";
+    }
+  }
 
   //search_question_page
   static const noQuestionsFound = "該当する質問がありません";
