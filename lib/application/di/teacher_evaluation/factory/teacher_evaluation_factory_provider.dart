@@ -18,6 +18,7 @@ ITeacherEvaluationFactory teacherEvaluationFactoryDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw InMemoryTeacherEvaluationFactory(
+          InMemoryTeacherEvaluationRepository());
   }
 }

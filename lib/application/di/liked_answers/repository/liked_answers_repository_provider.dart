@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/liked_answer/models/i_liked_answers_repository.dart';
+import '../../../../infrastructure/firebase/liked_answers/firebase_liked_answers_repository.dart';
 import '../../../../infrastructure/in_memory/liked_answers/in_memory_liked_answers_repository.dart';
 import '../../../shared/flavor/flavor.dart';
 import '../../../shared/flavor/flavor_config.dart';
@@ -16,6 +17,6 @@ ILikedAnswersRepository likedAnswersRepositoryDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw FirebaseLikedAnswersRepository();
   }
 }

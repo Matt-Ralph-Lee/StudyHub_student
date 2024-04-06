@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../infrastructure/firebase/question/firebase_get_question_detail.query_service.dart';
+import '../../../infrastructure/firebase/question/firebase_question_repository.dart';
 import '../../../infrastructure/in_memory/question/in_memory_get_question_detail_query_service.dart';
 import '../../../infrastructure/in_memory/question/in_memory_question_repository.dart';
 import '../../question/application_service/i_get_question_detail_query_service.dart';
@@ -19,6 +21,7 @@ IGetQuestionDetailQueryService getQuestionDetailQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw FirebaseGetQuestionDetailQueryService(ref
+          .watch(questionRepositoryDiProvider) as FirebaseQuestionRepository);
   }
 }

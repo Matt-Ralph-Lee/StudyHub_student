@@ -17,6 +17,7 @@ INotificationFactory notificationFactoryDi(NotificationFactoryDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw InMemoryNotificationFactory(
+          repository: InMemoryNotificationRepository());
   }
 }

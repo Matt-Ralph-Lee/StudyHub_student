@@ -1,5 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../infrastructure/firebase/bookmarks/firebase_bookmarks_query_service.dart';
+import '../../../../infrastructure/firebase/bookmarks/firebase_bookmarks_repository.dart';
+import '../../../../infrastructure/firebase/question/firebase_question_repository.dart';
+import '../../../../infrastructure/firebase/student/firebase_student_repository.dart';
+import '../../../../infrastructure/firebase/teacher/firebase_teacher_repository.dart';
 import '../../../../infrastructure/in_memory/bookmarks/in_memory_bookmarks_query_service.dart';
 import '../../../../infrastructure/in_memory/bookmarks/in_memory_bookmarks_repository.dart';
 import '../../../../infrastructure/in_memory/question/in_memory_question_repository.dart';
@@ -33,6 +38,16 @@ IGetBookmarksQueryService getMyBookmarksQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw FirebaseBookmarksQueryService(
+        repository: (ref.watch(getMyBookmarksRepositoryDiProvider))
+            as FirebaseBookmarksRepository,
+        studentRepository: (ref.watch(studentRepositoryDiProvider))
+            as FirebaseStudentRepository,
+        questionRepository: (ref.watch(questionRepositoryDiProvider))
+            as FirebaseQuestionRepository,
+        teacherRepository: (ref.watch(teacherRepositoryDiProvider))
+            as FirebaseTeacherRepository,
+      );
+      ;
   }
 }

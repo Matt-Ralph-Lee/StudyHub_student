@@ -21,6 +21,9 @@ IGetMyNotificationsQueryService getMyNotificationsQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw InMemoryGetMyNotificationsQueryService(
+        repository: (ref.watch(notificationRepositoryDiProvider))
+            as InMemoryNotificationRepository,
+      );
   }
 }
