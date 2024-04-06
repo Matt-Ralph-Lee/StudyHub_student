@@ -94,7 +94,7 @@ class TeacherProfileWidget extends StatelessWidget {
                             onRatingUpdate: (double value) {},
                           ),
                           const SizedBox(
-                            width: 5,
+                            width: 10,
                           ),
                           Text(
                             teacherProfileDto.rating.toString(),
@@ -132,12 +132,19 @@ class TeacherProfileWidget extends StatelessWidget {
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
+                      const SizedBox(
+                        height: 3,
+                      ),
                       Divider(
                         color: ColorSet.of(context).greyText,
                         thickness: 0.5,
+                        height: 1,
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -177,12 +184,19 @@ class TeacherProfileWidget extends StatelessWidget {
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
+                      const SizedBox(
+                        height: 3,
+                      ),
                       Divider(
                         color: ColorSet.of(context).greyText,
                         thickness: 0.5,
+                        height: 1,
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Text(
                   teacherProfileDto.bio,
@@ -215,12 +229,19 @@ class TeacherProfileWidget extends StatelessWidget {
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
+                      const SizedBox(
+                        height: 3,
+                      ),
                       Divider(
                         color: ColorSet.of(context).greyText,
                         thickness: 0.5,
+                        height: 1,
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Text(
                   teacherProfileDto.introduction,
@@ -253,12 +274,19 @@ class TeacherProfileWidget extends StatelessWidget {
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
+                      const SizedBox(
+                        height: 3,
+                      ),
                       Divider(
                         color: ColorSet.of(context).greyText,
                         thickness: 0.5,
+                        height: 1,
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Text(
                   "${teacherProfileDto.highSchool}${L10n.fromText}\n${teacherProfileDto.university}${L10n.enrollmentText}",

@@ -5,6 +5,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/padding_set.dart';
 import '../../shared/constants/page_path.dart';
 
 class LoginByGoogleButtonWidget extends StatelessWidget {
@@ -26,10 +27,15 @@ class LoginByGoogleButtonWidget extends StatelessWidget {
           side: BorderSide(width: 0.5, color: ColorSet.of(context).text),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(20),
             ),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(
+            vertical: PaddingSet.getPaddingSize(
+              context,
+              PaddingSet.elevatedButtonPadding,
+            ),
+          ),
         ),
         child: Text(
           L10n.loginByGoogleButtonText,

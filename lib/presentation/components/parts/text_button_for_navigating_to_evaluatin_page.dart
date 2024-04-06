@@ -41,7 +41,9 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             side: BorderSide(color: ColorSet.of(context).primary),
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20),
+            ),
           ),
           padding: const EdgeInsets.symmetric(
             vertical: 15,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../shared/constants/color_set.dart';
@@ -122,7 +123,7 @@ class UserDetailWidget extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => navigateToFavoriteTeacherPage(context),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end, //centerかendか
                   children: [
                     Text(
                       numberOfFavoriteTeachers.toString(),
@@ -133,7 +134,7 @@ class UserDetailWidget extends StatelessWidget {
                           color: ColorSet.of(context).text),
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 10,
                     ),
                     Text(
                       L10n.favoriteTeacherText,
@@ -223,36 +224,40 @@ class UserDetailWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(
-              icon: const Icon(Icons.help_outline),
-              onPressed: () {
+            GestureDetector(
+              child: Icon(
+                Icons.help_outline,
+                color: ColorSet.of(context).greyText,
+                size: 15,
+              ),
+              onTap: () {
                 showStatusDescriptionDialog(context);
               },
-              color: ColorSet.of(context).greyText,
-              iconSize: 15,
             ),
-            /*
             const SizedBox(
               width: 5,
             ),
-            */
             Text(
               "$nextRank${L10n.madeText}",
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+                  fontSize: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.annotation,
+                  ),
                   color: ColorSet.of(context).greyText),
             ),
             const SizedBox(
               width: 5,
             ),
             Text(
-              numberOfQuestionsForNextRank,
+              numberOfQuestionsForNextRank, //若干隣の文字より上に上がってるんよな、数字だから？？
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+                  fontSize: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.annotation,
+                  ),
                   color: ColorSet.of(context).greyText),
             ),
           ],

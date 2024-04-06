@@ -122,7 +122,7 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
               },
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
             getAnswerControllerState.when(
               data: (answerDto) {
@@ -137,18 +137,26 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                             },
                             itemBuilder: (context, index) {
                               return answerDto.length == 1
-                                  ? AnswerCardWidget(
-                                      answerDto: answerDto[index],
-                                    )
-                                  : Container(
-                                      margin: EdgeInsets.only(
-                                        right: PaddingSet.getPaddingSize(
-                                          context,
-                                          PaddingSet.pageViewItemLightPadding,
-                                        ),
-                                      ),
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20),
                                       child: AnswerCardWidget(
                                         answerDto: answerDto[index],
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20),
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                          right: PaddingSet.getPaddingSize(
+                                            context,
+                                            PaddingSet.pageViewItemLightPadding,
+                                          ),
+                                        ),
+                                        child: AnswerCardWidget(
+                                          answerDto: answerDto[index],
+                                        ),
                                       ),
                                     );
                             },
@@ -156,34 +164,30 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                           if (answerDto[selectedAnswerIndex.value]
                               .answerPhotoList
                               .isNotEmpty)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: ExpandablePageView.builder(
-                                controller:
-                                    PageController(viewportFraction: 0.9),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: answerDto[selectedAnswerIndex.value]
-                                    .answerPhotoList
-                                    .length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    margin: EdgeInsets.only(
-                                      right: PaddingSet.getPaddingSize(
-                                        context,
-                                        PaddingSet.pageViewItemLightPadding,
-                                      ),
-                                    ), //marginなので？組み込まずに外からかけてます
-                                    child: AnswerPictureWidget(
-                                      photoPath:
-                                          answerDto[selectedAnswerIndex.value]
-                                              .answerPhotoList[index],
-                                      answerDto:
-                                          answerDto[selectedAnswerIndex.value],
-                                      order: selectedAnswerIndex.value,
+                            ExpandablePageView.builder(
+                              controller: PageController(viewportFraction: 0.9),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: answerDto[selectedAnswerIndex.value]
+                                  .answerPhotoList
+                                  .length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                    right: PaddingSet.getPaddingSize(
+                                      context,
+                                      PaddingSet.pageViewItemLightPadding,
                                     ),
-                                  );
-                                },
-                              ),
+                                  ), //marginなので？組み込まずに外からかけてます
+                                  child: AnswerPictureWidget(
+                                    photoPath:
+                                        answerDto[selectedAnswerIndex.value]
+                                            .answerPhotoList[index],
+                                    answerDto:
+                                        answerDto[selectedAnswerIndex.value],
+                                    order: selectedAnswerIndex.value,
+                                  ),
+                                );
+                              },
                             ),
                           if (!answerDto[selectedAnswerIndex.value]
                                   .isEvaluated &&

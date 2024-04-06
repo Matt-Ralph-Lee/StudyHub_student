@@ -46,7 +46,12 @@ class DropDownButtonForOthersGradeInput extends HookWidget {
           const SizedBox(height: 10),
           ButtonTheme(
             alignedDropdown: true,
-            child: DropdownButtonFormField<GradeOrGraduateStatus>(
+            child: DropdownButtonFormField<GradeOrGraduateStatus?>(
+              borderRadius: BorderRadius.circular(5),
+              iconSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header2,
+              ),
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
@@ -55,27 +60,42 @@ class DropDownButtonForOthersGradeInput extends HookWidget {
                 fillColor: ColorSet.of(context).greySurface,
                 contentPadding: EdgeInsets.symmetric(
                   vertical: PaddingSet.getPaddingSize(context, 15),
-                  horizontal: PaddingSet.getPaddingSize(context, 20),
+                  horizontal: PaddingSet.getPaddingSize(context, 5),
+                  //alignedDropdown: true,によりデフォでpadding入るため。DropdownButtonなりDropdownMenuなり試してみたけど、これが一番ちょうどいい
                 ),
               ),
               isExpanded: true,
               value: groupValue,
               dropdownColor: ColorSet.of(context).greySurface,
               onChanged: onChanged,
-              items: othersGradeOptions.map((GradeOrGraduateStatus value) {
-                return DropdownMenuItem<GradeOrGraduateStatus>(
-                  value: value,
+              items: [
+                DropdownMenuItem<GradeOrGraduateStatus?>(
+                  value: null,
                   child: Text(
-                    value.japanese,
+                    L10n.notSelectText,
                     style: TextStyle(
-                        height: 2,
                         fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.annotation),
+                        fontSize:
+                            FontSizeSet.getFontSize(context, FontSizeSet.body),
                         color: ColorSet.of(context).text),
                   ),
-                );
-              }).toList(),
+                ),
+                ...othersGradeOptions.map((GradeOrGraduateStatus value) {
+                  return DropdownMenuItem<GradeOrGraduateStatus>(
+                    value: value,
+                    child: Text(
+                      value.japanese,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                            context,
+                            FontSizeSet.body,
+                          ),
+                          color: ColorSet.of(context).text),
+                    ),
+                  );
+                }).toList(),
+              ],
             ),
           ),
         ],

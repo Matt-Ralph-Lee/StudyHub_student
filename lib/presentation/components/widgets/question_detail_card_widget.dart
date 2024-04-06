@@ -58,7 +58,7 @@ class QuestionDetailCardWidget extends StatelessWidget {
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
                         radius: 15,
@@ -94,7 +94,7 @@ class QuestionDetailCardWidget extends StatelessWidget {
                 ),
                 //元祖StudyHubから移植。モーダルだと位置調整だるそうなので。いらないプロパティありそうだけど放置！
                 PopupMenuButton<String>(
-                  color: ColorSet.of(context).greySurface,
+                  color: ColorSet.of(context).surface,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7.0),

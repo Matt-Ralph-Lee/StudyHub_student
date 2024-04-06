@@ -52,6 +52,7 @@ dependencies:
   intl:
   expandable_page_view:
   flutter_rating_bar:
+  get:
 
 dev_dependencies:
   flutter_test:

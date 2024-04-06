@@ -54,10 +54,10 @@ class TextFormFieldForPasswordInput extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           errorText: errorText,
-          errorStyle: const TextStyle(
+          errorStyle: TextStyle(
               fontWeight: FontWeightSet.normal,
               fontSize: FontSizeSet.annotation,
-              color: Colors.red),
+              color: ColorSet.of(context).errorText),
           errorMaxLines: 2,
         ),
       ),

@@ -31,7 +31,7 @@ class TextFormFieldForSearchForTeachers extends StatelessWidget {
         cursorColor: ColorSet.of(context).text,
         cursorWidth: screenWidth < 600 ? 1 : 1.5,
         cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.body),
-        textAlignVertical: TextAlignVertical.center,
+        // textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(
             left: PaddingSet.getPaddingSize(context, 10),
@@ -46,7 +46,7 @@ class TextFormFieldForSearchForTeachers extends StatelessWidget {
           fillColor: ColorSet.of(context).greySurface,
           filled: true,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(20.0),
             borderSide: BorderSide.none,
           ),
         ),

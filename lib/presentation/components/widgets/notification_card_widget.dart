@@ -12,6 +12,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/padding_set.dart';
 import '../../shared/constants/page_path.dart';
 import 'show_error_modal_widget.dart';
 import 'specific_exception_modal_widget.dart';
@@ -66,7 +67,10 @@ class NotificationCardWidget extends ConsumerWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(PaddingSet.getPaddingSize(
+            context,
+            20,
+          )),
           child: Stack(
             children: [
               Row(
@@ -94,6 +98,7 @@ class NotificationCardWidget extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
                               child: Text(
@@ -101,21 +106,22 @@ class NotificationCardWidget extends ConsumerWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeightSet.normal,
                                     fontSize: FontSizeSet.getFontSize(
-                                        context, FontSizeSet.header3),
+                                      context,
+                                      FontSizeSet.body,
+                                    ),
                                     color: ColorSet.of(context).text),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             if (!getMyNotificationDto.read)
-                              const Positioned(
-                                  right: 0,
-                                  top: 0,
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: Colors.red,
-                                    size: 15,
-                                  )),
+                              Icon(
+                                Icons.circle,
+                                color: ColorSet.of(context)
+                                    .errorText
+                                    .withOpacity(0.9),
+                                size: 15,
+                              ),
                           ],
                         ),
                         const SizedBox(

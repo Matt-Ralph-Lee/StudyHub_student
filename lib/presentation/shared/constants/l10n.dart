@@ -130,10 +130,11 @@ class L10n {
   static const gradeOptionSecondGrade = "2年";
   static const gradeOptionThirdGrade = "3年";
   static const gradeOptionForthGrade = "4年";
+  static const notSelectText = "選択しない";
 
   static const academicHistoryInputExplanationText = "最終学歴を入力してください";
 
-  static const academicHistoryTextFieldLabelText = "学校名";
+  static const academicHistoryTextFieldLabelText = "最終学歴";
   static const academicHistoryRadioBoxLabelText = "学年";
   static const academicHistoryOptionGraduate = "卒業";
   static const academicHistoryOptionOther = "その他";
@@ -170,7 +171,7 @@ class L10n {
   static const saveText = "保存する";
   static const takePictureText = "写真を撮る";
   static const selectPictureFromGalleryText = "ギャラリーから選ぶ";
-  static const editSuccessText = "プロフィールを変更しました!";
+  static const editSuccessText = "プロフィールを変更しました！";
 
   //my_page
   static const myQuestionTabText = "MyQuestion";
@@ -184,6 +185,8 @@ class L10n {
   static const colorText = "colorText";
   static const nextRankText = "nextRank";
   static const questionsForNextRankText = "questionsForNextRank";
+  static const rankDescriptionText =
+      "質問数に応じて、Beginner/Novice/Advanced/Expertのいずれかのランクが付与されます。高ランクを目指して沢山質問しましょう！";
 
   //question_and_answer_card_widget
   static const questionIconText = "Q.";
@@ -219,7 +222,7 @@ class L10n {
   static const evaluationContentText = "ご自由にコメントしてください";
   static const evaluationInputHintText = "分かりやすいお答えありがとうございます!";
   static const dateFormat = "yyyy/MM/dd";
-  static const evaluationSnackBarText = "講師を評価しました!";
+  static const evaluationSnackBarText = "講師を評価しました！";
 
   //shared
   static const errorText = "エラーです。時間をおいてから再度お試しください";
@@ -230,15 +233,16 @@ class L10n {
   static const closeText = "閉じる";
   static const followButtonText = "フォロー";
   static const unFollowButtonText = "フォロー中";
-  static const addFavoriteTeacherText = "フォローしました";
-  static const deleteFavoriteTeacherText = "フォローから外しました";
+  static const unFollowButtonTextForAnswerCardMenu = "フォローから外す";
+  static const addFavoriteTeacherText = "フォローしました！";
+  static const deleteFavoriteTeacherText = "フォローから外しました、、";
   static const favoriteTeacherTextForSelectTeachersPage = "フォロー中の講師";
   static const popularTeachersText = "人気の講師";
   static const noTeachersFoundText = "該当する講師は見つかりませんでした。";
-  static const reportText = "投稿を報告する";
+  static const reportText = "報告する";
   static const reportReason = "報告理由";
   static const reportContent = "報告内容";
-  static const reportSnackBarText = "投稿を報告しました";
+  static const reportSnackBarText = "報告しました";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";

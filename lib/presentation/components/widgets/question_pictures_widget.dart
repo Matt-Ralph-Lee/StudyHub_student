@@ -33,14 +33,12 @@ class QuestionPictureWidget extends StatelessWidget {
             ? Image(
                 image: AssetImage(photoPath),
                 width: 350,
-                height: 200,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               )
             : Image.network(
                 photoPath,
                 width: 350,
-                height: 200,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
       ),
     );

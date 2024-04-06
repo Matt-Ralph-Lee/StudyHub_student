@@ -120,7 +120,9 @@ class EvaluationPage extends HookConsumerWidget {
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
+                          context,
+                          FontSizeSet.body,
+                        ),
                         color: ColorSet.of(context).text),
                   ),
                 ),
@@ -144,8 +146,10 @@ class EvaluationPage extends HookConsumerWidget {
                   L10n.evaluationText,
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header3),
+                    fontSize: FontSizeSet.getFontSize(
+                      context,
+                      FontSizeSet.body,
+                    ),
                   ),
                 ),
               ),

@@ -43,6 +43,11 @@ class DropDownButtonForOccupationInput extends HookWidget {
           ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonFormField<Occupation>(
+              borderRadius: BorderRadius.circular(5),
+              iconSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header2,
+              ),
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
@@ -50,9 +55,15 @@ class DropDownButtonForOccupationInput extends HookWidget {
                 ),
                 fillColor: ColorSet.of(context).greySurface,
                 contentPadding: EdgeInsets.symmetric(
-                  vertical: PaddingSet.getPaddingSize(context, 15),
-                  horizontal: PaddingSet.getPaddingSize(context, 20),
-                ),
+                    vertical: PaddingSet.getPaddingSize(
+                      context,
+                      15,
+                    ),
+                    horizontal: PaddingSet.getPaddingSize(
+                      context,
+                      5,
+                    ) //alignedDropdown: true,によりデフォでpadding入るため。DropdownButtonなりDropdownMenuなり試してみたけど、これが一番ちょうどいい
+                    ),
               ),
               isExpanded: true,
               value: groupValue,
@@ -64,10 +75,11 @@ class DropDownButtonForOccupationInput extends HookWidget {
                   child: Text(
                     value.japanese,
                     style: TextStyle(
-                        height: 2,
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.annotation),
+                          context,
+                          FontSizeSet.body,
+                        ),
                         color: ColorSet.of(context).text),
                   ),
                 );

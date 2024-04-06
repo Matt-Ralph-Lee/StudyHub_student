@@ -43,6 +43,11 @@ class DropDownButtonForReportReason extends HookWidget {
           ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonFormField<ReportReason>(
+              borderRadius: BorderRadius.circular(5),
+              iconSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header2,
+              ),
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
@@ -51,7 +56,8 @@ class DropDownButtonForReportReason extends HookWidget {
                 fillColor: ColorSet.of(context).greySurface,
                 contentPadding: EdgeInsets.symmetric(
                   vertical: PaddingSet.getPaddingSize(context, 15),
-                  horizontal: PaddingSet.getPaddingSize(context, 20),
+                  horizontal: PaddingSet.getPaddingSize(context,
+                      5), //alignedDropdown: true,によりデフォでpadding入るため。DropdownButtonなりDropdownMenuなり試してみたけど、これが一番ちょうどいい
                 ),
               ),
               isExpanded: true,
@@ -64,7 +70,6 @@ class DropDownButtonForReportReason extends HookWidget {
                   child: Text(
                     value.japanese,
                     style: TextStyle(
-                        height: 2,
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
                             context, FontSizeSet.annotation),

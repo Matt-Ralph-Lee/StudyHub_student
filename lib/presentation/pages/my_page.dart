@@ -69,12 +69,14 @@ class MyPage extends HookConsumerWidget {
                           ),
                           onTap: () => pushToNotificationPage(context),
                         ),
-                        const Positioned(
+                        Positioned(
                             right: 0,
                             top: 0,
                             child: Icon(
                               Icons.circle,
-                              color: Colors.red,
+                              color: ColorSet.of(context)
+                                  .errorText
+                                  .withOpacity(0.9),
                               size: 10,
                             )),
                       ],

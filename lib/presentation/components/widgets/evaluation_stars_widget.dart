@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -31,7 +32,7 @@ class EvaluationStarsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    L10n.evaluationText,
+                    L10n.evaluationStarsText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
@@ -57,6 +58,7 @@ class EvaluationStarsWidget extends StatelessWidget {
           children: List.generate(5, (index) {
             return InkWell(
               onTap: () {
+                HapticFeedback.lightImpact();
                 onPressed(index);
               },
               child: Icon(

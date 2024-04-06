@@ -38,9 +38,7 @@ class EditProfilePage extends HookConsumerWidget {
         final defaultImage = getStudentDto.profilePhotoPath;
         final gender = useState<Gender?>(getStudentDto.gender);
         final occupation = useState<Occupation?>(getStudentDto.occupation);
-        final studentGrade = useState<GradeOrGraduateStatus?>(
-            getStudentDto.gradeOrGraduateStatus);
-        final othersGrade = useState<GradeOrGraduateStatus?>(
+        final gradeOrGradeStatus = useState<GradeOrGraduateStatus?>(
             getStudentDto.gradeOrGraduateStatus);
         final userNameInputController =
             useTextEditingController(text: getStudentDto.studentName);
@@ -65,14 +63,13 @@ class EditProfilePage extends HookConsumerWidget {
 
         void handleOccupationChanged(Occupation? newValue) {
           occupation.value = newValue;
-        }
-
-        void handleStudentGradeChanged(GradeOrGraduateStatus? newValue) {
-          studentGrade.value = newValue;
+          gradeOrGradeStatus.value = null;
+          //null or occupationと対応する適当なgradeOrGradeStatusをデフォでセットしないとドロップダウンでエラーのなるため
+          //後者よりはnullのほうが自然だと思ったので
         }
 
         void handleOthersGradeChanged(GradeOrGraduateStatus? newValue) {
-          othersGrade.value = newValue;
+          gradeOrGradeStatus.value = newValue;
         }
 
         void takePhoto(ImageSource source) async {
@@ -90,9 +87,7 @@ class EditProfilePage extends HookConsumerWidget {
             gender: gender.value,
             occupation: occupation.value,
             school: studentSchoolNameInputController.text,
-            gradeOrGraduateStatus: occupation.value == Occupation.student
-                ? studentGrade.value
-                : othersGrade.value,
+            gradeOrGraduateStatus: gradeOrGradeStatus.value,
             localPhotoPath: imageFilePath.value,
           );
 
@@ -164,12 +159,7 @@ class EditProfilePage extends HookConsumerWidget {
                       right: PaddingSet.getPaddingSize(
                           context, PaddingSet.horizontalPadding)),
                   child: TextButton(
-                    onPressed: isUserNameFilled.value &&
-                            isSchoolNameFilled.value &&
-                            ((occupation.value == Occupation.student &&
-                                    studentGrade.value != null) ||
-                                (occupation.value != Occupation.student &&
-                                    othersGrade.value != null))
+                    onPressed: isUserNameFilled.value
                         ? () {
                             updateProfile();
                           }
@@ -208,16 +198,13 @@ class EditProfilePage extends HookConsumerWidget {
                     imageFilePath: imageFilePath.value,
                     genderValue: gender.value,
                     occupationValue: occupation.value,
-                    studentGradeValue: studentGrade.value,
-                    othersGradeValue: othersGrade.value,
+                    gradeOrGraduateStatusValue: gradeOrGradeStatus.value,
                     handleGenderChanged: handleGenderChanged,
-                    checkSchoolNameFilledFunction: checkSchoolNameFilled,
                     checkUserNameFilledFunction: checkUserNameFilled,
                     uploadPhotoFromCamera: () => takePhoto(ImageSource.camera),
                     uploadPhotoFromGallery: () =>
                         takePhoto(ImageSource.gallery),
                     handleOccupationChanged: handleOccupationChanged,
-                    handleStudentGradeChanged: handleStudentGradeChanged,
                     handleOthersGradeChanged: handleOthersGradeChanged,
                   ),
                 ],

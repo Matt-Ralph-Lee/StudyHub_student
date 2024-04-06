@@ -23,35 +23,43 @@ class AddQuestionMainContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          DropDownButtonForQuestionSubject(
-            setSubject: selectSubjectFunction,
+    return Column(
+      children: [
+        DropDownButtonForQuestionSubject(
+          setSubject: selectSubjectFunction,
+        ),
+        SizedBox(
+          height: PaddingSet.getPaddingSize(
+            context,
+            30,
           ),
-          SizedBox(
-            height: PaddingSet.getPaddingSize(
-              context,
-              30,
-            ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: PaddingSet.getPaddingSize(
+            context,
+            PaddingSet.horizontalPadding,
+          )), //DropdownButtonのButtonThemeでalginをtrueにしている以上、こうしないと左端が揃わないので(ipadで若干ずれるのは妥協)
+          child: Column(
+            children: [
+              TextFormFieldForAddQuestionTitle(
+                controller: questionTitleController,
+                onChanged: checkQuestionTitleFilledFunction,
+              ),
+              SizedBox(
+                height: PaddingSet.getPaddingSize(
+                  context,
+                  30,
+                ),
+              ), //タイトルのmaxLine分空いてるからキモいけど仕方ない
+              TextFormFieldForAddQuestion(
+                controller: questionController,
+                onChanged: checkQuestionFilledFunction,
+              ),
+            ],
           ),
-          TextFormFieldForAddQuestionTitle(
-            controller: questionTitleController,
-            onChanged: checkQuestionTitleFilledFunction,
-          ),
-          SizedBox(
-            height: PaddingSet.getPaddingSize(
-              context,
-              30,
-            ),
-          ), //タイトルのmaxLine分空いてるからキモいけど仕方ない
-          TextFormFieldForAddQuestion(
-            controller: questionController,
-            onChanged: checkQuestionFilledFunction,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

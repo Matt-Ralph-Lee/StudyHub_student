@@ -130,8 +130,8 @@ class ReportPage extends HookConsumerWidget {
                     L10n.cancelText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
+                        fontSize:
+                            FontSizeSet.getFontSize(context, FontSizeSet.body),
                         color: ColorSet.of(context).text),
                   ),
                 ),
@@ -162,8 +162,10 @@ class ReportPage extends HookConsumerWidget {
                   L10n.reportText,
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header3),
+                    fontSize: FontSizeSet.getFontSize(
+                      context,
+                      FontSizeSet.body,
+                    ),
                   ),
                 ),
               ),
@@ -177,7 +179,7 @@ class ReportPage extends HookConsumerWidget {
             padding: EdgeInsets.symmetric(
               vertical: PaddingSet.getPaddingSize(
                 context,
-                20,
+                70,
               ),
               horizontal: PaddingSet.getPaddingSize(
                 context,
@@ -194,7 +196,7 @@ class ReportPage extends HookConsumerWidget {
                   },
                 ),
                 const SizedBox(
-                  height: 70,
+                  height: 30,
                 ),
                 TextFormFieldForReportInput(
                   controller: reportContentController,

@@ -30,7 +30,7 @@ class AcademicHistoryInputWidget extends HookWidget {
     final isAcademicHistoryFilled =
         useState<bool>(academicHistoryInputController.text.isNotEmpty);
 
-    void checkAcademicHistoryFilled(String text) {
+    void checkSchoolNameFilled(String text) {
       isAcademicHistoryFilled.value = text.isNotEmpty;
     }
 
@@ -42,7 +42,7 @@ class AcademicHistoryInputWidget extends HookWidget {
         const SizedBox(height: 70),
         TextFormFieldForSchoolNameInput(
           controller: academicHistoryInputController,
-          onChanged: checkAcademicHistoryFilled,
+          onChanged: checkSchoolNameFilled,
         ),
         const SizedBox(height: 50),
         DropDownButtonForOthersGradeInput(
@@ -61,7 +61,7 @@ class AcademicHistoryInputWidget extends HookWidget {
             ),
             ButtonForProfileInputNext(
               incrementCounter:
-                  (isAcademicHistoryFilled.value && othersGradeValue != null)
+                  (isAcademicHistoryFilled.value || othersGradeValue != null)
                       ? updateProfile
                       : null,
             )

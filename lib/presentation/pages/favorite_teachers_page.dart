@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_favorite_teacher_found.dart';
-import '../components/widgets/favorite_teacher_card_widget.dart';
+import '../components/widgets/teacher_small_card_widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../shared/constants/color_set.dart';
@@ -31,7 +31,10 @@ class FavoriteTeachersPage extends ConsumerWidget {
             icon: Icon(
               Icons.chevron_left,
               color: ColorSet.of(context).icon,
-              size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+              size: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.body,
+              ),
             ),
             onPressed: () => context.pop(),
           ),
@@ -41,7 +44,10 @@ class FavoriteTeachersPage extends ConsumerWidget {
             L10n.favoriteTeacherText,
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
-                fontSize: FontSizeSet.getFontSize(context, FontSizeSet.header3),
+                fontSize: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.body,
+                ),
                 color: ColorSet.of(context).text),
           ),
         ),

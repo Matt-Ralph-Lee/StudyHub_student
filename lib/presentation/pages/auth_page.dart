@@ -29,7 +29,7 @@ class AuthPage extends ConsumerWidget {
           Expanded(
             child: Container(
               height: FontSizeSet.getFontSize(context, 0.5),
-              color: Colors.grey,
+              color: ColorSet.of(context).greyText,
             ),
           ),
           const SizedBox(width: 10),
@@ -39,13 +39,13 @@ class AuthPage extends ConsumerWidget {
                 fontWeight: FontWeightSet.normal,
                 fontSize:
                     FontSizeSet.getFontSize(context, FontSizeSet.annotation),
-                color: Colors.grey),
+                color: ColorSet.of(context).greyText),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Container(
               height: 0.5,
-              color: Colors.grey,
+              color: ColorSet.of(context).greyText,
             ),
           ),
         ],

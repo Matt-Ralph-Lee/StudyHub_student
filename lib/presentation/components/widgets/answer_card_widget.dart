@@ -33,10 +33,12 @@ class AnswerCardWidget extends ConsumerWidget {
 
     void toggleLikeAnswer() async {
       if (answerDto.hasLiked) {
+        HapticFeedback.lightImpact();
         ref
             .read(likeAnswerControllerProvider.notifier)
             .decrement(answerDto.answerId);
       } else {
+        HapticFeedback.lightImpact();
         ref
             .read(likeAnswerControllerProvider.notifier)
             .increment(answerDto.answerId);
@@ -169,7 +171,9 @@ class AnswerCardWidget extends ConsumerWidget {
                             style: TextStyle(
                               fontWeight: FontWeightSet.normal,
                               fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header3),
+                                context,
+                                FontSizeSet.body,
+                              ),
                               color: ColorSet.of(context).text,
                             ),
                           ),
@@ -183,7 +187,7 @@ class AnswerCardWidget extends ConsumerWidget {
                 ),
                 //元祖StudyHubから移植。モーダルだと位置調整だるそうなので。いらないプロパティありそうだけど放置！
                 PopupMenuButton<String>(
-                  color: ColorSet.of(context).greySurface,
+                  color: ColorSet.of(context).surface,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7.0),
@@ -223,7 +227,7 @@ class AnswerCardWidget extends ConsumerWidget {
                       value: "followUnFollow",
                       child: Text(
                         answerDto.isFollowing
-                            ? L10n.unFollowButtonText
+                            ? L10n.unFollowButtonTextForAnswerCardMenu
                             : L10n.followButtonText,
                         style: TextStyle(
                           color: ColorSet.of(context).primary,
@@ -260,7 +264,7 @@ class AnswerCardWidget extends ConsumerWidget {
                           color: ColorSet.of(context).primary,
                         ),
                         const SizedBox(
-                          width: 30,
+                          height: 3,
                         ),
                         Text(
                           answerDto.answerLike.toString(),

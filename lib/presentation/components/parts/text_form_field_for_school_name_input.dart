@@ -10,8 +10,11 @@ class TextFormFieldForSchoolNameInput extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String)? onChanged;
 
-  const TextFormFieldForSchoolNameInput(
-      {super.key, required this.controller, required this.onChanged});
+  const TextFormFieldForSchoolNameInput({
+    super.key,
+    required this.controller,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +41,6 @@ class TextFormFieldForSchoolNameInput extends StatelessWidget {
           TextFormField(
             controller: controller,
             onChanged: onChanged,
-            /*
-            validator: (value) {
-              //云々カンヌン
-            },
-            */
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
                 fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),

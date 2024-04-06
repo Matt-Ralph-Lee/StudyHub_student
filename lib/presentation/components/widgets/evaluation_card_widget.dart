@@ -78,8 +78,10 @@ class EvaluationCardWidget extends ConsumerWidget {
                       .format(teacherEvaluationsDto.createdAt),
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.body),
+                    fontSize: FontSizeSet.getFontSize(
+                      context,
+                      FontSizeSet.annotation,
+                    ),
                     color: ColorSet.of(context).text,
                   ),
                 ),
@@ -140,7 +142,7 @@ class EvaluationCardWidget extends ConsumerWidget {
                           fontWeight: FontWeightSet.normal,
                           fontSize: FontSizeSet.getFontSize(
                             context,
-                            FontSizeSet.header3,
+                            FontSizeSet.body,
                           ),
                           color: ColorSet.of(context).text,
                         ),

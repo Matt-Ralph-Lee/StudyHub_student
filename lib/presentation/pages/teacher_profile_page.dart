@@ -213,16 +213,8 @@ class TeacherProfilePage extends ConsumerWidget {
                       itemCount: evaluations.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          margin: EdgeInsets.only(
-                            top: PaddingSet.getPaddingSize(
-                              context,
-                              PaddingSet.pageViewItemLightPadding,
-                            ),
-                            left: PaddingSet.getPaddingSize(
-                              context,
-                              PaddingSet.pageViewItemLightPadding,
-                            ),
-                            right: PaddingSet.getPaddingSize(
+                          margin: EdgeInsets.all(
+                            PaddingSet.getPaddingSize(
                               context,
                               PaddingSet.pageViewItemLightPadding,
                             ),

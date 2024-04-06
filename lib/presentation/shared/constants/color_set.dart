@@ -24,6 +24,7 @@ abstract class ColorSchemeBase {
   final darkGreyIcon = const Color(0xff6C6C6C);
   final questionIcon = const Color(0xff74B4FF);
   final answerIcon = const Color(0xffFF7979);
+  final errorText = const Color(0xFFFF4343);
 }
 
 class _LightColor extends ColorSchemeBase {
