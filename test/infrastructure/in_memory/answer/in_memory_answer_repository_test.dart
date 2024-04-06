@@ -11,13 +11,13 @@ void main() {
     });
   });
   group('method', () {
-    test('getByQuestionId should return value normally', () {
-      final answerList1 = answerRepository
+    test('getByQuestionId should return value normally', () async {
+      final answerList1 = await answerRepository
           .getByQuestionId(InMemoryQuestionIdInitialValue.questionId1FromS1);
       expect(answerList1.length, 1);
       expect(answerList1[0].answerId,
           InMemoryAnswerIdInitialValue.answerId1FromT1ToQ1);
-      final answerList2 = answerRepository
+      final answerList2 = await answerRepository
           .getByQuestionId(InMemoryQuestionIdInitialValue.questionId2FromS2);
       expect(answerList2.length, 2);
       expect(answerList2[0].answerId,

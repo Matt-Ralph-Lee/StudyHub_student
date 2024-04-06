@@ -25,7 +25,7 @@ class InMemoryQuestionFactory implements IQuestionFactory {
     required final QuestionPhotoPathList questionPhotoPathList,
     required final SelectedTeacherList selectedTeacherList,
   }) async {
-    final QuestionId questionId = _repository.generateId();
+    final QuestionId questionId = await _repository.generateId();
 
     final AnswerList answerList = AnswerList([]);
     final SeenCount seenCount = SeenCount(0);

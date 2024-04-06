@@ -4,7 +4,7 @@ import '../exception/answer_domain_exception_detail.dart';
 class AnswerText {
   final String _value;
   String get value => _value;
-  static const int maxLength = 500;
+  static const int maxLength = 2000;
 
   AnswerText(this._value) {
     if (_value.isEmpty) {

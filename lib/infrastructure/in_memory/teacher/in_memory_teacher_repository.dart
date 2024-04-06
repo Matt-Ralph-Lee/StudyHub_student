@@ -11,8 +11,8 @@ import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/teacher/models/i_teacher_repository.dart';
 import '../../../domain/teacher/models/university.dart';
 import '../../../domain/teacher_evaluation/models/teacher_evaluation.dart';
-import 'exception/teacher_infrastructure_exception.dart';
-import 'exception/teacher_infrastructure_exception_detail.dart';
+import '../../exceptions/teacher/teacher_infrastructure_exception.dart';
+import '../../exceptions/teacher/teacher_infrastructure_exception_detail.dart';
 
 class InMemoryTeacherRepository implements ITeacherRepository {
   late Map<TeacherId, Teacher> store;
@@ -50,12 +50,12 @@ class InMemoryTeacherRepository implements ITeacherRepository {
     };
   }
   @override
-  Teacher? getByTeacherId(final TeacherId teacherId) {
+  Future<Teacher?> getByTeacherId(final TeacherId teacherId) async {
     return store[teacherId];
   }
 
   @override
-  void changeRate(TeacherEvaluation evaluation) {
+  Future<void> changeRate(TeacherEvaluation evaluation) async {
     final teacherId = evaluation.to;
     final oldRating = ratingStore[teacherId];
     if (oldRating == null) {

@@ -7,7 +7,7 @@ import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
-import '../../../infrastructure/in_memory/notification/exception/notification_infrastructure_exception_detail.dart';
+import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
 
 class L10n {
   //auth_page

@@ -16,7 +16,7 @@ class InMemoryTeacherReportRepository implements ITeacherReportRepository {
   }
 
   @override
-  void submit(final TeacherReport report) {
+  Future<void> submit(final TeacherReport report) async {
     if (store.containsKey(report.from)) {
       final data = store[report.from];
       data!.add(report);

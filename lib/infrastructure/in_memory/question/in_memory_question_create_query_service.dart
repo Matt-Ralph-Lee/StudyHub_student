@@ -2,8 +2,8 @@ import '../../../application/question/application_service/i_question_create_quer
 import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../student/in_memory_student_repository.dart';
-import 'exception/question_infrastructure_exception.dart';
-import 'exception/question_infrastructure_exception_detail.dart';
+import '../../exceptions/question/question_infrastructure_exception.dart';
+import '../../exceptions/question/question_infrastructure_exception_detail.dart';
 
 class InMemoryQuestionCreateQueryService
     implements IQuestionCreateQueryService {
@@ -16,7 +16,7 @@ class InMemoryQuestionCreateQueryService
   @override
   Future<ProfilePhotoPath> getProfilePhotoPath(
       final StudentId studentId) async {
-    final student = _repository.findById(studentId);
+    final student = await _repository.findById(studentId);
     if (student == null) {
       throw const QuestionInfrastructureException(
           QuestionInfrastructureExceptionDetail.studentNotFound);

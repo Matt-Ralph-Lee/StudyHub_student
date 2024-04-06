@@ -52,7 +52,7 @@ dependencies:
   intl:
   expandable_page_view:
   flutter_rating_bar:
-  get:
+  firebase_storage: ^11.6.9
 
 dev_dependencies:
   flutter_test:

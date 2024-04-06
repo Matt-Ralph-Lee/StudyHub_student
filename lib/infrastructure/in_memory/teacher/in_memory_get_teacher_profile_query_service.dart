@@ -21,13 +21,13 @@ class InMemoryGetTeacherProfileQueryService
         _favoriteTeachersRepository = favoriteTeachersRepository;
 
   @override
-  GetTeacherProfileDto? findById(TeacherId teacherId) {
-    final teacher = _repository.getByTeacherId(teacherId);
+  Future<GetTeacherProfileDto?> findById(TeacherId teacherId) async {
+    final teacher = await _repository.getByTeacherId(teacherId);
     if (teacher == null) return null;
 
     final studentId = _session.studentId;
     final favoriteTeachers =
-        _favoriteTeachersRepository.getByStudentId(studentId);
+        await _favoriteTeachersRepository.getByStudentId(studentId);
     bool isFollowing = false;
 
     if (favoriteTeachers != null) {
@@ -41,7 +41,7 @@ class InMemoryGetTeacherProfileQueryService
       profilePhotoPath: teacher.profilePhotoPath.value,
       highSchool: teacher.highSchool.value,
       university: teacher.university.value,
-      enrollmentStatus: "", //TODO: 空にしてます。必要ですかねぇ、そもそも　在籍云々だと思うのですが
+      enrollmentStatus: teacher.university.enrollmentStatus.japanese,
       bestSubjects:
           teacher.bestSubjects.map((subject) => subject.japanese).toList(),
       bio: teacher.bio.value,

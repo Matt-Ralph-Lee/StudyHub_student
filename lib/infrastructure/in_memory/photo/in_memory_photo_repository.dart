@@ -19,19 +19,19 @@ class InMemoryPhotoRepository implements IPhotoRepository {
   }
 
   @override
-  void save(List<Photo> photoList) {
+  Future<void> save(List<Photo> photoList) async {
     for (Photo photo in photoList) {
       store[photo.path] = photo.data;
     }
   }
 
   @override
-  void delete(PhotoPath photoPath) {
+  Future<void> delete(PhotoPath photoPath) async {
     store.remove(photoPath);
   }
 
   @override
-  void deleteList(PhotoPathList photoPathList) {
+  Future<void> deleteList(PhotoPathList photoPathList) async {
     for (var photoPath in photoPathList) {
       store.remove(photoPath);
     }

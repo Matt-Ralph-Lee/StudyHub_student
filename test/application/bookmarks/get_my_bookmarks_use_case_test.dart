@@ -211,34 +211,34 @@ void main() {
   });
 
   group('get bookmarks properly', () {
-    test("get student1's bookmarks", () {
+    test("get student1's bookmarks", () async {
       final usecase = GetMyBookmarksUseCase(
         session: session1,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute();
+      final questionCardList = await usecase.execute();
       debugPrint('student 1');
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 1);
     });
 
-    test("get student2's bookmarks", () {
+    test("get student2's bookmarks", () async {
       final usecase = GetMyBookmarksUseCase(
         session: session2,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute();
+      final questionCardList = await usecase.execute();
       debugPrint('student 2');
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 2);
     });
 
-    test("get student3's bookmarks", () {
+    test("get student3's bookmarks", () async {
       final usecase = GetMyBookmarksUseCase(
         session: session3,
         queryService: queryService,
       );
-      final questionCardList = usecase.execute();
+      final questionCardList = await usecase.execute();
       debugPrint('student 3');
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 0);

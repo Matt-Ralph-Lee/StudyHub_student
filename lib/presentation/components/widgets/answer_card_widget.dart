@@ -34,14 +34,16 @@ class AnswerCardWidget extends ConsumerWidget {
     void toggleLikeAnswer() async {
       if (answerDto.hasLiked) {
         HapticFeedback.lightImpact();
-        ref
-            .read(likeAnswerControllerProvider.notifier)
-            .decrement(answerDto.answerId);
+        ref.read(likeAnswerControllerProvider.notifier).decrement(
+              answerId: answerDto.answerId,
+              questionId: answerDto.questionId,
+            );
       } else {
         HapticFeedback.lightImpact();
-        ref
-            .read(likeAnswerControllerProvider.notifier)
-            .increment(answerDto.answerId);
+        ref.read(likeAnswerControllerProvider.notifier).increment(
+              answerId: answerDto.answerId,
+              questionId: answerDto.questionId,
+            );
       }
     }
 

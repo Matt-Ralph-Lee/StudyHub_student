@@ -12,9 +12,9 @@ import '../../../domain/notification/models/notification_text.dart';
 import '../../../domain/notification/models/notification_title.dart';
 import '../../../domain/shared/profile_photo_path.dart';
 import '../student/in_memory_student_repository.dart';
+import '../../exceptions/notification/notification_infrastructure_exception.dart';
+import '../../exceptions/notification/notification_infrastructure_exception_detail.dart';
 import '../teacher/in_memory_teacher_repository.dart';
-import 'exception/notification_infrastructure_exception.dart';
-import 'exception/notification_infrastructure_exception_detail.dart';
 
 class InMemoryNotificationRepository implements INotificationRepository {
   late Map<NotificationId, Notification> store;

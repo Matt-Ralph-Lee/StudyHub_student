@@ -7,8 +7,8 @@ class GetAnswerUseCase {
 
   GetAnswerUseCase(this._queryService);
 
-  LikedAnswersDto execute(final StudentId studentId) {
-    final answers = _queryService.getByStudentId(studentId);
+  Future<LikedAnswersDto> execute(final StudentId studentId) async {
+    final answers = await _queryService.getByStudentId(studentId);
     return answers;
   }
 }

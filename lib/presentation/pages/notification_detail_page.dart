@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/controllers/read_notification_controller/read_notification_controller.dart';
+
 import '../../application/notification/application_service/get_my_notification_dto.dart';
-import '../../infrastructure/in_memory/notification/exception/notification_infrastructure_exception.dart';
-import '../../infrastructure/in_memory/notification/exception/notification_infrastructure_exception_detail.dart';
 import '../components/widgets/notification_detail_widget.dart';
-import '../components/widgets/show_error_modal_widget.dart';
-import '../components/widgets/specific_exception_modal_widget.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -24,35 +19,6 @@ class NotificationDetailPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // useEffect(
-    //   () {
-    //     ref
-    //         .read(readNotificationControllerProvider.notifier)
-    //         .readNotification(getMyNotificationDto.id)
-    //         .then((_) {
-    //       final currentState = ref.read(readNotificationControllerProvider);
-    //       if (currentState.hasError) {
-    //         final error = currentState.error;
-    //         if (error is NotificationInfrastructureException) {
-    //           final errorText = L10n.readNotificationExceptionMessage(
-    //               error.detail as NotificationInfrastructureExceptionDetail);
-    //           showDialog(
-    //               context: context,
-    //               builder: (BuildContext context) {
-    //                 return SpecificExceptionModalWidget(
-    //                   errorMessage: errorText,
-    //                 );
-    //               });
-    //         } else {
-    //           showErrorModalWidget(context);
-    //         }
-    //       }
-    //     });
-    //     return null;
-    //   },
-    //   [],
-    // );
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

@@ -44,6 +44,7 @@ class AddTeacherEvaluationController extends _$AddTeacherEvaluationController {
       );
       await addTeacherEvaluationUseCase.execute(
         answerId: answerId,
+        questionId: questionId,
         to: teacherId,
         ratingData: ratingData,
         commentData: commentData,

@@ -16,12 +16,12 @@ class InMemoryBlockingsRepository implements IBlockingsRepository {
   }
 
   @override
-  void save(Blockings blockings) {
+  Future<void> save(Blockings blockings) async {
     store[blockings.studentId] = blockings;
   }
 
   @override
-  Blockings? getByStudentId(StudentId studentId) {
+  Future<Blockings?> getByStudentId(StudentId studentId) async {
     return store[studentId];
   }
 }

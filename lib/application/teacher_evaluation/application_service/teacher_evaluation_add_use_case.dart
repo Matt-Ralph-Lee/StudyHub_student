@@ -1,5 +1,6 @@
 import '../../../domain/answer_list/models/answer_id.dart';
 import '../../../domain/answer_list/models/i_answer_repository.dart';
+import '../../../domain/question/models/question_id.dart';
 import '../../../domain/teacher/models/i_teacher_repository.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/teacher_evaluation/models/i_teacher_evaluation_factory.dart';
@@ -30,6 +31,7 @@ class TeacherEvaluationAddUseCase {
 
   Future<void> execute({
     required final AnswerId answerId,
+    required final QuestionId questionId,
     required final TeacherId to,
     required final int ratingData,
     required final String commentData,
@@ -48,7 +50,7 @@ class TeacherEvaluationAddUseCase {
 
     await _repository.save(teacherEvaluation);
 
-    _answerRepository.evaluated(answerId);
+    _answerRepository.evaluated(answerId: answerId, questionId: questionId);
 
     _teacherRepository.changeRate(teacherEvaluation);
   }
