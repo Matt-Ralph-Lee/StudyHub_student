@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/question/application_service/question_detail_dto.dart';
+import '../controllers/get_photo_controller/get_photo_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 
-class CheckQuestionImagePage extends HookWidget {
+class CheckQuestionImagePage extends HookConsumerWidget {
   final QuestionDetailDto questionDetailDto;
   final int order;
   const CheckQuestionImagePage({
@@ -17,7 +19,7 @@ class CheckQuestionImagePage extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final dousuru = useState(1);
     final currentPage = useState(order);
     PageController pageController = PageController(initialPage: order);
@@ -34,6 +36,14 @@ class CheckQuestionImagePage extends HookWidget {
         dousuru.value = 1;
       }
     }
+
+    final studentImage = ref
+        .watch(getPhotoControllerProvider(
+            questionDetailDto.studentProfilePhotoPath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
 
     return orientation == Orientation.portrait
         ? Scaffold(
@@ -86,8 +96,17 @@ class CheckQuestionImagePage extends HookWidget {
                               currentPage.value = index;
                             },
                             itemBuilder: (BuildContext context, int index) {
-                              return Image.asset(
-                                questionDetailDto.questionPhotoPathList[index],
+                              final questionImage = ref
+                                  .watch(getPhotoControllerProvider(
+                                      questionDetailDto
+                                          .questionPhotoPathList[index]))
+                                  .maybeWhen(
+                                    data: (d) => d,
+                                    orElse: () => const AssetImage(
+                                        "assets/images/sample_picture_hd.jpg"),
+                                  );
+                              return Image(
+                                image: questionImage,
                                 fit: BoxFit.contain,
                               );
                             },
@@ -170,14 +189,7 @@ class CheckQuestionImagePage extends HookWidget {
                                       children: [
                                         CircleAvatar(
                                           radius: 15,
-                                          backgroundImage: questionDetailDto
-                                                  .studentProfilePhotoPath
-                                                  .contains("assets")
-                                              ? AssetImage(questionDetailDto
-                                                      .studentProfilePhotoPath)
-                                                  as ImageProvider
-                                              : NetworkImage(questionDetailDto
-                                                  .studentProfilePhotoPath),
+                                          backgroundImage: studentImage,
                                         ),
                                         const SizedBox(
                                           width: 20,
@@ -234,8 +246,16 @@ class CheckQuestionImagePage extends HookWidget {
                 currentPage.value = index;
               },
               itemBuilder: (BuildContext context, int index) {
-                return Image.asset(
-                  questionDetailDto.questionPhotoPathList[index],
+                final questionImage = ref
+                    .watch(getPhotoControllerProvider(
+                        questionDetailDto.questionPhotoPathList[index]))
+                    .maybeWhen(
+                      data: (d) => d,
+                      orElse: () => const AssetImage(
+                          "assets/images/sample_picture_hd.jpg"),
+                    );
+                return Image(
+                  image: questionImage,
                   fit: BoxFit.contain,
                 );
               },
