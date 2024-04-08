@@ -15,7 +15,7 @@ abstract class PhotoPath {
       return true;
     }
     if (other is PhotoPath) {
-      return runtimeType == other.runtimeType && value == other.value;
+      return value == other.value;
     } else {
       return false;
     }

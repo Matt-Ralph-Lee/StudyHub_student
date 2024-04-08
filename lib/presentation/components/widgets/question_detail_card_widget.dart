@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../application/question/application_service/question_detail_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class QuestionDetailCardWidget extends StatelessWidget {
+class QuestionDetailCardWidget extends ConsumerWidget {
   final QuestionDetailDto questionDetailDto;
 
   const QuestionDetailCardWidget({
@@ -13,8 +15,16 @@ class QuestionDetailCardWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
+
+    final image = ref
+        .watch(getPhotoControllerProvider(
+            questionDetailDto.studentProfilePhotoPath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
     return Container(
       decoration: BoxDecoration(
         color: ColorSet.of(context).surface,
@@ -37,13 +47,7 @@ class QuestionDetailCardWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 15,
-              backgroundImage:
-                  questionDetailDto.studentProfilePhotoPath.contains("assets")
-                      ? AssetImage(questionDetailDto.studentProfilePhotoPath)
-                          as ImageProvider
-                      : NetworkImage(
-                          questionDetailDto.studentProfilePhotoPath,
-                        ),
+              backgroundImage: image,
             ),
             const SizedBox(width: 10),
             Flexible(

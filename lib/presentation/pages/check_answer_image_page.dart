@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/answer/application_service/answer_dto.dart';
+import '../controllers/get_photo_controller/get_photo_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 
-class CheckAnswerImagePage extends HookWidget {
+class CheckAnswerImagePage extends HookConsumerWidget {
   final AnswerDto answerDto;
   final int order;
   const CheckAnswerImagePage({
@@ -17,7 +19,7 @@ class CheckAnswerImagePage extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final dousuru = useState(1);
     final currentPage = useState(order);
     PageController pageController = PageController(initialPage: order);
@@ -34,6 +36,13 @@ class CheckAnswerImagePage extends HookWidget {
         dousuru.value = 1;
       }
     }
+
+    final image = ref
+        .watch(getPhotoControllerProvider(answerDto.teacherProfilePath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
 
     return orientation == Orientation.portrait
         ? Scaffold(
@@ -85,8 +94,8 @@ class CheckAnswerImagePage extends HookWidget {
                               currentPage.value = index;
                             },
                             itemBuilder: (BuildContext context, int index) {
-                              return Image.asset(
-                                answerDto.answerPhotoList[index],
+                              return Image(
+                                image: image,
                                 fit: BoxFit.contain,
                               );
                             },
@@ -165,14 +174,7 @@ class CheckAnswerImagePage extends HookWidget {
                                       children: [
                                         CircleAvatar(
                                           radius: 15,
-                                          backgroundImage: answerDto
-                                                  .teacherProfilePath
-                                                  .contains("assets")
-                                              ? AssetImage(answerDto
-                                                      .teacherProfilePath)
-                                                  as ImageProvider
-                                              : NetworkImage(
-                                                  answerDto.teacherProfilePath),
+                                          backgroundImage: image,
                                         ),
                                         const SizedBox(
                                           width: 20,
@@ -229,8 +231,8 @@ class CheckAnswerImagePage extends HookWidget {
                 currentPage.value = index;
               },
               itemBuilder: (BuildContext context, int index) {
-                return Image.asset(
-                  answerDto.answerPhotoList[index],
+                return Image(
+                  image: image,
                   fit: BoxFit.contain,
                 );
               },

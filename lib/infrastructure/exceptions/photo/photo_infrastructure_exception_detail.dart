@@ -1,4 +1,4 @@
-import '../../../shared/infrastructure_exception_detail.dart';
+import '../../shared/infrastructure_exception_detail.dart';
 
 enum PhotoInfrastructureExceptionDetail
     implements InfrastructureExceptionDetail {

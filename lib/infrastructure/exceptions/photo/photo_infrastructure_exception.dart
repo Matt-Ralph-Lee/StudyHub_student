@@ -1,4 +1,4 @@
-import '../../../shared/infrastructure_exception.dart';
+import '../../shared/infrastructure_exception.dart';
 import 'photo_infrastructure_exception_detail.dart';
 
 class PhotoInfrastructureException extends InfrastructureException {

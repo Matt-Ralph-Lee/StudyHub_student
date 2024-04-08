@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studyhub/infrastructure/exceptions/photo/photo_infrastructure_exception.dart';
+import 'package:studyhub/infrastructure/exceptions/photo/photo_infrastructure_exception_detail.dart';
 
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/photo/models/photo.dart';
 import '../../../domain/photo/models/photo_path.dart';
 import '../../../domain/photo/models/photo_path_list.dart';
-import '../../../domain/shared/profile_photo_path.dart';
 
 class InMemoryPhotoRepository implements IPhotoRepository {
   late Map<PhotoPath, Uint8List> store;
@@ -17,29 +19,14 @@ class InMemoryPhotoRepository implements IPhotoRepository {
 
   InMemoryPhotoRepository._internal() {
     store = {};
-    rootBundle.load("assets/photos/profile_photo/sample_user_icon.jpg").then(
-        (byteData) => store[
-                ProfilePhotoPath("photos/profile_photo/sample_user_icon.jpg")] =
-            byteData.buffer
-                .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    rootBundle.load("assets/photos/profile_photo/sample_user_icon2.jpg").then(
-        (byteData) => store[ProfilePhotoPath(
-                "photos/profile_photo/sample_user_icon2.jpg")] =
-            byteData.buffer
-                .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    rootBundle.load("assets/images/sample_picture_hd.jpg").then((byteData) =>
-        store[ProfilePhotoPath("photos/sample_picture_hd.jpg")] = byteData
-            .buffer
-            .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    print("in store");
-    print(store);
-    print("in store");
   }
 
   @override
   Future<void> save(List<Photo> photoList) async {
     for (Photo photo in photoList) {
       store[photo.path] = photo.data;
+      print(photo.path.value);
+      print(store);
     }
   }
 
@@ -53,5 +40,19 @@ class InMemoryPhotoRepository implements IPhotoRepository {
     for (var photoPath in photoPathList) {
       store.remove(photoPath);
     }
+  }
+
+  @override
+  Future<ImageProvider> getImageFromPath(PhotoPath photoPath) async {
+    if (photoPath.value.contains("assets")) {
+      return AssetImage(photoPath.value);
+    }
+    final image = store[photoPath];
+    if (image == null) {
+      throw const PhotoInfrastructureException(
+          PhotoInfrastructureExceptionDetail.photoNotFound);
+    }
+    print("hoge?");
+    return MemoryImage(image);
   }
 }

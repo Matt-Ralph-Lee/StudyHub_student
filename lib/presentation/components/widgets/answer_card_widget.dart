@@ -9,6 +9,7 @@ import '../../../application/favorite_teachers/exception/favorite_teachers_use_c
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/like_answer_controller/like_answer_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -110,6 +111,13 @@ class AnswerCardWidget extends ConsumerWidget {
       context.push(PageId.teacherProfile.path, extra: teacherId);
     }
 
+    final image = ref
+        .watch(getPhotoControllerProvider(answerDto.teacherProfilePath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
+
     return Container(
       width: screenWidth * 0.8, //ここ適当。
       decoration: BoxDecoration(
@@ -143,12 +151,13 @@ class AnswerCardWidget extends ConsumerWidget {
                         CircleAvatar(
                           radius: 15,
                           backgroundImage:
-                              answerDto.teacherProfilePath.contains("assets")
-                                  ? AssetImage(answerDto.teacherProfilePath)
-                                      as ImageProvider
-                                  : NetworkImage(
-                                      answerDto.teacherProfilePath,
-                                    ),
+                              // answerDto.teacherProfilePath.contains("assets")
+                              //     ? AssetImage(answerDto.teacherProfilePath)
+                              //         as ImageProvider
+                              //     : NetworkImage(
+                              //         answerDto.teacherProfilePath,
+                              //       ),
+                              image,
                         ),
                         const SizedBox(
                           width: 20,

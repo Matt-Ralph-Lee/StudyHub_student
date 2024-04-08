@@ -52,7 +52,7 @@ class InMemoryStudentInitialValue {
       studentId: StudentId('000000000000000000000000000001'),
       name: Name('太郎'),
       profilePhotoPath:
-          ProfilePhotoPath('photos/profile_photo/sample_user_icon.jpg'),
+          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'),
       gender: Gender.male,
       occupation: Occupation.student,
       school: School('第一高校'),
@@ -64,7 +64,7 @@ class InMemoryStudentInitialValue {
       studentId: StudentId('000000000000000000000000000002'),
       name: Name('花子'),
       profilePhotoPath:
-          ProfilePhotoPath('photos/profile_photo/sample_user_icon2.jpg'),
+          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
       gender: Gender.female,
       occupation: Occupation.student,
       school: School('第一高校'),

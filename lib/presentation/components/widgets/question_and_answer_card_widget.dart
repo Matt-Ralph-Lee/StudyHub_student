@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../application/shared/application_service/question_card_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -27,6 +28,25 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
         questionCardDto.isMine,
       ]);
     }
+
+    final studentImage = ref
+        .watch(
+            getPhotoControllerProvider(questionCardDto.studentProfilePhotoPath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
+
+    final teacherImage = questionCardDto.teacherProfilePhotoPath != null
+        ? ref
+            .watch(getPhotoControllerProvider(
+                questionCardDto.teacherProfilePhotoPath!))
+            .maybeWhen(
+              data: (d) => d,
+              orElse: () =>
+                  const AssetImage("assets/images/sample_picture_hd.jpg"),
+            )
+        : null;
 
     return GestureDetector(
       onTap: () => navigateToQuestionAndAnswerPage(context),
@@ -54,16 +74,10 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // CircleAvatar(
-                    //   radius: 15,
-                    //   backgroundImage: questionCardDto.studentProfilePhotoPath
-                    //           .contains("assets")
-                    //       ? AssetImage(questionCardDto.studentProfilePhotoPath)
-                    //           as ImageProvider
-                    //       : NetworkImage(
-                    //           questionCardDto.studentProfilePhotoPath,
-                    //         ),
-                    // ),
+                    CircleAvatar(
+                      radius: 15,
+                      backgroundImage: studentImage,
+                    ),
                     const SizedBox(
                       width: 20,
                     ),
@@ -166,19 +180,10 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  // CircleAvatar(
-                  //   radius: 15,
-                  //   backgroundImage: questionCardDto.teacherProfilePhotoPath !=
-                  //           null
-                  //       ? questionCardDto.teacherProfilePhotoPath!
-                  //               .contains("assets")
-                  //           ? AssetImage(
-                  //                   questionCardDto.teacherProfilePhotoPath!)
-                  //               as ImageProvider
-                  //           : NetworkImage(
-                  //               questionCardDto.teacherProfilePhotoPath!)
-                  //       : null,
-                  // ),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: teacherImage,
+                  ),
                 ],
               ),
             ],
