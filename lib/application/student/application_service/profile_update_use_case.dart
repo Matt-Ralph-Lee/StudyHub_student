@@ -1,9 +1,8 @@
-import 'package:studyhub/domain/shared/profile_photo_path.dart';
-
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/school/models/school.dart';
 import '../../../domain/school/services/school_service.dart';
 import '../../../domain/shared/profile_photo.dart';
+import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/shared/name.dart';
 import '../../shared/session/session.dart';
@@ -28,9 +27,9 @@ class ProfileUpdateUseCase {
         _schoolService = schoolService,
         _photoRepository = photoRepository;
 
-  void execute(ProfileUpdateCommand command) {
+  Future<void> execute(ProfileUpdateCommand command) async {
     final studentId = _session.studentId;
-    final student = _repository.findById(studentId);
+    final student = await _repository.findById(studentId);
     if (student == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.notFound);
@@ -59,7 +58,7 @@ class ProfileUpdateUseCase {
       final newSchool = School(newSchoolData);
 
       if (newSchool != School.noAnswer &&
-          !_schoolService.exists(school: newSchool, schoolType: null)) {
+          !await _schoolService.exists(school: newSchool, schoolType: null)) {
         throw const StudentUseCaseException(
             StudentUseCaseExceptionDetail.noSchoolFound);
       }
@@ -73,11 +72,6 @@ class ProfileUpdateUseCase {
 
     if (newLocalPhotoPath != null) {
       if (newLocalPhotoPath.contains("assets")) {
-        final student = _repository.findById(studentId);
-        if (student == null) {
-          throw const StudentUseCaseException(
-              StudentUseCaseExceptionDetail.notFound);
-        }
         student.changeProfilePhoto(ProfilePhotoPath(newLocalPhotoPath));
       } else {
         final profilePhotoPath = createPathFromId(studentId);
@@ -85,11 +79,6 @@ class ProfileUpdateUseCase {
         final profilePhoto =
             ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
         _photoRepository.save([profilePhoto]);
-        final student = _repository.findById(studentId);
-        if (student == null) {
-          throw const StudentUseCaseException(
-              StudentUseCaseExceptionDetail.notFound);
-        }
         final oldPhotoPath = student.profilePhotoPath;
         student.changeProfilePhoto(profilePhotoPath);
 
@@ -98,6 +87,6 @@ class ProfileUpdateUseCase {
       }
     }
 
-    _repository.save(student);
+    await _repository.save(student);
   }
 }

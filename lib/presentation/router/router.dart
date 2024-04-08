@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 
+import "../../application/answer/application_service/answer_dto.dart";
 import "../../application/di/session/session_provider.dart";
+import "../../application/question/application_service/question_detail_dto.dart";
 import "../../domain/answer_list/models/answer_id.dart";
 import "../../domain/question/models/question_id.dart";
 import "../../domain/teacher/models/teacher_id.dart";
 import "../pages/auth_page.dart";
+import "../pages/check_answer_image_page.dart";
+import "../pages/check_question_image_page.dart";
 import "../pages/create_question_page.dart";
 import "../pages/evaluation_page.dart";
 import '../pages/favorite_teachers_page.dart';
@@ -172,6 +176,33 @@ GoRouter router(RouterRef ref) {
       path: PageId.searchQuestions.path,
       name: PageId.searchQuestions.name,
       builder: (context, state) => const SearchForQuestionsPage(),
+    ),
+    GoRoute(
+      path: PageId.checkQuestionImagePage.path,
+      name: PageId.checkQuestionImagePage.name,
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final QuestionDetailDto questionDetailDto =
+            args[0] as QuestionDetailDto;
+        final int order = args[1] as int;
+        return CheckQuestionImagePage(
+          questionDetailDto: questionDetailDto,
+          order: order,
+        );
+      },
+    ),
+    GoRoute(
+      path: PageId.checkAnswerImagePage.path,
+      name: PageId.checkAnswerImagePage.name,
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final AnswerDto answerDto = args[0] as AnswerDto;
+        final int order = args[1] as int;
+        return CheckAnswerImagePage(
+          answerDto: answerDto,
+          order: order,
+        );
+      },
     ),
   ];
 

@@ -5,7 +5,7 @@ class GetPopularTeachersUseCase {
   final IGetPopularTeachersQueryService _queryService;
 
   GetPopularTeachersUseCase(this._queryService);
-  List<SearchForTeacherDto>? execute() {
-    return _queryService.find();
+  Future<List<SearchForTeacherDto>?> execute() async {
+    return await _queryService.find();
   }
 }

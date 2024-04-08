@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
 import '../../controllers/like_answer_controller/like_answer_controller.dart';
@@ -97,13 +97,11 @@ class AnswerCardWidget extends ConsumerWidget {
 
     void toggleLikeAnswer() async {
       if (answerDto.hasLiked) {
-        ref
-            .read(likeAnswerControllerProvider.notifier)
-            .decrement(answerDto.answerId);
+        ref.read(likeAnswerControllerProvider.notifier).decrement(
+            answerId: answerDto.answerId, questionId: answerDto.questionId);
       } else {
-        ref
-            .read(likeAnswerControllerProvider.notifier)
-            .increment(answerDto.answerId);
+        ref.read(likeAnswerControllerProvider.notifier).increment(
+            answerId: answerDto.answerId, questionId: answerDto.questionId);
       }
     }
 

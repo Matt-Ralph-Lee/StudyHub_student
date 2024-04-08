@@ -4,8 +4,8 @@ import '../exception/question_domain_exception_detail.dart';
 class QuestionText {
   final String _value;
   String get value => _value;
-  static const int maxLength = 300;
-  static const int maxLine = 14;
+  static const int maxLength = 500;
+  static const int maxLine = 30;
 
   QuestionText(this._value) {
     if (_value.isEmpty) {

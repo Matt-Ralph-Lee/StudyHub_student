@@ -16,7 +16,7 @@ class InMemoryReportRepository implements IQuestionReportRepository {
   }
 
   @override
-  void submit(QuestionReport report) {
+  Future<void> submit(QuestionReport report) async {
     if (store.containsKey(report.from)) {
       final data = store[report.from];
       data!.add(report);

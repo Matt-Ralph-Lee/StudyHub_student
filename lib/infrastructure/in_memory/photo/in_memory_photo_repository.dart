@@ -5,8 +5,6 @@ import '../../../domain/photo/models/photo.dart';
 import '../../../domain/photo/models/photo_path.dart';
 import '../../../domain/photo/models/photo_path_list.dart';
 import '../../../domain/shared/profile_photo_path.dart';
-import 'exception/photo_infrastructure_exception.dart';
-import 'exception/photo_infrastructure_exception_detail.dart';
 
 class InMemoryPhotoRepository implements IPhotoRepository {
   late Map<PhotoPath, Uint8List> store;
@@ -39,32 +37,21 @@ class InMemoryPhotoRepository implements IPhotoRepository {
   }
 
   @override
-  void save(List<Photo> photoList) {
+  Future<void> save(List<Photo> photoList) async {
     for (Photo photo in photoList) {
       store[photo.path] = photo.data;
     }
   }
 
   @override
-  void delete(PhotoPath photoPath) {
+  Future<void> delete(PhotoPath photoPath) async {
     store.remove(photoPath);
   }
 
   @override
-  void deleteList(PhotoPathList photoPathList) {
+  Future<void> deleteList(PhotoPathList photoPathList) async {
     for (var photoPath in photoPathList) {
       store.remove(photoPath);
     }
-  }
-
-  @override
-  Uint8List get(PhotoPath photoPath) {
-    final photo = store[photoPath];
-    if (photo == null) {
-      throw const PhotoInfrastructureException(
-          PhotoInfrastructureExceptionDetail.photoNotFound);
-    }
-
-    return photo;
   }
 }

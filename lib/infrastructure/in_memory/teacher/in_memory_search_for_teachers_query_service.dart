@@ -9,7 +9,7 @@ class InMemorySearchForTeachersQueryService
   InMemorySearchForTeachersQueryService(this._repository);
 
   @override
-  List<SearchForTeacherDto>? search(String keywordString) {
+  Future<List<SearchForTeacherDto>?> search(String keywordString) async {
     final searchForTeacherDtoList = <SearchForTeacherDto>[];
 
     final result = _repository.store.values

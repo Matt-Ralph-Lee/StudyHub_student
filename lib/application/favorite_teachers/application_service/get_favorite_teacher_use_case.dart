@@ -13,9 +13,9 @@ class GetFavoriteTeacherUseCase {
   })  : _session = session,
         _queryService = queryService;
 
-  List<GetFavoriteTeacherDto> execute() {
+  Future<List<GetFavoriteTeacherDto>> execute() async {
     final studentId = _session.studentId;
-    final favoriteTeachers = _queryService.getById(studentId);
+    final favoriteTeachers = await _queryService.getById(studentId);
     return favoriteTeachers;
   }
 }

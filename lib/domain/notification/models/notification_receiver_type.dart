@@ -1,0 +1,4 @@
+enum NotificationReceiverType {
+  student,
+  teacher,
+}

@@ -11,7 +11,7 @@ class GetTeacherProfileUseCase {
     required final IGetTeacherProfileQueryService queryService,
   })  : _teacherId = teacherId,
         _queryService = queryService;
-  GetTeacherProfileDto? execute() {
-    return _queryService.findById(_teacherId);
+  Future<GetTeacherProfileDto?> execute() async {
+    return await _queryService.findById(_teacherId);
   }
 }

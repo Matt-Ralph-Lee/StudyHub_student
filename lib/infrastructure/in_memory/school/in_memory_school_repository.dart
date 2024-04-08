@@ -20,7 +20,7 @@ class InMemorySchoolRepository implements ISchoolRepository {
   }
 
   @override
-  bool exists(School school, {SchoolType? schoolType}) {
+  Future<bool> exists(School school, {SchoolType? schoolType}) async {
     if (schoolType == null) {
       return store.containsKey(school);
     }

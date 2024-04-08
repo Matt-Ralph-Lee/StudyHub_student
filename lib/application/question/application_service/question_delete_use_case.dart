@@ -21,10 +21,10 @@ class QuestionDeleteUseCase {
         _repository = repository,
         _photoRepository = photoRepository;
 
-  void execute(final QuestionId questionId) {
+  void execute(final QuestionId questionId) async {
     final studentId = _session.studentId;
 
-    final Question? question = _repository.findById(questionId);
+    final Question? question = await _repository.findById(questionId);
     if (question == null) {
       throw const QuestionUseCaseException(
           QuestionUseCaseExceptionDetail.questionNotFound);

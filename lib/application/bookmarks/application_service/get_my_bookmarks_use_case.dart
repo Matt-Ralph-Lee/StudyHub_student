@@ -12,9 +12,9 @@ class GetMyBookmarksUseCase {
   })  : _session = session,
         _queryService = queryService;
 
-  List<QuestionCardDto> execute() {
+  Future<List<QuestionCardDto>> execute() async {
     final studentId = _session.studentId;
-    final bookmarks = _queryService.getByStudentId(studentId);
+    final bookmarks = await _queryService.getByStudentId(studentId);
     return bookmarks;
   }
 }

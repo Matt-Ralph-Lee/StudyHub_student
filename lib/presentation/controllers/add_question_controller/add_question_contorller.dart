@@ -1,4 +1,7 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/application/di/notification/factory/notification_factory_provider.dart";
+import 'package:studyhub/application/di/notification/repository/notification_repository_provider.dart';
+import "package:studyhub/application/di/question/query_service/question_create_query_service.dart";
 
 import '../../../application/di/photo/repository/photo_repository_provider.dart';
 import "../../../application/di/question/factory/question_factory_provider.dart";
@@ -30,13 +33,19 @@ class AddQuestionController extends _$AddQuestionController {
       final session = ref.read(nonNullSessionProvider);
       final questionRepository = ref.read(questionRepositoryDiProvider);
       final questionFactory = ref.read(questionFactoryDiProvider);
+      final questionQueryService =
+          ref.read(questionCreateQueryServiceDiProvider);
       final photoRepository = ref.read(photoRepositoryDiProvider);
+      final notificationFactory = ref.read(notificationFactoryDiProvider);
+      final notificationRepository = ref.read(notificationRepositoryDiProvider);
       final addQuestionUseCase = QuestionCreateUseCase(
-        session: session,
-        repository: questionRepository,
-        factory: questionFactory,
-        photoRepository: photoRepository,
-      );
+          session: session,
+          repository: questionRepository,
+          factory: questionFactory,
+          queryService: questionQueryService,
+          photoRepository: photoRepository,
+          notificationFactory: notificationFactory,
+          notificationRepository: notificationRepository);
       await addQuestionUseCase.execute(
         questionTitleData: questionTitle,
         questionTextData: question,

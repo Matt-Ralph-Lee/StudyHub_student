@@ -9,8 +9,8 @@ class InMemoryGetMyProfileQueryService implements IGetMyProfileQueryService {
   InMemoryGetMyProfileQueryService(this._repository);
 
   @override
-  GetMyProfileDto? getById(StudentId studentId) {
-    final student = _repository.findById(studentId);
+  Future<GetMyProfileDto?> getById(StudentId studentId) async {
+    final student = await _repository.findById(studentId);
     if (student == null) {
       return null;
     }

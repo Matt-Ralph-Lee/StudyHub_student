@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
 import '../../../application/shared/application_service/question_card_dto.dart';
 import '../../shared/constants/color_set.dart';
@@ -28,30 +27,6 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
         questionCardDto.isMine,
       ]);
     }
-
-    final widget = questionCardDto.teacherProfilePhotoPath != null
-        ? ref
-            .watch(getPhotoControllerProvider(
-                questionCardDto.teacherProfilePhotoPath!))
-            .when(
-              data: (data) => CircleAvatar(
-                radius: 15,
-                backgroundImage: Image.memory(data) as ImageProvider,
-              ),
-              error: (error, stackTrace) {
-                print(error);
-                print(stackTrace);
-                print(questionCardDto.teacherProfilePhotoPath);
-                return Text(
-                  "error",
-                  style: TextStyle(color: ColorSet.of(context).text),
-                );
-              },
-              loading: () => const CircularProgressIndicator(),
-            )
-        : const CircleAvatar(
-            backgroundImage: null,
-          );
 
     return GestureDetector(
       onTap: () => navigateToQuestionAndAnswerPage(context),
@@ -89,7 +64,6 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                     //           questionCardDto.studentProfilePhotoPath,
                     //         ),
                     // ),
-                    widget,
                     const SizedBox(
                       width: 20,
                     ),
@@ -205,7 +179,6 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                   //               questionCardDto.teacherProfilePhotoPath!)
                   //       : null,
                   // ),
-                  widget
                 ],
               ),
             ],
