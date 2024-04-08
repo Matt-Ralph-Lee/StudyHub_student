@@ -22,7 +22,7 @@ class FirebaseTeacherEvaluationRepository
   FirebaseTeacherEvaluationRepository._internal();
 
   @override
-  Future<TeacherEvaluationId> generateId(TeacherId teacherId) async {
+  Future<TeacherEvaluationId> generateId() async {
     final docRef = db.collection("teachers").doc();
     final id = docRef.id;
 

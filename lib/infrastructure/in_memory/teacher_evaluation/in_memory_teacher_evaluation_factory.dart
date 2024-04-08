@@ -21,7 +21,7 @@ class InMemoryTeacherEvaluationFactory implements ITeacherEvaluationFactory {
     required TeacherEvaluationComment comment,
     required DateTime createdAt,
   }) async {
-    final teacherEvaluationId = await _repository.generateId(to);
+    final teacherEvaluationId = await _repository.generateId();
 
     return TeacherEvaluation(
         id: teacherEvaluationId,
