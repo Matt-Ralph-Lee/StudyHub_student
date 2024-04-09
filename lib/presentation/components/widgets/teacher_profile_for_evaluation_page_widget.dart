@@ -30,6 +30,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final getTeacherProfileControllerState =
         ref.watch(getTeacherProfileControllerProvider(teacherId));
 
@@ -114,7 +115,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      radius: 30,
+                      radius: screenWidth < 600 ? 30 : 45,
                       backgroundImage: image,
                     ),
                     const SizedBox(

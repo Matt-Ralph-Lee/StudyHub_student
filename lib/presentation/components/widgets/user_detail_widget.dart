@@ -86,6 +86,7 @@ class UserDetailWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final Map<String, dynamic> nextRankInfo =
         getNextRankInfo(context, userRank);
     final String nextRank = nextRankInfo[L10n.nextRankText];
@@ -114,7 +115,7 @@ class UserDetailWidget extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
-              radius: 30,
+              radius: screenWidth < 600 ? 30 : 45,
               backgroundImage: image,
             ),
             Expanded(

@@ -149,7 +149,7 @@ class AnswerCardWidget extends ConsumerWidget {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          radius: 15,
+                          radius: screenWidth < 600 ? 15 : 22,
                           backgroundImage:
                               // answerDto.teacherProfilePath.contains("assets")
                               //     ? AssetImage(answerDto.teacherProfilePath)

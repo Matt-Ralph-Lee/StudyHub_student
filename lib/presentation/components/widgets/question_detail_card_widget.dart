@@ -46,7 +46,7 @@ class QuestionDetailCardWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CircleAvatar(
-              radius: 15,
+              radius: screenWidth < 600 ? 15 : 22,
               backgroundImage: image,
             ),
             const SizedBox(width: 10),

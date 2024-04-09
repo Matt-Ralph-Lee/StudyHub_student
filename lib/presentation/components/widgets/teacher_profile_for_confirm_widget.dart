@@ -47,7 +47,7 @@ class TeacherProfileWForConfirmWidget extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircleAvatar(
-              radius: 15,
+              radius: screenWidth < 600 ? 15 : 22,
               backgroundImage: image,
             ),
             const SizedBox(

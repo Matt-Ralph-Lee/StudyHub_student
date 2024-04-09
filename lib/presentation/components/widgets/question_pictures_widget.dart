@@ -20,6 +20,7 @@ class QuestionPictureWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     void navigateToCheckQuestionImagePage(BuildContext context) {
       context.push(PageId.checkQuestionImagePage.path, extra: [
         questionDetailDto,
@@ -29,7 +30,7 @@ class QuestionPictureWidget extends ConsumerWidget {
 
     final image = ref.watch(getPhotoControllerProvider(photoPath)).maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          orElse: () => const AssetImage("assets/images/no_image.jpg"),
         );
 
     return GestureDetector(
@@ -38,9 +39,8 @@ class QuestionPictureWidget extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Image(
           image: image,
-          width: 350,
-          height: 200,
-          fit: BoxFit.cover,
+          height: screenWidth < 600 ? 200 : 300,
+          fit: BoxFit.contain,
         ),
       ),
     );

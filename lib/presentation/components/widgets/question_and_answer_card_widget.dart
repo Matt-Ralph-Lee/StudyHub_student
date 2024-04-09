@@ -75,7 +75,7 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      radius: 15,
+                      radius: screenWidth < 600 ? 15 : 22,
                       backgroundImage: studentImage,
                     ),
                     const SizedBox(
@@ -181,7 +181,7 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                     width: 20,
                   ),
                   CircleAvatar(
-                    radius: 15,
+                    radius: screenWidth < 600 ? 15 : 22,
                     backgroundImage: teacherImage,
                   ),
                 ],

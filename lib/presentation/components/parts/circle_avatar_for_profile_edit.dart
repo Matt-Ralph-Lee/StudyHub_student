@@ -21,11 +21,12 @@ class CircleAvatarForProfileEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Center(
       child: Stack(
         children: [
           CircleAvatar(
-            radius: 50,
+            radius: screenWidth < 600 ? 50 : 75,
             backgroundImage: (imageFilePath == null)
                 ? AssetImage(iconUrl) as ImageProvider
                 : FileImage(File(imageFilePath!)),

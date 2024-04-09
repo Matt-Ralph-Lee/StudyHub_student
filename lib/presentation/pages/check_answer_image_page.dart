@@ -41,7 +41,7 @@ class CheckAnswerImagePage extends HookConsumerWidget {
         .watch(getPhotoControllerProvider(answerDto.teacherProfilePath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          orElse: () => const AssetImage("assets/images/no_image.jpg"),
         );
 
     return orientation == Orientation.portrait

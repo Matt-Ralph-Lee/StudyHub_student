@@ -17,6 +17,7 @@ class NotificationCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
         color: ColorSet.of(context).surface,
@@ -36,7 +37,7 @@ class NotificationCardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              radius: 15,
+              radius: screenWidth < 600 ? 15 : 22,
               backgroundImage: NetworkImage(
                 iconUrl,
               ),

@@ -50,7 +50,7 @@ class TeacherProfileWidget extends ConsumerWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 CircleAvatar(
-                  radius: 40,
+                  radius: screenWidth < 600 ? 40 : 60,
                   backgroundImage: image,
                 ),
                 const SizedBox(
