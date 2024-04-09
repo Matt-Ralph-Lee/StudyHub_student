@@ -246,6 +246,11 @@ GoRouter router(RouterRef ref) {
   String? redirect(BuildContext context, GoRouterState state) {
     final pagePath = state.uri.toString();
     final isSignedIn = ref.read(isSignedInProvider);
+    final session = ref.read(sessionDiProvider);
+    final isVerified = session?.isVerified;
+    if (isVerified != null && !isVerified && isPrivate(pagePath)) {
+      return PageId.emailVerificationPage.path;
+    }
     if (isSignedIn && requiresLoggedOut(pagePath)) {
       return PageId.home.path;
     } else if (!isSignedIn && isPrivate(pagePath)) {
