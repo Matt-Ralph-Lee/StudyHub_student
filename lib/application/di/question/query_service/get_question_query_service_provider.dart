@@ -33,7 +33,7 @@ IGetMyQuestionsQueryService getQuestionQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseGetMyQuestionQueryService(
+      return FirebaseGetMyQuestionQueryService(
         repository: (ref.watch(questionRepositoryDiProvider))
             as FirebaseQuestionRepository,
         studentRepository: (ref.watch(studentRepositoryDiProvider))

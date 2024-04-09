@@ -229,9 +229,10 @@ GoRouter router(RouterRef ref) {
       path: PageId.emailVerificationPage.path,
       name: PageId.emailVerificationPage.name,
       builder: (context, state) {
-        final emailAddress = state.extra as String;
+        final session = ref.read(sessionDiProvider);
+        final emailAddress = session?.emailAddress.value;
         return ResendEmailVerificationPage(
-          emailAddress: emailAddress,
+          emailAddress: emailAddress!,
         );
       },
     ),
@@ -248,6 +249,8 @@ GoRouter router(RouterRef ref) {
     final isSignedIn = ref.read(isSignedInProvider);
     final session = ref.read(sessionDiProvider);
     final isVerified = session?.isVerified;
+    print(session?.studentId.value);
+
     if (isVerified != null && !isVerified && isPrivate(pagePath)) {
       return PageId.emailVerificationPage.path;
     }

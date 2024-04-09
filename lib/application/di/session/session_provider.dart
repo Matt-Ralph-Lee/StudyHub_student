@@ -13,7 +13,11 @@ Stream<Session?> _sessionStreamDi(_SessionStreamDiRef ref) {
   return state.map((studentAuthInfo) {
     return studentAuthInfo == null
         ? null
-        : Session(studentAuthInfo.studentId, studentAuthInfo.isVerified);
+        : Session(
+            studentAuthInfo.studentId,
+            studentAuthInfo.isVerified,
+            studentAuthInfo.emailAddress,
+          );
   });
 }
 

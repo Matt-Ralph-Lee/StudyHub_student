@@ -28,7 +28,7 @@ IGetFavoriteTeacherQueryService getFavoriteTeacherQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseFavoriteTeacherQueryService(
+      return FirebaseFavoriteTeacherQueryService(
         repository: (ref.watch(favoriteTeacherRepositoryDiProvider))
             as FirebaseFavoriteTeachersRepository,
         teacherRepository: (ref.watch(teacherRepositoryDiProvider))

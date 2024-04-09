@@ -4,6 +4,7 @@ import 'package:studyhub/application/notification/application_service/get_my_not
 import 'package:studyhub/application/notification/application_service/get_my_notifications_use_case.dart';
 import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/notification/in_memory_get_my_notifications_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/notification/in_memory_notification_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
@@ -41,6 +42,9 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => InMemoryStudentInitialValue.student1.studentId;
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }
 
 class MockSession3 implements Session {
@@ -49,6 +53,9 @@ class MockSession3 implements Session {
 
   @override
   StudentId get studentId => InMemoryStudentInitialValue.student3.studentId;
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test1@email.com");
 }
 
 void _printDtoList(final List<GetMyNotificationDto> dtoList) {

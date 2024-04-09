@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studyhub/application/di/session/session_provider.dart';
+import 'package:studyhub/presentation/controllers/student_auth_controller/student_auth_controller.dart';
 
 import '../../../domain/student_auth/exception/student_auth_domain_exception.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
@@ -9,6 +12,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
 import '../parts/elevated_button_for_auth.dart';
 import 'show_error_modal_widget.dart';
@@ -77,6 +81,22 @@ class ResendEmailVerificationWidget extends HookConsumerWidget {
         ElevatedButtonForAuth(
           onPressed: () => resendEmailVerification(),
           buttonText: L10n.emailVerificationButtonText,
+        ),
+        const SizedBox(height: 40),
+        TextButton(
+          onPressed: () async {
+            await ref
+                .read(studentAuthControllerProvider.notifier)
+                .reloadUser()
+                .then((_) {
+              ref.invalidate(sessionDiProvider);
+              context.go(PageId.home.path);
+            });
+          },
+          child: Text(
+            L10n.haveVerified,
+            style: TextStyle(color: ColorSet.of(context).text),
+          ),
         )
       ],
     );

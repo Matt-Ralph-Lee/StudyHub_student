@@ -6,6 +6,7 @@ import 'package:studyhub/domain/question/exception/question_domain_exception.dar
 import 'package:studyhub/domain/question/exception/question_domain_exception_detail.dart';
 import 'package:studyhub/domain/shared/subject.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/notification/in_memory_notification_factory.dart';
 import 'package:studyhub/infrastructure/in_memory/notification/in_memory_notification_repository.dart';
@@ -276,4 +277,7 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => InMemoryStudentInitialValue.student1.studentId;
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }

@@ -46,11 +46,16 @@ class StudentCreateUseCase {
       Future.delayed(const Duration(seconds: 1));
     }
     */
+    print("email sent");
 
     final student =
         _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
 
+    print("student saving");
+
     _studentRepository.save(student);
+
+    print("student saved");
   }
 }
 
@@ -58,7 +63,7 @@ Student _createInitially(final StudentId studentId) {
   final studentName = Name(WordPair.random().asLowerCase);
   // final profilePhotoPath = createPath('initial_photo');
   final profilePhotoPath =
-      ProfilePhotoPath("assets/photos/profile_photo/sample_user_icon.jpg");
+      ProfilePhotoPath("profile_photo/default/male_default.jpg");
   const gender = Gender.noAnswer;
   const occupation = Occupation.others;
   final school = School.noAnswer;
