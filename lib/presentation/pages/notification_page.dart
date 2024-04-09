@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../application/notification/application_service/get_my_notification_dto.dart';
+import '../components/parts/text_for_error.dart';
+import '../components/parts/text_for_no_notifications_found.dart';
 import '../components/parts/text_for_notification_section_header.dart';
+import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/notification_card_widget.dart';
+import '../controllers/get_my_notifications_controller/get_my_notifications_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -30,106 +35,66 @@ class NotificationPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final currentWeekday = today.weekday;
-    final firstDayOfWeek = today.subtract(Duration(days: currentWeekday));
-    var isTodayAdded = false;
-    var isThisWeekAdded = false;
-    var isLastWeekAdded = false;
-    List<Widget> notifications = [];
+    final getMyNotificationsState =
+        ref.watch(getMyNotificationsControllerProvider);
 
-    //以下はテストのための例。データ取れるようになったら差し替える（decreasingでリストもらう）
-    final today1 = Timestamp.fromDate(DateTime(2024, 3, 5, 10, 30));
-    final today2 = Timestamp.fromDate(DateTime(2024, 3, 5, 20, 45));
-    final thisWeek1 = Timestamp.fromDate(DateTime(2024, 3, 4, 12, 0));
-    final thisWeek2 = Timestamp.fromDate(DateTime(2024, 3, 3, 15, 30));
-    final lastWeek1 = Timestamp.fromDate(DateTime(2024, 2, 25, 9, 15));
-    final lastWeek2 = Timestamp.fromDate(DateTime(2024, 2, 27, 18, 0));
-    final List<Notification> notificationsTest = [
-      Notification(
-          postedAt: today1,
-          title: "今日のお知らせ1今日のお知らせ1今日のお知らせ1今日のお知らせ1v今日のお知らせ1今日のお知らせ1今日のお知らせ1",
-          iconUrl: "iconUrl",
-          content:
-              "今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です今日のお知らせ1です"),
-      Notification(
-          postedAt: today2,
-          title: "今日のお知らせ2",
-          iconUrl: "iconUrl",
-          content: "今日のお知らせ2です"),
-      Notification(
-          postedAt: thisWeek1,
-          title: "今週のお知らせ1",
-          iconUrl: "iconUrl",
-          content: "今週のお知らせ1です"),
-      Notification(
-          postedAt: thisWeek2,
-          title: "今週のお知らせ2",
-          iconUrl: "iconUrl",
-          content: "今週のお知らせ2です"),
-      Notification(
-          postedAt: lastWeek1,
-          title: "先週のお知らせ1",
-          iconUrl: "iconUrl",
-          content: "先週のお知らせ1です"),
-      Notification(
-          postedAt: lastWeek2,
-          title: "先週のお知らせ2",
-          iconUrl: "iconUrl",
-          content: "先週のお知らせ2です"),
-    ];
+    List<Widget> processNotifications(
+      List<GetMyNotificationDto> getMyNotificationsDto,
+      BuildContext context,
+    ) {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final currentWeekday = today.weekday;
+      final firstDayOfWeek = today.subtract(Duration(days: currentWeekday));
 
-    for (var notification in notificationsTest) {
-      final postedAtDateTime = notification.postedAt.toDate();
-      final postedDate = DateTime(
-          postedAtDateTime.year, postedAtDateTime.month, postedAtDateTime.day);
+      List<Widget> notifications = [];
+      var isTodayAdded = false;
+      var isThisWeekAdded = false;
+      var isLastWeekAdded = false;
 
-      if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
+      for (var notificationDto in getMyNotificationsDto) {
+        final postedAtDateTime = notificationDto.postedAt;
+        final postedDate = DateTime(postedAtDateTime.year,
+            postedAtDateTime.month, postedAtDateTime.day);
+
+        if (postedDate.isAtSameMomentAs(today) && !isTodayAdded) {
+          notifications.add(Padding(
+            padding:
+                EdgeInsets.only(bottom: PaddingSet.getPaddingSize(context, 15)),
+            child: const TextForNotificationSectionHeader(text: L10n.todayText),
+          ));
+          isTodayAdded = true;
+        } else if (postedAtDateTime
+                .isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
+            postedAtDateTime.isBefore(today) &&
+            !isThisWeekAdded) {
+          notifications.add(Padding(
+            padding:
+                EdgeInsets.only(bottom: PaddingSet.getPaddingSize(context, 15)),
+            child:
+                const TextForNotificationSectionHeader(text: L10n.thisWeekText),
+          ));
+          isThisWeekAdded = true;
+        } else if (postedAtDateTime.isBefore(firstDayOfWeek) &&
+            !isLastWeekAdded) {
+          notifications.add(Padding(
+            padding:
+                EdgeInsets.only(bottom: PaddingSet.getPaddingSize(context, 15)),
+            child:
+                const TextForNotificationSectionHeader(text: L10n.beforeText),
+          ));
+          isLastWeekAdded = true;
+        }
+
         notifications.add(Padding(
-          padding: EdgeInsets.only(
-              top: PaddingSet.getPaddingSize(
-            context,
-            40,
-          )),
-          child: const TextForNotificationSectionHeader(text: L10n.todayText),
+          padding: const EdgeInsets.only(bottom: 20),
+          child: NotificationCardWidget(
+            getMyNotificationDto: notificationDto,
+          ),
         ));
-        isTodayAdded = true;
-      } else if (postedAtDateTime
-              .isAfter(firstDayOfWeek.subtract(const Duration(days: 1))) &&
-          postedAtDateTime.isBefore(today) &&
-          !isThisWeekAdded) {
-        notifications.add(Padding(
-          padding: EdgeInsets.only(
-              top: PaddingSet.getPaddingSize(
-            context,
-            40,
-          )),
-          child:
-              const TextForNotificationSectionHeader(text: L10n.thisWeekText),
-        ));
-        isThisWeekAdded = true;
-      } else if (postedAtDateTime.isBefore(firstDayOfWeek) &&
-          !isLastWeekAdded) {
-        notifications.add(Padding(
-          padding: EdgeInsets.only(
-              top: PaddingSet.getPaddingSize(
-            context,
-            40,
-          )),
-          child: const TextForNotificationSectionHeader(text: L10n.beforeText),
-        ));
-        isLastWeekAdded = true;
       }
 
-      notifications.add(Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: NotificationCardWidget(
-          title: notification.title,
-          content: notification.content,
-          iconUrl: notification.iconUrl,
-        ),
-      ));
+      return notifications;
     }
 
     return Scaffold(
@@ -156,15 +121,40 @@ class NotificationPage extends ConsumerWidget {
         ),
       ),
       backgroundColor: ColorSet.of(context).background,
-      body: ListView.builder(
-        itemCount: notifications.length,
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: PaddingSet.getPaddingSize(
-            context,
-            24,
-          )),
-          child: notifications[index],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: getMyNotificationsState.when(
+          data: (getMyNotificationsDto) {
+            if (getMyNotificationsDto.isNotEmpty) {
+              final notificationsList =
+                  processNotifications(getMyNotificationsDto, context);
+              return ListView.builder(
+                itemCount: notificationsList.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: PaddingSet.getPaddingSize(
+                      context,
+                      PaddingSet.horizontalPadding,
+                    ),
+                  ), //影消さないようにここでpadding入れてる
+                  child: notificationsList[index],
+                ),
+              );
+            } else {
+              return const Center(
+                child: TextForNoNotificationsFound(),
+              );
+            }
+          },
+          loading: () => const LoadingOverlay(),
+          error: (error, stack) {
+            return const Center(
+                child: Column(
+              children: [
+                TextForError(),
+              ],
+            ));
+          },
         ),
       ),
     );

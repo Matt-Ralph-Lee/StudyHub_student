@@ -7,7 +7,7 @@ part of 'search_for_teachers_query_service.dart';
 // **************************************************************************
 
 String _$searchForTeachersQueryServiceDiHash() =>
-    r'eccf81df37921061e10a8a61b5e6801ef5b137ca';
+    r'38b44fff82c65ad6b8127bc7dfefee24b4c4b5be';
 
 /// See also [searchForTeachersQueryServiceDi].
 @ProviderFor(searchForTeachersQueryServiceDi)

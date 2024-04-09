@@ -16,36 +16,30 @@ class EditProfileWidget extends HookWidget {
   final TextEditingController userNameInputController;
   final TextEditingController studentSchoolNameInputController;
   final void Function(String)? checkUserNameFilledFunction;
-  final void Function(String)? checkSchoolNameFilledFunction;
   final void Function() uploadPhotoFromCamera;
   final void Function() uploadPhotoFromGallery;
   final String iconUrl;
   final String? imageFilePath;
   final Gender? genderValue;
   final Occupation? occupationValue;
-  final GradeOrGraduateStatus? studentGradeValue;
-  final GradeOrGraduateStatus? othersGradeValue;
+  final GradeOrGraduateStatus? gradeOrGraduateStatusValue;
   final ValueChanged<Gender?> handleGenderChanged;
   final ValueChanged<Occupation?> handleOccupationChanged;
-  final ValueChanged<GradeOrGraduateStatus?> handleStudentGradeChanged;
   final ValueChanged<GradeOrGraduateStatus?> handleOthersGradeChanged;
 
   const EditProfileWidget({
     super.key,
     required this.userNameInputController,
     required this.checkUserNameFilledFunction,
-    required this.checkSchoolNameFilledFunction,
     required this.uploadPhotoFromCamera,
     required this.uploadPhotoFromGallery,
     required this.iconUrl,
     required this.imageFilePath,
     required this.genderValue,
     required this.occupationValue,
-    required this.studentGradeValue,
-    required this.othersGradeValue,
+    required this.gradeOrGraduateStatusValue,
     required this.handleGenderChanged,
     required this.handleOccupationChanged,
-    required this.handleStudentGradeChanged,
     required this.handleOthersGradeChanged,
     required this.studentSchoolNameInputController,
   });
@@ -76,7 +70,6 @@ class EditProfileWidget extends HookWidget {
           const SizedBox(height: 40),
           TextFormFieldForSchoolNameInput(
             controller: studentSchoolNameInputController,
-            onChanged: checkSchoolNameFilledFunction,
           ),
           const SizedBox(height: 40),
           DropDownButtonForOccupationInput(
@@ -86,11 +79,11 @@ class EditProfileWidget extends HookWidget {
           const SizedBox(height: 40),
           (occupationValue == Occupation.student || occupationValue == null)
               ? DropDownButtonForStudentGradeInput(
-                  groupValue: studentGradeValue,
-                  onChanged: handleStudentGradeChanged,
+                  groupValue: gradeOrGraduateStatusValue,
+                  onChanged: handleOthersGradeChanged,
                 )
               : DropDownButtonForOthersGradeInput(
-                  groupValue: othersGradeValue,
+                  groupValue: gradeOrGraduateStatusValue,
                   onChanged: handleOthersGradeChanged,
                 ),
         ],

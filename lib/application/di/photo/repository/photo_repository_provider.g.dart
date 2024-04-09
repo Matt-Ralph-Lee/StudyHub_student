@@ -6,7 +6,7 @@ part of 'photo_repository_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$photoRepositoryDiHash() => r'9ddff0c9b5863c8ad77c6fd22cb34191fc919f86';
+String _$photoRepositoryDiHash() => r'adb85d1573e4a7ed6c471af499bd686e816a656b';
 
 /// See also [photoRepositoryDi].
 @ProviderFor(photoRepositoryDi)

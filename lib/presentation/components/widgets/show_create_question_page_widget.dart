@@ -34,7 +34,8 @@ class ShowCreateQuestionBottomSheet extends StatelessWidget {
         },
         icon: Icon(
           Icons.add,
-          color: ColorSet.of(context).text,
+          color: ColorSet.of(context)
+              .primary, //他２つのアイコンみたいに活性非活性がなく、greyTextにするには地味だしtextにするにはナブバーに２つ活性色が並ぶのは変なので
           size: FontSizeSet.getFontSize(
             context,
             FontSizeSet.header1,

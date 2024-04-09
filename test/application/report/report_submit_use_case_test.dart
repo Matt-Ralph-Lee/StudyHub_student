@@ -8,7 +8,7 @@ import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/report/in_memory_teacher_report_repository.dart';
 
 void main() {
-  final repository = InMemoryReportRepository();
+  final repository = InMemoryTeacherReportRepository();
   final session = MockSession();
 
   setUp(() => null);

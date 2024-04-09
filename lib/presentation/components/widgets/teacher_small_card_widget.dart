@@ -81,7 +81,9 @@ class TeacherSmallCardWidget extends ConsumerWidget {
                       style: TextStyle(
                           fontWeight: FontWeightSet.normal,
                           fontSize: FontSizeSet.getFontSize(
-                              context, FontSizeSet.header3),
+                            context,
+                            FontSizeSet.body,
+                          ),
                           color: ColorSet.of(context).text),
                     ),
                   ],

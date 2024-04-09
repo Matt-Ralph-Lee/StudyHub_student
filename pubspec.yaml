@@ -51,6 +51,7 @@ dependencies:
   go_router:
   intl:
   expandable_page_view:
+  flutter_rating_bar:
   firebase_storage: ^11.6.9
 
 dev_dependencies:

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 
 import '../../../domain/answer_list/models/answer_id.dart';
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -23,7 +23,6 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
     void push(BuildContext context) {
       context.push(
         PageId.evaluationPage.path,
@@ -36,13 +35,15 @@ class TextButtonForNavigatingToEvaluationPage extends StatelessWidget {
     }
 
     return SizedBox(
-      width: screenWidth * 0.8, //適当。answerCardの横幅と揃える
+      width: double.infinity,
       child: TextButton(
         onPressed: () => push(context),
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             side: BorderSide(color: ColorSet.of(context).primary),
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20),
+            ),
           ),
           padding: const EdgeInsets.symmetric(
             vertical: 15,

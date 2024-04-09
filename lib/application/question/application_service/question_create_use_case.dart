@@ -2,7 +2,6 @@ import '../../../domain/notification/models/i_notification_factory.dart';
 import '../../../domain/notification/models/i_notification_repository.dart';
 import '../../../domain/notification/models/notification.dart';
 import '../../../domain/notification/models/notification_receiver.dart';
-import '../../../domain/notification/models/notification_receiver_list.dart';
 import '../../../domain/notification/models/notification_receiver_type.dart';
 import '../../../domain/notification/models/notification_sender.dart';
 import '../../../domain/notification/models/notification_sender_type.dart';
@@ -73,14 +72,16 @@ class QuestionCreateUseCase {
 
     _repository.save(question);
 
-    if (question.selectedTeacherList.isNotEmpty) {
-      final notification = await _createNotification(
-        studentId: studentId,
-        question: question,
-      );
-
-      await _notificationRepository.save(notification);
+    if (question.selectedTeacherList.isEmpty) {
+      return;
     }
+
+    final notificationList = await _createNotificationList(
+      studentId: studentId,
+      question: question,
+    );
+
+    await _notificationRepository.save(notificationList);
   }
 
   Future<Question> _createQuestion({
@@ -115,7 +116,7 @@ class QuestionCreateUseCase {
     return question;
   }
 
-  Future<Notification> _createNotification({
+  Future<List<Notification>> _createNotificationList({
     required final StudentId studentId,
     required final Question question,
   }) async {
@@ -125,29 +126,31 @@ class QuestionCreateUseCase {
         senderId: studentId,
         senderPhotoPath: senderPhotoPath);
     final target = NotificationTarget(
-        targetType: NotificationTargetType.question,
+        targetType: NotificationTargetType.questioned,
         targetId: question.questionId);
     final title = NotificationTitle(question.questionTitle.value);
     final text = NotificationText(question.questionText.value);
 
-    List<NotificationReceiver> receiverList = [];
+    final notificationList = <Notification>[];
     for (var teacherId in question.selectedTeacherList) {
       final receiver = NotificationReceiver(
         receiverType: NotificationReceiverType.teacher,
         receiverId: teacherId,
       );
-      receiverList.add(receiver);
+
+      final notification = await _notificationFactory.create(
+        sender: sender,
+        receiver: receiver,
+        target: target,
+        title: title,
+        text: text,
+        postedAt: DateTime.now(),
+        read: false,
+      );
+
+      notificationList.add(notification);
     }
 
-    final notification = await _notificationFactory.create(
-      sender: sender,
-      receiverList: NotificationReceiverList(receiverList),
-      target: target,
-      title: title,
-      text: text,
-      postedAt: DateTime.now(),
-    );
-
-    return notification;
+    return notificationList;
   }
 }

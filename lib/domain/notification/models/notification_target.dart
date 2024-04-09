@@ -30,12 +30,12 @@ class NotificationTarget {
           throw const NotificationDomainException(
               NotificationDomainExceptionDetail.targetTypeMismatched);
         }
-      case NotificationTargetType.question:
+      case NotificationTargetType.questioned:
         if (_targetId is! QuestionId) {
           throw const NotificationDomainException(
               NotificationDomainExceptionDetail.targetTypeMismatched);
         }
-      case NotificationTargetType.answer:
+      case NotificationTargetType.answered:
         if (_targetId is! AnswerId) {
           throw const NotificationDomainException(
               NotificationDomainExceptionDetail.targetTypeMismatched);

@@ -18,12 +18,20 @@ class ScaffoldWithNavBar extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
-        indicatorColor: ColorSet.of(context).navbarIndicator,
+        // indicatorColor: ColorSet.of(context).navbarIndicator,
         surfaceTintColor: const Color(0x00000000),
         backgroundColor: ColorSet.of(context).background,
         destinations: [
           NavigationDestination(
             icon: Icon(
+              Icons.home,
+              color: ColorSet.of(context).greyText,
+              size: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header1,
+              ),
+            ),
+            selectedIcon: Icon(
               Icons.home,
               color: ColorSet.of(context).text,
               size: FontSizeSet.getFontSize(
@@ -39,6 +47,14 @@ class ScaffoldWithNavBar extends StatelessWidget {
           ),
           NavigationDestination(
             icon: Icon(
+              Icons.person,
+              color: ColorSet.of(context).greyText,
+              size: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header1,
+              ),
+            ),
+            selectedIcon: Icon(
               Icons.person,
               color: ColorSet.of(context).text,
               size: FontSizeSet.getFontSize(

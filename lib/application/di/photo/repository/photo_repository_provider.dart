@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/photo/models/i_profile_photo_repository.dart';
+import '../../../../infrastructure/firebase/photo/firebase_photo_repository.dart';
 import '../../../../infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import '../../../shared/flavor/flavor.dart';
 import '../../../shared/flavor/flavor_config.dart';
@@ -15,6 +16,6 @@ IPhotoRepository photoRepositoryDi(PhotoRepositoryDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      return FirebasePhotoRepository();
   }
 }

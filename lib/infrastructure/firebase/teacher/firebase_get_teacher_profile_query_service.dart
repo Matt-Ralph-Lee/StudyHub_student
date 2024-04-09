@@ -41,6 +41,7 @@ class FirebaseGetTeacherProfileQueryService
       bio: teacher.bio.value,
       introduction: teacher.introduction.value,
       isFollowing: isFollowing,
+      rating: teacher.rating.value,
     );
   }
 }

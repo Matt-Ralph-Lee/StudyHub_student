@@ -17,13 +17,14 @@ class StudentSchoolNameAndGradeInputWidget extends HookWidget {
   final GradeOrGraduateStatus? studentGradeValue;
   final ValueChanged<GradeOrGraduateStatus?> handleStudentGradeChanged;
 
-  const StudentSchoolNameAndGradeInputWidget(
-      {super.key,
-      required this.decrementProgressCounter,
-      required this.updateProfile,
-      required this.studentSchoolNameInputController,
-      required this.studentGradeValue,
-      required this.handleStudentGradeChanged});
+  const StudentSchoolNameAndGradeInputWidget({
+    super.key,
+    required this.decrementProgressCounter,
+    required this.updateProfile,
+    required this.studentSchoolNameInputController,
+    required this.studentGradeValue,
+    required this.handleStudentGradeChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class StudentSchoolNameAndGradeInputWidget extends HookWidget {
             ),
             ButtonForProfileInputNext(
               incrementCounter:
-                  (isSchoolNameFilled.value && studentGradeValue != null)
+                  (isSchoolNameFilled.value || studentGradeValue != null)
                       ? updateProfile
                       : null,
             )

@@ -51,7 +51,6 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
     return GestureDetector(
       onTap: () => navigateToQuestionAndAnswerPage(context),
       child: Container(
-        height: screenWidth < 600 ? 155 : 220,
         decoration: BoxDecoration(
           color: ColorSet.of(context).surface,
           borderRadius: BorderRadius.circular(10),
@@ -68,78 +67,76 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
             screenWidth < 600 ? 20 : 40,
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: screenWidth < 600 ? 15 : 22,
-                      backgroundImage: studentImage,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                L10n.questionIconText,
-                                style: TextStyle(
-                                    fontWeight: FontWeightSet.normal,
-                                    fontSize: FontSizeSet.getFontSize(
-                                        context, FontSizeSet.header3),
-                                    color: ColorSet.of(context).questionIcon),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  questionCardDto.questionTitle,
-                                  style: TextStyle(
-                                      fontWeight: FontWeightSet.semibold,
-                                      fontSize: FontSizeSet.getFontSize(
-                                          context, FontSizeSet.header3),
-                                      color: ColorSet.of(context).text),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(questionCardDto.questionText,
-                                      style: TextStyle(
-                                          fontWeight: FontWeightSet.normal,
-                                          fontSize: FontSizeSet.getFontSize(
-                                              context, FontSizeSet.body),
-                                          color: ColorSet.of(context).text),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis),
-                                ),
-                              ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: studentImage,
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              L10n.questionIconText,
+                              style: TextStyle(
+                                  fontWeight: FontWeightSet.normal,
+                                  fontSize: FontSizeSet.getFontSize(
+                                      context, FontSizeSet.body),
+                                  color: ColorSet.of(context).questionIcon),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                questionCardDto.questionTitle,
+                                style: TextStyle(
+                                    fontWeight: FontWeightSet.semibold,
+                                    fontSize: FontSizeSet.getFontSize(
+                                        context, FontSizeSet.body),
+                                    color: ColorSet.of(context).text),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(questionCardDto.questionText,
+                                  style: TextStyle(
+                                      fontWeight: FontWeightSet.normal,
+                                      fontSize: FontSizeSet.getFontSize(
+                                          context, FontSizeSet.body),
+                                      color: ColorSet.of(context)
+                                          .greyText), //奥行き？が生まれて覗きたくなるタップしたくなる気がしたのでgreyTextで
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
               SizedBox(
                 height: screenWidth < 600 ? 10 : 20,
@@ -156,8 +153,8 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                     L10n.answerIconText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
+                        fontSize:
+                            FontSizeSet.getFontSize(context, FontSizeSet.body),
                         color: ColorSet.of(context).answerIcon),
                   ),
                   const SizedBox(
@@ -172,7 +169,7 @@ class QuestionAndAnswerCardWidget extends ConsumerWidget {
                           fontWeight: FontWeightSet.normal,
                           fontSize: FontSizeSet.getFontSize(
                               context, FontSizeSet.body),
-                          color: ColorSet.of(context).text),
+                          color: ColorSet.of(context).greyText),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

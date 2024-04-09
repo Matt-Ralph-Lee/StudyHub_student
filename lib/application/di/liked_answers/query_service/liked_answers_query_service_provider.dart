@@ -23,6 +23,10 @@ IGetLikedAnswersQueryService getLikedAnswersQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw InMemoryGetLikedAnswersQueryService(
+        session: ref.watch(nonNullSessionProvider),
+        repository: (ref.watch(likedAnswersRepositoryDiProvider))
+            as InMemoryLikedAnswersRepository,
+      );
   }
 }

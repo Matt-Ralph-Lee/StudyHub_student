@@ -175,16 +175,17 @@ class CreateQuestionPage extends HookConsumerWidget {
                 child: Text(
                   L10n.cancelText,
                   style: TextStyle(
-                      fontWeight: FontWeightSet.normal,
-                      fontSize:
-                          FontSizeSet.getFontSize(context, FontSizeSet.body),
-                      color: ColorSet.of(context).text),
+                    fontWeight: FontWeightSet.normal,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
+                    color: ColorSet.of(context).text,
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        leadingWidth: 130,
+        leadingWidth: 250,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -228,7 +229,10 @@ class CreateQuestionPage extends HookConsumerWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: PaddingSet.getPaddingSize(context, 20)),
+                  horizontal: PaddingSet.getPaddingSize(
+                context,
+                PaddingSet.horizontalPadding,
+              )),
               child: Column(
                 children: [
                   const SizedBox(height: 30),

@@ -1,5 +1,5 @@
 enum NotificationTargetType {
   info,
-  question,
-  answer,
+  questioned,
+  answered,
 }

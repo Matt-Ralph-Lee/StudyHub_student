@@ -26,10 +26,8 @@ class DropDownButtonForOthersGradeInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return SizedBox(
-      width: screenWidth * 0.8,
+      width: double.infinity,
       child: Column(
         children: [
           Row(
@@ -46,36 +44,59 @@ class DropDownButtonForOthersGradeInput extends HookWidget {
             ],
           ),
           const SizedBox(height: 10),
-          DropdownButtonFormField<GradeOrGraduateStatus>(
-            decoration: InputDecoration(
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
+          ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonFormField<GradeOrGraduateStatus?>(
+              borderRadius: BorderRadius.circular(5),
+              iconSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header2,
               ),
-              fillColor: ColorSet.of(context).greySurface,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: PaddingSet.getPaddingSize(context, 15),
-                horizontal: PaddingSet.getPaddingSize(context, 20),
-              ),
-            ),
-            isExpanded: true,
-            value: groupValue,
-            dropdownColor: ColorSet.of(context).greySurface,
-            onChanged: onChanged,
-            items: othersGradeOptions.map((GradeOrGraduateStatus value) {
-              return DropdownMenuItem<GradeOrGraduateStatus>(
-                value: value,
-                child: Text(
-                  value.japanese,
-                  style: TextStyle(
-                      height: 2,
-                      fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.getFontSize(
-                          context, FontSizeSet.annotation),
-                      color: ColorSet.of(context).text),
+              decoration: InputDecoration(
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              );
-            }).toList(),
+                fillColor: ColorSet.of(context).greySurface,
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: PaddingSet.getPaddingSize(context, 15),
+                  horizontal: PaddingSet.getPaddingSize(context, 5),
+                  //alignedDropdown: true,によりデフォでpadding入るため。DropdownButtonなりDropdownMenuなり試してみたけど、これが一番ちょうどいい
+                ),
+              ),
+              isExpanded: true,
+              value: groupValue,
+              dropdownColor: ColorSet.of(context).greySurface,
+              onChanged: onChanged,
+              items: [
+                DropdownMenuItem<GradeOrGraduateStatus?>(
+                  value: null,
+                  child: Text(
+                    L10n.notSelectText,
+                    style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize:
+                            FontSizeSet.getFontSize(context, FontSizeSet.body),
+                        color: ColorSet.of(context).text),
+                  ),
+                ),
+                ...othersGradeOptions.map((GradeOrGraduateStatus value) {
+                  return DropdownMenuItem<GradeOrGraduateStatus>(
+                    value: value,
+                    child: Text(
+                      value.japanese,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                            context,
+                            FontSizeSet.body,
+                          ),
+                          color: ColorSet.of(context).text),
+                    ),
+                  );
+                }).toList(),
+              ],
+            ),
           ),
         ],
       ),

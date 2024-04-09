@@ -16,18 +16,23 @@ class InMemoryGetMyNotificationsQueryService
   @override
   Future<List<GetMyNotificationDto>> get(final StudentId studentId) async {
     final myNotificationList = _repository.store.values.where((notification) =>
-        notification.receiverList.contains(NotificationReceiver(
+        notification.receiver ==
+        NotificationReceiver(
           receiverType: NotificationReceiverType.student,
           receiverId: studentId,
-        )));
+        ));
+
     return myNotificationList
         .map((notification) => GetMyNotificationDto(
+              type: notification.target.targetType,
               id: notification.notificationId,
-              sender: notification.sender,
-              target: notification.target,
+              senderId: notification.sender.senderId,
+              senderPhotoPath: notification.sender.senderPhotoPath.value,
+              targetId: notification.target.targetId,
               title: notification.title.value,
               text: notification.text.value,
               postedAt: notification.postedAt,
+              read: notification.read,
             ))
         .toList();
   }

@@ -128,9 +128,7 @@ void main() {
       notificationRepository.store.forEach((key, value) {
         debugPrint(
             'title: ${value.title.value}\nfrom: ${value.sender.senderId?.value}\nto: ');
-        for (var element in value.receiverList) {
-          debugPrint(element.receiverId.value);
-        }
+        debugPrint(value.receiver.receiverId.value);
       });
     });
 
@@ -159,9 +157,7 @@ void main() {
       notificationRepository.store.forEach((key, value) {
         debugPrint(
             'title: ${value.title.value}\nfrom: ${value.sender.senderId?.value}\nto: ');
-        for (var element in value.receiverList) {
-          debugPrint(element.receiverId.value);
-        }
+        debugPrint(value.receiver.receiverId.value);
       });
     });
 
@@ -209,9 +205,9 @@ void main() {
 
     test('invalid text too long', () async {
       String questionTitleData = "数学がわからない";
-      String questionTextData = List.generate(500, (index) => 'a').join();
+      String questionTextData = List.generate(1000, (index) => 'a').join();
       List<String> localPathList = [
-        "assets/photos/profile_photo/sample_picture_hd.png",
+        "assets/images/sample_picture_hd.png",
       ];
       Subject questionSubject = Subject.highEng;
       List<TeacherId> selectedTeacherList = [];

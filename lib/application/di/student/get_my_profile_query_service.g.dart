@@ -7,7 +7,7 @@ part of 'get_my_profile_query_service.dart';
 // **************************************************************************
 
 String _$getMyProfileQueryServiceDiHash() =>
-    r'95d933af192e774e5d84af5f597b0151f7b5179b';
+    r'0b82e3f5a670de5dcc56d4f4d7891a8160a3beeb';
 
 /// See also [getMyProfileQueryServiceDi].
 @ProviderFor(getMyProfileQueryServiceDi)

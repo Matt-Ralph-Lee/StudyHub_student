@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/padding_set.dart';
 
 class ProgressBar extends HookWidget {
   final double progress;
@@ -27,7 +28,7 @@ class ProgressBar extends HookWidget {
         ),
         const SizedBox(height: 10),
         Container(
-          width: screenWidth * 0.8,
+          width: double.infinity,
           height: 7,
           decoration: BoxDecoration(
             color: ColorSet.of(context).greySurface,
@@ -37,7 +38,12 @@ class ProgressBar extends HookWidget {
             alignment: Alignment.centerLeft,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              width: screenWidth * 0.8 * progress,
+              width: (screenWidth -
+                      PaddingSet.getPaddingSize(
+                        context,
+                        PaddingSet.horizontalPadding,
+                      )) *
+                  progress,
               height: 7,
               decoration: BoxDecoration(
                 color: ColorSet.of(context).primary,

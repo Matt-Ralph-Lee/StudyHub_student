@@ -1,6 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:studyhub/application/di/favorite_teacher/repository/favorite_teacher_repository_provider.dart';
 
+import '../../../../infrastructure/firebase/favorite_teachers/firebase_favorite_teacher_query_service.dart';
+import '../../../../infrastructure/firebase/favorite_teachers/firebase_favorite_teachers_repository.dart';
+import '../../../../infrastructure/firebase/teacher/firebase_teacher_repository.dart';
 import '../../../../infrastructure/in_memory/favorite_teachers/in_memory_favorite_teacher_query_service.dart';
 import '../../../../infrastructure/in_memory/favorite_teachers/in_memory_favorite_teachers_repository.dart';
 import '../../../../infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
@@ -25,6 +28,11 @@ IGetFavoriteTeacherQueryService getFavoriteTeacherQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw FirebaseFavoriteTeacherQueryService(
+        repository: (ref.watch(favoriteTeacherRepositoryDiProvider))
+            as FirebaseFavoriteTeachersRepository,
+        teacherRepository: (ref.watch(teacherRepositoryDiProvider))
+            as FirebaseTeacherRepository,
+      );
   }
 }
