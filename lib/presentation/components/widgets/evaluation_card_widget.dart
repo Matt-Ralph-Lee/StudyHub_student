@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../application/teacher_evaluation/application_service/get_teacher_evaluation_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/get_student_controller/get_student_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -23,8 +24,10 @@ class EvaluationCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final getStudentControllerState =
         ref.watch(getStudentControllerProvider(teacherEvaluationsDto.from));
+
     return Container(
       decoration: BoxDecoration(
         color: ColorSet.of(context).surface,
@@ -53,16 +56,20 @@ class EvaluationCardWidget extends ConsumerWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 getStudentControllerState.when(
-                  data: (getStudentDto) => CircleAvatar(
-                    radius: 15,
-                    backgroundImage:
-                        getStudentDto.profilePhotoPath.contains("assets")
-                            ? AssetImage(getStudentDto.profilePhotoPath)
-                                as ImageProvider
-                            : NetworkImage(
-                                getStudentDto.profilePhotoPath,
-                              ),
-                  ),
+                  data: (getStudentDto) {
+                    final image = ref
+                        .watch(getPhotoControllerProvider(
+                            getStudentDto.profilePhotoPath))
+                        .maybeWhen(
+                          data: (d) => d,
+                          orElse: () => const AssetImage(
+                              "assets/images/sample_picture_hd.jpg"),
+                        );
+                    return CircleAvatar(
+                      radius: screenWidth < 600 ? 15 : 22,
+                      backgroundImage: image,
+                    );
+                  },
                   loading: () => const LoadingOverlay(),
                   error: (error, stack) {
                     return const Center(

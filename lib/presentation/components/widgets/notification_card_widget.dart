@@ -23,6 +23,7 @@ class NotificationCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     void navigateToNotificationDetailPage(BuildContext context) {
       context.push(PageId.notificationDetailPage.path,
           extra: getMyNotificationDto);
@@ -84,7 +85,7 @@ class NotificationCardWidget extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 15,
+                    radius: screenWidth < 600 ? 15 : 22,
                     backgroundImage: image,
                   ),
                   const SizedBox(

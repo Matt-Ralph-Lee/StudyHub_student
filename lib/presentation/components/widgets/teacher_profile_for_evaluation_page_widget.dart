@@ -122,7 +122,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        radius: 30,
+                        radius: screenWidth < 600 ? 30 : 45,
                         backgroundImage: image,
                       ),
                       const SizedBox(

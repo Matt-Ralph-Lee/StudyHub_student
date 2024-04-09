@@ -24,6 +24,7 @@ class TeacherSmallCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final image = ref.watch(getPhotoControllerProvider(iconUrl)).maybeWhen(
           data: (d) => d,
           orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
@@ -53,7 +54,7 @@ class TeacherSmallCardWidget extends ConsumerWidget {
             children: [
               //webだと？表示されない？？手元のシュミレーター動かないのでとりまこのままで <= internetが理由だよ assetsだったら、AssetImage使うっていう応急処置取ってるよ
               CircleAvatar(
-                radius: 15,
+                radius: screenWidth < 600 ? 15 : 22,
                 backgroundImage: image,
               ),
               const SizedBox(

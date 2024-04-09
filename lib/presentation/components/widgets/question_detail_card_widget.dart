@@ -70,7 +70,7 @@ class QuestionDetailCardWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        radius: 15,
+                        radius: screenWidth < 600 ? 15 : 22,
                         backgroundImage: image,
                       ),
                       const SizedBox(
