@@ -61,13 +61,6 @@ class LoginWidget extends HookConsumerWidget {
 
     return Column(
       children: [
-        ElevatedButton(
-          onPressed: () => push(context),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.red),
-          ),
-          child: const Text("a"),
-        ),
         TextFormFieldForEmailAddressInput(
           controller: loginEmailController,
           onChanged: checkEmailFilled,

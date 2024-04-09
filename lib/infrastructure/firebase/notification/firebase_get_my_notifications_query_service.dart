@@ -85,29 +85,35 @@ class FirebaseGetMyNotificationsQueryService
       final text = doc["text"];
       final postedAt = (doc["postedAt"] as Timestamp).toDate();
 
+      final read = doc["read"];
+
       final target =
           NotificationTarget(targetType: targetType, targetId: targetId);
 
       myNotificationList.add(Notification(
-          notificationId: notificationId,
-          sender: sender,
-          receiver: receiver,
-          target: target,
-          title: title,
-          text: text,
-          postedAt: postedAt));
+        notificationId: notificationId,
+        sender: sender,
+        receiver: receiver,
+        target: target,
+        title: title,
+        text: text,
+        postedAt: postedAt,
+        read: read,
+      ));
     }
 
     final myNotificationDto = myNotificationList
         .map((notification) => GetMyNotificationDto(
-            type: notification.target.targetType,
-            id: notification.notificationId,
-            senderId: notification.sender.senderId,
-            senderPhotoPath: notification.sender.senderPhotoPath.value,
-            targetId: notification.target.targetId,
-            title: notification.title.value,
-            text: notification.text.value,
-            postedAt: notification.postedAt))
+              type: notification.target.targetType,
+              id: notification.notificationId,
+              senderId: notification.sender.senderId,
+              senderPhotoPath: notification.sender.senderPhotoPath.value,
+              targetId: notification.target.targetId,
+              title: notification.title.value,
+              text: notification.text.value,
+              postedAt: notification.postedAt,
+              read: notification.read,
+            ))
         .toList();
 
     return myNotificationDto;

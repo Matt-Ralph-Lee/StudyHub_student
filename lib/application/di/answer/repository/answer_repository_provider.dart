@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/answer_list/models/i_answer_repository.dart';
+import '../../../../infrastructure/firebase/answer/firebase_answer_repository.dart';
 import '../../../../infrastructure/in_memory/answer/in_memory_answer_repository.dart';
 import '../../../shared/flavor/flavor.dart';
 import '../../../shared/flavor/flavor_config.dart';
@@ -15,6 +16,6 @@ IAnswerRepository answerRepositoryDi(AnswerRepositoryDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw FirebaseAnswerRepository();
   }
 }

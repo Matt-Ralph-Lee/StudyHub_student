@@ -5,6 +5,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/padding_set.dart';
 
 class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
   final int numOfEvaluationStars;
@@ -23,11 +24,12 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
       elevation: 0,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(
-              top: 20,
-              left: 20,
-              right: 20,
-              bottom: 20), //textButtonが領域多めに取るのでバランス的にbottomだけ12px
+          padding: EdgeInsets.all(
+            PaddingSet.getPaddingSize(
+              context,
+              PaddingSet.horizontalPadding,
+            ),
+          ), //textButtonが領域多めに取るのでバランス的にbottomだけ12px
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +42,8 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
                     L10n.confirmModalTitleText,
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.body,
+                        fontSize:
+                            FontSizeSet.getFontSize(context, FontSizeSet.body),
                         color: ColorSet.of(context).text),
                   ),
                 ],
@@ -65,7 +68,8 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
                 evaluationText,
                 style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize: FontSizeSet.body,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
                     color: ColorSet.of(context).text),
               ),
               const SizedBox(
@@ -81,7 +85,8 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
                       L10n.cancelText,
                       style: TextStyle(
                           fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.body,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
                           color: ColorSet.of(context).text),
                     ),
                     onPressed: () {
@@ -93,7 +98,8 @@ class ConfirmTeacherEvaluationModalWidget extends StatelessWidget {
                       L10n.modalOkText,
                       style: TextStyle(
                           fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.body,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
                           color: ColorSet.of(context).text),
                     ),
                     onPressed: () {

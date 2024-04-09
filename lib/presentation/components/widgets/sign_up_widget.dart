@@ -56,7 +56,10 @@ class SignUpWidget extends HookConsumerWidget {
     }
 
     void push(BuildContext context) {
-      context.push(PageId.profileInput.path);
+      context.push(
+        PageId.emailVerificationPage.path,
+        extra: signUpEmailController.text,
+      );
     }
 
     void pushDummy(BuildContext context) {

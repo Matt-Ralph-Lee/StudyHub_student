@@ -77,23 +77,39 @@ class SearchForQuestionsPage extends HookConsumerWidget {
               backgroundColor: ColorSet.of(context).background,
               pinned: false,
               centerTitle: true,
-              title: TextFormFieldForSearchForTeachers(
-                controller: searchTeachersController,
-                onSearched: setSearchTerm,
+              title: Padding(
+                padding: const EdgeInsets.only(
+                  right: 5,
+                ), //スマホにおいてタブの右端と合わせるため.タブレットはきりがないので妥協
+                child: TextFormFieldForSearchForTeachers(
+                  controller: searchTeachersController,
+                  onSearched: setSearchTerm,
+                ),
               ),
+              // actions: [
+              //   Container(
+              //     width: screenWidth < 350? 300:screenWidth < 600? ,
+              //     margin: EdgeInsets.only(
+              //         right: PaddingSet.getPaddingSize(context, 20)),
+              //     child: TextFormFieldForSearchForTeachers(
+              //       controller: searchTeachersController,
+              //       onSearched: setSearchTerm,
+              //     ),
+              //   ),
+              // ],
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(
                   screenWidth < 600 ? 42 : 63,
                 ),
                 child: Container(
                   height: screenWidth < 600 ? 42 : 63,
-                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorSet.of(context).greySurface),
                   child: Padding(
                     padding:
-                        EdgeInsets.all(PaddingSet.getPaddingSize(context, 5)),
+                        EdgeInsets.all(PaddingSet.getPaddingSize(context, 3)),
                     child: TabBar(
                       tabAlignment: TabAlignment.start,
                       controller: tabController,

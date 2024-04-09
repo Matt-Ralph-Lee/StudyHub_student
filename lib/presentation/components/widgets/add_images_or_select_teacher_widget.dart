@@ -35,29 +35,34 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
               width: 0.1,
               color: ColorSet.of(context).text,
             ))),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextButtonForAddingPicture(
-              imageFilePath: imageFilePath,
-              takePhoto: uploadPhotoFromCamera,
-              pickPhoto: uploadPhotoFromGallery,
-              isPicturesAdded: isPhotoAdded,
-            ),
-            SizedBox(
-              height: PaddingSet.getPaddingSize(
-                context,
-                20,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 10,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButtonForAddingPicture(
+                imageFilePath: imageFilePath,
+                takePhoto: uploadPhotoFromCamera,
+                pickPhoto: uploadPhotoFromGallery,
+                isPicturesAdded: isPhotoAdded,
               ),
-            ),
-            TextButtonForSelectingTeacher(
-              selectTeachersFunction: selectTeachersFunction,
-              selectedTeachers: teacherIds,
-              isTeacherSelected: isTeacherSelected,
-            ),
-          ],
+              SizedBox(
+                height: PaddingSet.getPaddingSize(
+                  context,
+                  20,
+                ),
+              ),
+              TextButtonForSelectingTeacher(
+                selectTeachersFunction: selectTeachersFunction,
+                selectedTeachers: teacherIds,
+                isTeacherSelected: isTeacherSelected,
+              ),
+            ],
+          ),
         ));
   }
 }

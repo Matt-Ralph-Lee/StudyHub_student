@@ -7,6 +7,7 @@ import '../../../domain/notification/models/notification_receiver.dart';
 import '../../../domain/notification/models/notification_receiver_type.dart';
 import '../../../domain/notification/models/notification_sender_type.dart';
 import '../../../domain/notification/models/notification_target_type.dart';
+import '../../../domain/student/models/student_id.dart';
 import '../../exceptions/notification/notification_infrastructure_exception.dart';
 import '../../exceptions/notification/notification_infrastructure_exception_detail.dart';
 
@@ -90,7 +91,30 @@ class FirebaseNotificationRepository implements INotificationRepository {
       addData["text"] = notification.text.value;
       addData["posted"] = FieldValue.serverTimestamp();
 
+      addData["read"] = notification.read;
+
       await docRef.set(addData);
     }
+  }
+
+  @override
+  Future<bool> checkNotificationExistence(StudentId studentId) async {
+    final querySnapshot = await db
+        .collection("students")
+        .doc(studentId.value)
+        .collection("notification")
+        .where("read", isEqualTo: true)
+        .get();
+    return querySnapshot.size > 0;
+  }
+
+  @override
+  Future<void> readNotification(NotificationId id, StudentId studentId) async {
+    await db
+        .collection("students")
+        .doc(studentId.value)
+        .collection("notification")
+        .doc(id.value)
+        .update({"read": true});
   }
 }

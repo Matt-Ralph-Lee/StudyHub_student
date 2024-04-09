@@ -18,10 +18,9 @@ class TextButtonForUnFollowTeacher extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: ColorSet.of(context).primary,
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 5,
+          horizontal: 0,
+          vertical: 0,
         ),
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -30,8 +29,8 @@ class TextButtonForUnFollowTeacher extends StatelessWidget {
         L10n.unFollowButtonText,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
-            color: ColorSet.of(context).whiteText),
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
+            color: ColorSet.of(context).primary),
       ),
     );
   }

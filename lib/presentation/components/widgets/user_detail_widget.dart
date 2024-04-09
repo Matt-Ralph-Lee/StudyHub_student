@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../controllers/get_photo_controller/get_photo_controller.dart';
@@ -7,6 +8,7 @@ import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
+import '../../shared/constants/page_path.dart';
 import 'rank_description_modal.dart';
 
 //ランクの定義どうする
@@ -102,6 +104,10 @@ class UserDetailWidget extends ConsumerWidget {
           20,
         );
 
+    void navigateToFavoriteTeacherPage(BuildContext context) {
+      context.push(PageId.favoriteTeachers.path);
+    }
+
     final image = ref.watch(getPhotoControllerProvider(userIconUrl)).maybeWhen(
           data: (d) => d,
           orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
@@ -118,38 +124,40 @@ class UserDetailWidget extends ConsumerWidget {
               backgroundImage: image,
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                //favorite_teacher_pageマージしたらonTap時にそこ飛ぶように加筆する
-                children: [
-                  Text(
-                    numberOfFavoriteTeachers.toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize:
-                            FontSizeSet.getFontSize(context, FontSizeSet.body),
-                        color: ColorSet.of(context).text),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    L10n.favoriteTeacherText,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.annotation),
-                        color: ColorSet.of(context).text),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: ColorSet.of(context).text,
-                    size: 25,
-                  ),
-                ],
+              child: GestureDetector(
+                onTap: () => navigateToFavoriteTeacherPage(context),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end, //centerかendか
+                  children: [
+                    Text(
+                      numberOfFavoriteTeachers.toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
+                          color: ColorSet.of(context).text),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      L10n.favoriteTeacherText,
+                      style: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.annotation),
+                          color: ColorSet.of(context).text),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Icon(
+                      Icons.chevron_right,
+                      color: ColorSet.of(context).text,
+                      size: 25,
+                    ),
+                  ],
+                ),
               ),
             )
           ],
@@ -220,36 +228,40 @@ class UserDetailWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(
-              icon: const Icon(Icons.help_outline),
-              onPressed: () {
+            GestureDetector(
+              child: Icon(
+                Icons.help_outline,
+                color: ColorSet.of(context).greyText,
+                size: 15,
+              ),
+              onTap: () {
                 showStatusDescriptionDialog(context);
               },
-              color: ColorSet.of(context).greyText,
-              iconSize: 15,
             ),
-            /*
             const SizedBox(
               width: 5,
             ),
-            */
             Text(
               "$nextRank${L10n.madeText}",
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+                  fontSize: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.annotation,
+                  ),
                   color: ColorSet.of(context).greyText),
             ),
             const SizedBox(
               width: 5,
             ),
             Text(
-              numberOfQuestionsForNextRank,
+              numberOfQuestionsForNextRank, //若干隣の文字より上に上がってるんよな、数字だから？？
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+                  fontSize: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.annotation,
+                  ),
                   color: ColorSet.of(context).greyText),
             ),
           ],

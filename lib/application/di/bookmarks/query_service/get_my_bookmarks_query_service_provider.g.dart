@@ -7,7 +7,7 @@ part of 'get_my_bookmarks_query_service_provider.dart';
 // **************************************************************************
 
 String _$getMyBookmarksQueryServiceDiHash() =>
-    r'532d7f82bbb5dca8d5e126755bb6dd7928d9d205';
+    r'e3750a5b7e6b45696fc51c322d35e58a1f2aeecb';
 
 /// See also [getMyBookmarksQueryServiceDi].
 @ProviderFor(getMyBookmarksQueryServiceDi)

@@ -145,6 +145,7 @@ class QuestionCreateUseCase {
         title: title,
         text: text,
         postedAt: DateTime.now(),
+        read: false,
       );
 
       notificationList.add(notification);

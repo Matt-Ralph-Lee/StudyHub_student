@@ -20,15 +20,18 @@ class FirebaseNotificationFactory implements INotificationFactory {
     required NotificationTitle title,
     required NotificationText text,
     required DateTime postedAt,
+    required bool read,
   }) async {
     final notificationId = await _repository.generateId(receiver);
     return Notification(
-        notificationId: notificationId,
-        sender: sender,
-        receiver: receiver,
-        target: target,
-        title: title,
-        text: text,
-        postedAt: postedAt);
+      notificationId: notificationId,
+      sender: sender,
+      receiver: receiver,
+      target: target,
+      title: title,
+      text: text,
+      postedAt: postedAt,
+      read: read,
+    );
   }
 }

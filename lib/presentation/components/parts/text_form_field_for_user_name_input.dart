@@ -18,7 +18,7 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return SizedBox(
-      width: screenWidth * 0.8,
+      width: double.infinity,
       child: Column(
         children: [
           Row(
@@ -38,11 +38,6 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
           TextFormField(
             controller: controller,
             onChanged: onChanged,
-            /*
-            validator: (value) {
-              //云々カンヌン
-            },
-            */
             style: TextStyle(
                 fontWeight: FontWeightSet.normal,
                 fontSize: FontSizeSet.getFontSize(
@@ -52,7 +47,7 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
                 color: ColorSet.of(context).text),
             cursorColor: ColorSet.of(context).text,
             cursorWidth: screenWidth < 600 ? 1 : 1.5,
-            cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.body),
+            cursorHeight: FontSizeSet.getFontSize(context, FontSizeSet.header2),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(
                 top: PaddingSet.getPaddingSize(context, 15),

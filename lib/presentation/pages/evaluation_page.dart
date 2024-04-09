@@ -120,14 +120,16 @@ class EvaluationPage extends HookConsumerWidget {
                     style: TextStyle(
                         fontWeight: FontWeightSet.normal,
                         fontSize: FontSizeSet.getFontSize(
-                            context, FontSizeSet.header3),
+                          context,
+                          FontSizeSet.body,
+                        ),
                         color: ColorSet.of(context).text),
                   ),
                 ),
               ],
             ),
           ),
-          leadingWidth: 130,
+          leadingWidth: 250,
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 20),
@@ -144,8 +146,10 @@ class EvaluationPage extends HookConsumerWidget {
                   L10n.evaluationText,
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header3),
+                    fontSize: FontSizeSet.getFontSize(
+                      context,
+                      FontSizeSet.body,
+                    ),
                   ),
                 ),
               ),

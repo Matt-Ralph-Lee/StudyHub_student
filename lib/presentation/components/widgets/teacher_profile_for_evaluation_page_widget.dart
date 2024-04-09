@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
@@ -14,6 +15,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
 import '../parts/text_button_for_follow_teacher.dart';
 import '../parts/text_button_for_unfollow_teacher.dart';
@@ -87,12 +89,15 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             showErrorModalWidget(context);
           }
         } else {
-          HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
         }
       });
+    }
+
+    void navigateToTeacherProfilePage(BuildContext context) {
+      context.push(PageId.teacherProfile.path, extra: teacherId);
     }
 
     return getTeacherProfileControllerState.when(
@@ -111,26 +116,29 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: image,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: Text(
-                        getTeacherProfileDto.name,
-                        style: TextStyle(
-                            fontWeight: FontWeightSet.normal,
-                            fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header2),
-                            color: ColorSet.of(context).text),
+                child: GestureDetector(
+                  onTap: () => navigateToTeacherProfilePage(context),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: image,
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: Text(
+                          getTeacherProfileDto.name,
+                          style: TextStyle(
+                              fontWeight: FontWeightSet.normal,
+                              fontSize: FontSizeSet.getFontSize(
+                                  context, FontSizeSet.header2),
+                              color: ColorSet.of(context).text),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -159,7 +167,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           children: [
             Text(
               error.toString(),
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: ColorSet.of(context).errorText),
             )
             // TextForError(),
           ],

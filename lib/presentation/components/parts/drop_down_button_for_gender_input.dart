@@ -22,10 +22,8 @@ class DropDownButtonForGenderInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return SizedBox(
-      width: screenWidth * 0.8,
+      width: double.infinity,
       child: Column(
         children: [
           Row(
@@ -42,37 +40,123 @@ class DropDownButtonForGenderInput extends HookWidget {
             ],
           ),
           const SizedBox(height: 10),
-          DropdownButtonFormField<Gender>(
-            decoration: InputDecoration(
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
+          ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonFormField<Gender>(
+              iconSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.header2,
               ),
-              fillColor: ColorSet.of(context).greySurface,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: PaddingSet.getPaddingSize(context, 15),
-                horizontal: PaddingSet.getPaddingSize(context, 20),
-              ),
-            ),
-            isExpanded: true,
-            value: groupValue,
-            dropdownColor: ColorSet.of(context).greySurface,
-            onChanged: onChanged,
-            items: genderOptions.map((Gender value) {
-              return DropdownMenuItem<Gender>(
-                value: value,
-                child: Text(
-                  value.japanese,
-                  style: TextStyle(
-                      height: 2,
-                      fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.getFontSize(
-                          context, FontSizeSet.annotation),
-                      color: ColorSet.of(context).text),
+              decoration: InputDecoration(
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              );
-            }).toList(),
+                fillColor: ColorSet.of(context).greySurface,
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: PaddingSet.getPaddingSize(context, 15),
+                  horizontal: PaddingSet.getPaddingSize(context,
+                      5), //alignedDropdown: true,によりデフォでpadding入るため。DropdownButtonなりDropdownMenuなり試してみたけど、これが一番ちょうどいい
+                ),
+              ),
+              value: groupValue,
+              isDense: true,
+              dropdownColor: ColorSet.of(context).greySurface,
+              onChanged: onChanged,
+              items: genderOptions.map((Gender value) {
+                return DropdownMenuItem<Gender>(
+                  value: value,
+                  child: Text(
+                    value.japanese,
+                    style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.body,
+                        ),
+                        color: ColorSet.of(context).text),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
+          // InputDecorator(
+          //   decoration: InputDecoration(
+          //     filled: true,
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(5),
+          //     ),
+          //     fillColor: ColorSet.of(context).greySurface,
+          //     contentPadding: EdgeInsets.symmetric(
+          //       // vertical: PaddingSet.getPaddingSize(context, 15),
+          //       horizontal: PaddingSet.getPaddingSize(context, 20),
+          //     ),
+          //   ),
+          //   child: ButtonTheme(
+          //     // alignedDropdown: true,
+          //     child: DropdownButtonHideUnderline(
+          //       child: DropdownButton<Gender>(
+          //         isExpanded: false,
+          //         value: groupValue,
+          //         dropdownColor: ColorSet.of(context).greySurface,
+          //         onChanged: onChanged,
+          //         items: genderOptions.map((Gender value) {
+          //           return DropdownMenuItem<Gender>(
+          //             value: value,
+          //             child: Text(
+          //               value.japanese,
+          //               style: TextStyle(
+          //                   height: 2,
+          //                   fontWeight: FontWeightSet.normal,
+          //                   fontSize: FontSizeSet.getFontSize(
+          //                       context, FontSizeSet.annotation),
+          //                   color: ColorSet.of(context).text),
+          //             ),
+          //           );
+          //         }).toList(),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // DropdownMenu<Gender>(
+          //   menuStyle: MenuStyle(
+          //     backgroundColor:
+          //         MaterialStatePropertyAll(ColorSet.of(context).greySurface),
+          //   ),
+          //   width: screenWidth - 40,
+          //   textStyle: TextStyle(
+          //     fontWeight: FontWeightSet.normal,
+          //     fontSize:
+          //         FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+          //     color: ColorSet.of(context).whiteText,
+          //   ),
+          //   inputDecorationTheme: InputDecorationTheme(
+          //     contentPadding: const EdgeInsets.only(
+          //       left: 20,
+          //     ),
+          //     filled: true,
+          //     fillColor: ColorSet.of(context).greySurface,
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(5.0),
+          //       borderSide: BorderSide.none,
+          //     ),
+          //   ),
+          //   onSelected: onChanged,
+          //   dropdownMenuEntries: genderOptions.map((Gender value) {
+          //     return DropdownMenuEntry<Gender>(
+          //         value: value,
+          //         label: value.japanese,
+          //         style: ButtonStyle(
+          //             foregroundColor:
+          //                 MaterialStatePropertyAll(ColorSet.of(context).text),
+          //             textStyle: MaterialStatePropertyAll(TextStyle(
+          //               height: 2,
+          //               fontWeight: FontWeightSet.normal,
+          //               fontSize: FontSizeSet.getFontSize(
+          //                   context, FontSizeSet.annotation),
+          //             ))));
+          //   }).toList(),
+          // ),
         ],
       ),
     );

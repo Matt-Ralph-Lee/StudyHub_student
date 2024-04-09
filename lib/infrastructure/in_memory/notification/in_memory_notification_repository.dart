@@ -10,6 +10,7 @@ import '../../../domain/notification/models/notification_target_type.dart';
 import '../../../domain/notification/models/notification_text.dart';
 import '../../../domain/notification/models/notification_title.dart';
 import '../../../domain/shared/profile_photo_path.dart';
+import '../../../domain/student/models/student_id.dart';
 import '../student/in_memory_student_repository.dart';
 import '../../exceptions/notification/notification_infrastructure_exception.dart';
 import '../../exceptions/notification/notification_infrastructure_exception_detail.dart';
@@ -64,6 +65,33 @@ class InMemoryNotificationRepository implements INotificationRepository {
 
     return NotificationId(notificationId);
   }
+
+  @override
+  Future<void> readNotification(NotificationId id, StudentId studentId) async {
+    final notification = store[id];
+    if (notification == null) {
+      throw const NotificationInfrastructureException(
+          NotificationInfrastructureExceptionDetail.notificationNotFound);
+    }
+    store[id] = Notification(
+      notificationId: notification.notificationId,
+      sender: notification.sender,
+      receiver: notification.receiver,
+      target: notification.target,
+      title: notification.title,
+      text: notification.text,
+      postedAt: notification.postedAt,
+      read: true,
+    );
+  }
+
+  @override
+  Future<bool> checkNotificationExistence(StudentId studentId) async {
+    final result = store.values.where((notification) =>
+        !notification.read && notification.receiver.receiverId == studentId);
+
+    return result.isEmpty;
+  }
 }
 
 class InMemoryNotificationIdInitialValue {
@@ -91,7 +119,8 @@ class InMemoryNotificationInitialValue {
       senderType: NotificationSenderType.admin,
       senderId: null,
       // TODO: photoPath for admin
-      senderPhotoPath: ProfilePhotoPath('assets/photos/sample_use_icon.jpg'),
+      senderPhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'),
     ),
     receiver: NotificationReceiver(
       receiverType: NotificationReceiverType.student,
@@ -105,6 +134,7 @@ class InMemoryNotificationInitialValue {
     text: NotificationText(
         'この度はアプリを入れていただきありがとうございます。今後皆様の満足感を挙げるために、アンケートにご協力お願いします。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 
   static final firstNotificationToStudent1 = Notification(
@@ -114,7 +144,8 @@ class InMemoryNotificationInitialValue {
       senderType: NotificationSenderType.admin,
       senderId: null,
       // TODO: photoPath for admin
-      senderPhotoPath: ProfilePhotoPath('assets/photos/sample_use_icon.jpg'),
+      senderPhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'),
     ),
     receiver: NotificationReceiver(
       receiverType: NotificationReceiverType.student,
@@ -128,6 +159,7 @@ class InMemoryNotificationInitialValue {
     text: NotificationText(
         'この度はアプリを入れていただきありがとうございます。今後皆様の満足感を挙げるために、アンケートにご協力お願いします。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 
   static final firstNotificationToStudent2 = Notification(
@@ -151,6 +183,7 @@ class InMemoryNotificationInitialValue {
     text: NotificationText(
         'この度はアプリを入れていただきありがとうございます。今後皆様の満足感を挙げるために、アンケートにご協力お願いします。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 
   static final firstNotificationToStudent3 = Notification(
@@ -174,6 +207,7 @@ class InMemoryNotificationInitialValue {
     text: NotificationText(
         'この度はアプリを入れていただきありがとうございます。今後皆様の満足感を挙げるために、アンケートにご協力お願いします。'),
     postedAt: DateTime.now(),
+    read: true,
   );
 
   static final firstNotificationToTeacher1 = Notification(
@@ -196,6 +230,7 @@ class InMemoryNotificationInitialValue {
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 
   static final firstNotificationToTeacher2 = Notification(
@@ -218,6 +253,7 @@ class InMemoryNotificationInitialValue {
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 
   static final firstNotificationToTeacher3 = Notification(
@@ -240,5 +276,6 @@ class InMemoryNotificationInitialValue {
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),
     postedAt: DateTime.now(),
+    read: false,
   );
 }

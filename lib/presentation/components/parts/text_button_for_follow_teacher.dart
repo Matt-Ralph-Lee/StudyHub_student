@@ -18,13 +18,9 @@ class TextButtonForFollowTeacher extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-          side: BorderSide(color: ColorSet.of(context).primary),
-        ),
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 5,
+          horizontal: 0,
+          vertical: 0,
         ),
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -33,7 +29,7 @@ class TextButtonForFollowTeacher extends StatelessWidget {
         L10n.followButtonText,
         style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.annotation),
+            fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
             color: ColorSet.of(context).primary),
       ),
     );

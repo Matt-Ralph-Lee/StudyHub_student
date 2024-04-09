@@ -6,6 +6,7 @@ enum NotificationInfrastructureExceptionDetail
   invalidReceiverType("recevier type is invalid"),
   invalidSenderType("sender type is invalid"),
   invalidTargetType("target type is invalid"),
+  notificationNotFound("notification not found"),
   ;
 
   const NotificationInfrastructureExceptionDetail(this._message);

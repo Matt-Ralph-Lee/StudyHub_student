@@ -7,7 +7,7 @@ import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_favorite_teacher_found.dart';
 import '../components/parts/text_form_field_for_search_teachers.dart';
-import '../components/widgets/favorite_teacher_card_widget.dart';
+import '../components/widgets/teacher_small_card_widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../controllers/search_for_teachers_controller/search_for_teachers_controller.dart';

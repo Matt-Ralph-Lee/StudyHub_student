@@ -7,6 +7,7 @@ import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
+import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
 
 class L10n {
   //auth_page
@@ -60,7 +61,7 @@ class L10n {
       FavoriteTeachersUseCaseExceptionDetail detail) {
     switch (detail) {
       case FavoriteTeachersUseCaseExceptionDetail.favoriteTeacherNotFound:
-        return "お気に入りの講師が見つかりませんでした。";
+        return "フォロー中の講師が見つかりませんでした。";
     }
   }
 
@@ -68,7 +69,7 @@ class L10n {
       EvaluationUseCaseExceptionDetail detail) {
     switch (detail) {
       case EvaluationUseCaseExceptionDetail.favoriteTeacherNotFound:
-        return "お気に入りの講師が見つかりませんでした。"; //これfavoriteTeacherNotFoundではないよね？元書き換えて
+        return "フォロー中の講師が見つかりませんでした。"; //これfavoriteTeacherNotFoundではないよね？元書き換えて
     }
   }
 
@@ -98,6 +99,7 @@ class L10n {
   static const emailVerificationTitleText = "メール認証";
   static const emailVerificationSubtitleText = "入力されたメールアドレスに認証メールを送りました";
   static const emailVerificationButtonText = "メールを再送信";
+  static const resendEmailVerificationText = "メールを再送信しました";
 
   //profile_input_page
   static const indicatorTextOneThird = "1/3";
@@ -128,10 +130,11 @@ class L10n {
   static const gradeOptionSecondGrade = "2年";
   static const gradeOptionThirdGrade = "3年";
   static const gradeOptionForthGrade = "4年";
+  static const notSelectText = "選択しない";
 
   static const academicHistoryInputExplanationText = "最終学歴を入力してください";
 
-  static const academicHistoryTextFieldLabelText = "学校名";
+  static const academicHistoryTextFieldLabelText = "最終学歴";
   static const academicHistoryRadioBoxLabelText = "学年";
   static const academicHistoryOptionGraduate = "卒業";
   static const academicHistoryOptionOther = "その他";
@@ -155,17 +158,20 @@ class L10n {
   static const accountRelatedButtonExplanationText = "アカウント関連";
   static const editAccountInformationButtonText = "アカウント情報編集";
   static const logoutButtonText = "ログアウト";
+  static const logoutSnackBarText = "ログアウトしました";
   static const deleteAccountButtonText = "アカウント削除";
+  static const confirmDeleteAccount = "アカウントを削除します\nよろしいですか？";
+  static const deleteAccountSnackBarText = "アカウントを削除しました";
 
   //favorite_teacher_page
-  static const favoriteTeacherText = "お気に入りの講師";
-  static const noFavoriteTeacherFoundText = "お気に入りの講師はいません";
+  static const favoriteTeacherText = "フォロー中の講師";
+  static const noFavoriteTeacherFoundText = "フォロー中の講師はいません";
 
   //profile_edit_page
   static const saveText = "保存する";
   static const takePictureText = "写真を撮る";
   static const selectPictureFromGalleryText = "ギャラリーから選ぶ";
-  static const editSuccessText = "プロフィールを変更しました!";
+  static const editSuccessText = "プロフィールを変更しました！";
 
   //my_page
   static const myQuestionTabText = "MyQuestion";
@@ -179,6 +185,8 @@ class L10n {
   static const colorText = "colorText";
   static const nextRankText = "nextRank";
   static const questionsForNextRankText = "questionsForNextRank";
+  static const rankDescriptionText =
+      "質問数に応じて、Beginner/Novice/Advanced/Expertのいずれかのランクが付与されます。高ランクを目指して沢山質問しましょう！";
 
   //question_and_answer_card_widget
   static const questionIconText = "Q.";
@@ -214,7 +222,7 @@ class L10n {
   static const evaluationContentText = "ご自由にコメントしてください";
   static const evaluationInputHintText = "分かりやすいお答えありがとうございます!";
   static const dateFormat = "yyyy/MM/dd";
-  static const evaluationSnackBarText = "講師を評価しました!";
+  static const evaluationSnackBarText = "講師を評価しました！";
 
   //shared
   static const errorText = "エラーです。時間をおいてから再度お試しください";
@@ -223,13 +231,18 @@ class L10n {
   static const modalOkText = "ok";
   static const cancelText = "キャンセル";
   static const closeText = "閉じる";
-  static const followButtonText = "Follow";
-  static const unFollowButtonText = "UnFollow";
-  static const addFavoriteTeacherText = "お気に入りに追加しました";
-  static const deleteFavoriteTeacherText = "お気に入りから削除しました";
-  static const favoriteTeacherTextForSelectTeachersPage = "お気に入りの講師";
+  static const followButtonText = "フォロー";
+  static const unFollowButtonText = "フォロー中";
+  static const unFollowButtonTextForAnswerCardMenu = "フォローから外す";
+  static const addFavoriteTeacherText = "フォローしました！";
+  static const deleteFavoriteTeacherText = "フォローから外しました、、";
+  static const favoriteTeacherTextForSelectTeachersPage = "フォロー中の講師";
   static const popularTeachersText = "人気の講師";
   static const noTeachersFoundText = "該当する講師は見つかりませんでした。";
+  static const reportText = "報告する";
+  static const reportReason = "報告理由";
+  static const reportContent = "報告内容";
+  static const reportSnackBarText = "報告しました";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";
@@ -259,6 +272,23 @@ class L10n {
   static const todayText = "今日";
   static const thisWeekText = "今週";
   static const beforeText = "それ以前";
+  static const noNotificationFound = "お知らせがありません";
+
+  static String readNotificationExceptionMessage(
+      NotificationInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case NotificationInfrastructureExceptionDetail.idAlreadyExist:
+        return "通知は既読です";
+      case NotificationInfrastructureExceptionDetail.notificationNotFound:
+        return "通知が見つかりませんでした";
+      case NotificationInfrastructureExceptionDetail.invalidReceiverType:
+        return "開発側でのエラーが発生しました";
+      case NotificationInfrastructureExceptionDetail.invalidSenderType:
+        return "開発側でのエラーが発生しました";
+      case NotificationInfrastructureExceptionDetail.invalidTargetType:
+        return "開発側でのエラーが発生しました";
+    }
+  }
 
   //search_question_page
   static const noQuestionsFound = "該当する質問がありません";

@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../infrastructure/firebase/student/firebase_student_query_service.dart';
+import '../../../infrastructure/firebase/student/firebase_student_repository.dart';
 import '../../../infrastructure/in_memory/student/in_memory_student_query_service.dart';
 import '../../../infrastructure/in_memory/student/in_memory_student_repository.dart';
 import '../../shared/flavor/flavor.dart';
@@ -19,6 +21,7 @@ IGetMyProfileQueryService getMyProfileQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw UnimplementedError();
+      throw FirebaseStudentQueryService(
+          ref.watch(studentRepositoryDiProvider) as FirebaseStudentRepository);
   }
 }

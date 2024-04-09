@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/components/parts/text_for_error.dart';
 
 import '../../domain/shared/subject.dart';
+import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_question_found.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart';
@@ -75,13 +75,16 @@ class HomePage extends HookConsumerWidget {
         ),
         leadingWidth: 130,
         actions: [
-          IconButton(
-              icon: Icon(
+          GestureDetector(
+              child: Icon(
                 Icons.search,
                 color: ColorSet.of(context).icon,
                 size: FontSizeSet.getFontSize(context, 30),
               ),
-              onPressed: () => pushToSearchQuestionPage(context)),
+              onTap: () => pushToSearchQuestionPage(context)),
+          const SizedBox(
+            width: 20,
+          ),
         ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(
@@ -89,12 +92,16 @@ class HomePage extends HookConsumerWidget {
           ),
           child: Container(
             height: screenWidth < 600 ? 42 : 63,
-            margin: const EdgeInsets.symmetric(horizontal: 24),
+            margin: EdgeInsets.symmetric(
+                horizontal: PaddingSet.getPaddingSize(
+              context,
+              PaddingSet.horizontalPadding,
+            )),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: ColorSet.of(context).greySurface),
             child: Padding(
-              padding: EdgeInsets.all(PaddingSet.getPaddingSize(context, 5)),
+              padding: EdgeInsets.all(PaddingSet.getPaddingSize(context, 3)),
               child: TabBar(
                 tabAlignment: TabAlignment.start,
                 controller: tabController,
@@ -112,7 +119,7 @@ class HomePage extends HookConsumerWidget {
                 labelPadding: EdgeInsets.symmetric(
                     horizontal: PaddingSet.getPaddingSize(
                   context,
-                  20,
+                  PaddingSet.horizontalPadding,
                 )),
                 labelStyle: TextStyle(
                   color: ColorSet.of(context).whiteText,

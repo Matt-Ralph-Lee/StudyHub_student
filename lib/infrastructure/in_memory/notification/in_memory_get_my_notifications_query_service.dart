@@ -32,6 +32,7 @@ class InMemoryGetMyNotificationsQueryService
               title: notification.title.value,
               text: notification.text.value,
               postedAt: notification.postedAt,
+              read: notification.read,
             ))
         .toList();
   }

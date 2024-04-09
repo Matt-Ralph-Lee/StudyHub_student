@@ -17,8 +17,6 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
-import '../parts/text_button_for_follow_teacher.dart';
-import '../parts/text_button_for_unfollow_teacher.dart';
 import 'show_error_modal_widget.dart';
 import 'specific_exception_modal_widget.dart';
 
@@ -33,8 +31,37 @@ class AnswerCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final deleteFavoriteTeacherControllerState =
-        ref.watch(deleteFavoriteTeacherControllerProvider);
+
+    void toggleLikeAnswer() async {
+      if (answerDto.hasLiked) {
+        HapticFeedback.lightImpact();
+        ref.read(likeAnswerControllerProvider.notifier).decrement(
+              answerId: answerDto.answerId,
+              questionId: answerDto.questionId,
+            );
+      } else {
+        HapticFeedback.lightImpact();
+        ref.read(likeAnswerControllerProvider.notifier).increment(
+              answerId: answerDto.answerId,
+              questionId: answerDto.questionId,
+            );
+      }
+    }
+
+    void navigateToTeacherProfilePage(
+        BuildContext context, TeacherId teacherId) {
+      context.push(PageId.teacherProfile.path, extra: teacherId);
+    }
+
+    void navigateToReportPage(BuildContext context, TeacherId teacherId) {
+      context.push(
+        PageId.reportQuestionPage.path,
+        extra: [
+          null,
+          teacherId,
+        ],
+      );
+    }
 
     void addFavoriteTeacher() async {
       ref
@@ -72,6 +99,8 @@ class AnswerCardWidget extends ConsumerWidget {
           .read(deleteFavoriteTeacherControllerProvider.notifier)
           .deleteFavoriteTeacher(answerDto.teacherId)
           .then((_) {
+        final deleteFavoriteTeacherControllerState =
+            ref.read(deleteFavoriteTeacherControllerProvider);
         if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
           if (error is FavoriteTeachersUseCaseException) {
@@ -94,21 +123,6 @@ class AnswerCardWidget extends ConsumerWidget {
           );
         }
       });
-    }
-
-    void toggleLikeAnswer() async {
-      if (answerDto.hasLiked) {
-        ref.read(likeAnswerControllerProvider.notifier).decrement(
-            answerId: answerDto.answerId, questionId: answerDto.questionId);
-      } else {
-        ref.read(likeAnswerControllerProvider.notifier).increment(
-            answerId: answerDto.answerId, questionId: answerDto.questionId);
-      }
-    }
-
-    void navigateToTeacherProfilePage(
-        BuildContext context, TeacherId teacherId) {
-      context.push(PageId.teacherProfile.path, extra: teacherId);
     }
 
     final image = ref
@@ -140,7 +154,7 @@ class AnswerCardWidget extends ConsumerWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: GestureDetector(
@@ -150,14 +164,7 @@ class AnswerCardWidget extends ConsumerWidget {
                       children: [
                         CircleAvatar(
                           radius: 15,
-                          backgroundImage:
-                              // answerDto.teacherProfilePath.contains("assets")
-                              //     ? AssetImage(answerDto.teacherProfilePath)
-                              //         as ImageProvider
-                              //     : NetworkImage(
-                              //         answerDto.teacherProfilePath,
-                              //       ),
-                              image,
+                          backgroundImage: image,
                         ),
                         const SizedBox(
                           width: 20,
@@ -168,7 +175,9 @@ class AnswerCardWidget extends ConsumerWidget {
                             style: TextStyle(
                               fontWeight: FontWeightSet.normal,
                               fontSize: FontSizeSet.getFontSize(
-                                  context, FontSizeSet.header3),
+                                context,
+                                FontSizeSet.body,
+                              ),
                               color: ColorSet.of(context).text,
                             ),
                           ),
@@ -180,11 +189,60 @@ class AnswerCardWidget extends ConsumerWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                answerDto.isFollowing
-                    ? TextButtonForUnFollowTeacher(
-                        onPressed: () => deleteFavoriteTeacher())
-                    : TextButtonForFollowTeacher(
-                        onPressed: () => addFavoriteTeacher()),
+                //元祖StudyHubから移植。モーダルだと位置調整だるそうなので。いらないプロパティありそうだけど放置！
+                PopupMenuButton<String>(
+                  color: ColorSet.of(context).surface,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0),
+                  ),
+                  child: Icon(
+                    Icons.more_vert,
+                    color: ColorSet.of(context).text,
+                    size: FontSizeSet.getFontSize(context, FontSizeSet.header2),
+                  ),
+                  onSelected: (String result) {
+                    if (result == L10n.reportText) {
+                      navigateToReportPage(
+                        context,
+                        answerDto.teacherId,
+                      );
+                    } else {
+                      answerDto.isFollowing
+                          ? deleteFavoriteTeacher()
+                          : addFavoriteTeacher();
+                    }
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: L10n.reportText,
+                      child: Text(
+                        L10n.reportText,
+                        style: TextStyle(
+                          color: ColorSet.of(context).text,
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
+                        ),
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: "followUnFollow",
+                      child: Text(
+                        answerDto.isFollowing
+                            ? L10n.unFollowButtonTextForAnswerCardMenu
+                            : L10n.followButtonText,
+                        style: TextStyle(
+                          color: ColorSet.of(context).primary,
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(
@@ -210,7 +268,7 @@ class AnswerCardWidget extends ConsumerWidget {
                           color: ColorSet.of(context).primary,
                         ),
                         const SizedBox(
-                          width: 30,
+                          height: 3,
                         ),
                         Text(
                           answerDto.answerLike.toString(),
@@ -226,7 +284,7 @@ class AnswerCardWidget extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 15,
+                  width: 20,
                 ),
                 Expanded(
                   child: Text(

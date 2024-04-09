@@ -4,6 +4,7 @@ import "package:go_router/go_router.dart";
 
 import "../../application/answer/application_service/answer_dto.dart";
 import "../../application/di/session/session_provider.dart";
+import "../../application/notification/application_service/get_my_notification_dto.dart";
 import "../../application/question/application_service/question_detail_dto.dart";
 import "../../domain/answer_list/models/answer_id.dart";
 import "../../domain/question/models/question_id.dart";
@@ -16,9 +17,12 @@ import "../pages/evaluation_page.dart";
 import '../pages/favorite_teachers_page.dart';
 import "../pages/edit_profile_page.dart";
 import "../pages/menu_page.dart";
+import "../pages/notification_detail_page.dart";
 import "../pages/notification_page.dart";
 import "../pages/profile_input_page.dart";
 import "../pages/question_and_answer_page.dart";
+import "../pages/report_page.dart";
+import "../pages/resend_email_verification_page.dart";
 import "../pages/reset_password_page.dart";
 import "../pages/search_for_questions_page.dart";
 import "../pages/search_for_teachers_page.dart";
@@ -178,6 +182,19 @@ GoRouter router(RouterRef ref) {
       builder: (context, state) => const SearchForQuestionsPage(),
     ),
     GoRoute(
+      path: PageId.reportQuestionPage.path,
+      name: PageId.reportQuestionPage.name,
+      builder: (context, state) {
+        final List<dynamic> args = state.extra as List<dynamic>;
+        final QuestionId? questionId = args[0] as QuestionId?;
+        final TeacherId? teacherId = args[1] as TeacherId?;
+        return ReportPage(
+          questionId: questionId,
+          teacherId: teacherId,
+        );
+      },
+    ),
+    GoRoute(
       path: PageId.checkQuestionImagePage.path,
       name: PageId.checkQuestionImagePage.name,
       builder: (context, state) {
@@ -201,6 +218,26 @@ GoRouter router(RouterRef ref) {
         return CheckAnswerImagePage(
           answerDto: answerDto,
           order: order,
+        );
+      },
+    ),
+    GoRoute(
+      path: PageId.notificationDetailPage.path,
+      name: PageId.notificationDetailPage.name,
+      builder: (context, state) {
+        final getMyNotificationDto = state.extra as GetMyNotificationDto;
+        return NotificationDetailPage(
+          getMyNotificationDto: getMyNotificationDto,
+        );
+      },
+    ),
+    GoRoute(
+      path: PageId.emailVerificationPage.path,
+      name: PageId.emailVerificationPage.name,
+      builder: (context, state) {
+        final emailAddress = state.extra as String;
+        return ResendEmailVerificationPage(
+          emailAddress: emailAddress,
         );
       },
     ),

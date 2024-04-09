@@ -15,6 +15,7 @@ class GetMyNotificationDto {
   final String _title;
   final String _text;
   final DateTime _postedAt;
+  final bool _read;
 
   NotificationTargetType get type => _type;
   NotificationId get id => _id;
@@ -24,6 +25,7 @@ class GetMyNotificationDto {
   String get title => _title;
   String get text => _text;
   DateTime get postedAt => _postedAt;
+  bool get read => _read;
 
   GetMyNotificationDto({
     required final NotificationTargetType type,
@@ -34,6 +36,7 @@ class GetMyNotificationDto {
     required final String title,
     required final String text,
     required final DateTime postedAt,
+    required final bool read,
   })  : _type = type,
         _id = id,
         _senderId = senderId,
@@ -41,10 +44,8 @@ class GetMyNotificationDto {
         _targetId = targetId,
         _title = title,
         _text = text,
-        _postedAt = postedAt {
-    print(type);
-    print(senderId);
-    print(targetId);
+        _postedAt = postedAt,
+        _read = read {
     switch (type) {
       case NotificationTargetType.info:
         if (senderId != null || targetId != null) {

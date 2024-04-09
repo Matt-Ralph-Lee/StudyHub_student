@@ -2,16 +2,16 @@ import '../../../domain/report/models/i_teacher_report_repository.dart';
 import '../../../domain/report/models/teacher_report.dart';
 import '../../../domain/student/models/student_id.dart';
 
-class InMemoryReportRepository implements ITeacherReportRepository {
+class InMemoryTeacherReportRepository implements ITeacherReportRepository {
   late Map<StudentId, List<TeacherReport>> store;
-  static final InMemoryReportRepository _instance =
-      InMemoryReportRepository._internal();
+  static final InMemoryTeacherReportRepository _instance =
+      InMemoryTeacherReportRepository._internal();
 
-  factory InMemoryReportRepository() {
+  factory InMemoryTeacherReportRepository() {
     return _instance;
   }
 
-  InMemoryReportRepository._internal() {
+  InMemoryTeacherReportRepository._internal() {
     store = {};
   }
 
