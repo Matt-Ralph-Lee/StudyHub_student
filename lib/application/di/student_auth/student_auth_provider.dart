@@ -22,8 +22,7 @@ IStudentAuthRepository studentAuthRepositoryDi(StudentAuthRepositoryDiRef ref) {
           firebaseAuth: ref.watch(firebaseAuthProvider));
     case Flavor.prd:
       throw FirebaseStudentAuthRepository(
-          firebaseAuth:
-              ref.watch(firebaseAuthProvider)); // TODO: implementation
+          firebaseAuth: ref.watch(firebaseAuthProvider));
   }
 }
 
@@ -40,8 +39,7 @@ IGetStudentAuthQueryService getStudentAuthQueryService(
           firebaseAuth: ref.watch(firebaseAuthProvider));
     case Flavor.prd:
       throw FirebaseGetStudentAuthQueryService(
-          firebaseAuth:
-              ref.watch(firebaseAuthProvider)); // TODO: implementation
+          firebaseAuth: ref.watch(firebaseAuthProvider));
   }
 }
 

@@ -29,7 +29,7 @@ class AccountRelatedMenuWidget extends ConsumerWidget {
     }
 
     void navigateToAuthPage(BuildContext context) {
-      context.push(PageId.authPage.path);
+      context.go(PageId.authPage.path);
     }
 
     void logOut() async {

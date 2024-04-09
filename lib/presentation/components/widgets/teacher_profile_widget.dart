@@ -79,6 +79,7 @@ class TeacherProfileWidget extends ConsumerWidget {
                         children: [
                           RatingBar.builder(
                             initialRating: teacherProfileDto.rating.toDouble(),
+                            ignoreGestures: true,
                             minRating: 0,
                             direction: Axis.horizontal,
                             allowHalfRating: true,

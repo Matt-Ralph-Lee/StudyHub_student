@@ -10,6 +10,7 @@ import '../../../domain/notification/models/notification_target_type.dart';
 import '../../../domain/notification/models/notification_text.dart';
 import '../../../domain/notification/models/notification_title.dart';
 import '../../../domain/shared/subject.dart';
+import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../utils/zip.dart';
@@ -33,6 +34,7 @@ class QuestionCreateUseCase {
   final INotificationRepository _notificationRepository;
   final INotificationFactory _notificationFactory;
   final IQuestionCreateQueryService _queryService;
+  final IStudentRepository _studentRepository;
 
   QuestionCreateUseCase({
     required final Session session,
@@ -42,13 +44,15 @@ class QuestionCreateUseCase {
     required final INotificationRepository notificationRepository,
     required final INotificationFactory notificationFactory,
     required final IQuestionCreateQueryService queryService,
+    required final IStudentRepository studentRepository,
   })  : _session = session,
         _repository = repository,
         _factory = factory,
         _photoRepository = photoRepository,
         _notificationRepository = notificationRepository,
         _notificationFactory = notificationFactory,
-        _queryService = queryService;
+        _queryService = queryService,
+        _studentRepository = studentRepository;
 
   Future<void> execute({
     required final String questionTitleData,
@@ -70,7 +74,9 @@ class QuestionCreateUseCase {
         questionText: questionText,
         selectedTeacherList: selectedTeacherList);
 
-    _repository.save(question);
+    await _repository.save(question);
+
+    await _studentRepository.incrementQuestionCount(studentId);
 
     if (question.selectedTeacherList.isEmpty) {
       return;
