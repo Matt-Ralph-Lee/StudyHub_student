@@ -33,7 +33,7 @@ class FavoriteTeachersPage extends ConsumerWidget {
               color: ColorSet.of(context).icon,
               size: FontSizeSet.getFontSize(
                 context,
-                FontSizeSet.body,
+                30,
               ),
             ),
             onPressed: () => context.pop(),
