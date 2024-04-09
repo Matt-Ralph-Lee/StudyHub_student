@@ -40,7 +40,7 @@ class QuestionPictureWidget extends ConsumerWidget {
         child: Image(
           image: image,
           height: screenWidth < 600 ? 200 : 300,
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
         ),
       ),
     );
