@@ -1,6 +1,6 @@
 import '../../../domain/notification/models/i_notification_factory.dart';
 import '../../../domain/notification/models/notification.dart';
-import '../../../domain/notification/models/notification_receiver_list.dart';
+import '../../../domain/notification/models/notification_receiver.dart';
 import '../../../domain/notification/models/notification_sender.dart';
 import '../../../domain/notification/models/notification_target.dart';
 import '../../../domain/notification/models/notification_text.dart';
@@ -17,7 +17,7 @@ class InMemoryNotificationFactory implements INotificationFactory {
   @override
   Future<Notification> create({
     required final NotificationSender sender,
-    required final NotificationReceiverList receiverList,
+    required final NotificationReceiver receiver,
     required final NotificationTarget target,
     required final NotificationTitle title,
     required final NotificationText text,
@@ -28,7 +28,7 @@ class InMemoryNotificationFactory implements INotificationFactory {
     return Notification(
       notificationId: notificationId,
       sender: sender,
-      receiverList: receiverList,
+      receiver: receiver,
       target: target,
       title: title,
       text: text,
