@@ -23,7 +23,7 @@ class InMemoryNotificationFactory implements INotificationFactory {
     required final NotificationText text,
     required final DateTime postedAt,
   }) async {
-    final notificationId = await _repository.generateId();
+    final notificationId = await _repository.generateId(receiver);
 
     return Notification(
       notificationId: notificationId,

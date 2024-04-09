@@ -57,7 +57,7 @@ class InMemoryNotificationRepository implements INotificationRepository {
   }
 
   @override
-  Future<NotificationId> generateId() async {
+  Future<NotificationId> generateId(NotificationReceiver receiver) async {
     final notificationId = _id.toString().padLeft(NotificationId.minLength);
 
     _id++;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:studyhub/application/notification/application_service/i_get_my_notification_dto.dart';
+import 'package:studyhub/application/notification/application_service/get_my_notification_dto.dart';
 import 'package:studyhub/application/notification/application_service/get_my_notifications_use_case.dart';
 import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';

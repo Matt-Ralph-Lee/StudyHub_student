@@ -1,5 +1,5 @@
 import '../../shared/session/session.dart';
-import 'i_get_my_notification_dto.dart';
+import 'get_my_notification_dto.dart';
 import 'i_get_my_notifications_query_service.dart';
 
 class GetMyNotificationsUseCase {

@@ -1,4 +1,4 @@
-import '../../../application/notification/application_service/i_get_my_notification_dto.dart';
+import '../../../application/notification/application_service/get_my_notification_dto.dart';
 import '../../../application/notification/application_service/i_get_my_notifications_query_service.dart';
 import '../../../domain/notification/models/notification_receiver.dart';
 import '../../../domain/notification/models/notification_receiver_type.dart';
