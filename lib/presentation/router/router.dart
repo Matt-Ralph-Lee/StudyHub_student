@@ -83,18 +83,6 @@ GoRouter router(RouterRef ref) {
       ],
     ),
     GoRoute(
-      path: PageId.authPage.path,
-      name: PageId.authPage.name,
-      builder: (context, state) => const AuthPage(),
-      parentNavigatorKey: _rootNavigatorKey,
-    ),
-    GoRoute(
-      path: PageId.resetPassword.path,
-      name: PageId.resetPassword.name,
-      builder: (context, state) => const ResetPasswordPage(),
-      parentNavigatorKey: _rootNavigatorKey,
-    ),
-    GoRoute(
       path: PageId.profileInput.path,
       name: PageId.profileInput.name,
       builder: (context, state) => const ProfileInputPage(),
@@ -232,6 +220,12 @@ GoRouter router(RouterRef ref) {
       },
     ),
     GoRoute(
+      path: PageId.authPage.path,
+      name: PageId.authPage.name,
+      builder: (context, state) => const AuthPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
       path: PageId.emailVerificationPage.path,
       name: PageId.emailVerificationPage.name,
       builder: (context, state) {
@@ -241,13 +235,19 @@ GoRouter router(RouterRef ref) {
         );
       },
     ),
+    GoRoute(
+      path: PageId.resetPassword.path,
+      name: PageId.resetPassword.name,
+      builder: (context, state) => const ResetPasswordPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
   ];
 
   String? redirect(BuildContext context, GoRouterState state) {
     final pagePath = state.uri.toString();
     final isSignedIn = ref.read(isSignedInProvider);
     if (isSignedIn && requiresLoggedOut(pagePath)) {
-      return PageId.page1.path;
+      return PageId.home.path;
     } else if (!isSignedIn && isPrivate(pagePath)) {
       return PageId.authPage.path;
     } else {

@@ -9,6 +9,8 @@ import '../../../domain/student/models/question_count.dart';
 import '../../../domain/student/models/status.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../../exceptions/student/student_infrastructure_exception.dart';
+import '../../exceptions/student/student_infrastructure_exception_detail.dart';
 
 class InMemoryStudentRepository implements IStudentRepository {
   late Map<StudentId, Student> store;
@@ -43,6 +45,17 @@ class InMemoryStudentRepository implements IStudentRepository {
   @override
   Future<void> save(final Student student) async {
     store[student.studentId] = student;
+  }
+
+  @override
+  Future<void> incrementQuestionCount(StudentId studentId) async {
+    final student = store[studentId];
+    if (student == null) {
+      throw const StudentInfrastructureException(
+          StudentInfrastructureExceptionDetail.studentNotFound);
+    }
+    student.incrementQuestionCount();
+    store[studentId] = student;
   }
 }
 

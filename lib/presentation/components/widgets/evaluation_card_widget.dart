@@ -101,6 +101,7 @@ class EvaluationCardWidget extends ConsumerWidget {
               children: [
                 RatingBar.builder(
                   initialRating: teacherEvaluationsDto.rating.toDouble(),
+                  ignoreGestures: true,
                   minRating: 0,
                   direction: Axis.horizontal,
                   allowHalfRating: true,

@@ -35,6 +35,7 @@ void main() {
     notificationRepository: notificationRepository,
     notificationFactory: notificationFactory,
     queryService: queryService,
+    studentRepository: studentRepository,
   );
 
   setUp(() {});

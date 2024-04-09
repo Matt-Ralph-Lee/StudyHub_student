@@ -25,8 +25,6 @@ class InMemoryPhotoRepository implements IPhotoRepository {
   Future<void> save(List<Photo> photoList) async {
     for (Photo photo in photoList) {
       store[photo.path] = photo.data;
-      print(photo.path.value);
-      print(store);
     }
   }
 
@@ -52,7 +50,6 @@ class InMemoryPhotoRepository implements IPhotoRepository {
       throw const PhotoInfrastructureException(
           PhotoInfrastructureExceptionDetail.photoNotFound);
     }
-    print("hoge?");
     return MemoryImage(image);
   }
 }

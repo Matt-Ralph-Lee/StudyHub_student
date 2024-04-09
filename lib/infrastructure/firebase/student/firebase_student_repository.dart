@@ -130,4 +130,11 @@ class FirebaseStudentRepository implements IStudentRepository {
 
     await docRef.set(addData);
   }
+
+  @override
+  Future<void> incrementQuestionCount(StudentId studentId) async {
+    final docRef = db.collection("students").doc(studentId.value);
+
+    await docRef.update({"questionCount": FieldValue.increment(1)});
+  }
 }
