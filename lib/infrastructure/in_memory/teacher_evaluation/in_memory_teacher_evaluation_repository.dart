@@ -54,7 +54,7 @@ class InMemoryTeacherEvaluationRepository
   }
 
   @override
-  Future<TeacherEvaluationId> generateId(TeacherId teacherId) async {
+  Future<TeacherEvaluationId> generateId() async {
     const idStr = "thisIsATestId";
 
     String randomId = _idInt.toString() + idStr;

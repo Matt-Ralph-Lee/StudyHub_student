@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +9,7 @@ import '../../../application/favorite_teachers/exception/favorite_teachers_use_c
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/get_teacher_profile_controller/get_teacher_profile_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -101,52 +101,65 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
     }
 
     return getTeacherProfileControllerState.when(
-      data: (getTeacherProfileDto) => getTeacherProfileDto != null
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => navigateToTeacherProfilePage(context),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage: getTeacherProfileDto.profilePhotoPath
-                                  .contains("assets")
-                              ? AssetImage(
-                                      getTeacherProfileDto.profilePhotoPath)
-                                  as ImageProvider
-                              : NetworkImage(
-                                  getTeacherProfileDto.profilePhotoPath,
-                                ),
+      data: (getTeacherProfileDto) {
+        if (getTeacherProfileDto != null) {
+          final image = ref
+              .watch(getPhotoControllerProvider(
+                  getTeacherProfileDto.profilePhotoPath))
+              .maybeWhen(
+                data: (d) => d,
+                orElse: () =>
+                    const AssetImage("assets/images/sample_picture_hd.jpg"),
+              );
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => navigateToTeacherProfilePage(context),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: image,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: Text(
+                          getTeacherProfileDto.name,
+                          style: TextStyle(
+                              fontWeight: FontWeightSet.normal,
+                              fontSize: FontSizeSet.getFontSize(
+                                  context, FontSizeSet.header2),
+                              color: ColorSet.of(context).text),
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Text(
-                            getTeacherProfileDto.name,
-                            style: TextStyle(
-                                fontWeight: FontWeightSet.normal,
-                                fontSize: FontSizeSet.getFontSize(
-                                    context, FontSizeSet.header2),
-                                color: ColorSet.of(context).text),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                //ここのフォローボタンはデザイン的に邪魔だったので消した
-                //代わりにteacherProfilePage遷移できるようにしたので、そちらでフォローして頂きたい
-              ],
-            )
-          : Text(
-              "プロフないっす、アカウント消したかもっす",
-              style: TextStyle(color: ColorSet.of(context).text),
-            ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              getTeacherProfileDto.isFollowing
+                  ? TextButtonForUnFollowTeacher(
+                      onPressed: deleteFavoriteTeacher,
+                    )
+                  : TextButtonForFollowTeacher(
+                      onPressed: addFavoriteTeacher,
+                    ),
+            ],
+          );
+        } else {
+          return Text(
+            "プロフないっす、アカウント消したかもっす",
+            style: TextStyle(color: ColorSet.of(context).text),
+          );
+        }
+      },
       loading: () => const LoadingOverlay(),
       error: (error, stack) {
         return Center(

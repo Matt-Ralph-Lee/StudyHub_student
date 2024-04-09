@@ -15,11 +15,7 @@
       "type": "dart",
       "flutterMode": "debug",
       "program": "lib/main.dart",
-      "args": [
-        "-d",
-        "Chrome",
-        "--dart-define-from-file=scripts/flavors/stg.json"
-      ]
+      "args": ["--dart-define-from-file=scripts/flavors/stg.json"]
     },
     {
       "name": "prd",
@@ -27,11 +23,7 @@
       "type": "dart",
       "flutterMode": "debug",
       "program": "lib/main.dart",
-      "args": [
-        "-d",
-        "Chrome",
-        "--dart-define-from-file=scripts/flavors/prd.json"
-      ]
+      "args": ["--dart-define-from-file=scripts/flavors/prd.json"]
     }
   ]
 }

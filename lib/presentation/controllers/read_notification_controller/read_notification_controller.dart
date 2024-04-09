@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/application/di/session/session_provider.dart";
 
 import "../../../application/di/notification/repository/notification_repository_provider.dart";
 import "../../../application/notification/application_service/read_notification_use_case.dart";
@@ -21,7 +22,10 @@ class ReadNotificationController extends _$ReadNotificationController {
       final readNotificationUseCase =
           ReadNotificationUseCase(notificationRepository);
 
-      readNotificationUseCase.execute(notificationId);
+      final session = ref.read(nonNullSessionProvider);
+      final studentId = session.studentId;
+
+      readNotificationUseCase.execute(notificationId, studentId);
     });
     ref.invalidate(checkNotificationControllerProvider);
     ref.invalidate(getMyNotificationsControllerProvider);

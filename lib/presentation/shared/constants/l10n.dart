@@ -280,7 +280,13 @@ class L10n {
       case NotificationInfrastructureExceptionDetail.idAlreadyExist:
         return "通知は既読です";
       case NotificationInfrastructureExceptionDetail.notificationNotFound:
-        return "'通知が見つかりませんでした";
+        return "通知が見つかりませんでした";
+      case NotificationInfrastructureExceptionDetail.invalidReceiverType:
+        return "開発側でのエラーが発生しました";
+      case NotificationInfrastructureExceptionDetail.invalidSenderType:
+        return "開発側でのエラーが発生しました";
+      case NotificationInfrastructureExceptionDetail.invalidTargetType:
+        return "開発側でのエラーが発生しました";
     }
   }
 

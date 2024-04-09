@@ -28,6 +28,5 @@ IGetLikedAnswersQueryService getLikedAnswersQueryServiceDi(
         repository: (ref.watch(likedAnswersRepositoryDiProvider))
             as InMemoryLikedAnswersRepository,
       );
-      ;
   }
 }

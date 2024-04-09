@@ -22,7 +22,6 @@ class SearchForQuestionsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final tabWidth = screenWidth / 5;
     final searchTeachersController = useTextEditingController();
     final searchTerm = useState<String>("");
     final selectedSubject = useState<Subject?>(null);

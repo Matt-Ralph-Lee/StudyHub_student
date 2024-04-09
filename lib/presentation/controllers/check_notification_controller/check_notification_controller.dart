@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/application/di/session/session_provider.dart";
 
 import "../../../application/di/notification/repository/notification_repository_provider.dart";
 import "../../../application/notification/application_service/check_notification_existence_use_case.dart";
@@ -14,7 +15,10 @@ class CheckNotificationController extends _$CheckNotificationController {
     final checkNotificationUseCase =
         CheckNotificationExistenceUseCase(notificationRepository);
 
-    final isNotificationRead = checkNotificationUseCase.execute();
+    final session = ref.read(nonNullSessionProvider);
+    final studentId = session.studentId;
+
+    final isNotificationRead = checkNotificationUseCase.execute(studentId);
     return isNotificationRead;
   }
 }

@@ -48,6 +48,5 @@ IGetBookmarksQueryService getMyBookmarksQueryServiceDi(
         teacherRepository: (ref.watch(teacherRepositoryDiProvider))
             as FirebaseTeacherRepository,
       );
-      ;
   }
 }

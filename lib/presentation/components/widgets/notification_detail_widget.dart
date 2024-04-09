@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class NotificationDetailCardWidget extends StatelessWidget {
+class NotificationDetailCardWidget extends ConsumerWidget {
   final GetMyNotificationDto getMyNotificationDto;
 
   const NotificationDetailCardWidget({
@@ -13,8 +15,16 @@ class NotificationDetailCardWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
+
+    final image = ref
+        .watch(getPhotoControllerProvider(getMyNotificationDto.senderPhotoPath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -46,15 +56,7 @@ class NotificationDetailCardWidget extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 15,
-                        backgroundImage: getMyNotificationDto
-                                .sender.senderPhotoPath.value
-                                .contains("assets")
-                            ? AssetImage(getMyNotificationDto
-                                .sender.senderPhotoPath.value) as ImageProvider
-                            : NetworkImage(
-                                getMyNotificationDto
-                                    .sender.senderPhotoPath.value,
-                              ),
+                        backgroundImage: image,
                       ),
                       const SizedBox(
                         width: 20,

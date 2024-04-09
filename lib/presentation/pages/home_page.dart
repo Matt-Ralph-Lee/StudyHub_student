@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/components/parts/text_for_error.dart';
 
 import '../../domain/shared/subject.dart';
+import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_question_found.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart';

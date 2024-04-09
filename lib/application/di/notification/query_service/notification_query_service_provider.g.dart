@@ -7,7 +7,7 @@ part of 'notification_query_service_provider.dart';
 // **************************************************************************
 
 String _$getMyNotificationsQueryServiceDiHash() =>
-    r'8197575194f7a3b933e98cbc6b762b060ae2f7b2';
+    r'3f3696ce46758dd1d94c1d27ec020aa5c3b768da';
 
 /// See also [getMyNotificationsQueryServiceDi].
 @ProviderFor(getMyNotificationsQueryServiceDi)

@@ -1,4 +1,7 @@
-import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:studyhub/infrastructure/exceptions/photo/photo_infrastructure_exception.dart';
+import 'package:studyhub/infrastructure/exceptions/photo/photo_infrastructure_exception_detail.dart';
 
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/photo/models/photo.dart';
@@ -22,6 +25,8 @@ class InMemoryPhotoRepository implements IPhotoRepository {
   Future<void> save(List<Photo> photoList) async {
     for (Photo photo in photoList) {
       store[photo.path] = photo.data;
+      print(photo.path.value);
+      print(store);
     }
   }
 
@@ -35,5 +40,19 @@ class InMemoryPhotoRepository implements IPhotoRepository {
     for (var photoPath in photoPathList) {
       store.remove(photoPath);
     }
+  }
+
+  @override
+  Future<ImageProvider> getImageFromPath(PhotoPath photoPath) async {
+    if (photoPath.value.contains("assets")) {
+      return AssetImage(photoPath.value);
+    }
+    final image = store[photoPath];
+    if (image == null) {
+      throw const PhotoInfrastructureException(
+          PhotoInfrastructureExceptionDetail.photoNotFound);
+    }
+    print("hoge?");
+    return MemoryImage(image);
   }
 }

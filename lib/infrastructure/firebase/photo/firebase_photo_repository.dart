@@ -1,4 +1,5 @@
 import "package:firebase_storage/firebase_storage.dart";
+import 'package:flutter/material.dart';
 
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/photo/models/photo.dart';
@@ -38,5 +39,14 @@ class FirebasePhotoRepository implements IPhotoRepository {
 
       await imageRef.putData(photo.data);
     }
+  }
+
+  @override
+  Future<ImageProvider> getImageFromPath(PhotoPath photoPath) async {
+    if (photoPath.value.contains("assets")) {
+      return AssetImage(photoPath.value);
+    }
+    final imageUrl = await storageRef.child(photoPath.value).getDownloadURL();
+    return NetworkImage(imageUrl);
   }
 }

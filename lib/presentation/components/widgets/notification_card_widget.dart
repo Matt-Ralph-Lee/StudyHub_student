@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
 import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception.dart';
@@ -51,6 +50,13 @@ class NotificationCardWidget extends ConsumerWidget {
       });
     }
 
+    final image = ref
+        .watch(getPhotoControllerProvider(getMyNotificationDto.senderPhotoPath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
+
     return GestureDetector(
       onTap: () => navigateToNotificationDetailPage(context),
       child: Container(
@@ -79,14 +85,7 @@ class NotificationCardWidget extends ConsumerWidget {
                 children: [
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage: getMyNotificationDto
-                            .sender.senderPhotoPath.value
-                            .contains("assets")
-                        ? AssetImage(getMyNotificationDto
-                            .sender.senderPhotoPath.value) as ImageProvider
-                        : NetworkImage(
-                            getMyNotificationDto.sender.senderPhotoPath.value,
-                          ),
+                    backgroundImage: image,
                   ),
                   const SizedBox(
                     width: 20,

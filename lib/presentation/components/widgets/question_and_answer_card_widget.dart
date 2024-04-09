@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../application/shared/application_service/question_card_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 
-class QuestionAndAnswerCardWidget extends StatelessWidget {
+class QuestionAndAnswerCardWidget extends ConsumerWidget {
   final QuestionCardDto questionCardDto;
 
   const QuestionAndAnswerCardWidget({
@@ -17,7 +19,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     void navigateToQuestionAndAnswerPage(BuildContext context) {
@@ -26,6 +28,25 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
         questionCardDto.isMine,
       ]);
     }
+
+    final studentImage = ref
+        .watch(
+            getPhotoControllerProvider(questionCardDto.studentProfilePhotoPath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
+
+    final teacherImage = questionCardDto.teacherProfilePhotoPath != null
+        ? ref
+            .watch(getPhotoControllerProvider(
+                questionCardDto.teacherProfilePhotoPath!))
+            .maybeWhen(
+              data: (d) => d,
+              orElse: () =>
+                  const AssetImage("assets/images/sample_picture_hd.jpg"),
+            )
+        : null;
 
     return GestureDetector(
       onTap: () => navigateToQuestionAndAnswerPage(context),
@@ -54,13 +75,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage: questionCardDto.studentProfilePhotoPath
-                            .contains("assets")
-                        ? AssetImage(questionCardDto.studentProfilePhotoPath)
-                            as ImageProvider
-                        : NetworkImage(
-                            questionCardDto.studentProfilePhotoPath,
-                          ),
+                    backgroundImage: studentImage,
                   ),
                   const SizedBox(
                     width: 20,
@@ -164,16 +179,7 @@ class QuestionAndAnswerCardWidget extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage: questionCardDto.teacherProfilePhotoPath !=
-                            null
-                        ? questionCardDto.teacherProfilePhotoPath!
-                                .contains("assets")
-                            ? AssetImage(
-                                    questionCardDto.teacherProfilePhotoPath!)
-                                as ImageProvider
-                            : NetworkImage(
-                                questionCardDto.teacherProfilePhotoPath!)
-                        : null,
+                    backgroundImage: teacherImage,
                   ),
                 ],
               ),

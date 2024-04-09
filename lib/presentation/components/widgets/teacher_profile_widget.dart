@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../application/teacher/application_service/get_teacher_profile_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
 
-class TeacherProfileWidget extends StatelessWidget {
+class TeacherProfileWidget extends ConsumerWidget {
   final GetTeacherProfileDto teacherProfileDto;
 
   const TeacherProfileWidget({super.key, required this.teacherProfileDto});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
+
+    final image = ref
+        .watch(getPhotoControllerProvider(teacherProfileDto.profilePhotoPath))
+        .maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
     return Container(
       decoration: BoxDecoration(
         color: ColorSet.of(context).surface,
@@ -44,13 +53,7 @@ class TeacherProfileWidget extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage:
-                      teacherProfileDto.profilePhotoPath.contains("assets")
-                          ? AssetImage(teacherProfileDto.profilePhotoPath)
-                              as ImageProvider
-                          : NetworkImage(
-                              teacherProfileDto.profilePhotoPath,
-                            ),
+                  backgroundImage: image,
                 ),
                 const SizedBox(
                   width: 20,

@@ -63,7 +63,7 @@ class SignUpWidget extends HookConsumerWidget {
     }
 
     void pushDummy(BuildContext context) {
-      context.push(PageId.myPage.path);
+      context.push(PageId.home.path);
     }
 
     void dummySignUp(BuildContext context) async {

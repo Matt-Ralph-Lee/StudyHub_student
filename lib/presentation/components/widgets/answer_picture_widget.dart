@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
 import '../../shared/constants/page_path.dart';
 
-class AnswerPictureWidget extends StatelessWidget {
+class AnswerPictureWidget extends ConsumerWidget {
   final AnswerDto answerDto;
   final String photoPath;
   final int order;
@@ -22,24 +24,23 @@ class AnswerPictureWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final image = ref.watch(getPhotoControllerProvider(photoPath)).maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
     return GestureDetector(
       onTap: () => navigateToCheckQuestionImagePage(
         context,
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
-        child: photoPath.contains("assets")
-            ? Image(
-                image: AssetImage(photoPath),
-                width: 350,
-                fit: BoxFit.contain,
-              )
-            : Image.network(
-                photoPath,
-                width: 350,
-                fit: BoxFit.contain,
-              ),
+        child: Image(
+          image: image,
+          width: 350,
+          height: 200,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

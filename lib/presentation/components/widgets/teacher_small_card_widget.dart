@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 
-class TeacherSmallCardWidget extends StatelessWidget {
+class TeacherSmallCardWidget extends ConsumerWidget {
   final String name;
   final String bio;
   final String iconUrl;
@@ -21,7 +23,11 @@ class TeacherSmallCardWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final image = ref.watch(getPhotoControllerProvider(iconUrl)).maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -48,11 +54,7 @@ class TeacherSmallCardWidget extends StatelessWidget {
               //webだと？表示されない？？手元のシュミレーター動かないのでとりまこのままで <= internetが理由だよ assetsだったら、AssetImage使うっていう応急処置取ってるよ
               CircleAvatar(
                 radius: 15,
-                backgroundImage: iconUrl.contains("assets")
-                    ? AssetImage(iconUrl) as ImageProvider
-                    : NetworkImage(
-                        iconUrl,
-                      ),
+                backgroundImage: image,
               ),
               const SizedBox(
                 width: 20,

@@ -1,6 +1,8 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../../domain/notification/models/i_notification_factory.dart";
+import "../../../../infrastructure/firebase/notification/firebase_notification_factory.dart";
+import "../../../../infrastructure/firebase/notification/firebase_notification_repository.dart";
 import "../../../../infrastructure/in_memory/notification/in_memory_notification_factory.dart";
 import "../../../../infrastructure/in_memory/notification/in_memory_notification_repository.dart";
 import "../../../shared/flavor/flavor.dart";
@@ -17,7 +19,6 @@ INotificationFactory notificationFactoryDi(NotificationFactoryDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw InMemoryNotificationFactory(
-          repository: InMemoryNotificationRepository());
+      return FirebaseNotificationFactory(FirebaseNotificationRepository());
   }
 }

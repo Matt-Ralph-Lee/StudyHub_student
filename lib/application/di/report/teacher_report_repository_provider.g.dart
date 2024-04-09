@@ -7,7 +7,7 @@ part of 'teacher_report_repository_provider.dart';
 // **************************************************************************
 
 String _$teacherReportRepositoryDiHash() =>
-    r'd406ea85118613524dbda9a1e8b9235991c11cd8';
+    r'4175551656e881f692ca2f427ef75f17526c46fa';
 
 /// See also [teacherReportRepositoryDi].
 @ProviderFor(teacherReportRepositoryDi)

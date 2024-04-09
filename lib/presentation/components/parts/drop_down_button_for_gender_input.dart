@@ -22,8 +22,6 @@ class DropDownButtonForGenderInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return SizedBox(
       width: double.infinity,
       child: Column(

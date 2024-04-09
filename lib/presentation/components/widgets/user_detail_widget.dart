@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -69,7 +70,7 @@ void showStatusDescriptionDialog(BuildContext context) {
   );
 }
 
-class UserDetailWidget extends StatelessWidget {
+class UserDetailWidget extends ConsumerWidget {
   final String userName;
   final String userIconUrl;
   final int numberOfFavoriteTeachers;
@@ -86,7 +87,7 @@ class UserDetailWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Map<String, dynamic> nextRankInfo =
         getNextRankInfo(context, userRank);
     final String nextRank = nextRankInfo[L10n.nextRankText];
@@ -107,6 +108,11 @@ class UserDetailWidget extends StatelessWidget {
       context.push(PageId.favoriteTeachers.path);
     }
 
+    final image = ref.watch(getPhotoControllerProvider(userIconUrl)).maybeWhen(
+          data: (d) => d,
+          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+        );
+
     return Column(
       children: [
         Row(
@@ -115,9 +121,7 @@ class UserDetailWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage: userIconUrl.contains("assets")
-                  ? AssetImage(userIconUrl) as ImageProvider
-                  : NetworkImage(userIconUrl),
+              backgroundImage: image,
             ),
             Expanded(
               child: GestureDetector(
