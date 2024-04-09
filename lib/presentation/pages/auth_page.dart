@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -122,6 +124,14 @@ class AuthPage extends ConsumerWidget {
                     ],
                   ),
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      checkData();
+                    },
+                    child: Text(
+                      "hoge",
+                      style: TextStyle(color: ColorSet.of(context).text),
+                    ))
               ],
             ),
             if (state.isLoading) const LoadingOverlay(),
@@ -129,5 +139,24 @@ class AuthPage extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+void checkData() async {
+  final db = FirebaseFirestore.instance;
+  final storage = FirebaseStorage.instance;
+
+  final querySnapshot = await db.collection("all_questions").get();
+
+  for (final docSnapshot in querySnapshot.docs) {
+    final doc = docSnapshot.data();
+
+    final images = doc["images"];
+    for (final image in images) {
+      print(docSnapshot.reference.id);
+      final httpsRef = storage.refFromURL(image);
+      print(httpsRef.fullPath);
+      print("\n");
+    }
   }
 }

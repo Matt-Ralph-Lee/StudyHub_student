@@ -1,13 +1,13 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:studyhub/presentation/controllers/get_my_profile_controller/get_my_profile_controller.dart";
 
-import "../../../application/di/photo/photo_repository_provider.dart";
+import '../../../application/di/photo/repository/photo_repository_provider.dart';
 import "../../../application/di/school/school_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/di/student/student_repository_provider.dart";
 import "../../../application/student/application_service/profile_update_command.dart";
 import "../../../application/student/application_service/profile_update_use_case.dart";
 import "../../../domain/school/services/school_service.dart";
+import "../get_my_profile_controller/get_my_profile_controller.dart";
 
 part "profile_update_controller.g.dart";
 
