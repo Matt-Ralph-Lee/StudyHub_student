@@ -25,7 +25,6 @@ class AnswerPictureWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
     final image = ref.watch(getPhotoControllerProvider(photoPath)).maybeWhen(
           data: (d) => d,
           orElse: () => const AssetImage("assets/images/no_image.jpg"),
@@ -38,7 +37,7 @@ class AnswerPictureWidget extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Image(
           image: image,
-          height: screenWidth < 600 ? 200 : 300,
+          width: double.infinity,
           fit: BoxFit.contain,
         ),
       ),

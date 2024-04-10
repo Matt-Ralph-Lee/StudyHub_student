@@ -117,7 +117,7 @@ class TeacherProfileWidget extends ConsumerWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -169,7 +169,7 @@ class TeacherProfileWidget extends ConsumerWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -214,7 +214,7 @@ class TeacherProfileWidget extends ConsumerWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -259,7 +259,7 @@ class TeacherProfileWidget extends ConsumerWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -271,7 +271,7 @@ class TeacherProfileWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "経歴",
+                        L10n.enrollmentText,
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(

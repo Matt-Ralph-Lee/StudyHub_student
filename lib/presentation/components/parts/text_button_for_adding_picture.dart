@@ -53,10 +53,12 @@ class TextButtonForAddingPicture extends StatelessWidget {
                 ? L10n.changeImagesButtonText
                 : L10n.addImagesButtonText,
             style: TextStyle(
-                fontWeight: FontWeightSet.normal,
+                fontWeight: isPicturesAdded
+                    ? FontWeightSet.semibold
+                    : FontWeightSet.normal,
                 fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
                 color: isPicturesAdded
-                    ? ColorSet.of(context).text
+                    ? ColorSet.of(context).primary
                     : ColorSet.of(context).greyText), //ここの色は迷う
           ),
         ],

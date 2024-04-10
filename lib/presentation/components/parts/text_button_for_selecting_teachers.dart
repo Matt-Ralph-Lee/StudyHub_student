@@ -48,10 +48,12 @@ class TextButtonForSelectingTeacher extends StatelessWidget {
                 ? L10n.changeTeachersTextButtonText
                 : L10n.selectTeachersTextButtonText,
             style: TextStyle(
-                fontWeight: FontWeightSet.normal,
+                fontWeight: isTeacherSelected
+                    ? FontWeightSet.semibold
+                    : FontWeightSet.normal,
                 fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
                 color: isTeacherSelected
-                    ? ColorSet.of(context).text
+                    ? ColorSet.of(context).primary
                     : ColorSet.of(context).greyText), //ここの色は迷う
           ),
         ],

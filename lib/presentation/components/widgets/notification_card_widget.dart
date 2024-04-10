@@ -78,68 +78,63 @@ class NotificationCardWidget extends ConsumerWidget {
             context,
             20,
           )),
-          child: Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: screenWidth < 600 ? 15 : 22,
-                    backgroundImage: image,
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
+              CircleAvatar(
+                radius: screenWidth < 600 ? 15 : 22,
+                backgroundImage: image,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                getMyNotificationDto.title,
-                                style: TextStyle(
-                                    fontWeight: FontWeightSet.normal,
-                                    fontSize: FontSizeSet.getFontSize(
-                                      context,
-                                      FontSizeSet.body,
-                                    ),
-                                    color: ColorSet.of(context).text),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            if (!getMyNotificationDto.read)
-                              Icon(
-                                Icons.circle,
-                                color: ColorSet.of(context)
-                                    .errorText
-                                    .withOpacity(0.9),
-                                size: 15,
-                              ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(getMyNotificationDto.text,
+                        Expanded(
+                          child: Text(
+                            getMyNotificationDto.title,
                             style: TextStyle(
                                 fontWeight: FontWeightSet.normal,
                                 fontSize: FontSizeSet.getFontSize(
-                                    context, FontSizeSet.body),
+                                  context,
+                                  FontSizeSet.body,
+                                ),
                                 color: ColorSet.of(context).text),
                             maxLines: 1,
-                            overflow: TextOverflow.ellipsis),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        if (!getMyNotificationDto.read)
+                          Icon(
+                            Icons.circle,
+                            color:
+                                ColorSet.of(context).errorText.withOpacity(0.9),
+                            size: 15,
+                          ),
                       ],
                     ),
-                  )
-                ],
-              ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(getMyNotificationDto.text,
+                        style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                                context, FontSizeSet.body),
+                            color: ColorSet.of(context).text),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis),
+                  ],
+                ),
+              )
             ],
           ),
         ),

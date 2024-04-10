@@ -43,7 +43,10 @@ class TeacherSmallCardWidget extends ConsumerWidget {
                 offset: const Offset(0, 0)),
           ],
           border: isSelected
-              ? Border.all(color: ColorSet.of(context).text, width: 2)
+              ? Border.all(
+                  color: ColorSet.of(context).primary,
+                  width: 1,
+                )
               : null,
         ),
         child: Padding(

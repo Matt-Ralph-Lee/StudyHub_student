@@ -39,8 +39,8 @@ class QuestionPictureWidget extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Image(
           image: image,
-          height: screenWidth < 600 ? 200 : 300,
-          fit: BoxFit.cover,
+          width: double.infinity,
+          fit: BoxFit.contain,
         ),
       ),
     );

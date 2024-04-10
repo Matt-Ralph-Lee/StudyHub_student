@@ -90,6 +90,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             showErrorModalWidget(context);
           }
         } else {
+          HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );

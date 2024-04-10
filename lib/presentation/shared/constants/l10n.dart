@@ -4,6 +4,7 @@ import '../../../application/question/exception/question_use_case_exception_deta
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../../domain/question/models/question_photo.dart';
+import '../../../domain/question/models/question_photo_path_list.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
@@ -25,6 +26,9 @@ class L10n {
   static const notContainDotText = ".が含まれておらず、メールアドレスの形式ではありません";
   static const invalidEmailText = "メールアドレスの形式ではありません";
   static const isPasswordEmptyText = "パスワードが空です";
+  static const termsOfUseText = "利用規約";
+  static const privacyPolicyText = "プライバシーポリシー";
+  static const douisuruText = "に同意する";
 
   //error系
   static String getStudentAuthExceptionMessage(
@@ -212,15 +216,16 @@ class L10n {
   static const selectedTeachersTextForConfirm = "希望する講師";
 
   //error系
-  static const maxImagesErrorText = "写真は${QuestionPhoto.dataSize}枚まで！";
+  static const maxImagesErrorText =
+      "写真は${QuestionPhotoPathList.maxLength}枚までです！";
   static const maxTeachersErrorText =
       "希望できる講師は${SelectedTeacherList.maxLength}までです！";
 
   //evaluationPage
   static const evaluationText = "評価する";
   static const evaluationStarsText = "5段階で評価してください";
-  static const evaluationContentText = "ご自由にコメントしてください";
-  static const evaluationInputHintText = "分かりやすいお答えありがとうございます!";
+  static const evaluationContentText = "ご自由にコメントしてください！";
+  static const evaluationInputHintText = "分かりやすいご説明ありがとうございます！";
   static const dateFormat = "yyyy/MM/dd";
   static const evaluationSnackBarText = "講師を評価しました！";
 
@@ -243,6 +248,10 @@ class L10n {
   static const reportReason = "報告理由";
   static const reportContent = "報告内容";
   static const reportSnackBarText = "報告しました";
+  static const termsOfUseUrlText =
+      "https://studyhub.hatenablog.com/entry/2024/02/27/104752?_gl=1*12lv4j6*_gcl_au*Mzk1MDY3MTAwLjE3MTI3MjEyODQ.";
+  static const privacyPolicyUrlText =
+      "https://studyhub.hatenablog.com/entry/2024/02/27/104840?_gl=1*12lv4j6*_gcl_au*Mzk1MDY3MTAwLjE3MTI3MjEyODQ.";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";
@@ -253,7 +262,7 @@ class L10n {
   static const teacherProfilePageTitle = "教師のプロフィール";
   static const evaluationsTitleText = "生徒からの評価";
   static const fromText = "出身";
-  static const enrollmentText = "在籍";
+  static const enrollmentText = "経歴";
   static const favoriteSubjectText = "得意科目";
   static const bioText = "ひとこと";
   static const selfIntroductionText = "自己紹介";

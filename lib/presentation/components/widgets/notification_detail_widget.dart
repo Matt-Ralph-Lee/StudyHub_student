@@ -52,7 +52,7 @@ class NotificationDetailCardWidget extends ConsumerWidget {
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
                         radius: screenWidth < 600 ? 15 : 22,
@@ -67,7 +67,9 @@ class NotificationDetailCardWidget extends ConsumerWidget {
                           style: TextStyle(
                             fontWeight: FontWeightSet.semibold,
                             fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
+                              context,
+                              FontSizeSet.body,
+                            ),
                             color: ColorSet.of(context).text,
                           ),
                         ),

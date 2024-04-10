@@ -95,9 +95,10 @@ class ConfirmReportModalWidget extends StatelessWidget {
                     child: Text(
                       L10n.modalOkText,
                       style: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.body,
-                          color: ColorSet.of(context).text),
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.body,
+                        color: ColorSet.of(context).primary,
+                      ),
                     ),
                     onPressed: () {
                       context.pop(true);

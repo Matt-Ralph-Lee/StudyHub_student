@@ -54,11 +54,11 @@ class MenuPage extends StatelessWidget {
               ),
               const OtherFunctionMenuWidget(),
               SizedBox(
-                height: PaddingSet.getPaddingSize(context, 20),
+                height: PaddingSet.getPaddingSize(context, 30),
               ),
               const TermsOfServiceWidget(),
               SizedBox(
-                height: PaddingSet.getPaddingSize(context, 20),
+                height: PaddingSet.getPaddingSize(context, 30),
               ),
               const AccountRelatedMenuWidget(),
               SizedBox(

@@ -32,8 +32,8 @@ class CircleAvatarForProfileEdit extends StatelessWidget {
                 : FileImage(File(imageFilePath!)),
           ),
           Positioned(
-              bottom: 10,
-              right: 10,
+              bottom: 7,
+              right: 7,
               child: InkWell(
                 onTap: () {
                   showModalBottomSheet(
