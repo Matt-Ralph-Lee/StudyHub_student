@@ -90,7 +90,7 @@ class ResendEmailVerificationWidget extends HookConsumerWidget {
                 .reloadUser()
                 .then((_) {
               ref.invalidate(sessionDiProvider);
-              context.go(PageId.home.path);
+              context.go(PageId.profileInput.path);
             });
           },
           child: Text(

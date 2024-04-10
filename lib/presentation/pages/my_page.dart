@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,7 +18,7 @@ import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
-class MyPage extends HookConsumerWidget {
+class MyPage extends ConsumerWidget {
   const MyPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,10 +29,6 @@ class MyPage extends HookConsumerWidget {
         ref.watch(getFavoriteTeacherControllerProvider);
     final myQuestionState = ref.watch(getMyQuestionControllerProvider);
     final myBookmarksState = ref.watch(getMyBookmarksControllerProvider);
-
-    useEffect(() {
-      return null;
-    }, [getMyProfileState]);
 
     void pushToNotificationPage(BuildContext context) {
       context.push(PageId.notifications.path);

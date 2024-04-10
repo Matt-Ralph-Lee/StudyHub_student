@@ -55,11 +55,9 @@ class FirebaseStudentAuthRepository implements IStudentAuthRepository {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.notSignedIn);
     }
-    print("deleting ${user.uid}");
     // TODO: have to implement user.reauthenticateWithCredential ?
     try {
       await user.delete();
-      print("deleted");
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthException(e);
     } catch (e) {
