@@ -128,7 +128,6 @@ class SignUpWidget extends HookConsumerWidget {
                         ref.read(studentAuthControllerProvider);
                     if (currentState.hasError) {
                       final error = currentState.error;
-                      print(error);
                       if (error is StudentAuthDomainException) {
                         final errorText = L10n.getStudentAuthExceptionMessage(
                             error.detail as StudentAuthDomainExceptionDetail);

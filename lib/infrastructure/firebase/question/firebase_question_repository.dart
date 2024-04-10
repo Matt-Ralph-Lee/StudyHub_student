@@ -145,6 +145,8 @@ class FirebaseQuestionRepository implements IQuestionRepository {
     addData["title"] = question.questionTitle.value;
     addData["titleTokenMap"] = createTokenMap(question.questionTitle.value);
 
+    print(question.questionId.value);
+
     await db
         .collection("all_questions")
         .doc(question.questionId.value)

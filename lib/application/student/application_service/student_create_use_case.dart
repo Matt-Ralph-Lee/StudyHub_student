@@ -46,16 +46,11 @@ class StudentCreateUseCase {
       Future.delayed(const Duration(seconds: 1));
     }
     */
-    print("email sent");
 
     final student =
         _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
 
-    print("student saving");
-
     _studentRepository.save(student);
-
-    print("student saved");
   }
 }
 

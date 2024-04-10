@@ -101,8 +101,7 @@ class QuestionCreateUseCase {
     final questionPhotoPathList = createPathListFromId(
         studentId: studentId, localPathList: localPathList);
 
-    final processedImageList =
-        resizeAndConvertToJpgForMultiplePhoto(localPathList);
+    final processedImageList = resizeAndForMultiplePhoto(localPathList);
 
     final questionPhotoList = <QuestionPhoto>[];
     for (var [path, image] in zip(questionPhotoPathList, processedImageList)) {

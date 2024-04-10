@@ -79,7 +79,7 @@ class FirebaseAnswerRepository implements IAnswerRepository {
 
       final answerId = docSnapshot.reference.id;
       final evaluated = doc["evaluated"] as bool;
-      final images = doc["images"] as List<String>;
+      final images = doc["images"] as List<dynamic>;
       final like = doc["like"] as int;
       final teacherId = doc["teacherId"] as String;
       final text = doc["text"] as String;

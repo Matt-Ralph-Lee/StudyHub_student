@@ -75,7 +75,7 @@ class ProfileUpdateUseCase {
         student.changeProfilePhoto(ProfilePhotoPath(newLocalPhotoPath));
       } else {
         final profilePhotoPath = createPathFromId(studentId);
-        final image = convertToJpegAndResize(newLocalPhotoPath);
+        final image = resize(newLocalPhotoPath);
         final profilePhoto =
             ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
         _photoRepository.save([profilePhoto]);

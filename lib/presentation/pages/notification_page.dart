@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,20 +14,6 @@ import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
-
-//notificationのdto的なやつ（まだ定義されてないよね？）ちゃんと定義されたら差し替える
-class Notification {
-  final Timestamp postedAt;
-  final String title;
-  final String content;
-  final String iconUrl;
-
-  Notification(
-      {required this.postedAt,
-      required this.title,
-      required this.content,
-      required this.iconUrl});
-}
 
 class NotificationPage extends ConsumerWidget {
   const NotificationPage({super.key});

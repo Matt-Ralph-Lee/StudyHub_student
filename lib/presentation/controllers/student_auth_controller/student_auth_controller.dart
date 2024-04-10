@@ -1,8 +1,8 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:studyhub/application/student/application_service/reload_user.dart";
 
 import "../../../application/di/student/student_provider.dart";
 import "../../../application/di/student_auth/student_auth_provider.dart";
+import "../../../application/student/application_service/reload_user.dart";
 import "../../../application/student/application_service/student_create_use_case.dart";
 import "../../../application/student_auth/application_service/sign_in_use_case.dart";
 import "../../../application/student_auth/application_service/sign_out_use_case.dart";
@@ -38,7 +38,7 @@ class StudentAuthController extends _$StudentAuthController {
     });
   }
 
-  Future<void> singOut() async {
+  Future<void> signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);

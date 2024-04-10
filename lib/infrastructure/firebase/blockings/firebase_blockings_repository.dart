@@ -30,10 +30,10 @@ class FirebaseBlockingsRepository implements IBlockingsRepository {
 
     final blockingsIdListData = doc["blockings"];
 
-    List<String> blockingsIdList = [];
+    final blockingsIdList = <String>[];
 
-    if (blockingsIdListData != null) {
-      blockingsIdList = blockingsIdListData;
+    for (final blockingIdData in blockingsIdListData) {
+      blockingsIdList.add(blockingIdData);
     }
 
     final blockingsIdSet = blockingsIdList

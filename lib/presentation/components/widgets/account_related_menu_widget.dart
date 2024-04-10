@@ -33,7 +33,10 @@ class AccountRelatedMenuWidget extends ConsumerWidget {
     }
 
     void logOut() async {
-      ref.read(studentAuthControllerProvider.notifier).singOut().then((_) {
+      await ref
+          .read(studentAuthControllerProvider.notifier)
+          .signOut()
+          .then((_) {
         final currentState = ref.read(studentAuthControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;

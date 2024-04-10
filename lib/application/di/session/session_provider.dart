@@ -32,6 +32,13 @@ Session? sessionDi(SessionDiRef ref) {
 }
 
 @riverpod
+bool isVerified(IsVerifiedRef ref) {
+  final session = ref.watch(sessionDiProvider);
+  if (session == null) return false;
+  return session.isVerified;
+}
+
+@riverpod
 bool isSignedIn(IsSignedInRef ref) {
   final session = ref.watch(sessionDiProvider);
   return session != null;

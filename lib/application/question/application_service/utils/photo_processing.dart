@@ -38,7 +38,7 @@ QuestionPhotoPathList createPathListFromId({
   return QuestionPhotoPathList(questionPhotoPathListData);
 }
 
-List<Image> resizeAndConvertToJpgForMultiplePhoto(List<String> localPathList) {
+List<Image> resizeAndForMultiplePhoto(List<String> localPathList) {
   const sizeThresholdBytes = QuestionPhoto.dataSize;
 
   final processedPhotoList = <Image>[];

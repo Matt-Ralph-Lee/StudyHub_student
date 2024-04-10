@@ -2,7 +2,7 @@ import '../../../application/answer/application_service/answer_dto.dart';
 import '../../../application/answer/application_service/i_get_answer_query_service.dart';
 import '../../../application/shared/session/session.dart';
 import '../../../domain/question/models/question_id.dart';
-import '../../../domain/teacher/models/teacher_id.dart';
+import '../../../domain/teacher/default/default_teacher.dart';
 import '../favorite_teachers/firebase_favorite_teachers_repository.dart';
 import '../liked_answers/firebase_liked_answers_repository.dart';
 import '../teacher/firebase_teacher_repository.dart';
@@ -46,10 +46,9 @@ class FirebaseGetAnswerQueryService implements IGetAnswerQueryService {
           AnswerDto(
             answerId: answer.answerId,
             questionId: answer.questionId,
-            teacherId: TeacherId("999999999999999999999999999"), // default id
-            teacherName: "teacher name", // default teacher name
-            teacherProfilePath:
-                "https://firebasestorage.googleapis.com/v0/b/study-hub-b81c1.appspot.com/o/profile_photo%2Fdefault%2Fmale_default.jpg?alt=media&token=5ad0aaa2-ac51-480a-ba83-3ba847d81c90", // default user icon
+            teacherId: DefaultTeacher.teacherId,
+            teacherName: DefaultTeacher.name.value,
+            teacherProfilePath: DefaultTeacher.profilePhotoPath,
             answerText: answer.answerText.value,
             answerLike: answer.like.value,
             isFollowing: false,
