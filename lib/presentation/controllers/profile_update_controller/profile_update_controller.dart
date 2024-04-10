@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/presentation/controllers/get_my_question_controller/get_my_question_controller.dart";
 
 import '../../../application/di/photo/repository/photo_repository_provider.dart';
 import "../../../application/di/school/school_repository_provider.dart";
@@ -32,9 +33,10 @@ class ProfileUpdateController extends _$ProfileUpdateController {
         photoRepository: photoRepository,
       );
 
-      profileUpdateUseCase.execute(command);
+      await profileUpdateUseCase.execute(command);
     });
 
     ref.invalidate(getMyProfileControllerProvider);
+    ref.invalidate(getMyQuestionControllerProvider);
   }
 }

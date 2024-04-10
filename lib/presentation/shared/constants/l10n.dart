@@ -1,9 +1,7 @@
-import 'package:studyhub/application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
-
+import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
-import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/question_photo_path_list.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';

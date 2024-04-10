@@ -78,12 +78,19 @@ class ProfileUpdateUseCase {
         final image = resize(newLocalPhotoPath);
         final profilePhoto =
             ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
-        _photoRepository.save([profilePhoto]);
+        await _photoRepository.save([profilePhoto]);
         final oldPhotoPath = student.profilePhotoPath;
         student.changeProfilePhoto(profilePhotoPath);
 
-        _photoRepository.delete(oldPhotoPath);
-        _repository.save(student);
+        final cond1 =
+            oldPhotoPath.value != "profile_photo/default/male_default.jpg";
+        final cond2 =
+            oldPhotoPath.value != "profile_photo/default/female_default.jpg";
+        final cond3 = !oldPhotoPath.value.contains("assets");
+        if (cond1 && cond2 && cond3) {
+          await _photoRepository.delete(oldPhotoPath);
+        }
+        await _repository.save(student);
       }
     }
 
