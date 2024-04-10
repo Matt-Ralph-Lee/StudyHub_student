@@ -29,7 +29,14 @@ class StudentDeleteUseCase {
           StudentUseCaseExceptionDetail.notFound);
     }
     _studentRepository.delete(studentId);
-    _photoRepository.delete(student.profilePhotoPath);
+    final cond1 = student.profilePhotoPath.value !=
+        "profile_photo/default/male_default.jpg";
+    final cond2 = student.profilePhotoPath.value !=
+        "profile_photo/default/female_default.jpg";
+    final cond3 = !student.profilePhotoPath.value.contains("assets");
+    if (cond1 && cond2 && cond3) {
+      await _photoRepository.delete(student.profilePhotoPath);
+    }
     await _studentAuthRepository.delete();
   }
 }

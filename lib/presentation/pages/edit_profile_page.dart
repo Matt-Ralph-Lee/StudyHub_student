@@ -34,8 +34,9 @@ class EditProfilePage extends HookConsumerWidget {
     return getStudentState.when(
       data: (getStudentDto) {
         final picker = ImagePicker();
+        final currentImagePath =
+            useState<String>(getStudentDto.profilePhotoPath);
         final imageFilePath = useState<String?>(null);
-        final defaultImage = getStudentDto.profilePhotoPath;
         final gender = useState<Gender?>(getStudentDto.gender);
         final occupation = useState<Occupation?>(getStudentDto.occupation);
         final gradeOrGradeStatus = useState<GradeOrGraduateStatus?>(
@@ -194,7 +195,7 @@ class EditProfilePage extends HookConsumerWidget {
                     userNameInputController: userNameInputController,
                     studentSchoolNameInputController:
                         studentSchoolNameInputController,
-                    iconUrl: defaultImage,
+                    currentImagePath: currentImagePath.value,
                     imageFilePath: imageFilePath.value,
                     genderValue: gender.value,
                     occupationValue: occupation.value,

@@ -12,6 +12,7 @@ import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
+import '../shared/constants/page_path.dart';
 
 class ResendEmailVerificationPage extends ConsumerWidget {
   final String emailAddress;
@@ -47,7 +48,7 @@ class ResendEmailVerificationPage extends ConsumerWidget {
             showErrorModalWidget(context);
           }
         } else {
-          context.pop();
+          context.go(PageId.authPage.path);
         }
       });
     }

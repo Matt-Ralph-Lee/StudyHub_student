@@ -18,7 +18,7 @@ class EditProfileWidget extends HookWidget {
   final void Function(String)? checkUserNameFilledFunction;
   final void Function() uploadPhotoFromCamera;
   final void Function() uploadPhotoFromGallery;
-  final String iconUrl;
+  final String currentImagePath;
   final String? imageFilePath;
   final Gender? genderValue;
   final Occupation? occupationValue;
@@ -33,7 +33,7 @@ class EditProfileWidget extends HookWidget {
     required this.checkUserNameFilledFunction,
     required this.uploadPhotoFromCamera,
     required this.uploadPhotoFromGallery,
-    required this.iconUrl,
+    required this.currentImagePath,
     required this.imageFilePath,
     required this.genderValue,
     required this.occupationValue,
@@ -52,9 +52,9 @@ class EditProfileWidget extends HookWidget {
         children: [
           const SizedBox(height: 25),
           CircleAvatarForProfileEdit(
-            iconUrl: iconUrl,
             takePhoto: uploadPhotoFromCamera,
             pickPhoto: uploadPhotoFromGallery,
+            currentImagePath: currentImagePath,
             imageFilePath: imageFilePath,
           ),
           const SizedBox(height: 40),
