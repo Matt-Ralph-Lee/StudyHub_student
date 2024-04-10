@@ -101,7 +101,7 @@ class TeacherProfileWidget extends ConsumerWidget {
                             width: 10,
                           ),
                           Text(
-                            teacherProfileDto.rating.toString(),
+                            teacherProfileDto.rating.toStringAsFixed(1),
                             style: TextStyle(
                               fontWeight: FontWeightSet.normal,
                               fontSize: FontSizeSet.getFontSize(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -111,7 +112,8 @@ class UserDetailWidget extends ConsumerWidget {
 
     final image = ref.watch(getPhotoControllerProvider(userIconUrl)).maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
 
     return Column(
@@ -169,15 +171,17 @@ class UserDetailWidget extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              userName,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.header2),
-                  color: ColorSet.of(context).text),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            Flexible(
+              child: Text(
+                userName,
+                style: TextStyle(
+                    fontWeight: FontWeightSet.normal,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.header2),
+                    color: ColorSet.of(context).text),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             Container(
               decoration: BoxDecoration(

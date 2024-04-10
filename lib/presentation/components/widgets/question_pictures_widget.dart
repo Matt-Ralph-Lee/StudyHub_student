@@ -20,7 +20,6 @@ class QuestionPictureWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
     void navigateToCheckQuestionImagePage(BuildContext context) {
       context.push(PageId.checkQuestionImagePage.path, extra: [
         questionDetailDto,
@@ -39,7 +38,7 @@ class QuestionPictureWidget extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Image(
           image: image,
-          width: double.infinity,
+          width: double.infinity, //最善策無い？
           fit: BoxFit.contain,
         ),
       ),
