@@ -63,6 +63,9 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => StudentId('${'0' * (StudentId.minLength + 9)}1');
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }
 
 void _printStudentAuthInfoWithoutPassword(

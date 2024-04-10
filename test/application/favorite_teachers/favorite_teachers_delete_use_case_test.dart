@@ -6,6 +6,7 @@ import 'package:studyhub/application/favorite_teachers/exception/favorite_teache
 import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/domain/favorite_teachers/models/favorite_teachers.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/favorite_teachers/in_memory_favorite_teachers_repository.dart';
 
@@ -47,4 +48,7 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => StudentId('teststudent1234567890');
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }

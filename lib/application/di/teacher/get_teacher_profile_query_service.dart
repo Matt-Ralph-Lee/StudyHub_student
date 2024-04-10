@@ -31,7 +31,7 @@ IGetTeacherProfileQueryService getTeacherProfileQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseGetTeacherProfileQueryService(
+      return FirebaseGetTeacherProfileQueryService(
         session: ref.watch(nonNullSessionProvider),
         repository: (ref.watch(teacherRepositoryDiProvider))
             as FirebaseTeacherRepository,

@@ -7,7 +7,7 @@ part of 'question_repository_provider.dart';
 // **************************************************************************
 
 String _$questionRepositoryDiHash() =>
-    r'a51982afb5b5539e73061a35d242ea56c2bb0464';
+    r'7baca0090ecff629f3f494f275c583a3964b69a2';
 
 /// See also [questionRepositoryDi].
 @ProviderFor(questionRepositoryDi)

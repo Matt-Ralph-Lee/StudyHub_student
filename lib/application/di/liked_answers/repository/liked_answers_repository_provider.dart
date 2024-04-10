@@ -17,6 +17,6 @@ ILikedAnswersRepository likedAnswersRepositoryDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseLikedAnswersRepository();
+      return FirebaseLikedAnswersRepository();
   }
 }

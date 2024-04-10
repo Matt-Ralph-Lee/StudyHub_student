@@ -1,6 +1,8 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../../domain/teacher_evaluation/models/i_teacher_evaluation_factory.dart";
+import "../../../../infrastructure/firebase/teacher_evaluation/firebase_teacher_evaluation_factory.dart";
+import "../../../../infrastructure/firebase/teacher_evaluation/firebase_teacher_evaluation_repository.dart";
 import "../../../../infrastructure/in_memory/teacher_evaluation/in_memory_teacher_evaluation_factory.dart";
 import "../../../../infrastructure/in_memory/teacher_evaluation/in_memory_teacher_evaluation_repository.dart";
 import "../../../shared/flavor/flavor.dart";
@@ -18,7 +20,7 @@ ITeacherEvaluationFactory teacherEvaluationFactoryDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw InMemoryTeacherEvaluationFactory(
-          InMemoryTeacherEvaluationRepository());
+      return FirebaseTeacherEvaluationFactory(
+          FirebaseTeacherEvaluationRepository());
   }
 }

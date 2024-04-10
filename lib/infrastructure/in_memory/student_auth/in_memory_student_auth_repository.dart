@@ -161,4 +161,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   StudentId? getStudentIdSnapshot() {
     return currentStudentId;
   }
+
+  @override
+  Future<void> reloadUser() async {}
 }

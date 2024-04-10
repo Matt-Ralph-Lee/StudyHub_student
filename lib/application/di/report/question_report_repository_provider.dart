@@ -17,6 +17,6 @@ IQuestionReportRepository questionReportRepositoryDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseQuestionReportRepository();
+      return FirebaseQuestionReportRepository();
   }
 }

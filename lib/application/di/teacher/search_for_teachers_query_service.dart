@@ -20,6 +20,6 @@ ISearchForTeachersQueryService searchForTeachersQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseSearchForTeachersQueryService();
+      return FirebaseSearchForTeachersQueryService();
   }
 }

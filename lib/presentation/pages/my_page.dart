@@ -47,17 +47,9 @@ class MyPage extends HookConsumerWidget {
       appBar: AppBar(
         actions: [
           checkNotificationState.when(
-            data: (isNotificationRead) {
-              return isNotificationRead
-                  ? GestureDetector(
-                      child: Icon(
-                        Icons.notifications_none,
-                        color: ColorSet.of(context).icon,
-                        size: FontSizeSet.getFontSize(context, 30),
-                      ),
-                      onTap: () => pushToNotificationPage(context),
-                    )
-                  : Stack(
+            data: (notificationExist) {
+              return notificationExist
+                  ? Stack(
                       children: [
                         GestureDetector(
                           child: Icon(
@@ -78,6 +70,14 @@ class MyPage extends HookConsumerWidget {
                               size: 10,
                             )),
                       ],
+                    )
+                  : GestureDetector(
+                      child: Icon(
+                        Icons.notifications_none,
+                        color: ColorSet.of(context).icon,
+                        size: FontSizeSet.getFontSize(context, 30),
+                      ),
+                      onTap: () => pushToNotificationPage(context),
                     );
             },
             loading: () => const LoadingOverlay(),

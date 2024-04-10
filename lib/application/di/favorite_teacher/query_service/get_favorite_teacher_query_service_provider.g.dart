@@ -7,7 +7,7 @@ part of 'get_favorite_teacher_query_service_provider.dart';
 // **************************************************************************
 
 String _$getFavoriteTeacherQueryServiceDiHash() =>
-    r'36573370e473254ef01e310195a8053999ebc3d5';
+    r'9da91fd08dce020e3382b39f2a9f8a9a13991893';
 
 /// See also [getFavoriteTeacherQueryServiceDi].
 @ProviderFor(getFavoriteTeacherQueryServiceDi)

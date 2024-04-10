@@ -7,7 +7,7 @@ part of 'search_for_questions_query_service_provider.dart';
 // **************************************************************************
 
 String _$searchForQuestionsQueryServiceDiHash() =>
-    r'164eff09377b1dc58c1955d4f82821d5070cb152';
+    r'a935b93335de71ff22eff3c4e992facc0ee8b905';
 
 /// See also [searchForQuestionsQueryServiceDi].
 @ProviderFor(searchForQuestionsQueryServiceDi)

@@ -102,7 +102,7 @@ class FirebaseTeacherRepository implements ITeacherRepository {
       ),
       bio: Bio(bio),
       introduction: Introduction(introduction),
-      rating: Rating(ratingSum / ratingNum),
+      rating: ratingSum == 0 ? Rating(0) : Rating(ratingSum / ratingNum),
       bestSubjects: bestSubjects,
       profilePhotoPath: ProfilePhotoPath(profilePhoto),
     );

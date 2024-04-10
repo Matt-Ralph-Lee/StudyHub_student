@@ -31,7 +31,7 @@ String createFileName(final StudentId studentId) {
   return fileName;
 }
 
-Image convertToJpegAndResize(String localPhotoPath) {
+Image resize(String localPhotoPath) {
   final file = File(localPhotoPath);
 
   if (file.existsSync()) {

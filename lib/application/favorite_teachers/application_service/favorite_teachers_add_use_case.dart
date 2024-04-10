@@ -23,6 +23,6 @@ class FavoriteTeachersAddUseCase {
 
     favoriteTeachers.add(newFavoriteTeacherId);
 
-    _repository.save(favoriteTeachers);
+    await _repository.save(favoriteTeachers);
   }
 }

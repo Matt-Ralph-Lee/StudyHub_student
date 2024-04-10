@@ -27,6 +27,7 @@ import 'package:studyhub/domain/student/models/question_count.dart';
 import 'package:studyhub/domain/student/models/status.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/bio.dart';
 import 'package:studyhub/domain/teacher/models/graduated.dart';
 import 'package:studyhub/domain/teacher/models/high_school.dart';
@@ -225,6 +226,9 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => StudentId('teststudent12345678901');
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }
 
 void printQuestionCardList(final List<QuestionCardDto> questionCardList) {

@@ -7,7 +7,7 @@ part of 'student_provider.dart';
 // **************************************************************************
 
 String _$studentRepositoryDiHash() =>
-    r'877eb447d23fd6c3850f3337ded1b4d7eee86f69';
+    r'2228cfed419db93ac6de8eac59722592f5926a27';
 
 /// See also [studentRepositoryDi].
 @ProviderFor(studentRepositoryDi)

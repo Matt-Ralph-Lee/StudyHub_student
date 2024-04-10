@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../application/question/application_service/i_search_for_questions_query_service.dart';
@@ -33,18 +35,22 @@ class FirebaseSearchForQuestionsQueryService
   }) async {
     final questionCardDtoList = <QuestionCardDto>[];
 
-    final querySnapshot = subject != null
-        ? await db
+    Query<Map<String, dynamic>> query = subject != null
+        ? db
             .collection("all_questions")
             .where("subject", isEqualTo: subject.japanese)
-            .where("textTokenMap.$searchWord", isEqualTo: true)
-            .limit(100)
-            .get()
-        : await db
-            .collection("all_questions")
-            .where("textTokenMap.$searchWord", isEqualTo: true)
-            .limit(100)
-            .get();
+        : db.collection("all_questions");
+
+    final searchWordToken = [
+      for (int i = 0; i < min(searchWord.length - 1, 25); i++)
+        searchWord.substring(i, i + 2)
+    ];
+
+    for (final token in searchWordToken) {
+      query = query.where("textTokenMap.$token", isEqualTo: true);
+    }
+
+    final querySnapshot = await query.limit(20).get();
 
     for (final docSnapshot in querySnapshot.docs) {
       final questionId = docSnapshot.reference.id;

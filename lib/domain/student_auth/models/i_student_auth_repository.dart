@@ -18,4 +18,6 @@ abstract class IStudentAuthRepository {
   });
   Future<void> signOut();
   StudentId? getStudentIdSnapshot();
+
+  Future<void> reloadUser();
 }

@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../infrastructure/firebase/notification/firebase_get_my_notifications_query_service.dart';
 import '../../../../infrastructure/in_memory/notification/in_memory_get_my_notifications_query_service.dart';
 import '../../../../infrastructure/in_memory/notification/in_memory_notification_repository.dart';
 import '../../../notification/application_service/i_get_my_notifications_query_service.dart';
@@ -21,9 +22,6 @@ IGetMyNotificationsQueryService getMyNotificationsQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw InMemoryGetMyNotificationsQueryService(
-        repository: (ref.watch(notificationRepositoryDiProvider))
-            as InMemoryNotificationRepository,
-      );
+      return FirebaseGetMyNotificationsQueryService();
   }
 }
