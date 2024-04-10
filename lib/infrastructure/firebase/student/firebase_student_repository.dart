@@ -127,6 +127,10 @@ class FirebaseStudentRepository implements IStudentRepository {
     addData["profilePhoto"] = student.profilePhotoPath.value;
     addData["questionCount"] = student.questionCount.value;
     addData["school"] = student.school.value;
+    addData["blockings"] = <String>[];
+    addData["bookmarks"] = <String>[];
+    addData["favoriteTeachers"] = <String>[];
+    addData["likedAnswers"] = <String>[];
 
     await docRef.set(addData);
   }

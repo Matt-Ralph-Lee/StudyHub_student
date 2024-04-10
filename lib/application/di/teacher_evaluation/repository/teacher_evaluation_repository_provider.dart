@@ -17,6 +17,6 @@ ITeacherEvaluationRepository teacherEvaluationRepositoryDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseTeacherEvaluationRepository();
+      return FirebaseTeacherEvaluationRepository();
   }
 }

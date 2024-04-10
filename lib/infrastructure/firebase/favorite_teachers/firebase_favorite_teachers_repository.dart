@@ -31,10 +31,10 @@ class FirebaseFavoriteTeachersRepository
 
     final teacherIdListData = doc["favoriteTeachers"];
 
-    List<String> teacherIdList = [];
+    final teacherIdList = <String>[];
 
-    if (teacherIdListData != null) {
-      teacherIdList = teacherIdList;
+    for (final teacherIdData in teacherIdListData) {
+      teacherIdList.add(teacherIdData);
     }
 
     final teacherIdSet =

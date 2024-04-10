@@ -7,7 +7,7 @@ part of 'student_auth_provider.dart';
 // **************************************************************************
 
 String _$studentAuthRepositoryDiHash() =>
-    r'5ec33da1ac9cd9dc8d59c69cfe0f44d33019040d';
+    r'174eccaa683fa664acb28a6b07fc1f39e39e2f0e';
 
 /// See also [studentAuthRepositoryDi].
 @ProviderFor(studentAuthRepositoryDi)
@@ -25,7 +25,7 @@ final studentAuthRepositoryDiProvider =
 typedef StudentAuthRepositoryDiRef
     = AutoDisposeProviderRef<IStudentAuthRepository>;
 String _$getStudentAuthQueryServiceHash() =>
-    r'ea804aacddafa11818e7a1f611644a6507d41f48';
+    r'7951e114680e0b29e5a427ab2e5fb276bf608a66';
 
 /// See also [getStudentAuthQueryService].
 @ProviderFor(getStudentAuthQueryService)

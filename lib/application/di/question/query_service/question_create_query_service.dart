@@ -20,6 +20,6 @@ IQuestionCreateQueryService questionCreateQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseQuestionCreateQueryService(FirebaseStudentRepository());
+      return FirebaseQuestionCreateQueryService(FirebaseStudentRepository());
   }
 }

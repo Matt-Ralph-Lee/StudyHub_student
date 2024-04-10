@@ -21,6 +21,6 @@ IGetPopularTeachersQueryService getPopularTeacherQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseGetPopularTeachersQueryService();
+      return FirebaseGetPopularTeachersQueryService();
   }
 }

@@ -20,7 +20,7 @@ IQuestionFactory questionFactoryDi(QuestionFactoryDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseQuestionFactory((ref.watch(questionRepositoryDiProvider))
+      return FirebaseQuestionFactory((ref.watch(questionRepositoryDiProvider))
           as FirebaseQuestionRepository);
   }
 }

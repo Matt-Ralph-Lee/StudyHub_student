@@ -4,6 +4,7 @@ import 'package:studyhub/application/report/application_service/teacher_report_s
 import 'package:studyhub/application/shared/session/session.dart';
 import 'package:studyhub/domain/report/models/report_reason.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/report/in_memory_teacher_report_repository.dart';
 
@@ -54,4 +55,7 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => StudentId('teststudent1234567890');
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }

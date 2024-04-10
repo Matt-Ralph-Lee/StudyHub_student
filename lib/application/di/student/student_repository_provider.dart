@@ -16,6 +16,6 @@ IStudentRepository studentRepositoryDi(StudentRepositoryDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseStudentRepository();
+      return FirebaseStudentRepository();
   }
 }

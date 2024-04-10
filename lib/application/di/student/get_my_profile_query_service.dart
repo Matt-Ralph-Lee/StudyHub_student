@@ -21,7 +21,7 @@ IGetMyProfileQueryService getMyProfileQueryServiceDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseStudentQueryService(
+      return FirebaseStudentQueryService(
           ref.watch(studentRepositoryDiProvider) as FirebaseStudentRepository);
   }
 }

@@ -16,6 +16,6 @@ IAnswerRepository answerRepositoryDi(AnswerRepositoryDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseAnswerRepository();
+      return FirebaseAnswerRepository();
   }
 }

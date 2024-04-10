@@ -75,8 +75,7 @@ class QuestionEditUseCase {
           .toList();
       final questionPhotoPathList = createPathListFromId(
           studentId: studentId, localPathList: needChangePathList);
-      final processedImageList =
-          resizeAndConvertToJpgForMultiplePhoto(needChangePathList);
+      final processedImageList = resizeAndForMultiplePhoto(needChangePathList);
 
       final questionPhotoList = <QuestionPhoto>[];
 

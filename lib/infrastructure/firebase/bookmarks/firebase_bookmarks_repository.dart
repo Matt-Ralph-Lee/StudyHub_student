@@ -30,10 +30,10 @@ class FirebaseBookmarksRepository implements IBookmarksRepository {
 
     final bookmarkIdListData = doc["bookmarks"];
 
-    List<String> bookmarkIdList = [];
+    final bookmarkIdList = <String>[];
 
-    if (bookmarkIdListData != null) {
-      bookmarkIdList = bookmarkIdListData;
+    for (final bookmarkIdData in bookmarkIdListData) {
+      bookmarkIdList.add(bookmarkIdData);
     }
 
     final bookmarkIdSet = bookmarkIdList

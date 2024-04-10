@@ -40,7 +40,7 @@ IGetAnswerQueryService getAnswerQueryServiceDi(GetAnswerQueryServiceDiRef ref) {
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseGetAnswerQueryService(
+      return FirebaseGetAnswerQueryService(
         repository:
             (ref.watch(answerRepositoryDiProvider)) as FirebaseAnswerRepository,
         teacherRepository: (ref.watch(teacherRepositoryDiProvider))

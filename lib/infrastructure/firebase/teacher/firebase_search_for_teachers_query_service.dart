@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../application/teacher/application_service/i_search_for_teachers_query_service.dart';
@@ -12,10 +14,18 @@ class FirebaseSearchForTeachersQueryService
   Future<List<SearchForTeacherDto>?> search(String keywordString) async {
     final searchForTeacherDtoList = <SearchForTeacherDto>[];
 
-    final querySnapshot = await db
-        .collection("teachers")
-        .where("teacherNameTokenMap.$keywordString", isEqualTo: true)
-        .get();
+    final keywordToken = [
+      for (int i = 0; i < min(keywordString.length - 1, 25); i++)
+        keywordString.substring(i, i + 2)
+    ];
+
+    Query<Map<String, dynamic>> query = db.collection("teachers");
+
+    for (final token in keywordToken) {
+      query = query.where("teacherNameTokenMap.$token", isEqualTo: true);
+    }
+
+    final querySnapshot = await query.get();
 
     for (final docSnapshot in querySnapshot.docs) {
       final doc = docSnapshot.data();

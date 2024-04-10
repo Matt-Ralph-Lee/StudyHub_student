@@ -7,7 +7,7 @@ part of 'get_recommended_questions_query_service_provider.dart';
 // **************************************************************************
 
 String _$getRecommendedQuestionQueryServiceDiHash() =>
-    r'10b1e98d40e3eb6546b1d0f399d971bb9d175f3f';
+    r'0c9f569936227da662857e76712fa19e2b081d8f';
 
 /// See also [getRecommendedQuestionQueryServiceDi].
 @ProviderFor(getRecommendedQuestionQueryServiceDi)

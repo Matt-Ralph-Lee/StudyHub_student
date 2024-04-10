@@ -17,6 +17,6 @@ ITeacherReportRepository teacherReportRepositoryDi(
     case Flavor.stg:
       throw UnimplementedError();
     case Flavor.prd:
-      throw FirebaseTeacherReportRepository();
+      return FirebaseTeacherReportRepository();
   }
 }

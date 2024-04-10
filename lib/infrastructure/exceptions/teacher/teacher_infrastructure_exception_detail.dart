@@ -5,6 +5,7 @@ enum TeacherInfrastructureExceptionDetail
   ratingNotFound('rating not found'),
   teacherNotFound('teacher not found'),
   docNotFound("firebase error: document not found"),
+  invalidSearchKeyword("invalid keyword length"),
   ;
 
   const TeacherInfrastructureExceptionDetail(this._message);
