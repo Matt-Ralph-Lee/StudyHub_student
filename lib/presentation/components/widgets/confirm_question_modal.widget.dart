@@ -11,8 +11,8 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
 import '../parts/text_for_error.dart';
-import 'loading_overlay_widget.dart';
 import 'question_pictures_for_confirm_widget.dart';
+import 'teacher_profile_for_confirm_skeleton_widget.dart';
 import 'teacher_profile_for_confirm_widget.dart';
 
 class ConfirmQuestionModalWidget extends ConsumerWidget {
@@ -265,7 +265,11 @@ class ConfirmQuestionModalWidget extends ConsumerWidget {
                                               context, FontSizeSet.body),
                                           color: ColorSet.of(context).text),
                                     ),
-                              loading: () => const LoadingOverlay(),
+                              loading: () => const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child:
+                                    TeacherProfileWForConfirmSkeletonWidget(),
+                              ),
                               error: (error, stack) {
                                 return const Center(
                                     child: Column(

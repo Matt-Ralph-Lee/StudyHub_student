@@ -3,7 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/parts/text_for_error.dart';
-import '../components/widgets/loading_overlay_widget.dart';
+import '../components/widgets/question_and_answer_card_skeleton_widget.dart';
+import '../components/widgets/user_detail_skeleton_widget.dart';
 import '../components/widgets/user_detail_widget.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/check_notification_controller/check_notification_controller.dart';
@@ -75,7 +76,11 @@ class MyPage extends ConsumerWidget {
                       onTap: () => pushToNotificationPage(context),
                     );
             },
-            loading: () => const LoadingOverlay(),
+            loading: () => Icon(
+              Icons.notifications_none,
+              color: ColorSet.of(context).icon,
+              size: FontSizeSet.getFontSize(context, 30),
+            ),
             error: (error, stackTrace) {
               return const Center(
                 child: TextForError(),
@@ -130,7 +135,7 @@ class MyPage extends ConsumerWidget {
                             userIconUrl: getMyProfileDto.profilePhotoPath,
                           );
                         },
-                        loading: () => const LoadingOverlay(),
+                        loading: () => const UserDetailSkeletonWidget(),
                         error: (error, stackTrace) {
                           return const Center(
                             child: TextForError(),
@@ -202,7 +207,20 @@ class MyPage extends ConsumerWidget {
                               color: ColorSet.of(context).text),
                         ),
                       ),
-                loading: () => const LoadingOverlay(),
+                loading: () => ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.all(
+                        PaddingSet.getPaddingSize(
+                          context,
+                          PaddingSet.horizontalPadding,
+                        ),
+                      ),
+                      child: const QuestionAndAnswerCardSkeletonWidget(),
+                    );
+                  },
+                ),
                 error: (error, stack) {
                   return const Center(
                     child: TextForError(),
@@ -238,7 +256,20 @@ class MyPage extends ConsumerWidget {
                               color: ColorSet.of(context).text),
                         ),
                       ),
-                loading: () => const LoadingOverlay(),
+                loading: () => ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.all(
+                        PaddingSet.getPaddingSize(
+                          context,
+                          PaddingSet.horizontalPadding,
+                        ),
+                      ),
+                      child: const QuestionAndAnswerCardSkeletonWidget(),
+                    );
+                  },
+                ),
                 error: (error, stack) {
                   return const Center(
                     child: TextForError(),

@@ -6,7 +6,7 @@ import '../../application/notification/application_service/get_my_notification_d
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_notifications_found.dart';
 import '../components/parts/text_for_notification_section_header.dart';
-import '../components/widgets/loading_overlay_widget.dart';
+import '../components/widgets/notification_card_skeleton_widget.dart';
 import '../components/widgets/notification_card_widget.dart';
 import '../controllers/get_my_notifications_controller/get_my_notifications_controller.dart';
 import '../shared/constants/color_set.dart';
@@ -131,7 +131,21 @@ class NotificationPage extends ConsumerWidget {
               );
             }
           },
-          loading: () => const LoadingOverlay(),
+          loading: () => ListView.builder(
+            itemCount: 5,
+            itemBuilder: (context, index) => Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: PaddingSet.getPaddingSize(
+                  context,
+                  PaddingSet.horizontalPadding,
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: NotificationCardSkeletonWidget(),
+              ),
+            ),
+          ),
           error: (error, stack) {
             return const Center(
                 child: Column(

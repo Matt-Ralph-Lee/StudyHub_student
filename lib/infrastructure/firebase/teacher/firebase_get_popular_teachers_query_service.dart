@@ -9,7 +9,7 @@ class FirebaseGetPopularTeachersQueryService
   final db = FirebaseFirestore.instance;
 
   @override
-  Future<List<SearchForTeacherDto>?> find() async {
+  Future<List<SearchForTeacherDto>> find() async {
     final searchForTeacherDtoList = <SearchForTeacherDto>[];
 
     final querySnapshot =

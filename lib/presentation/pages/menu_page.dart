@@ -47,7 +47,7 @@ class MenuPage extends StatelessWidget {
             24,
           )),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 height: PaddingSet.getPaddingSize(context, 30),

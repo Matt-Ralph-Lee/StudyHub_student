@@ -33,7 +33,7 @@ class FirebaseAnswerRepository implements IAnswerRepository {
         .collection("answer")
         .doc(answerId.value);
 
-    await docRef.update({"like": FieldValue.increment(-1)});
+    await docRef.update({"like": FieldValue.increment(1)});
   }
 
   @override
@@ -47,7 +47,7 @@ class FirebaseAnswerRepository implements IAnswerRepository {
         .collection("answer")
         .doc(answerId.value);
 
-    await docRef.update({"like": FieldValue.increment(1)});
+    await docRef.update({"like": FieldValue.increment(-1)});
   }
 
   @override

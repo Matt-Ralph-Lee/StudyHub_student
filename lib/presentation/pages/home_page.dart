@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../domain/shared/subject.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_question_found.dart';
+import '../components/widgets/question_and_answer_card_skeleton_widget.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart';
 import '../shared/constants/color_set.dart';
@@ -188,10 +189,33 @@ class HomePage extends HookConsumerWidget {
             : const Center(
                 child: TextForNoQuestionFound(),
               ),
-        loading: () => const CircularProgressIndicator(),
-        error: (error, stack) => const Center(
-          child: TextForError(),
+        loading: () => ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(
+                  top: PaddingSet.getPaddingSize(
+                    context,
+                    30,
+                  ),
+                  right: PaddingSet.getPaddingSize(
+                    context,
+                    20,
+                  ),
+                  left: PaddingSet.getPaddingSize(
+                    context,
+                    20,
+                  )),
+              child: const QuestionAndAnswerCardSkeletonWidget(),
+            );
+          },
         ),
+        error: (error, stack) {
+          print(error);
+          const Center(
+            child: TextForError(),
+          );
+        },
       ),
     );
   }

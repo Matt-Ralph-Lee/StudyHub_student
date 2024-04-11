@@ -62,8 +62,16 @@ class EvaluationCardWidget extends ConsumerWidget {
                             getStudentDto.profilePhotoPath))
                         .maybeWhen(
                           data: (d) => d,
+                          loading: () {
+                            MediaQuery.of(context).platformBrightness ==
+                                    Brightness.light
+                                ? const AssetImage(
+                                    "assets/photos/loading_user_icon_light.png")
+                                : const AssetImage(
+                                    "assets/photos/loading_user_icon_dark.png");
+                          },
                           orElse: () => const AssetImage(
-                              "assets/images/sample_picture_hd.jpg"),
+                              "assets/photos/sample_user_icon.jpg"),
                         );
                     return CircleAvatar(
                       radius: screenWidth < 600 ? 15 : 22,

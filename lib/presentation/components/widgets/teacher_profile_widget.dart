@@ -23,7 +23,12 @@ class TeacherProfileWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(teacherProfileDto.profilePhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage("assets/photos/loading_user_icon_light.png")
+                : const AssetImage("assets/photos/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage("assets/photos/sample_user_icon.jpg"),
         );
     return Container(
       decoration: BoxDecoration(
@@ -271,7 +276,7 @@ class TeacherProfileWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        L10n.enrollmentText,
+                        L10n.careerText,
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(

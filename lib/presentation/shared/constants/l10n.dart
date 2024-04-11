@@ -260,8 +260,9 @@ class L10n {
   //teacher_profile_page
   static const teacherProfilePageTitle = "教師のプロフィール";
   static const evaluationsTitleText = "生徒からの評価";
+  static const careerText = "経歴";
   static const fromText = "出身";
-  static const enrollmentText = "経歴";
+  static const enrollmentText = "在籍";
   static const favoriteSubjectText = "得意科目";
   static const bioText = "ひとこと";
   static const selfIntroductionText = "自己紹介";

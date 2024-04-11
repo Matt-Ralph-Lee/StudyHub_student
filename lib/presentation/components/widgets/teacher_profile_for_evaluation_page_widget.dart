@@ -19,9 +19,9 @@ import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
 import '../parts/text_button_for_follow_teacher.dart';
 import '../parts/text_button_for_unfollow_teacher.dart';
-import 'loading_overlay_widget.dart';
 import 'show_error_modal_widget.dart';
 import 'specific_exception_modal_widget.dart';
+import 'teacher_profile_for_evaluation_page_skeleton_widget.dart';
 
 class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
   final TeacherId teacherId;
@@ -110,8 +110,15 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                   getTeacherProfileDto.profilePhotoPath))
               .maybeWhen(
                 data: (d) => d,
+                loading: () {
+                  MediaQuery.of(context).platformBrightness == Brightness.light
+                      ? const AssetImage(
+                          "assets/photos/loading_user_icon_light.png")
+                      : const AssetImage(
+                          "assets/photos/loading_user_icon_dark.png");
+                },
                 orElse: () =>
-                    const AssetImage("assets/images/sample_picture_hd.jpg"),
+                    const AssetImage("assets/photos/sample_user_icon.jpg"),
               );
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -162,7 +169,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           );
         }
       },
-      loading: () => const LoadingOverlay(),
+      loading: () => const TeacherProfileForEvaluationPageSkeletonWidget(),
       error: (error, stack) {
         return Center(
             child: Column(

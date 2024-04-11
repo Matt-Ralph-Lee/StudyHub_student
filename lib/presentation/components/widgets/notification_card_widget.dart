@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
 import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception.dart';
 import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/read_notification_controller/read_notification_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -55,7 +55,12 @@ class NotificationCardWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(getMyNotificationDto.senderPhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage("assets/photos/loading_user_icon_light.png")
+                : const AssetImage("assets/photos/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage("assets/photos/sample_user_icon.jpg"),
         );
 
     return GestureDetector(

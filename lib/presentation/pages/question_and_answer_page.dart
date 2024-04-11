@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../domain/question/models/question_id.dart';
 import '../components/parts/text_button_for_navigating_to_evaluatin_page.dart';
 import '../components/parts/text_for_error.dart';
+import '../components/widgets/answer_card_skeleton_widget.dart';
 import '../components/widgets/answer_card_widget.dart';
 import '../components/widgets/answer_picture_widget.dart';
-import '../components/widgets/loading_overlay_widget.dart';
+import '../components/widgets/question_detail_card_skeleton_widget.dart';
 import '../components/widgets/question_detail_card_widget.dart';
 import '../components/widgets/question_pictures_widget.dart';
 import '../controllers/get_answer_controller/get_answer_controller.dart';
@@ -111,7 +113,52 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                     )
                 ],
               ),
-              loading: () => const LoadingOverlay(),
+              loading: () => Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(
+                      PaddingSet.getPaddingSize(
+                        context,
+                        PaddingSet.horizontalPadding,
+                      ),
+                    ),
+                    child: const QuestionDetailCardSkeletonWidget(),
+                  ),
+                  ExpandablePageView.builder(
+                    // alignment: Alignment.,
+                    controller: PageController(
+                        viewportFraction:
+                            0.9), //viewportFractionを通してしかpadding設定できそうなので（他ぺーじとは違ってピクセルで左端paddingとってない）
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: ColorSet.of(context).simmerBase,
+                        highlightColor: ColorSet.of(context).simmerHighlight,
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              width: double.infinity,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
               error: (error, stack) {
                 return const Center(
                     child: Column(
@@ -221,8 +268,66 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                                 color: ColorSet.of(context).text)),
                       );
               },
-              loading: () => const LoadingOverlay(),
+              loading: () => Column(
+                children: [
+                  ExpandablePageView.builder(
+                    controller: PageController(viewportFraction: 0.9),
+                    itemCount: 3,
+                    onPageChanged: (newIndex) {
+                      selectedAnswerIndex.value = newIndex;
+                    },
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
+                            ),
+                          ),
+                          child: const AnswerCardSkeletonWidget(),
+                        ),
+                      );
+                    },
+                  ),
+                  ExpandablePageView.builder(
+                    controller: PageController(viewportFraction: 0.9),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: ColorSet.of(context).simmerBase,
+                        highlightColor: ColorSet.of(context).simmerHighlight,
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              width: double.infinity,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                ],
+              ),
               error: (error, stack) {
+                print(error);
                 return const Center(
                     child: Column(
                   children: [

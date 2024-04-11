@@ -129,7 +129,12 @@ class AnswerCardWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(answerDto.teacherProfilePath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage("assets/photos/loading_user_icon_light.png")
+                : const AssetImage("assets/photos/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage("assets/photos/sample_user_icon.jpg"),
         );
 
     return Container(

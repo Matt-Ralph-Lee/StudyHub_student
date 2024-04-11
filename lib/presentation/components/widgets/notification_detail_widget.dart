@@ -22,7 +22,12 @@ class NotificationDetailCardWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(getMyNotificationDto.senderPhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage("assets/photos/loading_user_icon_light.png")
+                : const AssetImage("assets/photos/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage("assets/photos/sample_user_icon.jpg"),
         );
 
     return Container(
@@ -94,8 +99,10 @@ class NotificationDetailCardWidget extends ConsumerWidget {
                     getMyNotificationDto.text,
                     style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize:
-                          FontSizeSet.getFontSize(context, FontSizeSet.body),
+                      fontSize: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.body,
+                      ),
                       color: ColorSet.of(context).text,
                     ),
                   ),

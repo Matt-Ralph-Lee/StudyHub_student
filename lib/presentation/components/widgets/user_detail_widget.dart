@@ -111,6 +111,11 @@ class UserDetailWidget extends ConsumerWidget {
 
     final image = ref.watch(getPhotoControllerProvider(userIconUrl)).maybeWhen(
           data: (d) => d,
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage("assets/photos/loading_user_icon_light.png")
+                : const AssetImage("assets/photos/loading_user_icon_dark.png");
+          },
           orElse: () => const AssetImage(
               "assets/photos/profile_photo/sample_user_icon.jpg"),
         );

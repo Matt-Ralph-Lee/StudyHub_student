@@ -15,9 +15,11 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
+        height: screenWidth < 600 ? 50 : 75,
         // indicatorColor: ColorSet.of(context).navbarIndicator,
         surfaceTintColor: const Color(0x00000000),
         backgroundColor: ColorSet.of(context).background,
