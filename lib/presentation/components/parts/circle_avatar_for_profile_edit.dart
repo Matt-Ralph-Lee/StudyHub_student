@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import 'bottom_sheet_for_pick_image.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/color_set.dart';

@@ -16,12 +16,12 @@ class BlockingsAddUseCase {
 
   Future<void> execute(final TeacherId newTeacherId) async {
     final studentId = _session.studentId;
-    var blockings = await _repository.getByStudentId(studentId);
+    Blockings? blockings = await _repository.getByStudentId(studentId);
 
     blockings ??= Blockings(studentId: studentId, teacherIdList: {});
 
     blockings.add(newTeacherId);
 
-    _repository.save(blockings);
+    await _repository.save(blockings);
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:studyhub/presentation/controllers/student_auth_controller/student_auth_controller.dart';
 
-import '../../controllers/sample_controller/sample_controller.dart';
 import '../../shared/constants/l10n.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_for_reset_password_email_address_input_explanation.dart';
@@ -52,7 +52,11 @@ class ResetPasswordWidget extends HookConsumerWidget {
         const SizedBox(height: 80),
         ElevatedButtonForAuth(
             onPressed: isEmailFilled.value
-                ? ref.read(sampleControllerProvider.notifier).resetPassword
+                ? () async {
+                    ref
+                        .read(studentAuthControllerProvider.notifier)
+                        .resetPassword(emailInputErrorText.value!);
+                  }
                 : null,
             buttonText: L10n.passwordResetButtonText)
       ],

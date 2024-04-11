@@ -211,8 +211,7 @@ class HomePage extends HookConsumerWidget {
           },
         ),
         error: (error, stack) {
-          print(error);
-          const Center(
+          return const Center(
             child: TextForError(),
           );
         },

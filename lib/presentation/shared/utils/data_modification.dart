@@ -1,9 +1,9 @@
 // do not use this in normal occasion
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/student/models/grade_or_graduate_status.dart';
-import 'package:studyhub/domain/student/models/occupation.dart';
 
 import '../../../domain/student/models/gender.dart';
+import '../../../domain/student/models/grade_or_graduate_status.dart';
+import '../../../domain/student/models/occupation.dart';
 
 void modifyStudentData() async {
   final db = FirebaseFirestore.instance;

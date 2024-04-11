@@ -113,12 +113,12 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                 loading: () {
                   MediaQuery.of(context).platformBrightness == Brightness.light
                       ? const AssetImage(
-                          "assets/photos/loading_user_icon_light.png")
+                          "assets/photos/profile_photo/loading_user_icon_light.png")
                       : const AssetImage(
-                          "assets/photos/loading_user_icon_dark.png");
+                          "assets/photos/profile_photo/loading_user_icon_dark.png");
                 },
-                orElse: () =>
-                    const AssetImage("assets/photos/sample_user_icon.jpg"),
+                orElse: () => const AssetImage(
+                    "assets/photos/profile_photo/sample_user_icon.jpg"),
               );
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,

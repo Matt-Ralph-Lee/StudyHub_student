@@ -14,7 +14,7 @@ class QuestionReportSubmitUseCase {
   })  : _repository = repository,
         _session = session;
 
-  void execute(final QuestionReportSubmitCommand command) {
+  Future<void> execute(final QuestionReportSubmitCommand command) async {
     final studentId = _session.studentId;
     final targetQuestionId = command.questionId;
     final reportReason = command.reportReason;
@@ -27,6 +27,6 @@ class QuestionReportSubmitUseCase {
         reason: reportReason,
         text: reportText);
 
-    _repository.submit(report);
+    await _repository.submit(report);
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/page_path.dart';
 
 class AnswerPictureWidget extends ConsumerWidget {

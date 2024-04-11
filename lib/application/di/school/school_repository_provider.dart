@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:studyhub/domain/school/models/i_school_repository.dart';
 
+import '../../../domain/school/models/i_school_repository.dart';
 import '../../../infrastructure/firebase/school/firebase_school_repository.dart';
 import '../../../infrastructure/in_memory/school/in_memory_school_repository.dart';
 import '../../shared/flavor/flavor.dart';

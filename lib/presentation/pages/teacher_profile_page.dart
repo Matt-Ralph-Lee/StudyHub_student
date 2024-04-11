@@ -2,7 +2,6 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:studyhub/presentation/components/widgets/custom_circular_progress_indicator_widget.dart';
 
 import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
 import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
@@ -37,7 +36,6 @@ class TeacherProfilePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
     final getTeacherProfileState =
         ref.watch(getTeacherProfileControllerProvider(teacherId));
     final getTeacherEvaluationState =

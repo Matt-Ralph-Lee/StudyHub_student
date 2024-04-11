@@ -2,7 +2,6 @@ import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/school/models/school.dart';
 import '../../../domain/school/services/school_service.dart';
 import '../../../domain/shared/profile_photo.dart';
-import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/shared/name.dart';
 import '../../shared/session/session.dart';
@@ -71,27 +70,23 @@ class ProfileUpdateUseCase {
     }
 
     if (newLocalPhotoPath != null) {
-      if (newLocalPhotoPath.contains("assets")) {
-        student.changeProfilePhoto(ProfilePhotoPath(newLocalPhotoPath));
-      } else {
-        final profilePhotoPath = createPathFromId(studentId);
-        final image = resize(newLocalPhotoPath);
-        final profilePhoto =
-            ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
-        await _photoRepository.save([profilePhoto]);
-        final oldPhotoPath = student.profilePhotoPath;
-        student.changeProfilePhoto(profilePhotoPath);
+      final profilePhotoPath = createPathFromId(studentId);
+      final image = resize(newLocalPhotoPath);
+      final profilePhoto =
+          ProfilePhoto.fromImage(path: profilePhotoPath, image: image);
+      await _photoRepository.save([profilePhoto]);
+      final oldPhotoPath = student.profilePhotoPath;
+      student.changeProfilePhoto(profilePhotoPath);
 
-        final cond1 =
-            oldPhotoPath.value != "profile_photo/default/male_default.jpg";
-        final cond2 =
-            oldPhotoPath.value != "profile_photo/default/female_default.jpg";
-        final cond3 = !oldPhotoPath.value.contains("assets");
-        if (cond1 && cond2 && cond3) {
-          await _photoRepository.delete(oldPhotoPath);
-        }
-        await _repository.save(student);
+      final cond1 =
+          oldPhotoPath.value != "profile_photo/default/male_default.jpg";
+      final cond2 =
+          oldPhotoPath.value != "profile_photo/default/female_default.jpg";
+      final cond3 = !oldPhotoPath.value.contains("assets");
+      if (cond1 && cond2 && cond3) {
+        await _photoRepository.delete(oldPhotoPath);
       }
+      await _repository.save(student);
     }
 
     await _repository.save(student);

@@ -25,6 +25,6 @@ class BookmarksDeleteUseCase {
 
     bookmarks.delete(bookmarkId);
 
-    _repository.save(bookmarks);
+    await _repository.save(bookmarks);
   }
 }

@@ -1,4 +1,5 @@
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/student/default/default_student.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import 'i_get_question_detail_query_service.dart';
 import 'question_detail_dto.dart';
@@ -18,8 +19,7 @@ class GetQuestionDetailUseCase {
     if (student == null) {
       return QuestionDetailDto(
           questionId: question.questionId,
-          studentProfilePhotoPath:
-              "/assets/photos/profile_photo/sample_user_icon.jpg",
+          studentProfilePhotoPath: DefaultStudent.profilePhoto,
           questionTitle: question.questionTitle.value,
           questionText: question.questionText.value,
           questionPhotoPathList: question.questionPhotoPathList

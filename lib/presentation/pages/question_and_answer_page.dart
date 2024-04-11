@@ -327,7 +327,6 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                 ],
               ),
               error: (error, stack) {
-                print(error);
                 return const Center(
                     child: Column(
                   children: [

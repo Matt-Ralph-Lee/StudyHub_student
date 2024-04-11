@@ -50,8 +50,9 @@ class TeacherEvaluationAddUseCase {
 
     await _repository.save(teacherEvaluation);
 
-    _answerRepository.evaluated(answerId: answerId, questionId: questionId);
+    await _answerRepository.evaluated(
+        answerId: answerId, questionId: questionId);
 
-    _teacherRepository.changeRate(teacherEvaluation);
+    await _teacherRepository.changeRate(teacherEvaluation);
   }
 }

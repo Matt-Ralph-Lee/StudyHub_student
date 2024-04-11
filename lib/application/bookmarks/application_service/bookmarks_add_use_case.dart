@@ -16,12 +16,12 @@ class BookmarksAddUseCase {
 
   Future<void> execute(final QuestionId newBookmarkId) async {
     final studentId = _session.studentId;
-    var bookmarks = await _repository.getByStudentId(studentId);
+    Bookmarks? bookmarks = await _repository.getByStudentId(studentId);
 
     bookmarks ??= Bookmarks(studentId: studentId, questionIdSet: {});
 
     bookmarks.add(newBookmarkId);
 
-    _repository.save(bookmarks);
+    await _repository.save(bookmarks);
   }
 }

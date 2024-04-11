@@ -10,7 +10,7 @@ class SearchForTeachersUseCase {
     required final String keywordString,
   })  : _queryService = queryService,
         _keywordString = keywordString;
-  Future<List<SearchForTeacherDto>?> execute() async {
+  Future<List<SearchForTeacherDto>> execute() async {
     return await _queryService.search(_keywordString);
   }
 }

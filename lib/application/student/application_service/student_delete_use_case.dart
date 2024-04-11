@@ -28,7 +28,7 @@ class StudentDeleteUseCase {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.notFound);
     }
-    _studentRepository.delete(studentId);
+    await _studentRepository.delete(studentId);
     final cond1 = student.profilePhotoPath.value !=
         "profile_photo/default/male_default.jpg";
     final cond2 = student.profilePhotoPath.value !=

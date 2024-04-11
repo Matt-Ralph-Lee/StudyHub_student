@@ -7,7 +7,8 @@ class ReadNotificationUseCase {
 
   ReadNotificationUseCase(this._repository);
 
-  void execute(final NotificationId id, final StudentId studentId) {
-    _repository.readNotification(id, studentId);
+  Future<void> execute(
+      final NotificationId id, final StudentId studentId) async {
+    await _repository.readNotification(id, studentId);
   }
 }

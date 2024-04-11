@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/bookmarks/models/bookmarks.dart';
-import 'package:studyhub/domain/student/models/student_id.dart';
 
+import '../../../domain/bookmarks/models/bookmarks.dart';
 import '../../../domain/bookmarks/models/i_bookmarks_repository.dart';
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/student/models/student_id.dart';
 
 class FirebaseBookmarksRepository implements IBookmarksRepository {
   final db = FirebaseFirestore.instance;

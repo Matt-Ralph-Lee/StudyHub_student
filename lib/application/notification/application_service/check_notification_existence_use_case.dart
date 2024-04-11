@@ -7,7 +7,7 @@ class CheckNotificationExistenceUseCase {
   CheckNotificationExistenceUseCase(this._repository);
 
   Future<bool> execute(final StudentId studentId) async {
-    final result = _repository.checkNotificationExistence(studentId);
+    final result = await _repository.checkNotificationExistence(studentId);
 
     return result;
   }

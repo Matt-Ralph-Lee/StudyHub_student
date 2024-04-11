@@ -12,7 +12,7 @@ class GetBlockingsUseCase {
   })  : _session = session,
         _queryService = queryService;
 
-  Future<List<GetBlockingDto>?> execute() async {
+  Future<List<GetBlockingDto>> execute() async {
     final studentId = _session.studentId;
     final blockings = await _queryService.getByStudentId(studentId);
     return blockings;

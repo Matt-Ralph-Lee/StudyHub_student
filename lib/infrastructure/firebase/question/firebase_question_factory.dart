@@ -1,5 +1,3 @@
-import 'package:studyhub/infrastructure/firebase/question/firebase_question_repository.dart';
-
 import '../../../domain/answer_list/models/answer_list.dart';
 import '../../../domain/question/models/i_question_factory.dart';
 import '../../../domain/question/models/question.dart';
@@ -10,6 +8,7 @@ import '../../../domain/question/models/seen_count.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/shared/subject.dart';
 import '../../../domain/student/models/student_id.dart';
+import 'firebase_question_repository.dart';
 
 class FirebaseQuestionFactory implements IQuestionFactory {
   final FirebaseQuestionRepository _repository;

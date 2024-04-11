@@ -92,18 +92,19 @@ class QuestionEditUseCase {
             QuestionPhotoPath(sameQuestionPhotoPath));
       }
 
-      _photoRepository.save(questionPhotoList);
+      await _photoRepository.save(questionPhotoList);
 
       // delete the old images
-      _photoRepository.deleteList(QuestionPhotoPathList(oldQuestionPhotoPathList
-          .where((oldQuestionPhotoPath) =>
-              !questionPhotoPathList.contains(oldQuestionPhotoPath))
-          .toList()));
+      await _photoRepository.deleteList(QuestionPhotoPathList(
+          oldQuestionPhotoPathList
+              .where((oldQuestionPhotoPath) =>
+                  !questionPhotoPathList.contains(oldQuestionPhotoPath))
+              .toList()));
 
       // change the question's photo to the new one
       question.changeQuestionPhotoPathList(questionPhotoPathList);
     }
 
-    _repository.save(question);
+    await _repository.save(question);
   }
 }

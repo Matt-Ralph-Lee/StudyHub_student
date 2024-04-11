@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/answer_list/models/answer_like.dart';
-import 'package:studyhub/domain/answer_list/models/answer_photo_path.dart';
-import 'package:studyhub/domain/answer_list/models/answer_photo_path_list.dart';
-import 'package:studyhub/domain/answer_list/models/answer_text.dart';
-import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 
 import '../../../domain/answer_list/models/answer.dart';
 import '../../../domain/answer_list/models/answer_id.dart';
+import '../../../domain/answer_list/models/answer_like.dart';
+import '../../../domain/answer_list/models/answer_photo_path.dart';
+import '../../../domain/answer_list/models/answer_photo_path_list.dart';
+import '../../../domain/answer_list/models/answer_text.dart';
 import '../../../domain/answer_list/models/i_answer_repository.dart';
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 
 class FirebaseAnswerRepository implements IAnswerRepository {
   final db = FirebaseFirestore.instance;

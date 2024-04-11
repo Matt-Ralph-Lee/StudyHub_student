@@ -1,4 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/application/student_auth/application_service/update_student_auth_info_command.dart";
+import "package:studyhub/application/student_auth/application_service/update_student_auth_info_use_case.dart";
 
 import "../../../application/di/student/student_provider.dart";
 import "../../../application/di/student_auth/student_auth_provider.dart";
@@ -44,6 +46,19 @@ class StudentAuthController extends _$StudentAuthController {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
       final signInUseCase = SignOutUseCase(repository: studentAuthRepository);
       await signInUseCase.execute();
+    });
+  }
+
+  Future<void> resetPassword(final String emailAddress) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
+      final command = UpdateStudentAuthInfoCommand(
+          emailAddress: null, emailAddressToResetPassword: emailAddress);
+      final usecase =
+          UpdateStudentAuthInfoUseCase(repository: studentAuthRepository);
+
+      await usecase.execute(command);
     });
   }
 
