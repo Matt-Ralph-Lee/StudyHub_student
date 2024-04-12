@@ -1,28 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_my_bookmarks_repository_provider.dart';
+part of 'bookmarks_repository_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getMyBookmarksRepositoryDiHash() =>
-    r'53b31606a31c04316eb4ab4a4be5bb229d8a5e1b';
+String _$bookmarksRepositoryDiHash() =>
+    r'17697d29bc503ac028a7d2a6c84d54913555fa76';
 
-/// See also [getMyBookmarksRepositoryDi].
-@ProviderFor(getMyBookmarksRepositoryDi)
-final getMyBookmarksRepositoryDiProvider =
+/// See also [bookmarksRepositoryDi].
+@ProviderFor(bookmarksRepositoryDi)
+final bookmarksRepositoryDiProvider =
     AutoDisposeProvider<IBookmarksRepository>.internal(
-  getMyBookmarksRepositoryDi,
-  name: r'getMyBookmarksRepositoryDiProvider',
+  bookmarksRepositoryDi,
+  name: r'bookmarksRepositoryDiProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$getMyBookmarksRepositoryDiHash,
+      : _$bookmarksRepositoryDiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef GetMyBookmarksRepositoryDiRef
-    = AutoDisposeProviderRef<IBookmarksRepository>;
+typedef BookmarksRepositoryDiRef = AutoDisposeProviderRef<IBookmarksRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

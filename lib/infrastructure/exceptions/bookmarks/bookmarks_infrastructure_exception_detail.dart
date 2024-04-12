@@ -4,6 +4,7 @@ enum BookmarksInfrastructureExceptionDetail
     implements InfrastructureExceptionDetail {
   studentNotFound('student not found'),
   teacherNotFound('teacher not found'),
+  bookmarkNotFound('bookmark not found'),
   ;
 
   const BookmarksInfrastructureExceptionDetail(this._message);
