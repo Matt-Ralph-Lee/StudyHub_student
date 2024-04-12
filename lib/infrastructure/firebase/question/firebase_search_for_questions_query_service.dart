@@ -6,7 +6,10 @@ import '../../../application/question/application_service/i_search_for_questions
 import '../../../application/shared/application_service/question_card_dto.dart';
 import '../../../domain/question/models/question.dart';
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/shared/subject.dart';
+import '../../../domain/student/default/default_student.dart';
+import '../../../domain/student/models/student.dart';
 import '../../exceptions/question/question_infrastructure_exception.dart';
 import '../../exceptions/question/question_infrastructure_exception_detail.dart';
 import '../student/firebase_student_repository.dart';
@@ -68,11 +71,18 @@ class FirebaseSearchForQuestionsQueryService
   }
 
   Future<QuestionCardDto> _toDto(final Question question) async {
-    final student = await _studentRepository.findById(question.studentId);
-    if (student == null) {
-      throw const QuestionInfrastructureException(
-          QuestionInfrastructureExceptionDetail.studentNotFound);
-    }
+    Student? student = await _studentRepository.findById(question.studentId);
+    student ??= Student(
+      studentId: DefaultStudent.studentId,
+      name: DefaultStudent.name,
+      profilePhotoPath: ProfilePhotoPath(DefaultStudent.profilePhoto),
+      gender: DefaultStudent.gender,
+      occupation: DefaultStudent.occupation,
+      school: DefaultStudent.school,
+      gradeOrGraduateStatus: DefaultStudent.gradeOrGraduateStatus,
+      questionCount: DefaultStudent.questionCount,
+      status: DefaultStudent.status,
+    );
 
     final mostLikedAnswer = question.getMostLikedAnswer();
     if (mostLikedAnswer == null) {

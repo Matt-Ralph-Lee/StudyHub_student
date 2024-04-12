@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/bookmarks/models/bookmarks.dart';
-import 'package:studyhub/domain/student/models/student_id.dart';
 
+import '../../../domain/bookmarks/models/bookmarks.dart';
 import '../../../domain/bookmarks/models/i_bookmarks_repository.dart';
 import '../../../domain/question/models/question_id.dart';
+import '../../../domain/student/models/student_id.dart';
+import '../../exceptions/bookmarks/bookmarks_infrastructure_exception.dart';
+import '../../exceptions/bookmarks/bookmarks_infrastructure_exception_detail.dart';
 
 class FirebaseBookmarksRepository implements IBookmarksRepository {
   final db = FirebaseFirestore.instance;
@@ -54,5 +56,22 @@ class FirebaseBookmarksRepository implements IBookmarksRepository {
     }
 
     await docRef.update({"bookmarks": addDataList});
+  }
+
+  @override
+  Future<bool> checkIsBookmarked(
+      {required QuestionId questionId, required StudentId studentId}) async {
+    final snapshot = await db.collection("students").doc(studentId.value).get();
+    final doc = snapshot.data();
+    if (doc == null) {
+      throw const BookmarksInfrastructureException(
+          BookmarksInfrastructureExceptionDetail.bookmarkNotFound);
+    }
+
+    final bookmarkList = doc["bookmarks"] as List<dynamic>;
+
+    final isBookmarked = bookmarkList.contains(questionId.value);
+
+    return isBookmarked;
   }
 }
