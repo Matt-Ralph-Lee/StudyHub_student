@@ -95,7 +95,14 @@ class ResendEmailVerificationWidget extends HookConsumerWidget {
           },
           child: Text(
             L10n.haveVerified,
-            style: TextStyle(color: ColorSet.of(context).text),
+            style: TextStyle(
+              fontWeight: FontWeightSet.normal,
+              fontSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.body,
+              ),
+              color: ColorSet.of(context).text,
+            ),
           ),
         )
       ],

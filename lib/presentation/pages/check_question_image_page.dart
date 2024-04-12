@@ -198,11 +198,12 @@ class CheckQuestionImagePage extends HookConsumerWidget {
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
                                         CircleAvatar(
-                                          radius: 15,
+                                          radius: screenWidth < 600 ? 15 : 22,
                                           backgroundImage: studentImage,
                                         ),
                                         const SizedBox(

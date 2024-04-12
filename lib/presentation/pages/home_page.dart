@@ -74,7 +74,7 @@ class HomePage extends HookConsumerWidget {
             ),
           ), //ここは画像に差し替え
         ),
-        leadingWidth: 130,
+        leadingWidth: screenWidth < 600 ? 130 : 200,
         actions: [
           GestureDetector(
               child: Icon(

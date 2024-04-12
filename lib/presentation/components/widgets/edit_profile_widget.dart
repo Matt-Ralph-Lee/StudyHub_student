@@ -50,7 +50,6 @@ class EditProfileWidget extends HookWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 25),
           CircleAvatarForProfileEdit(
             takePhoto: uploadPhotoFromCamera,
             pickPhoto: uploadPhotoFromGallery,

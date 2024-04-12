@@ -8,11 +8,13 @@ import '../../shared/constants/l10n.dart';
 class TextFormFieldForAddQuestion extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String)? onChanged;
+  final String? errorText;
 
   const TextFormFieldForAddQuestion({
     super.key,
     required this.controller,
     required this.onChanged,
+    required this.errorText,
   });
 
   @override
@@ -44,6 +46,11 @@ class TextFormFieldForAddQuestion extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide.none,
           ),
+          errorText: errorText,
+          errorStyle: TextStyle(
+              fontWeight: FontWeightSet.normal,
+              fontSize: FontSizeSet.annotation,
+              color: ColorSet.of(context).errorText),
         ),
         maxLines: 30,
       ),

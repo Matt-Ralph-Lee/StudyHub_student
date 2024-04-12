@@ -35,7 +35,7 @@ final sessionDiProvider = AutoDisposeProvider<Session?>.internal(
 );
 
 typedef SessionDiRef = AutoDisposeProviderRef<Session?>;
-String _$isVerifiedHash() => r'e32e2295d411d3d22608b5f5eaa8a2f03ad2787e';
+String _$isVerifiedHash() => r'fb845c3e919c0f8a2ee7162097258a101fa2fb37';
 
 /// See also [isVerified].
 @ProviderFor(isVerified)
@@ -49,7 +49,7 @@ final isVerifiedProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsVerifiedRef = AutoDisposeProviderRef<bool>;
-String _$isSignedInHash() => r'b3a2c44f1e877bb04d4e7ee6f35597c6c285707d';
+String _$isSignedInHash() => r'3933f1f5ddc81487a24b56a7613a71fb948a5922';
 
 /// See also [isSignedIn].
 @ProviderFor(isSignedIn)

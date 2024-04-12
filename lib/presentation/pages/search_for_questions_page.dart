@@ -103,7 +103,11 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                 ),
                 child: Container(
                   height: screenWidth < 600 ? 42 : 63,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.only(
+                    right: PaddingSet.getPaddingSize(context, 20),
+                    left: PaddingSet.getPaddingSize(context, 20),
+                    top: PaddingSet.getPaddingSize(context, 20),
+                  ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorSet.of(context).greySurface),
@@ -237,6 +241,7 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                     ),
                   ),
                   error: (error, stack) {
+                    print(error);
                     return const SliverFillRemaining(
                       child: Center(child: TextForError()),
                     );

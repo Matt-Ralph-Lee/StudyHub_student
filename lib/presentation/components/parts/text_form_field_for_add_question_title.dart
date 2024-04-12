@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
@@ -8,11 +9,13 @@ import '../../shared/constants/l10n.dart';
 class TextFormFieldForAddQuestionTitle extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String)? onChanged;
+  final String? errorText;
 
   const TextFormFieldForAddQuestionTitle({
     super.key,
     required this.controller,
     required this.onChanged,
+    required this.errorText,
   });
 
   @override
@@ -44,6 +47,11 @@ class TextFormFieldForAddQuestionTitle extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide.none,
           ),
+          errorText: errorText,
+          errorStyle: TextStyle(
+              fontWeight: FontWeightSet.normal,
+              fontSize: FontSizeSet.annotation,
+              color: ColorSet.of(context).errorText),
         ),
         maxLines: 2,
       ),

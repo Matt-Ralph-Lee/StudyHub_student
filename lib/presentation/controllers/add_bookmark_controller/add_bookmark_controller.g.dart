@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'student_auth_controller.dart';
+part of 'add_bookmark_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$studentAuthControllerHash() =>
-    r'b26378d85c3261ada4a80986e19f4a03164de6d2';
+String _$addBookmarkControllerHash() =>
+    r'71837efcaaad3f42ce6ebd1b7d19112cbfd3eaaf';
 
-/// See also [StudentAuthController].
-@ProviderFor(StudentAuthController)
-final studentAuthControllerProvider =
-    AutoDisposeAsyncNotifierProvider<StudentAuthController, void>.internal(
-  StudentAuthController.new,
-  name: r'studentAuthControllerProvider',
+/// See also [AddBookmarkController].
+@ProviderFor(AddBookmarkController)
+final addBookmarkControllerProvider =
+    AutoDisposeAsyncNotifierProvider<AddBookmarkController, void>.internal(
+  AddBookmarkController.new,
+  name: r'addBookmarkControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$studentAuthControllerHash,
+      : _$addBookmarkControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$StudentAuthController = AutoDisposeAsyncNotifier<void>;
+typedef _$AddBookmarkController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

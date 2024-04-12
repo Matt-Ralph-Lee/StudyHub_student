@@ -52,10 +52,23 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
                         )),
                   );
                 },
-                child: Icon(
-                  Icons.camera_alt,
-                  color: ColorSet.of(context).primary,
-                  size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.header3,
+                      ),
+                      backgroundColor: ColorSet.of(context).blackBackground,
+                    ),
+                    Icon(
+                      Icons.camera_alt,
+                      color: ColorSet.of(context).primary,
+                      size:
+                          FontSizeSet.getFontSize(context, FontSizeSet.header1),
+                    ),
+                  ],
                 ),
               ))
         ],

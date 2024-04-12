@@ -3,6 +3,8 @@ import '../../../application/question/exception/question_use_case_exception_deta
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../../domain/question/models/question_photo_path_list.dart';
+import '../../../domain/question/models/question_text.dart';
+import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
@@ -99,7 +101,8 @@ class L10n {
 
   //mail_verification_page
   static const emailVerificationTitleText = "メール認証";
-  static const emailVerificationSubtitleText = "入力されたメールアドレスに認証メールを送りました";
+  static const emailVerificationSubtitleText =
+      "入力されたメールアドレスに認証メールを送りました。\n認証後、以下の「認証しました」ボタンを押してください";
   static const emailVerificationButtonText = "メールを再送信";
   static const resendEmailVerificationText = "メールを再送信しました";
   static const haveVerified = "認証しました";
@@ -198,7 +201,11 @@ class L10n {
 
   //add_question_page
   static const questionTitleHintText = "タイトルを入力してください";
+  static const questionTitleMaxLengthOverErrorText =
+      "タイトルは${QuestionTitle.maxLength}以下にしてください";
   static const questionHintText = "質問を入力してください";
+  static const questionMaxLengthOverErrorText =
+      "質問は${QuestionText.maxLength}以下にしてください";
   static const selectSubject = "科目を選択してください";
   static const addImagesTextButtonText = "写真を追加";
   static const selectTeachersTextButtonText = "講師を希望する";

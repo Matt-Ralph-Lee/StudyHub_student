@@ -4,10 +4,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studyhub/domain/question/models/question_text.dart';
 
 import '../../application/question/exception/question_use_case_exception.dart';
 import '../../application/question/exception/question_use_case_exception_detail.dart';
+import '../../domain/question/models/question.dart';
 import '../../domain/question/models/question_photo_path_list.dart';
+import '../../domain/question/models/question_title.dart';
 import '../../domain/shared/subject.dart';
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/completion_snack_bar.dart';
@@ -36,17 +39,31 @@ class CreateQuestionPage extends HookConsumerWidget {
     final selectedSubject = useState<Subject?>(null);
     final selectedPhotos = useState<List<String>>([]);
     final selectedTeachersId = useState<List<TeacherId>>([]);
+    final questionTitleErrorText = useState<String?>(null);
+    final questionErrorText = useState<String?>(null);
     final isQuestionTitleFilled = useState<bool>(false);
     final isQuestionFilled = useState<bool>(false);
 
     final addQuestionControllerState = ref.watch(addQuestionControllerProvider);
 
     void checkQuestionTitleFilled(String text) {
-      isQuestionTitleFilled.value = text.isNotEmpty;
+      if (text.length > QuestionTitle.maxLength) {
+        questionTitleErrorText.value = L10n.questionTitleMaxLengthOverErrorText;
+        isQuestionTitleFilled.value = false; //trueの状態でmaxLengthをoverする場合もあるので
+      } else {
+        questionTitleErrorText.value = null;
+        isQuestionTitleFilled.value = text.isNotEmpty;
+      }
     }
 
     void checkQuestionFilled(String text) {
-      isQuestionFilled.value = text.isNotEmpty;
+      if (text.length > QuestionText.maxLength) {
+        questionErrorText.value = L10n.questionMaxLengthOverErrorText;
+        isQuestionFilled.value = false; //trueの状態でmaxLengthをoverする場合もあるので
+      } else {
+        questionErrorText.value = null;
+        isQuestionFilled.value = text.isNotEmpty;
+      }
     }
 
     void setSubject(Subject? subject) {
@@ -242,6 +259,8 @@ class CreateQuestionPage extends HookConsumerWidget {
                     checkQuestionFilledFunction: checkQuestionFilled,
                     checkQuestionTitleFilledFunction: checkQuestionTitleFilled,
                     selectSubjectFunction: setSubject,
+                    questionErrorText: questionErrorText.value,
+                    questionTitleErrorText: questionTitleErrorText.value,
                   ),
                 ],
               ),

@@ -12,6 +12,8 @@ class AddQuestionMainContentWidget extends StatelessWidget {
   final void Function(Subject?) selectSubjectFunction;
   final void Function(String) checkQuestionTitleFilledFunction;
   final void Function(String) checkQuestionFilledFunction;
+  final String? questionTitleErrorText;
+  final String? questionErrorText;
   const AddQuestionMainContentWidget({
     super.key,
     required this.questionController,
@@ -19,6 +21,8 @@ class AddQuestionMainContentWidget extends StatelessWidget {
     required this.selectSubjectFunction,
     required this.checkQuestionFilledFunction,
     required this.checkQuestionTitleFilledFunction,
+    required this.questionErrorText,
+    required this.questionTitleErrorText,
   });
 
   @override
@@ -45,6 +49,7 @@ class AddQuestionMainContentWidget extends StatelessWidget {
               TextFormFieldForAddQuestionTitle(
                 controller: questionTitleController,
                 onChanged: checkQuestionTitleFilledFunction,
+                errorText: questionTitleErrorText,
               ),
               SizedBox(
                 height: PaddingSet.getPaddingSize(
@@ -55,6 +60,7 @@ class AddQuestionMainContentWidget extends StatelessWidget {
               TextFormFieldForAddQuestion(
                 controller: questionController,
                 onChanged: checkQuestionFilledFunction,
+                errorText: questionErrorText,
               ),
             ],
           ),
