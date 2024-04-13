@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/bookmarks/repository/bookmarks_repository_provider.dart";
 import "../../../application/di/question_detail/question_detail_query_service_provider.dart";
 import "../../../application/di/student/student_provider.dart";
 import "../../../application/question/application_service/get_question_detail_use_case.dart";
@@ -15,10 +16,12 @@ class GetQuestionDetailController extends _$GetQuestionDetailController {
     final getQuestionDetailQueryService =
         ref.watch(getQuestionDetailQueryServiceDiProvider);
     final studentRepository = ref.watch(studentRepositoryDiProvider);
+    final bookmarksRepository = ref.watch(bookmarksRepositoryDiProvider);
 
     final getQuestionDetailUseCase = GetQuestionDetailUseCase(
       queryService: getQuestionDetailQueryService,
       studentRepository: studentRepository,
+      bookmarksRepository: bookmarksRepository,
     );
 
     final questionCardDto = getQuestionDetailUseCase.execute(questionId);

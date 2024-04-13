@@ -6,11 +6,10 @@ import '../../../../infrastructure/in_memory/bookmarks/in_memory_bookmarks_repos
 import '../../../shared/flavor/flavor.dart';
 import '../../../shared/flavor/flavor_config.dart';
 
-part 'get_my_bookmarks_repository_provider.g.dart';
+part 'bookmarks_repository_provider.g.dart';
 
 @riverpod
-IBookmarksRepository getMyBookmarksRepositoryDi(
-    GetMyBookmarksRepositoryDiRef ref) {
+IBookmarksRepository bookmarksRepositoryDi(BookmarksRepositoryDiRef ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryBookmarksRepository();

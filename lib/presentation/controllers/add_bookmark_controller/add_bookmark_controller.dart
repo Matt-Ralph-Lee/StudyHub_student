@@ -1,7 +1,7 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../application/bookmarks/application_service/bookmarks_add_use_case.dart";
-import "../../../application/di/bookmarks/repository/get_my_bookmarks_repository_provider.dart";
+import "../../../application/di/bookmarks/repository/bookmarks_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../domain/question/models/question_id.dart";
 
@@ -16,7 +16,7 @@ class AddBookmarkController extends _$AddBookmarkController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final session = ref.read(nonNullSessionProvider);
-      final repository = ref.watch(getMyBookmarksRepositoryDiProvider);
+      final repository = ref.watch(bookmarksRepositoryDiProvider);
       final addBookmarkUseCase = BookmarksAddUseCase(
         session: session,
         repository: repository,

@@ -16,7 +16,7 @@ import '../../../shared/flavor/flavor_config.dart';
 import '../../question/repository/question_repository_provider.dart';
 import '../../student/student_provider.dart';
 import '../../teacher/teacher_provider.dart';
-import '../repository/get_my_bookmarks_repository_provider.dart';
+import '../repository/bookmarks_repository_provider.dart';
 
 part 'get_my_bookmarks_query_service_provider.g.dart';
 
@@ -26,7 +26,7 @@ IGetBookmarksQueryService getMyBookmarksQueryServiceDi(
   switch (flavor) {
     case Flavor.dev:
       return InMemoryBookmarksQueryService(
-        repository: (ref.watch(getMyBookmarksRepositoryDiProvider))
+        repository: (ref.watch(bookmarksRepositoryDiProvider))
             as InMemoryBookmarksRepository,
         studentRepository: (ref.watch(studentRepositoryDiProvider))
             as InMemoryStudentRepository,
@@ -39,7 +39,7 @@ IGetBookmarksQueryService getMyBookmarksQueryServiceDi(
       throw UnimplementedError();
     case Flavor.prd:
       return FirebaseBookmarksQueryService(
-        repository: (ref.watch(getMyBookmarksRepositoryDiProvider))
+        repository: (ref.watch(bookmarksRepositoryDiProvider))
             as FirebaseBookmarksRepository,
         studentRepository: (ref.watch(studentRepositoryDiProvider))
             as FirebaseStudentRepository,
