@@ -2,6 +2,7 @@ import '../../../domain/bookmarks/models/i_bookmarks_repository.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../../../domain/student/default/default_student.dart';
 import '../../../domain/student/models/i_student_repository.dart';
+import '../../../domain/student/models/student_id.dart';
 import 'i_get_question_detail_query_service.dart';
 import 'question_detail_dto.dart';
 
@@ -17,8 +18,14 @@ class GetQuestionDetailUseCase {
   })  : _queryService = queryService,
         _bookmarksRepository = bookmarksRepository,
         _studentRepository = studentRepository;
-  Future<QuestionDetailDto> execute(final QuestionId questionId) async {
+  Future<QuestionDetailDto> execute({
+    required final QuestionId questionId,
+    required final StudentId studentId,
+  }) async {
     final question = await _queryService.getByQuestionId(questionId);
+    final isBookmarked = await _bookmarksRepository.checkIsBookmarked(
+        questionId: question.questionId, studentId: studentId);
+
     final student = await _studentRepository.findById(question.studentId);
     if (student == null) {
       return QuestionDetailDto(
@@ -29,12 +36,9 @@ class GetQuestionDetailUseCase {
         questionPhotoPathList: question.questionPhotoPathList
             .map((photoPath) => photoPath.value)
             .toList(),
-        isBookmarked: false,
+        isBookmarked: isBookmarked,
       );
     }
-
-    final isBookmarked = await _bookmarksRepository.checkIsBookmarked(
-        questionId: question.questionId, studentId: student.studentId);
 
     return QuestionDetailDto(
       questionId: question.questionId,
