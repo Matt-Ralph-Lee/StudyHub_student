@@ -4,6 +4,8 @@ import "../../../application/bookmarks/application_service/bookmarks_delete_use_
 import "../../../application/di/bookmarks/repository/bookmarks_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../domain/question/models/question_id.dart";
+import "../get_my_bookmark_controller/get_my_bookmark_controller.dart";
+import "../get_question_detail_controller/get_question_detail_controller.dart";
 
 part "delete_bookmark_controller.g.dart";
 
@@ -23,5 +25,7 @@ class DeleteBookmarkController extends _$DeleteBookmarkController {
       );
       await deleteBookmarkUseCase.execute(questionId);
     });
+    ref.invalidate(getQuestionDetailControllerProvider);
+    ref.invalidate(getMyBookmarksControllerProvider);
   }
 }

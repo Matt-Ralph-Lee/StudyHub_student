@@ -1,3 +1,4 @@
+import '../../../application/bookmarks/exception/bookmarks_use_case_exception_detail.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
@@ -6,6 +7,7 @@ import '../../../domain/question/models/question_photo_path_list.dart';
 import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
+import '../../../domain/shared/name.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
 import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
@@ -93,6 +95,14 @@ class L10n {
     }
   }
 
+  static String bookmarkUseCaseExceptionMessage(
+      BookmarksUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case BookmarksUseCaseExceptionDetail.bookmarksNotFound:
+        return "Bookmarksが見つかりませんでした。";
+    }
+  }
+
   //password_reset_page
   static const passwordResetTitle = "パスワード再設定";
   static const passwordResetMailAddressInputExplanationText =
@@ -111,6 +121,7 @@ class L10n {
   static const indicatorTextOneThird = "1/3";
   static const usernameInputExplanationText = "ユーザー名を入力してください";
   static const usernameTextFieldLabelText = "ユーザ名";
+  static const userNameErrorText = "ユーザ名は${Name.maxLength}字以下にしてください";
 
   static const indicatorTextTwoThirds = "2/3";
   static const genderAndJobInputExplanationText = "性別と職業を選択してください";
@@ -198,6 +209,10 @@ class L10n {
   static const questionIconText = "Q.";
   static const answerIconText = "A.";
   static const noAnswerText = "回答までしばらくお待ちください";
+  static const addBookmarkButtonText = "ブックマーク";
+  static const deleteBookmarkButtonText = "ブックマーク中";
+  static const addBookmarkText = "ブックマークに追加しました";
+  static const deleteBookmarkText = "ブックマークから削除しました";
 
   //add_question_page
   static const questionTitleHintText = "タイトルを入力してください";

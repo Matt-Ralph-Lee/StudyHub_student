@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../application/student/application_service/profile_update_command.dart';
 import '../../application/student/exception/student_use_case_exception.dart';
 import '../../application/student/exception/student_use_case_exception_detail.dart';
+import '../../domain/shared/name.dart';
 import '../../domain/student/models/gender.dart';
 import '../../domain/student/models/grade_or_graduate_status.dart';
 import '../../domain/student/models/occupation.dart';
@@ -34,6 +35,7 @@ class EditProfilePage extends HookConsumerWidget {
     return getStudentState.when(
       data: (getStudentDto) {
         final picker = ImagePicker();
+        final userNameErrorText = useState<String?>(null);
         final currentImagePath =
             useState<String>(getStudentDto.profilePhotoPath);
         final imageFilePath = useState<String?>(null);
@@ -51,7 +53,13 @@ class EditProfilePage extends HookConsumerWidget {
             useState<bool>(studentSchoolNameInputController.text.isNotEmpty);
 
         void checkUserNameFilled(String text) {
-          isUserNameFilled.value = text.isNotEmpty;
+          if (text.length > Name.maxLength) {
+            userNameErrorText.value = L10n.userNameErrorText;
+            isUserNameFilled.value = false; //trueの状態でmaxLengthをoverする場合もあるので
+          } else {
+            userNameErrorText.value = null;
+            isUserNameFilled.value = text.isNotEmpty;
+          }
         }
 
         void checkSchoolNameFilled(String text) {
@@ -207,6 +215,7 @@ class EditProfilePage extends HookConsumerWidget {
                         takePhoto(ImageSource.gallery),
                     handleOccupationChanged: handleOccupationChanged,
                     handleOthersGradeChanged: handleOthersGradeChanged,
+                    errorText: userNameErrorText.value,
                   ),
                 ],
               ),

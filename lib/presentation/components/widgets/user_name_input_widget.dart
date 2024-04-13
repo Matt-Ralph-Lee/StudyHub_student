@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../../domain/shared/name.dart';
 import '../../shared/constants/l10n.dart';
 import '../parts/button_for_profile_input_next.dart';
 import '../parts/text_for_input_explanation.dart';
@@ -19,9 +20,16 @@ class UserNameInputWidget extends HookWidget {
   Widget build(BuildContext context) {
     final isUserNameFilled =
         useState<bool>(userNameInputController.text.isNotEmpty);
+    final userNameErrorText = useState<String?>(null);
 
     void checkUserNameFilled(String text) {
-      isUserNameFilled.value = text.isNotEmpty;
+      if (text.length > Name.maxLength) {
+        userNameErrorText.value = L10n.userNameErrorText;
+        isUserNameFilled.value = false; //trueの状態でmaxLengthをoverする場合もあるので
+      } else {
+        userNameErrorText.value = null;
+        isUserNameFilled.value = text.isNotEmpty;
+      }
     }
 
     return Column(
@@ -31,8 +39,10 @@ class UserNameInputWidget extends HookWidget {
             explanationText: L10n.usernameInputExplanationText),
         const SizedBox(height: 130),
         TextFormFieldForUserNameInput(
-            controller: userNameInputController,
-            onChanged: checkUserNameFilled),
+          controller: userNameInputController,
+          onChanged: checkUserNameFilled,
+          errorText: userNameErrorText.value,
+        ),
         const SizedBox(height: 150),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

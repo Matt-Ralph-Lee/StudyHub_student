@@ -271,6 +271,7 @@ class MyPage extends ConsumerWidget {
                   },
                 ),
                 error: (error, stack) {
+                  print(error);
                   return const Center(
                     child: TextForError(),
                   );

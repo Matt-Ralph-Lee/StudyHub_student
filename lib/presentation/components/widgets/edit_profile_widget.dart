@@ -18,6 +18,7 @@ class EditProfileWidget extends HookWidget {
   final void Function(String)? checkUserNameFilledFunction;
   final void Function() uploadPhotoFromCamera;
   final void Function() uploadPhotoFromGallery;
+  final String? errorText;
   final String currentImagePath;
   final String? imageFilePath;
   final Gender? genderValue;
@@ -33,6 +34,7 @@ class EditProfileWidget extends HookWidget {
     required this.checkUserNameFilledFunction,
     required this.uploadPhotoFromCamera,
     required this.uploadPhotoFromGallery,
+    required this.errorText,
     required this.currentImagePath,
     required this.imageFilePath,
     required this.genderValue,
@@ -60,6 +62,7 @@ class EditProfileWidget extends HookWidget {
           TextFormFieldForUserNameInput(
             controller: userNameInputController,
             onChanged: checkUserNameFilledFunction,
+            errorText: '',
           ),
           const SizedBox(height: 40),
           DropDownButtonForGenderInput(

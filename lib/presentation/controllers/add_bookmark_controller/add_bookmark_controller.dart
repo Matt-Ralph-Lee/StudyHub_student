@@ -4,6 +4,8 @@ import "../../../application/bookmarks/application_service/bookmarks_add_use_cas
 import "../../../application/di/bookmarks/repository/bookmarks_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../domain/question/models/question_id.dart";
+import "../get_my_bookmark_controller/get_my_bookmark_controller.dart";
+import "../get_question_detail_controller/get_question_detail_controller.dart";
 
 part "add_bookmark_controller.g.dart";
 
@@ -23,5 +25,7 @@ class AddBookmarkController extends _$AddBookmarkController {
       );
       await addBookmarkUseCase.execute(questionId);
     });
+    ref.invalidate(getQuestionDetailControllerProvider);
+    ref.invalidate(getMyBookmarksControllerProvider);
   }
 }
