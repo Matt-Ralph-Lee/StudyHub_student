@@ -13,6 +13,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
   final bool isPhotoAdded;
   final void Function() uploadPhotoFromCamera;
   final void Function() uploadPhotoFromGallery;
+  final void Function(String)? deletePhoto;
   final void Function(TeacherId) selectTeachersFunction;
   const AddImagesOrSelectTeachersWidget({
     super.key,
@@ -22,6 +23,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
     required this.isPhotoAdded,
     required this.uploadPhotoFromCamera,
     required this.uploadPhotoFromGallery,
+    required this.deletePhoto,
     required this.selectTeachersFunction,
   });
 
@@ -49,6 +51,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
                 takePhoto: uploadPhotoFromCamera,
                 pickPhoto: uploadPhotoFromGallery,
                 isPicturesAdded: isPhotoAdded,
+                deletePhoto: deletePhoto,
               ),
               SizedBox(
                 height: PaddingSet.getPaddingSize(

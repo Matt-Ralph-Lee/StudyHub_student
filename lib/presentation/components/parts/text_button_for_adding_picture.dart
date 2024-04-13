@@ -11,6 +11,7 @@ class TextButtonForAddingPicture extends StatelessWidget {
   final bool isPicturesAdded;
   final void Function() takePhoto;
   final void Function() pickPhoto;
+  final void Function(String)? deletePhoto;
 
   const TextButtonForAddingPicture({
     Key? key,
@@ -18,6 +19,7 @@ class TextButtonForAddingPicture extends StatelessWidget {
     required this.isPicturesAdded,
     required this.takePhoto,
     required this.pickPhoto,
+    required this.deletePhoto,
   }) : super(key: key);
 
   @override
@@ -27,8 +29,10 @@ class TextButtonForAddingPicture extends StatelessWidget {
         showModalBottomSheet(
           context: context,
           builder: ((builder) => BottomSheetForPickImage(
+                imageFilePath: imageFilePath,
                 takePhoto: takePhoto,
                 pickPhoto: pickPhoto,
+                deletePhoto: deletePhoto,
               )),
         );
       },

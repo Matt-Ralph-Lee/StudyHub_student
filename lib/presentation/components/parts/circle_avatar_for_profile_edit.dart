@@ -49,6 +49,7 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
                     builder: ((builder) => BottomSheetForPickImage(
                           takePhoto: takePhoto,
                           pickPhoto: pickPhoto,
+                          deletePhoto: null,
                         )),
                   );
                 },

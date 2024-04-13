@@ -10,6 +10,7 @@ import '../../application/question/exception/question_use_case_exception_detail.
 import '../../domain/question/models/question_photo_path_list.dart';
 import '../../domain/question/models/question_text.dart';
 import '../../domain/question/models/question_title.dart';
+import '../../domain/question/models/selected_teacher_list.dart';
 import '../../domain/shared/subject.dart';
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/completion_snack_bar.dart';
@@ -71,10 +72,12 @@ class CreateQuestionPage extends HookConsumerWidget {
 
     //デフォで直接枚数制限はできないぽいので、予め注意&選択後にチェックの二刀流で
     void selectPhotos() async {
-      const maxSelection = QuestionPhotoPathList.maxLength;
+      const maxImages = QuestionPhotoPathList.maxLength;
+      final List<String> updatedList = List<String>.from(selectedPhotos.value);
       picker.pickMultiImage().then((pickedFiles) {
         if (pickedFiles.isNotEmpty) {
-          if (pickedFiles.length > maxSelection) {
+          if (pickedFiles.length > maxImages ||
+              updatedList.length + pickedFiles.length > maxImages) {
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -83,8 +86,6 @@ class CreateQuestionPage extends HookConsumerWidget {
               },
             );
           } else {
-            final List<String> updatedList =
-                List<String>.from(selectedPhotos.value);
             updatedList.addAll(pickedFiles.map((file) => file.path));
             selectedPhotos.value = updatedList;
           }
@@ -96,12 +97,32 @@ class CreateQuestionPage extends HookConsumerWidget {
       final pickedFile = await picker.pickImage(
         source: ImageSource.camera,
       );
+
       if (pickedFile != null) {
+        const maxImages = QuestionPhotoPathList.maxLength;
         final List<String> updatedList =
             List<String>.from(selectedPhotos.value);
-        updatedList.add(pickedFile.path);
-        selectedPhotos.value = updatedList;
+
+        if (updatedList.length >= maxImages) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const SpecificExceptionModalWidget(
+                  errorMessage: L10n.maxImagesErrorText);
+            },
+          );
+        } else {
+          updatedList.add(pickedFile.path);
+          selectedPhotos.value = updatedList;
+        }
       }
+    }
+
+    void deletePhoto(String imagePath) async {
+      final List<String> updatedList = List<String>.from(selectedPhotos.value);
+
+      updatedList.remove(imagePath);
+      selectedPhotos.value = updatedList;
     }
 
     //デフォで直接数制限はできないぽいので、予め注意&選択後にチェックの二刀流で
@@ -111,10 +132,22 @@ class CreateQuestionPage extends HookConsumerWidget {
 
       if (updatedList.contains(teacherId)) {
         updatedList.remove(teacherId);
+        selectedTeachersId.value = updatedList;
       } else {
-        updatedList.add(teacherId);
+        if (updatedList.length >= SelectedTeacherList.maxLength) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const SpecificExceptionModalWidget(
+                errorMessage: L10n.maxTeachersErrorText,
+              );
+            },
+          );
+        } else {
+          updatedList.add(teacherId);
+          selectedTeachersId.value = updatedList;
+        }
       }
-      selectedTeachersId.value = updatedList;
     }
 
     void addQuestion() async {
@@ -238,33 +271,40 @@ class CreateQuestionPage extends HookConsumerWidget {
           teacherIds: selectedTeachersId,
           isTeacherSelected: selectedTeachersId.value.isNotEmpty,
           isPhotoAdded: selectedPhotos.value.isNotEmpty,
+          deletePhoto: deletePhoto,
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: PaddingSet.getPaddingSize(
-                context,
-                PaddingSet.horizontalPadding,
-              )),
-              child: Column(
-                children: [
-                  const SizedBox(height: 30),
-                  AddQuestionMainContentWidget(
-                    questionController: questionController,
-                    questionTitleController: questionTitleController,
-                    checkQuestionFilledFunction: checkQuestionFilled,
-                    checkQuestionTitleFilledFunction: checkQuestionTitleFilled,
-                    selectSubjectFunction: setSubject,
-                    questionErrorText: questionErrorText.value,
-                    questionTitleErrorText: questionTitleErrorText.value,
+            Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: PaddingSet.getPaddingSize(
+                    context,
+                    PaddingSet.horizontalPadding,
+                  )),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 30),
+                      AddQuestionMainContentWidget(
+                        questionController: questionController,
+                        questionTitleController: questionTitleController,
+                        checkQuestionFilledFunction: checkQuestionFilled,
+                        checkQuestionTitleFilledFunction:
+                            checkQuestionTitleFilled,
+                        selectSubjectFunction: setSubject,
+                        questionErrorText: questionErrorText.value,
+                        questionTitleErrorText: questionTitleErrorText.value,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                if (addQuestionControllerState.isLoading)
+                  const LoadingOverlay(),
+              ],
             ),
-            if (addQuestionControllerState.isLoading) const LoadingOverlay(),
           ],
         ),
       ),

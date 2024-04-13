@@ -9,6 +9,8 @@ import '../components/parts/text_form_field_for_search_teachers.dart';
 import '../components/widgets/teacher_small_card_skeleton_widget.dart';
 import '../components/widgets/teacher_small_card_widget.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
+import '../controllers/get_popular_teacher_controller/get_popular_teacher_controller.dart';
+import '../controllers/get_teacher_profile_controller/get_teacher_profile_controller.dart';
 import '../controllers/search_for_teachers_controller/search_for_teachers_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
@@ -33,6 +35,8 @@ class SelectTeachersPage extends HookConsumerWidget {
 
     final favoriteTeachersState =
         ref.watch(getFavoriteTeacherControllerProvider);
+    final getPopularTeachersState =
+        ref.watch(getPopularTeacherControllerProvider);
 
     final searchForTeachersState =
         ref.watch(searchForTeachersControllerProvider(searchTerm.value));
@@ -68,6 +72,102 @@ class SelectTeachersPage extends HookConsumerWidget {
               ),
             ),
             if (searchTerm.value.isEmpty) ...[
+              if (selectedTeachers.value.isNotEmpty)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: PaddingSet.getPaddingSize(context, 24)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 30),
+                        Text(
+                          L10n.selectedTeachersTextForConfirm,
+                          style: TextStyle(
+                              fontWeight: FontWeightSet.normal,
+                              fontSize: FontSizeSet.getFontSize(
+                                  context, FontSizeSet.annotation),
+                              color: ColorSet.of(context).greyText),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ),
+              if (selectedTeachers.value
+                  .isNotEmpty) //silverを渡さないといけないから上と合わせてColumnを渡したりはできないので
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: PaddingSet.getPaddingSize(context, 24)),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      childCount: selectedTeachers.value.length,
+                      (context, index) {
+                        final getTeacherProfileState = ref.watch(
+                            getTeacherProfileControllerProvider(
+                                selectedTeachers.value[index]));
+                        return getTeacherProfileState.when(
+                          data: (teacherProfileDto) => teacherProfileDto != null
+                              ? Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: PaddingSet.getPaddingSize(
+                                          context,
+                                          30,
+                                        ),
+                                      ),
+                                      child: TeacherSmallCardWidget(
+                                        name: teacherProfileDto.name,
+                                        bio: teacherProfileDto.bio,
+                                        iconUrl:
+                                            teacherProfileDto.profilePhotoPath,
+                                        isSelected: selectedTeachers.value
+                                            .contains(
+                                                selectedTeachers.value[index]),
+                                        onTap: () {
+                                          onPressed(
+                                              selectedTeachers.value[index]);
+                                          tapState.value = !tapState.value;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: PaddingSet.getPaddingSize(
+                                      context,
+                                      30,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    L10n.noTeacherProfileFoundText,
+                                    style: TextStyle(
+                                      fontWeight: FontWeightSet.normal,
+                                      fontSize: FontSizeSet.getFontSize(
+                                          context, FontSizeSet.header3),
+                                      color: ColorSet.of(context).text,
+                                    ),
+                                  ),
+                                ),
+                          loading: () => Padding(
+                            padding: EdgeInsets.all(
+                              PaddingSet.getPaddingSize(
+                                context,
+                                PaddingSet.horizontalPadding,
+                              ),
+                            ),
+                            child: const TeacherSmallCardSkeletonWidget(),
+                          ),
+                          error: (error, stack) => const Center(
+                            child: TextForError(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
@@ -176,8 +276,7 @@ class SelectTeachersPage extends HookConsumerWidget {
               SliverPadding(
                 padding: EdgeInsets.symmetric(
                     horizontal: PaddingSet.getPaddingSize(context, 24)),
-                //getPopularTeachersControllerを実装してウォッチするようにする
-                sliver: favoriteTeachersState.when(
+                sliver: getPopularTeachersState.when(
                   data: (teachers) => teachers.isNotEmpty
                       ? SliverList(
                           delegate: SliverChildBuilderDelegate(
@@ -191,7 +290,7 @@ class SelectTeachersPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 child: TeacherSmallCardWidget(
-                                  name: teacher.teacherName,
+                                  name: teacher.name,
                                   bio: teacher.bio,
                                   iconUrl: teacher.profilePhotoPath,
                                   isSelected: selectedTeachers.value
