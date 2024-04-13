@@ -19,9 +19,6 @@ class FavoriteTeachersPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final verticalPadding = screenHeight * 0.05;
-
     final favoriteTeachersState =
         ref.watch(getFavoriteTeacherControllerProvider);
 

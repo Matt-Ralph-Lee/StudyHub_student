@@ -1,9 +1,12 @@
+import 'package:studyhub/domain/teacher/default/default_teacher.dart';
+
 import '../../../application/bookmarks/application_service/i_get_bookmarks_query_service.dart';
 import '../../../application/shared/application_service/question_card_dto.dart';
 import '../../../domain/question/models/question.dart';
+import '../../../domain/student/default/default_student.dart';
+import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
-import '../../exceptions/bookmarks/bookmarks_infrastructure_exception.dart';
-import '../../exceptions/bookmarks/bookmarks_infrastructure_exception_detail.dart';
+import '../../../domain/teacher/models/teacher.dart';
 import '../question/firebase_question_repository.dart';
 import '../student/firebase_student_repository.dart';
 import '../teacher/firebase_teacher_repository.dart';
@@ -43,11 +46,18 @@ class FirebaseBookmarksQueryService implements IGetBookmarksQueryService {
   }
 
   Future<QuestionCardDto> _toDto(final Question question) async {
-    final student = await _studentRepository.findById(question.studentId);
-    if (student == null) {
-      throw const BookmarksInfrastructureException(
-          BookmarksInfrastructureExceptionDetail.studentNotFound);
-    }
+    Student? student = await _studentRepository.findById(question.studentId);
+    student ??= Student(
+      studentId: DefaultStudent.studentId,
+      name: DefaultStudent.name,
+      profilePhotoPath: DefaultStudent.profilePhoto,
+      gender: DefaultStudent.gender,
+      occupation: DefaultStudent.occupation,
+      school: DefaultStudent.school,
+      gradeOrGraduateStatus: DefaultStudent.gradeOrGraduateStatus,
+      questionCount: DefaultStudent.questionCount,
+      status: DefaultStudent.status,
+    );
 
     final mostLikedAnswer = question.getMostLikedAnswer();
     if (mostLikedAnswer == null) {
@@ -62,12 +72,19 @@ class FirebaseBookmarksQueryService implements IGetBookmarksQueryService {
       );
     }
 
-    final teacher =
+    Teacher? teacher =
         await _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
-    if (teacher == null) {
-      throw const BookmarksInfrastructureException(
-          BookmarksInfrastructureExceptionDetail.teacherNotFound);
-    }
+    teacher ??= Teacher(
+      teacherId: DefaultTeacher.teacherId,
+      name: DefaultTeacher.name,
+      highSchool: DefaultTeacher.highSchool,
+      university: DefaultTeacher.university,
+      bio: DefaultTeacher.bio,
+      introduction: DefaultTeacher.introduction,
+      rating: DefaultTeacher.rating,
+      bestSubjects: DefaultTeacher.bestSubjects,
+      profilePhotoPath: DefaultStudent.profilePhoto,
+    );
     return QuestionCardDto(
       questionId: question.questionId,
       studentProfilePhotoPath: student.profilePhotoPath.value,

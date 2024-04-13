@@ -241,7 +241,6 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                     ),
                   ),
                   error: (error, stack) {
-                    print(error);
                     return const SliverFillRemaining(
                       child: Center(child: TextForError()),
                     );

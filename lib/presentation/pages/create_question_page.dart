@@ -4,12 +4,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studyhub/domain/question/models/question_text.dart';
 
 import '../../application/question/exception/question_use_case_exception.dart';
 import '../../application/question/exception/question_use_case_exception_detail.dart';
-import '../../domain/question/models/question.dart';
 import '../../domain/question/models/question_photo_path_list.dart';
+import '../../domain/question/models/question_text.dart';
 import '../../domain/question/models/question_title.dart';
 import '../../domain/shared/subject.dart';
 import '../../domain/teacher/models/teacher_id.dart';

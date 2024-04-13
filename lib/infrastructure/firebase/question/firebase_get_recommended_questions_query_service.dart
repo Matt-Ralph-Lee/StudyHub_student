@@ -6,6 +6,7 @@ import '../../../domain/question/models/question.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../../../domain/shared/subject.dart';
 import '../../../domain/student/default/default_student.dart';
+import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../student/firebase_student_repository.dart';
 import '../teacher/firebase_teacher_repository.dart';
@@ -64,20 +65,20 @@ class FirebaseGetRecommendedQuestionsQueryService
   }
 
   Future<QuestionCardDto> _toDto(final Question question) async {
-    final student = await _studentRepository.findById(question.studentId);
+    Student? student = await _studentRepository.findById(question.studentId);
+    student ??= student ??= Student(
+      studentId: DefaultStudent.studentId,
+      name: DefaultStudent.name,
+      profilePhotoPath: DefaultStudent.profilePhoto,
+      gender: DefaultStudent.gender,
+      occupation: DefaultStudent.occupation,
+      school: DefaultStudent.school,
+      gradeOrGraduateStatus: DefaultStudent.gradeOrGraduateStatus,
+      questionCount: DefaultStudent.questionCount,
+      status: DefaultStudent.status,
+    );
     final mostLikedAnswer = question.getMostLikedAnswer();
     if (mostLikedAnswer == null) {
-      if (student == null) {
-        return QuestionCardDto(
-          questionId: question.questionId,
-          studentProfilePhotoPath: DefaultStudent.profilePhoto,
-          questionTitle: question.questionTitle.value,
-          questionText: question.questionText.value,
-          teacherProfilePhotoPath: null,
-          answerText: null,
-          isMine: false,
-        );
-      }
       return QuestionCardDto(
         questionId: question.questionId,
         studentProfilePhotoPath: student.profilePhotoPath.value,
@@ -92,45 +93,12 @@ class FirebaseGetRecommendedQuestionsQueryService
     final teacher =
         await _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
 
-    if (teacher == null) {
-      if (student == null) {
-        return QuestionCardDto(
-          questionId: question.questionId,
-          studentProfilePhotoPath: DefaultStudent.profilePhoto,
-          questionTitle: question.questionTitle.value,
-          questionText: question.questionText.value,
-          teacherProfilePhotoPath: null,
-          answerText: null,
-          isMine: false,
-        );
-      }
-      return QuestionCardDto(
-        questionId: question.questionId,
-        studentProfilePhotoPath: student.profilePhotoPath.value,
-        questionTitle: question.questionTitle.value,
-        questionText: question.questionText.value,
-        teacherProfilePhotoPath: null,
-        answerText: mostLikedAnswer.answerText.value,
-        isMine: question.studentId == student.studentId,
-      );
-    }
-    if (student == null) {
-      return QuestionCardDto(
-        questionId: question.questionId,
-        studentProfilePhotoPath: DefaultStudent.profilePhoto,
-        questionTitle: question.questionTitle.value,
-        questionText: question.questionText.value,
-        teacherProfilePhotoPath: teacher.profilePhotoPath.value,
-        answerText: mostLikedAnswer.answerText.value,
-        isMine: false,
-      );
-    }
     return QuestionCardDto(
       questionId: question.questionId,
       studentProfilePhotoPath: student.profilePhotoPath.value,
       questionTitle: question.questionTitle.value,
       questionText: question.questionText.value,
-      teacherProfilePhotoPath: teacher.profilePhotoPath.value,
+      teacherProfilePhotoPath: teacher?.profilePhotoPath.value,
       answerText: mostLikedAnswer.answerText.value,
       isMine: question.studentId == student.studentId,
     );
