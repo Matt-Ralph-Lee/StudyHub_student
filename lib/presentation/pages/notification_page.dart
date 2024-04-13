@@ -107,7 +107,12 @@ class NotificationPage extends ConsumerWidget {
       ),
       backgroundColor: ColorSet.of(context).background,
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: EdgeInsets.symmetric(
+          vertical: PaddingSet.getPaddingSize(
+            context,
+            20,
+          ),
+        ),
         child: getMyNotificationsState.when(
           data: (getMyNotificationsDto) {
             if (getMyNotificationsDto.isNotEmpty) {

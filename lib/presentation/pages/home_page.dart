@@ -168,18 +168,25 @@ class HomePage extends HookConsumerWidget {
                   final recommendedQuestion = recommendedQuestions[index];
                   return Padding(
                     padding: EdgeInsets.only(
-                        top: PaddingSet.getPaddingSize(
-                          context,
-                          30,
-                        ),
-                        right: PaddingSet.getPaddingSize(
-                          context,
-                          20,
-                        ),
-                        left: PaddingSet.getPaddingSize(
-                          context,
-                          20,
-                        )),
+                      top: PaddingSet.getPaddingSize(
+                        context,
+                        30,
+                      ),
+                      right: PaddingSet.getPaddingSize(
+                        context,
+                        20,
+                      ),
+                      left: PaddingSet.getPaddingSize(
+                        context,
+                        20,
+                      ),
+                      bottom: index == recommendedQuestions.length - 1
+                          ? PaddingSet.getPaddingSize(
+                              context,
+                              20,
+                            )
+                          : 0,
+                    ),
                     child: QuestionAndAnswerCardWidget(
                       questionCardDto: recommendedQuestion,
                     ),

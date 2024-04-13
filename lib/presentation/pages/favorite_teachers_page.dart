@@ -54,11 +54,15 @@ class FavoriteTeachersPage extends ConsumerWidget {
         backgroundColor: ColorSet.of(context).background,
         body: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: PaddingSet.getPaddingSize(
-                context,
-                PaddingSet.horizontalPadding,
-              ),
-              vertical: verticalPadding),
+            horizontal: PaddingSet.getPaddingSize(
+              context,
+              PaddingSet.horizontalPadding,
+            ),
+            vertical: PaddingSet.getPaddingSize(
+              context,
+              20,
+            ),
+          ),
           child: favoriteTeachersState.when(
             data: (teachers) => teachers.isNotEmpty
                 ? ListView.builder(

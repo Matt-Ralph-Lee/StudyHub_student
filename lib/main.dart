@@ -9,7 +9,7 @@ import 'presentation/router/app.dart';
 void main() async {
   const app = App();
   const scope = ProviderScope(child: app);
-  debugPaintSizeEnabled = false;
+  debugPaintSizeEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(scope);
