@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/padding_set.dart';
-import '../parts/text_button_for_adding_picture.dart';
-import '../parts/text_button_for_selecting_teachers.dart';
+import '../parts/button_for_adding_picture.dart';
+import '../parts/button_for_selecting_teachers.dart';
 
 class AddImagesOrSelectTeachersWidget extends StatelessWidget {
   final List<String>? imageFilePath;
@@ -46,7 +46,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextButtonForAddingPicture(
+              ButtonForAddingPicture(
                 imageFilePath: imageFilePath,
                 takePhoto: uploadPhotoFromCamera,
                 pickPhoto: uploadPhotoFromGallery,
@@ -59,7 +59,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
                   20,
                 ),
               ),
-              TextButtonForSelectingTeacher(
+              ButtonForSelectingTeacher(
                 selectTeachersFunction: selectTeachersFunction,
                 selectedTeachers: teacherIds,
                 isTeacherSelected: isTeacherSelected,

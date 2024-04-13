@@ -14,13 +14,19 @@ import '../../domain/question/models/selected_teacher_list.dart';
 import '../../domain/shared/subject.dart';
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/completion_snack_bar.dart';
+
+import '../components/parts/text_for_error.dart';
 import '../components/widgets/add_images_or_select_teacher_widget.dart';
 import '../components/widgets/add_question_main_content_widget.dart';
 import '../components/widgets/confirm_question_modal.widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
+import '../components/widgets/question_pictures_for_confirm_widget.dart';
 import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/specific_exception_modal_widget.dart';
+import '../components/widgets/teacher_profile_for_confirm_skeleton_widget.dart';
+import '../components/widgets/teacher_profile_for_question_page_widget.dart';
 import '../controllers/add_question_controller/add_question_contorller.dart';
+import '../controllers/get_teacher_profile_controller/get_teacher_profile_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -33,6 +39,7 @@ class CreateQuestionPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final questionTitleController = useTextEditingController();
     final questionController = useTextEditingController();
     final picker = ImagePicker();
@@ -88,6 +95,7 @@ class CreateQuestionPage extends HookConsumerWidget {
           } else {
             updatedList.addAll(pickedFiles.map((file) => file.path));
             selectedPhotos.value = updatedList;
+            context.pop();
           }
         }
       });
@@ -114,6 +122,7 @@ class CreateQuestionPage extends HookConsumerWidget {
         } else {
           updatedList.add(pickedFile.path);
           selectedPhotos.value = updatedList;
+          context.pop();
         }
       }
     }
@@ -200,114 +209,315 @@ class CreateQuestionPage extends HookConsumerWidget {
       }
     }
 
-    return Scaffold(
-      backgroundColor: ColorSet.of(context).background,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        toolbarHeight: FontSizeSet.getFontSize(context, 50),
-        shape: Border(
-            bottom: BorderSide(
-          width: 0.1,
-          color: ColorSet.of(context).text,
-        )),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextButton(
-                onPressed: () => context.pop(),
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
+    return Stack(children: [
+      Scaffold(
+        backgroundColor: ColorSet.of(context).background,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          toolbarHeight: FontSizeSet.getFontSize(context, 50),
+          shape: Border(
+              bottom: BorderSide(
+            width: 0.1,
+            color: ColorSet.of(context).text,
+          )),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextButton(
+                  onPressed: () => context.pop(),
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
+                  child: Text(
+                    L10n.cancelText,
+                    style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
+                      color: ColorSet.of(context).text,
+                    ),
+                  ),
                 ),
+              ],
+            ),
+          ),
+          leadingWidth: 250,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: TextButton(
+                onPressed: isQuestionTitleFilled.value &&
+                        isQuestionFilled.value &&
+                        selectedSubject.value != null
+                    ? () => addQuestion()
+                    : null,
+                style: TextButton.styleFrom(
+                    foregroundColor: ColorSet.of(context).primary,
+                    disabledForegroundColor:
+                        ColorSet.of(context).unselectedText),
                 child: Text(
-                  L10n.cancelText,
+                  L10n.addQuestionButtonText,
                   style: TextStyle(
-                    fontWeight: FontWeightSet.normal,
+                    fontWeight: FontWeightSet.semibold,
                     fontSize:
                         FontSizeSet.getFontSize(context, FontSizeSet.body),
-                    color: ColorSet.of(context).text,
                   ),
+                ),
+              ),
+            ),
+          ],
+          backgroundColor: ColorSet.of(context).background,
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: ColorSet.of(context).background,
+          padding: const EdgeInsets.only(top: 0),
+          child: AddImagesOrSelectTeachersWidget(
+            imageFilePath: selectedPhotos.value,
+            uploadPhotoFromCamera: takePhoto,
+            uploadPhotoFromGallery: selectPhotos,
+            selectTeachersFunction: toggleTeacherSelection,
+            teacherIds: selectedTeachersId,
+            isTeacherSelected: selectedTeachersId.value.isNotEmpty,
+            isPhotoAdded: selectedPhotos.value.isNotEmpty,
+            deletePhoto: deletePhoto,
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: PaddingSet.getPaddingSize(
+                  context,
+                  PaddingSet.horizontalPadding,
+                )),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: PaddingSet.getPaddingSize(
+                        context,
+                        30,
+                      ),
+                    ),
+                    AddQuestionMainContentWidget(
+                      questionController: questionController,
+                      questionTitleController: questionTitleController,
+                      checkQuestionFilledFunction: checkQuestionFilled,
+                      checkQuestionTitleFilledFunction:
+                          checkQuestionTitleFilled,
+                      selectSubjectFunction: setSubject,
+                      questionErrorText: questionErrorText.value,
+                      questionTitleErrorText: questionTitleErrorText.value,
+                    ),
+                    SizedBox(
+                      height: PaddingSet.getPaddingSize(
+                        context,
+                        120,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Text(
+                          //   L10n.photosTextForConfirm,
+                          //   style: TextStyle(
+                          //       fontWeight: FontWeightSet.normal,
+                          //       fontSize: FontSizeSet.getFontSize(
+                          //           context, FontSizeSet.annotation),
+                          //       color: ColorSet.of(context).greyText),
+                          // ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: screenWidth < 600 ? 150 : 225,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: selectedPhotos.value.length + 1,
+                              itemBuilder: (context, index) {
+                                if (index < selectedPhotos.value.length) {
+                                  return Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child:
+                                                QuestionPictureForConfirmWidget(
+                                              photoPath:
+                                                  selectedPhotos.value[index],
+                                            ),
+                                          ),
+                                          Positioned(
+                                            right: 0,
+                                            top: 0,
+                                            child: GestureDetector(
+                                              onTap: () => deletePhoto!(
+                                                  selectedPhotos.value[index]),
+                                              child: Icon(
+                                                Icons.cancel,
+                                                color: ColorSet.of(context)
+                                                    .primary,
+                                                size: FontSizeSet.getFontSize(
+                                                  context,
+                                                  FontSizeSet.header2,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  // return Padding(
+                                  //   padding: const EdgeInsets.all(10.0),
+                                  //   child: ButtonForAddingPicture(
+                                  //     imageFilePath: selectedPhotos.value,
+                                  //     takePhoto: takePhoto,
+                                  //     pickPhoto: selectPhotos,
+                                  //     isPicturesAdded:
+                                  //         selectedPhotos.value.isNotEmpty,
+                                  //     deletePhoto: deletePhoto,
+                                  //   ),
+                                  // );
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: PaddingSet.getPaddingSize(
+                        context,
+                        30,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Text(
+                          //   L10n.selectedTeachersTextForConfirm,
+                          //   style: TextStyle(
+                          //       fontWeight: FontWeightSet.normal,
+                          //       fontSize: FontSizeSet.getFontSize(
+                          //           context, FontSizeSet.annotation),
+                          //       color: ColorSet.of(context).greyText),
+                          // ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: screenWidth < 600 ? 80 : 120,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: selectedTeachersId.value.length + 1,
+                              itemBuilder: (context, index) {
+                                if (index < selectedTeachersId.value.length) {
+                                  final getTeacherProfileState = ref.watch(
+                                      getTeacherProfileControllerProvider(
+                                          selectedTeachersId.value[index]));
+
+                                  return getTeacherProfileState.when(
+                                    data: (teacherProfileDto) =>
+                                        teacherProfileDto != null
+                                            ? Stack(children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child:
+                                                      TeacherProfileForQuestionPageWidget(
+                                                    teacherProfileDto:
+                                                        teacherProfileDto,
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  right: 0,
+                                                  top: 0,
+                                                  child: GestureDetector(
+                                                    onTap: () =>
+                                                        toggleTeacherSelection(
+                                                            selectedTeachersId
+                                                                .value[index]),
+                                                    child: Icon(
+                                                      Icons.cancel,
+                                                      color:
+                                                          ColorSet.of(context)
+                                                              .primary,
+                                                      size: FontSizeSet
+                                                          .getFontSize(
+                                                        context,
+                                                        FontSizeSet.header2,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ])
+                                            : Text(
+                                                L10n.noTeacherProfileFoundText,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeightSet.normal,
+                                                    fontSize:
+                                                        FontSizeSet.getFontSize(
+                                                            context,
+                                                            FontSizeSet.body),
+                                                    color: ColorSet.of(context)
+                                                        .text),
+                                              ),
+                                    loading: () => const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child:
+                                          TeacherProfileWForConfirmSkeletonWidget(),
+                                    ),
+                                    error: (error, stack) => const Center(
+                                        child: Column(
+                                      children: [
+                                        TextForError(),
+                                      ],
+                                    )),
+                                  );
+                                } else {
+                                  // return Padding(
+                                  //   padding: const EdgeInsets.all(10.0),
+                                  //   child: ButtonForSelectingTeacher(
+                                  //     selectTeachersFunction:
+                                  //         toggleTeacherSelection,
+                                  //     selectedTeachers: selectedTeachersId,
+                                  //     isTeacherSelected:
+                                  //         selectedTeachersId.value.isNotEmpty,
+                                  //   ),
+                                  // );
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
         ),
-        leadingWidth: 250,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: TextButton(
-              onPressed: isQuestionTitleFilled.value &&
-                      isQuestionFilled.value &&
-                      selectedSubject.value != null
-                  ? () => addQuestion()
-                  : null,
-              style: TextButton.styleFrom(
-                  foregroundColor: ColorSet.of(context).primary,
-                  disabledForegroundColor: ColorSet.of(context).unselectedText),
-              child: Text(
-                L10n.addQuestionButtonText,
-                style: TextStyle(
-                  fontWeight: FontWeightSet.semibold,
-                  fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-                ),
-              ),
-            ),
-          ),
-        ],
-        backgroundColor: ColorSet.of(context).background,
       ),
-      //キーボード出したときに下のsafeArea?的なのが出てくるの抑えたい
-      bottomNavigationBar: BottomAppBar(
-        color: ColorSet.of(context).background,
-        padding: const EdgeInsets.only(top: 0),
-        child: AddImagesOrSelectTeachersWidget(
-          imageFilePath: selectedPhotos.value,
-          uploadPhotoFromCamera: takePhoto,
-          uploadPhotoFromGallery: selectPhotos,
-          selectTeachersFunction: toggleTeacherSelection,
-          teacherIds: selectedTeachersId,
-          isTeacherSelected: selectedTeachersId.value.isNotEmpty,
-          isPhotoAdded: selectedPhotos.value.isNotEmpty,
-          deletePhoto: deletePhoto,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: PaddingSet.getPaddingSize(
-                    context,
-                    PaddingSet.horizontalPadding,
-                  )),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      AddQuestionMainContentWidget(
-                        questionController: questionController,
-                        questionTitleController: questionTitleController,
-                        checkQuestionFilledFunction: checkQuestionFilled,
-                        checkQuestionTitleFilledFunction:
-                            checkQuestionTitleFilled,
-                        selectSubjectFunction: setSubject,
-                        questionErrorText: questionErrorText.value,
-                        questionTitleErrorText: questionTitleErrorText.value,
-                      ),
-                    ],
-                  ),
-                ),
-                if (addQuestionControllerState.isLoading)
-                  const LoadingOverlay(),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+      if (addQuestionControllerState.isLoading) const LoadingOverlay(),
+    ]);
   }
 }

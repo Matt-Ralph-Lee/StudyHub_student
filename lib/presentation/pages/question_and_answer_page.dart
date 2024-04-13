@@ -11,7 +11,7 @@ import '../../application/bookmarks/exception/bookmarks_use_case_exception_detai
 import '../../domain/question/models/question_id.dart';
 import '../components/parts/completion_snack_bar.dart';
 import '../components/parts/text_button_for_add_bookmark.dart';
-import '../components/parts/text_button_for_delete_bookmark copy.dart';
+import '../components/parts/text_button_for_delete_bookmark.dart';
 import '../components/parts/text_button_for_navigating_to_evaluatin_page.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/widgets/answer_card_skeleton_widget.dart';
