@@ -1,11 +1,10 @@
-import 'package:studyhub/domain/teacher/default/default_teacher.dart';
-
 import '../../../application/bookmarks/application_service/i_get_bookmarks_query_service.dart';
 import '../../../application/shared/application_service/question_card_dto.dart';
 import '../../../domain/question/models/question.dart';
 import '../../../domain/student/default/default_student.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../../../domain/teacher/default/default_teacher.dart';
 import '../../../domain/teacher/models/teacher.dart';
 import '../question/firebase_question_repository.dart';
 import '../student/firebase_student_repository.dart';

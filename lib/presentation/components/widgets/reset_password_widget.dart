@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/controllers/student_auth_controller/student_auth_controller.dart';
 
+import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/l10n.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_for_reset_password_email_address_input_explanation.dart';

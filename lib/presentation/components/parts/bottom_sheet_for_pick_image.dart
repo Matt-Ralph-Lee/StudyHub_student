@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
-import '../widgets/question_pictures_for_confirm_widget.dart';
 
 class BottomSheetForPickImage extends StatelessWidget {
   final List<String>? imageFilePath;
