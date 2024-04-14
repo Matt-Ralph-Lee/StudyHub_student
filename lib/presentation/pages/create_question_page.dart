@@ -102,29 +102,31 @@ class CreateQuestionPage extends HookConsumerWidget {
     }
 
     void takePhoto() async {
-      final pickedFile = await picker.pickImage(
+      await picker
+          .pickImage(
         source: ImageSource.camera,
-      );
+      )
+          .then((pickedFile) {
+        if (pickedFile != null) {
+          const maxImages = QuestionPhotoPathList.maxLength;
+          final List<String> updatedList =
+              List<String>.from(selectedPhotos.value);
 
-      if (pickedFile != null) {
-        const maxImages = QuestionPhotoPathList.maxLength;
-        final List<String> updatedList =
-            List<String>.from(selectedPhotos.value);
-
-        if (updatedList.length >= maxImages) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const SpecificExceptionModalWidget(
-                  errorMessage: L10n.maxImagesErrorText);
-            },
-          );
-        } else {
-          updatedList.add(pickedFile.path);
-          selectedPhotos.value = updatedList;
-          context.pop();
+          if (updatedList.length >= maxImages) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const SpecificExceptionModalWidget(
+                    errorMessage: L10n.maxImagesErrorText);
+              },
+            );
+          } else {
+            updatedList.add(pickedFile.path);
+            selectedPhotos.value = updatedList;
+            context.pop();
+          }
         }
-      }
+      });
     }
 
     void deletePhoto(String imagePath) async {
@@ -350,7 +352,7 @@ class CreateQuestionPage extends HookConsumerWidget {
                                           right: 0,
                                           top: 0,
                                           child: GestureDetector(
-                                            onTap: () => deletePhoto!(
+                                            onTap: () => deletePhoto(
                                                 selectedPhotos.value[index]),
                                             child: Icon(
                                               Icons.cancel,

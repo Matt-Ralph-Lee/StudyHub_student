@@ -49,8 +49,8 @@ class EditProfilePage extends HookConsumerWidget {
             useTextEditingController(text: getStudentDto.school);
         final isUserNameFilled =
             useState<bool>(userNameInputController.text.isNotEmpty);
-        final isSchoolNameFilled =
-            useState<bool>(studentSchoolNameInputController.text.isNotEmpty);
+        // final isSchoolNameFilled =
+        //     useState<bool>(studentSchoolNameInputController.text.isNotEmpty);
 
         void checkUserNameFilled(String text) {
           if (text.length > Name.maxLength) {
@@ -62,9 +62,9 @@ class EditProfilePage extends HookConsumerWidget {
           }
         }
 
-        void checkSchoolNameFilled(String text) {
-          isSchoolNameFilled.value = text.isNotEmpty;
-        }
+        // void checkSchoolNameFilled(String text) {
+        //   isSchoolNameFilled.value = text.isNotEmpty;
+        // }
 
         void handleGenderChanged(Gender? newValue) {
           gender.value = newValue;
