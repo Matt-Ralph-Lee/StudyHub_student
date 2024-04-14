@@ -204,6 +204,7 @@ class L10n {
   static const questionsForNextRankText = "questionsForNextRank";
   static const rankDescriptionText =
       "質問数に応じて、Beginner/Novice/Advanced/Expertのいずれかのランクが付与されます。高ランクを目指して沢山質問しましょう！";
+  static const expertDesuyoText = "最高ランクです！";
 
   //question_and_answer_card_widget
   static const questionIconText = "Q.";
@@ -293,8 +294,8 @@ class L10n {
   //home_page
   static const titleText = "StudyHub";
   static const allTabText = "全て";
-  static const middleSchoolMathTabText = "中学英語";
-  static const middleSchoolEnglishTabText = "中学数学";
+  static const middleSchoolMathTabText = "中学数学";
+  static const middleSchoolEnglishTabText = "中学英語";
   static const highSchoolMathTabText = "高校数学";
   static const highSchoolEnglishTabText = "高校英語";
 

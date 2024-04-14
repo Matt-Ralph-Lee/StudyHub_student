@@ -252,29 +252,44 @@ class UserDetailWidget extends ConsumerWidget {
             const SizedBox(
               width: 5,
             ),
-            Text(
-              "$nextRank${L10n.madeText}",
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.getFontSize(
-                    context,
-                    FontSizeSet.annotation,
+            userRank != L10n.expertText
+                ? Row(
+                    children: [
+                      Text(
+                        "$nextRank${L10n.madeText}",
+                        style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                              context,
+                              FontSizeSet.annotation,
+                            ),
+                            color: ColorSet.of(context).greyText),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        numberOfQuestionsForNextRank, //若干隣の文字より上に上がってるんよな、数字だから？？
+                        style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                              context,
+                              FontSizeSet.annotation,
+                            ),
+                            color: ColorSet.of(context).greyText),
+                      ),
+                    ],
+                  )
+                : Text(
+                    L10n.expertDesuyoText,
+                    style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.annotation,
+                        ),
+                        color: ColorSet.of(context).greyText),
                   ),
-                  color: ColorSet.of(context).greyText),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              numberOfQuestionsForNextRank, //若干隣の文字より上に上がってるんよな、数字だから？？
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.getFontSize(
-                    context,
-                    FontSizeSet.annotation,
-                  ),
-                  color: ColorSet.of(context).greyText),
-            ),
           ],
         ),
       ],
