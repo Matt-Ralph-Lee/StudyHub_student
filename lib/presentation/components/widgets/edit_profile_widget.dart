@@ -62,7 +62,7 @@ class EditProfileWidget extends HookWidget {
           TextFormFieldForUserNameInput(
             controller: userNameInputController,
             onChanged: checkUserNameFilledFunction,
-            errorText: '',
+            errorText: errorText,
           ),
           const SizedBox(height: 40),
           DropDownButtonForGenderInput(

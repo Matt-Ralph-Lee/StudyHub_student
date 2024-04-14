@@ -70,6 +70,7 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
                   fontWeight: FontWeightSet.normal,
                   fontSize: FontSizeSet.annotation,
                   color: ColorSet.of(context).errorText),
+              errorMaxLines: 1,
             ),
           ),
         ],

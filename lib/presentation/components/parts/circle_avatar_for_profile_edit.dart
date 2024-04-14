@@ -61,7 +61,7 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
                         context,
                         FontSizeSet.header3,
                       ),
-                      backgroundColor: ColorSet.of(context).blackBackground,
+                      backgroundColor: ColorSet.of(context).greySurface,
                     ),
                     Icon(
                       Icons.camera_alt,
