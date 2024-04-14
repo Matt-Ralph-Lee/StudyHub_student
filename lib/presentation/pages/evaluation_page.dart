@@ -60,48 +60,49 @@ class EvaluationPage extends HookConsumerWidget {
     }
 
     void resolveQuestion() async {
-      final result = await showDialog(
+      showDialog(
           context: context,
           builder: (BuildContext context) {
             return const ConfirmResolveQuestionModalWidget();
-          });
-      if (result) {
-        ref
-            .read(resolveQuestionControllerProvider.notifier)
-            .resolveQuestion(
-              fromQuestion,
-            )
-            .then((_) {
-          final currentState = ref.read(resolveQuestionControllerProvider);
-          if (currentState.hasError) {
-            final error = currentState.error;
-            if (error is QuestionUseCaseException) {
-              final errorText = L10n.getQuestionExceptionMessage(
-                  error.detail as QuestionUseCaseExceptionDetail);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SpecificExceptionModalWidget(
-                      errorMessage: errorText,
-                    );
-                  });
+          }).then((result) {
+        if (result) {
+          ref
+              .read(resolveQuestionControllerProvider.notifier)
+              .resolveQuestion(
+                fromQuestion,
+              )
+              .then((_) {
+            final currentState = ref.read(resolveQuestionControllerProvider);
+            if (currentState.hasError) {
+              final error = currentState.error;
+              if (error is QuestionUseCaseException) {
+                final errorText = L10n.getQuestionExceptionMessage(
+                    error.detail as QuestionUseCaseExceptionDetail);
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SpecificExceptionModalWidget(
+                        errorMessage: errorText,
+                      );
+                    });
+              } else {
+                showErrorModalWidget(context);
+              }
             } else {
-              showErrorModalWidget(context);
+              HapticFeedback.lightImpact();
+              ScaffoldMessenger.of(context).showSnackBar(
+                completionSnackBar(
+                  context,
+                  L10n.resolveQuestionSnackbarText,
+                ),
+              );
+              context.pop();
             }
-          } else {
-            HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(
-                context,
-                L10n.resolveQuestionSnackbarText,
-              ),
-            );
-            context.pop();
-          }
-        });
-      } else {
-        context.pop(); //これ解決策がわからん、一応動きはする
-      }
+          });
+        } else {
+          context.pop(); //これ解決策がわからん、一応動きはする
+        }
+      });
     }
 
     void evaluateTeacher() async {
