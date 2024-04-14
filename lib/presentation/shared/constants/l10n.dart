@@ -252,6 +252,12 @@ class L10n {
   static const evaluationInputHintText = "分かりやすいご説明ありがとうございます！";
   static const dateFormat = "yyyy/MM/dd";
   static const evaluationSnackBarText = "講師を評価しました！";
+  static const confirmResolveQuestionModalTitleText = "質問を解決済みにしますか？";
+  static const confirmResolveQuestionModalDescriptionText =
+      "未解決にした場合、引き続き他の講師の回答を受け付けます。";
+  static const resolveQuestionText = "解決済みにする";
+  static const unResolveQuestionText = "未解決にする";
+  static const resolveQuestionSnackbarText = "質問を解決済みにしました！";
 
   //shared
   static const errorText = "エラーです。時間をおいてから再度お試しください";

@@ -7,7 +7,7 @@ part of 'delete_bookmark_controller.dart';
 // **************************************************************************
 
 String _$deleteBookmarkControllerHash() =>
-    r'1938b05084e5787e9333860d3887a55de7703769';
+    r'34d1b685af1bf7a2b943ca703b35b1fe9defdd4f';
 
 /// See also [DeleteBookmarkController].
 @ProviderFor(DeleteBookmarkController)

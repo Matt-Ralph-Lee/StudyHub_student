@@ -4,12 +4,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../application/question/exception/question_use_case_exception.dart';
+import '../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception.dart';
 import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../domain/answer_list/models/answer_id.dart';
 import '../../domain/question/models/question_id.dart';
 import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/completion_snack_bar.dart';
+import '../components/widgets/confirm_resolve_question_modal_widget.dart';
 import '../components/widgets/confirm_teacher_evaluation_modal_widget.dart';
 import '../components/widgets/evaluation_stars_widget.dart';
 import '../components/widgets/evaluation_text_field_widget.dart';
@@ -19,6 +22,7 @@ import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_evaluation_page_widget.dart';
 import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../controllers/add_teacher_evaluation_controller/add_teacher_evaluation_controller.dart';
+import '../controllers/resolve_question_controller/resolve_question_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
@@ -53,6 +57,51 @@ class EvaluationPage extends HookConsumerWidget {
 
     void checkEvaluationTextFilled(String text) {
       isEvaluationTextValid.value = text.length > 10 && text.length < 200;
+    }
+
+    void resolveQuestion() async {
+      final result = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const ConfirmResolveQuestionModalWidget();
+          });
+      if (result) {
+        ref
+            .read(resolveQuestionControllerProvider.notifier)
+            .resolveQuestion(
+              fromQuestion,
+            )
+            .then((_) {
+          final currentState = ref.read(resolveQuestionControllerProvider);
+          if (currentState.hasError) {
+            final error = currentState.error;
+            if (error is QuestionUseCaseException) {
+              final errorText = L10n.getQuestionExceptionMessage(
+                  error.detail as QuestionUseCaseExceptionDetail);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SpecificExceptionModalWidget(
+                      errorMessage: errorText,
+                    );
+                  });
+            } else {
+              showErrorModalWidget(context);
+            }
+          } else {
+            HapticFeedback.lightImpact();
+            ScaffoldMessenger.of(context).showSnackBar(
+              completionSnackBar(
+                context,
+                L10n.resolveQuestionSnackbarText,
+              ),
+            );
+            context.pop();
+          }
+        });
+      } else {
+        context.pop(); //これ解決策がわからん、一応動きはする
+      }
     }
 
     void evaluateTeacher() async {
@@ -93,10 +142,8 @@ class EvaluationPage extends HookConsumerWidget {
             }
           } else {
             HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(context, L10n.evaluationSnackBarText),
-            );
-            context.pop();
+
+            resolveQuestion();
           }
         });
       }
