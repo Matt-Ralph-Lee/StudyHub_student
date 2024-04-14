@@ -325,14 +325,6 @@ class CreateQuestionPage extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // Text(
-                          //   L10n.photosTextForConfirm,
-                          //   style: TextStyle(
-                          //       fontWeight: FontWeightSet.normal,
-                          //       fontSize: FontSizeSet.getFontSize(
-                          //           context, FontSizeSet.annotation),
-                          //       color: ColorSet.of(context).greyText),
-                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -340,55 +332,41 @@ class CreateQuestionPage extends HookConsumerWidget {
                             height: screenWidth < 600 ? 150 : 225,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: selectedPhotos.value.length + 1,
+                              itemCount: selectedPhotos.value.length,
                               itemBuilder: (context, index) {
-                                if (index < selectedPhotos.value.length) {
-                                  return Column(
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child:
-                                                QuestionPictureForConfirmWidget(
-                                              photoPath:
-                                                  selectedPhotos.value[index],
-                                            ),
+                                return Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child:
+                                              QuestionPictureForConfirmWidget(
+                                            photoPath:
+                                                selectedPhotos.value[index],
                                           ),
-                                          Positioned(
-                                            right: 0,
-                                            top: 0,
-                                            child: GestureDetector(
-                                              onTap: () => deletePhoto!(
-                                                  selectedPhotos.value[index]),
-                                              child: Icon(
-                                                Icons.cancel,
-                                                color: ColorSet.of(context)
-                                                    .primary,
-                                                size: FontSizeSet.getFontSize(
-                                                  context,
-                                                  FontSizeSet.header2,
-                                                ),
+                                        ),
+                                        Positioned(
+                                          right: 0,
+                                          top: 0,
+                                          child: GestureDetector(
+                                            onTap: () => deletePhoto!(
+                                                selectedPhotos.value[index]),
+                                            child: Icon(
+                                              Icons.cancel,
+                                              color:
+                                                  ColorSet.of(context).primary,
+                                              size: FontSizeSet.getFontSize(
+                                                context,
+                                                FontSizeSet.header2,
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  // return Padding(
-                                  //   padding: const EdgeInsets.all(10.0),
-                                  //   child: ButtonForAddingPicture(
-                                  //     imageFilePath: selectedPhotos.value,
-                                  //     takePhoto: takePhoto,
-                                  //     pickPhoto: selectPhotos,
-                                  //     isPicturesAdded:
-                                  //         selectedPhotos.value.isNotEmpty,
-                                  //     deletePhoto: deletePhoto,
-                                  //   ),
-                                  // );
-                                }
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                );
                               },
                             ),
                           ),
@@ -411,14 +389,6 @@ class CreateQuestionPage extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // Text(
-                          //   L10n.selectedTeachersTextForConfirm,
-                          //   style: TextStyle(
-                          //       fontWeight: FontWeightSet.normal,
-                          //       fontSize: FontSizeSet.getFontSize(
-                          //           context, FontSizeSet.annotation),
-                          //       color: ColorSet.of(context).greyText),
-                          // ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -426,84 +396,70 @@ class CreateQuestionPage extends HookConsumerWidget {
                             height: screenWidth < 600 ? 80 : 120,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: selectedTeachersId.value.length + 1,
+                              itemCount: selectedTeachersId.value.length,
                               itemBuilder: (context, index) {
-                                if (index < selectedTeachersId.value.length) {
-                                  final getTeacherProfileState = ref.watch(
-                                      getTeacherProfileControllerProvider(
-                                          selectedTeachersId.value[index]));
+                                final getTeacherProfileState = ref.watch(
+                                    getTeacherProfileControllerProvider(
+                                        selectedTeachersId.value[index]));
 
-                                  return getTeacherProfileState.when(
-                                    data: (teacherProfileDto) =>
-                                        teacherProfileDto != null
-                                            ? Stack(children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child:
-                                                      TeacherProfileForQuestionPageWidget(
-                                                    teacherProfileDto:
-                                                        teacherProfileDto,
-                                                  ),
+                                return getTeacherProfileState.when(
+                                  data: (teacherProfileDto) =>
+                                      teacherProfileDto != null
+                                          ? Stack(children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child:
+                                                    TeacherProfileForQuestionPageWidget(
+                                                  teacherProfileDto:
+                                                      teacherProfileDto,
                                                 ),
-                                                Positioned(
-                                                  right: 0,
-                                                  top: 0,
-                                                  child: GestureDetector(
-                                                    onTap: () =>
-                                                        toggleTeacherSelection(
-                                                            selectedTeachersId
-                                                                .value[index]),
-                                                    child: Icon(
-                                                      Icons.cancel,
-                                                      color:
-                                                          ColorSet.of(context)
-                                                              .primary,
-                                                      size: FontSizeSet
-                                                          .getFontSize(
-                                                        context,
-                                                        FontSizeSet.header2,
-                                                      ),
+                                              ),
+                                              Positioned(
+                                                right: 0,
+                                                top: 0,
+                                                child: GestureDetector(
+                                                  onTap: () =>
+                                                      toggleTeacherSelection(
+                                                          selectedTeachersId
+                                                              .value[index]),
+                                                  child: Icon(
+                                                    Icons.cancel,
+                                                    color: ColorSet.of(context)
+                                                        .primary,
+                                                    size:
+                                                        FontSizeSet.getFontSize(
+                                                      context,
+                                                      FontSizeSet.header2,
                                                     ),
                                                   ),
                                                 ),
-                                              ])
-                                            : Text(
-                                                L10n.noTeacherProfileFoundText,
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeightSet.normal,
-                                                    fontSize:
-                                                        FontSizeSet.getFontSize(
-                                                            context,
-                                                            FontSizeSet.body),
-                                                    color: ColorSet.of(context)
-                                                        .text),
                                               ),
-                                    loading: () => const Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child:
-                                          TeacherProfileWForConfirmSkeletonWidget(),
-                                    ),
-                                    error: (error, stack) => const Center(
-                                        child: Column(
-                                      children: [
-                                        TextForError(),
-                                      ],
-                                    )),
-                                  );
-                                } else {
-                                  // return Padding(
-                                  //   padding: const EdgeInsets.all(10.0),
-                                  //   child: ButtonForSelectingTeacher(
-                                  //     selectTeachersFunction:
-                                  //         toggleTeacherSelection,
-                                  //     selectedTeachers: selectedTeachersId,
-                                  //     isTeacherSelected:
-                                  //         selectedTeachersId.value.isNotEmpty,
-                                  //   ),
-                                  // );
-                                }
+                                            ])
+                                          : Text(
+                                              L10n.noTeacherProfileFoundText,
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeightSet.normal,
+                                                  fontSize:
+                                                      FontSizeSet.getFontSize(
+                                                          context,
+                                                          FontSizeSet.body),
+                                                  color: ColorSet.of(context)
+                                                      .text),
+                                            ),
+                                  loading: () => const Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child:
+                                        TeacherProfileWForConfirmSkeletonWidget(),
+                                  ),
+                                  error: (error, stack) => const Center(
+                                      child: Column(
+                                    children: [
+                                      TextForError(),
+                                    ],
+                                  )),
+                                );
                               },
                             ),
                           ),

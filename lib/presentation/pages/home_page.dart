@@ -64,17 +64,35 @@ class HomePage extends HookConsumerWidget {
             context,
             20,
           )),
-          child: Center(
-            child: Text(
-              L10n.titleText,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-                  color: ColorSet.of(context).text),
-            ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image(
+                  image: const AssetImage("assets/icon/themeIcon.png"),
+                  width: FontSizeSet.getFontSize(
+                    context,
+                    30,
+                  ),
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                L10n.titleText,
+                style: TextStyle(
+                    fontWeight: FontWeightSet.normal,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
+                    color: ColorSet.of(context).text),
+              ),
+            ],
           ), //ここは画像に差し替え
         ),
-        leadingWidth: screenWidth < 600 ? 130 : 200,
+        leadingWidth: screenWidth < 600 ? 170 : 250,
         actions: [
           GestureDetector(
               child: Icon(
