@@ -42,7 +42,12 @@ class CheckQuestionImagePage extends HookConsumerWidget {
             questionDetailDto.studentProfilePhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage("loading_user_icon_light.png")
+                : const AssetImage("loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage("assets/images/sample_user_icon.jpg"),
         );
 
     return orientation == Orientation.portrait
@@ -102,11 +107,20 @@ class CheckQuestionImagePage extends HookConsumerWidget {
                                           .questionPhotoPathList[index]))
                                   .maybeWhen(
                                     data: (d) => d,
+                                    loading: () {
+                                      MediaQuery.of(context)
+                                                  .platformBrightness ==
+                                              Brightness.light
+                                          ? const AssetImage(
+                                              "loading_user_icon_light.png")
+                                          : const AssetImage(
+                                              "loading_user_icon_dark.png");
+                                    },
                                     orElse: () => const AssetImage(
-                                        "assets/images/sample_picture_hd.jpg"),
+                                        "assets/images/no_image.jpg"),
                                   );
                               return Image(
-                                image: questionImage,
+                                image: questionImage!,
                                 fit: BoxFit.contain,
                               );
                             },
@@ -184,11 +198,12 @@ class CheckQuestionImagePage extends HookConsumerWidget {
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
                                         CircleAvatar(
-                                          radius: 15,
+                                          radius: screenWidth < 600 ? 15 : 22,
                                           backgroundImage: studentImage,
                                         ),
                                         const SizedBox(

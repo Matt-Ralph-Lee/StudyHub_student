@@ -11,10 +11,11 @@ import '../components/parts/text_button_for_follow_teacher.dart';
 import '../components/parts/text_button_for_unfollow_teacher.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_evaluation_found.dart';
+import '../components/widgets/evaluation_card_skeleton_widget.dart';
 import '../components/widgets/evaluation_card_widget.dart';
-import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/specific_exception_modal_widget.dart';
+import '../components/widgets/teacher_profile_skeleton_widget.dart';
 import '../components/widgets/teacher_profile_widget.dart';
 import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
@@ -133,7 +134,9 @@ class TeacherProfilePage extends ConsumerWidget {
                         onPressed: addFavoriteTeacher,
                       )
                 : const SizedBox(),
-            loading: () => const LoadingOverlay(),
+            loading: () => const SizedBox(
+              width: 0,
+            ),
             error: (error, stack) => const TextForError(),
           ),
           const SizedBox(
@@ -176,34 +179,39 @@ class TeacherProfilePage extends ConsumerWidget {
                         ),
                       ),
                     ),
-              loading: () => const LoadingOverlay(),
+              loading: () => Padding(
+                padding: EdgeInsets.all(
+                  PaddingSet.getPaddingSize(
+                    context,
+                    PaddingSet.horizontalPadding,
+                  ),
+                ),
+                child: const TeacherProfileSkeletonWidget(),
+              ),
               error: (error, stack) => const Center(
                 child: TextForError(),
               ),
             ),
             const SizedBox(height: 50),
             Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: PaddingSet.getPaddingSize(
-                    context,
-                    PaddingSet.horizontalPadding,
-                  ),
+              padding: EdgeInsets.symmetric(
+                horizontal: PaddingSet.getPaddingSize(
+                  context,
+                  PaddingSet.horizontalPadding,
                 ),
-                child: getTeacherProfileState.when(
-                  data: (teacherProfileDto) => Text(
-                    L10n.evaluationsTitleText,
-                    style: TextStyle(
-                      fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.getFontSize(
-                          context, FontSizeSet.annotation),
-                      color: ColorSet.of(context).greyText,
-                    ),
+              ),
+              child: Text(
+                L10n.evaluationsTitleText,
+                style: TextStyle(
+                  fontWeight: FontWeightSet.normal,
+                  fontSize: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.annotation,
                   ),
-                  loading: () => const LoadingOverlay(),
-                  error: (error, stack) => const Center(
-                    child: TextForError(), //ここは普通に評価なしで"生徒からの評価"みたいに出しとけば言い節はある
-                  ),
-                )),
+                  color: ColorSet.of(context).greyText,
+                ),
+              ),
+            ),
             const SizedBox(height: 10),
             getTeacherEvaluationState.when(
               data: (evaluations) => evaluations.isNotEmpty
@@ -231,7 +239,22 @@ class TeacherProfilePage extends ConsumerWidget {
                         child: TextForNoEvaluationFound(),
                       ),
                     ),
-              loading: () => const LoadingOverlay(),
+              loading: () => ExpandablePageView.builder(
+                controller: PageController(viewportFraction: 0.9),
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.all(
+                      PaddingSet.getPaddingSize(
+                        context,
+                        PaddingSet.pageViewItemLightPadding,
+                      ),
+                    ),
+                    child: const EvaluationCardSkeletonWidget(),
+                  );
+                },
+              ),
               error: (error, stack) => const Center(
                 child: TextForError(),
               ),

@@ -25,6 +25,6 @@ class BlockingsDeleteUseCase {
 
     blockings.delete(teacherId);
 
-    _repository.save(blockings);
+    await _repository.save(blockings);
   }
 }

@@ -12,13 +12,15 @@ class QuestionPictureForConfirmWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: Image.file(
         File(photoPath),
         // width: 200, TODO: 画像サイズによる条件分岐
-        height: 130,
-        fit: BoxFit.cover,
+        //←height指定してfitをcontainにしちゃえば問題ない？気がする？by森脇
+        height: screenWidth < 600 ? 130 : 200,
+        fit: BoxFit.contain,
       ),
     );
   }

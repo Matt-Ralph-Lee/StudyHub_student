@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/school/models/school.dart';
-import 'package:studyhub/domain/school/models/school_type.dart';
 
 import '../../../domain/school/models/i_school_repository.dart';
+import '../../../domain/school/models/school.dart';
+import '../../../domain/school/models/school_type.dart';
 
 class FirebaseSchoolRepository implements ISchoolRepository {
   final db = FirebaseFirestore.instance;

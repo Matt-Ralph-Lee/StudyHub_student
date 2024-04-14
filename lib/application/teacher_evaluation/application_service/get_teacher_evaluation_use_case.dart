@@ -14,7 +14,6 @@ class GetTeacherEvaluationUseCase {
   Future<List<GetTeacherEvaluationDto>> execute(
       final TeacherId teacherId) async {
     final teacherEvaluationList = await _repository.getByTeacherId(teacherId);
-    if (teacherEvaluationList == null) return [];
 
     List<GetTeacherEvaluationDto> teacherEvaluationDtoList = [];
 

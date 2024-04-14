@@ -16,7 +16,8 @@ class FavoriteTeachersAddUseCase {
 
   Future<void> execute(final TeacherId newFavoriteTeacherId) async {
     final studentId = _session.studentId;
-    var favoriteTeachers = await _repository.getByStudentId(studentId);
+    FavoriteTeachers? favoriteTeachers =
+        await _repository.getByStudentId(studentId);
 
     favoriteTeachers ??=
         FavoriteTeachers(studentId: studentId, teacherIdSet: {});

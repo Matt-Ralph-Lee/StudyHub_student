@@ -7,7 +7,7 @@ part of 'student_auth_controller.dart';
 // **************************************************************************
 
 String _$studentAuthControllerHash() =>
-    r'683189dca2ffa6f16758c641199cc7b2db20b400';
+    r'b26378d85c3261ada4a80986e19f4a03164de6d2';
 
 /// See also [StudentAuthController].
 @ProviderFor(StudentAuthController)

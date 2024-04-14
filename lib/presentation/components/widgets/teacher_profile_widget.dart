@@ -23,7 +23,15 @@ class TeacherProfileWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(teacherProfileDto.profilePhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
     return Container(
       decoration: BoxDecoration(
@@ -52,11 +60,14 @@ class TeacherProfileWidget extends ConsumerWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 CircleAvatar(
-                  radius: 40,
+                  radius: screenWidth < 600 ? 40 : 60,
                   backgroundImage: image,
                 ),
-                const SizedBox(
-                  width: 20,
+                SizedBox(
+                  width: PaddingSet.getPaddingSize(
+                    context,
+                    20,
+                  ),
                 ),
                 Expanded(
                   child: Column(
@@ -72,8 +83,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                           color: ColorSet.of(context).text,
                         ),
                       ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: PaddingSet.getPaddingSize(
+                          context,
+                          20,
+                        ),
                       ),
                       Row(
                         children: [
@@ -97,11 +111,14 @@ class TeacherProfileWidget extends ConsumerWidget {
                             ),
                             onRatingUpdate: (double value) {},
                           ),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: PaddingSet.getPaddingSize(
+                              context,
+                              10,
+                            ),
                           ),
                           Text(
-                            teacherProfileDto.rating.toString(),
+                            teacherProfileDto.rating.toStringAsFixed(1),
                             style: TextStyle(
                               fontWeight: FontWeightSet.normal,
                               fontSize: FontSizeSet.getFontSize(
@@ -116,8 +133,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: PaddingSet.getPaddingSize(
+                context,
+                30,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -136,8 +156,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
-                      const SizedBox(
-                        height: 3,
+                      SizedBox(
+                        height: PaddingSet.getPaddingSize(
+                          context,
+                          3,
+                        ),
                       ),
                       Divider(
                         color: ColorSet.of(context).greyText,
@@ -147,8 +170,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: PaddingSet.getPaddingSize(
+                    context,
+                    5,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -168,8 +194,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                 )
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: PaddingSet.getPaddingSize(
+                context,
+                30,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -188,8 +217,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
-                      const SizedBox(
-                        height: 3,
+                      SizedBox(
+                        height: PaddingSet.getPaddingSize(
+                          context,
+                          3,
+                        ),
                       ),
                       Divider(
                         color: ColorSet.of(context).greyText,
@@ -199,8 +231,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: PaddingSet.getPaddingSize(
+                    context,
+                    5,
+                  ),
                 ),
                 Text(
                   teacherProfileDto.bio,
@@ -213,8 +248,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: PaddingSet.getPaddingSize(
+                context,
+                30,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -233,8 +271,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
-                      const SizedBox(
-                        height: 3,
+                      SizedBox(
+                        height: PaddingSet.getPaddingSize(
+                          context,
+                          3,
+                        ),
                       ),
                       Divider(
                         color: ColorSet.of(context).greyText,
@@ -244,8 +285,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: PaddingSet.getPaddingSize(
+                    context,
+                    5,
+                  ),
                 ),
                 Text(
                   teacherProfileDto.introduction,
@@ -258,8 +302,11 @@ class TeacherProfileWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: PaddingSet.getPaddingSize(
+                context,
+                30,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -271,15 +318,18 @@ class TeacherProfileWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "経歴",
+                        L10n.careerText,
                         style: TextStyle(
                             fontWeight: FontWeightSet.normal,
                             fontSize: FontSizeSet.getFontSize(
                                 context, FontSizeSet.annotation),
                             color: ColorSet.of(context).greyText),
                       ),
-                      const SizedBox(
-                        height: 3,
+                      SizedBox(
+                        height: PaddingSet.getPaddingSize(
+                          context,
+                          3,
+                        ),
                       ),
                       Divider(
                         color: ColorSet.of(context).greyText,
@@ -289,11 +339,14 @@ class TeacherProfileWidget extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: PaddingSet.getPaddingSize(
+                    context,
+                    5,
+                  ),
                 ),
                 Text(
-                  "${teacherProfileDto.highSchool}${L10n.fromText}\n${teacherProfileDto.university}${L10n.enrollmentText}",
+                  "${teacherProfileDto.highSchool} ${L10n.fromText}\n${teacherProfileDto.university} ${L10n.enrollmentText}",
                   style: TextStyle(
                     fontWeight: FontWeightSet.normal,
                     fontSize:

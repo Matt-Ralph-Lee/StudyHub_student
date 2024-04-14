@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../domain/shared/subject.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_question_found.dart';
+import '../components/widgets/question_and_answer_card_skeleton_widget.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/get_recommended_quesiotns_controller/get_recommended_questions_controller.dart';
 import '../shared/constants/color_set.dart';
@@ -63,17 +64,35 @@ class HomePage extends HookConsumerWidget {
             context,
             20,
           )),
-          child: Center(
-            child: Text(
-              L10n.titleText,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.getFontSize(context, FontSizeSet.body),
-                  color: ColorSet.of(context).text),
-            ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image(
+                  image: const AssetImage("assets/icon/themeIcon.png"),
+                  width: FontSizeSet.getFontSize(
+                    context,
+                    30,
+                  ),
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                L10n.titleText,
+                style: TextStyle(
+                    fontWeight: FontWeightSet.normal,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.body),
+                    color: ColorSet.of(context).text),
+              ),
+            ],
           ), //ここは画像に差し替え
         ),
-        leadingWidth: 130,
+        leadingWidth: screenWidth < 600 ? 170 : 250,
         actions: [
           GestureDetector(
               child: Icon(
@@ -167,18 +186,25 @@ class HomePage extends HookConsumerWidget {
                   final recommendedQuestion = recommendedQuestions[index];
                   return Padding(
                     padding: EdgeInsets.only(
-                        top: PaddingSet.getPaddingSize(
-                          context,
-                          30,
-                        ),
-                        right: PaddingSet.getPaddingSize(
-                          context,
-                          20,
-                        ),
-                        left: PaddingSet.getPaddingSize(
-                          context,
-                          20,
-                        )),
+                      top: PaddingSet.getPaddingSize(
+                        context,
+                        30,
+                      ),
+                      right: PaddingSet.getPaddingSize(
+                        context,
+                        20,
+                      ),
+                      left: PaddingSet.getPaddingSize(
+                        context,
+                        20,
+                      ),
+                      bottom: index == recommendedQuestions.length - 1
+                          ? PaddingSet.getPaddingSize(
+                              context,
+                              20,
+                            )
+                          : 0,
+                    ),
                     child: QuestionAndAnswerCardWidget(
                       questionCardDto: recommendedQuestion,
                     ),
@@ -188,10 +214,32 @@ class HomePage extends HookConsumerWidget {
             : const Center(
                 child: TextForNoQuestionFound(),
               ),
-        loading: () => const CircularProgressIndicator(),
-        error: (error, stack) => const Center(
-          child: TextForError(),
+        loading: () => ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(
+                  top: PaddingSet.getPaddingSize(
+                    context,
+                    30,
+                  ),
+                  right: PaddingSet.getPaddingSize(
+                    context,
+                    20,
+                  ),
+                  left: PaddingSet.getPaddingSize(
+                    context,
+                    20,
+                  )),
+              child: const QuestionAndAnswerCardSkeletonWidget(),
+            );
+          },
         ),
+        error: (error, stack) {
+          return const Center(
+            child: TextForError(),
+          );
+        },
       ),
     );
   }

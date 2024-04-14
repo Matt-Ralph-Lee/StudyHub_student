@@ -9,7 +9,7 @@ part "get_popular_teacher_controller.g.dart";
 @riverpod
 class GetPopularTeacherController extends _$GetPopularTeacherController {
   @override
-  Future<List<SearchForTeacherDto>?> build() async {
+  Future<List<SearchForTeacherDto>> build() async {
     final queryService = ref.watch(getPopularTeacherQueryServiceDiProvider);
     final getPopularTeachesUseCase = GetPopularTeachersUseCase(queryService);
     final favoriteTeachers = getPopularTeachesUseCase.execute();

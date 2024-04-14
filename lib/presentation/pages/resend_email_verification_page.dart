@@ -24,7 +24,7 @@ class ResendEmailVerificationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final topPadding = screenHeight * 0.25;
+    final topPadding = screenHeight * 0.1;
 
     void backToSignUpPage() async {
       ref

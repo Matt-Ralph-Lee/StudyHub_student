@@ -1,10 +1,8 @@
-import 'package:studyhub/application/blockings/application_service/get_blocking_dto.dart';
-
-import 'package:studyhub/domain/student/models/student_id.dart';
-import 'package:studyhub/infrastructure/firebase/blockings/firebase_blockings_repository.dart';
-import 'package:studyhub/infrastructure/firebase/teacher/firebase_teacher_repository.dart';
-
+import '../../../application/blockings/application_service/get_blocking_dto.dart';
 import '../../../application/blockings/application_service/i_get_blockings_query_service.dart';
+import '../../../domain/student/models/student_id.dart';
+import '../teacher/firebase_teacher_repository.dart';
+import 'firebase_blockings_repository.dart';
 
 class FirebaseBlockingsQueryService implements IGetBlockingsQueryService {
   final FirebaseBlockingsRepository _repository;

@@ -37,7 +37,15 @@ class QuestionDetailCardWidget extends ConsumerWidget {
             questionDetailDto.studentProfilePhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
     return Container(
       // width: screenWidth * 0.8, //ここ適当。
@@ -70,7 +78,7 @@ class QuestionDetailCardWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        radius: 15,
+                        radius: screenWidth < 600 ? 15 : 22,
                         backgroundImage: image,
                       ),
                       const SizedBox(

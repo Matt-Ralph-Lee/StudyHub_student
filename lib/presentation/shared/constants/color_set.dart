@@ -16,6 +16,9 @@ abstract class ColorSchemeBase {
 
   late Color cardShadow;
 
+  late Color simmerBase;
+  late Color simmerHighlight;
+
   late Color navbarIndicator;
 
   final blackBackground = const Color(0xff111111);
@@ -62,6 +65,11 @@ class _LightColor extends ColorSchemeBase {
   Color get cardShadow => const Color(0x40ADADAD);
 
   @override
+  Color get simmerBase => const Color(0xFFE0E0E0);
+  @override
+  Color get simmerHighlight => const Color(0xFFF5F5F5);
+
+  @override
   Color get navbarIndicator => const Color(0xffF2D4D4);
 }
 
@@ -98,6 +106,11 @@ class _DarkColor extends ColorSchemeBase {
 
   @override
   Color get cardShadow => const Color(0x40434343);
+
+  @override
+  Color get simmerBase => const Color(0xff131313);
+  @override
+  Color get simmerHighlight => const Color(0xff262626);
 
   @override
   Color get navbarIndicator => const Color(0xff774E4E);

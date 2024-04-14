@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_favorite_teacher_found.dart';
+import '../components/widgets/teacher_small_card_skeleton_widget.dart';
 import '../components/widgets/teacher_small_card_widget.dart';
-import '../components/widgets/loading_overlay_widget.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
@@ -19,9 +19,6 @@ class FavoriteTeachersPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final verticalPadding = screenHeight * 0.05;
-
     final favoriteTeachersState =
         ref.watch(getFavoriteTeacherControllerProvider);
 
@@ -33,7 +30,7 @@ class FavoriteTeachersPage extends ConsumerWidget {
               color: ColorSet.of(context).icon,
               size: FontSizeSet.getFontSize(
                 context,
-                FontSizeSet.body,
+                30,
               ),
             ),
             onPressed: () => context.pop(),
@@ -54,11 +51,15 @@ class FavoriteTeachersPage extends ConsumerWidget {
         backgroundColor: ColorSet.of(context).background,
         body: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: PaddingSet.getPaddingSize(
-                context,
-                PaddingSet.horizontalPadding,
-              ),
-              vertical: verticalPadding),
+            horizontal: PaddingSet.getPaddingSize(
+              context,
+              PaddingSet.horizontalPadding,
+            ),
+            vertical: PaddingSet.getPaddingSize(
+              context,
+              20,
+            ),
+          ),
           child: favoriteTeachersState.when(
             data: (teachers) => teachers.isNotEmpty
                 ? ListView.builder(
@@ -86,7 +87,20 @@ class FavoriteTeachersPage extends ConsumerWidget {
                 : const Center(
                     child: TextForNoFavoriteTeacherFound(),
                   ),
-            loading: () => const LoadingOverlay(),
+            loading: () => ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: PaddingSet.getPaddingSize(
+                      context,
+                      PaddingSet.pageViewItemLightPadding,
+                    ),
+                  ),
+                  child: const TeacherSmallCardSkeletonWidget(),
+                );
+              },
+            ),
             error: (error, stack) {
               return const Center(
                   child: Column(

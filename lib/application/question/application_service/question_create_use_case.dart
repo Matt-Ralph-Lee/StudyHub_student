@@ -109,7 +109,7 @@ class QuestionCreateUseCase {
       questionPhotoList.add(questionPhoto);
     }
 
-    _photoRepository.save(questionPhotoList);
+    await _photoRepository.save(questionPhotoList);
 
     final Question question = await _factory.createQuestion(
         questionSubject: questionSubject,

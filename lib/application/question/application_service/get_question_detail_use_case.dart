@@ -30,7 +30,7 @@ class GetQuestionDetailUseCase {
     if (student == null) {
       return QuestionDetailDto(
         questionId: question.questionId,
-        studentProfilePhotoPath: DefaultStudent.profilePhoto,
+        studentProfilePhotoPath: DefaultStudent.profilePhoto.value,
         questionTitle: question.questionTitle.value,
         questionText: question.questionText.value,
         questionPhotoPathList: question.questionPhotoPathList

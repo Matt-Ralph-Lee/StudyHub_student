@@ -9,7 +9,7 @@ class InMemoryGetPopularTeachersQueryService
   InMemoryGetPopularTeachersQueryService(this._repository);
 
   @override
-  Future<List<SearchForTeacherDto>?> find() async {
+  Future<List<SearchForTeacherDto>> find() async {
     final searchForTeacherDtoList = <SearchForTeacherDto>[];
 
     final result = _repository.store.values.toList()

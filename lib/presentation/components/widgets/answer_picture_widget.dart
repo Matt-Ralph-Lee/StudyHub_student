@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/page_path.dart';
 
 class AnswerPictureWidget extends ConsumerWidget {
@@ -27,7 +27,7 @@ class AnswerPictureWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final image = ref.watch(getPhotoControllerProvider(photoPath)).maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          orElse: () => const AssetImage("assets/images/no_image.jpg"),
         );
     return GestureDetector(
       onTap: () => navigateToCheckQuestionImagePage(
@@ -37,9 +37,8 @@ class AnswerPictureWidget extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Image(
           image: image,
-          width: 350,
-          height: 200,
-          fit: BoxFit.cover,
+          width: double.infinity,
+          fit: BoxFit.contain,
         ),
       ),
     );

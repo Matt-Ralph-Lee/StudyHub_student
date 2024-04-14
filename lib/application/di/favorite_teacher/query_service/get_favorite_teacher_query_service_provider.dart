@@ -1,5 +1,4 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:studyhub/application/di/favorite_teacher/repository/favorite_teacher_repository_provider.dart';
 
 import '../../../../infrastructure/firebase/favorite_teachers/firebase_favorite_teacher_query_service.dart';
 import '../../../../infrastructure/firebase/favorite_teachers/firebase_favorite_teachers_repository.dart';
@@ -11,6 +10,7 @@ import '../../../favorite_teachers/application_service/i_get_favorite_teacher_qu
 import '../../../shared/flavor/flavor.dart';
 import '../../../shared/flavor/flavor_config.dart';
 import '../../teacher/teacher_provider.dart';
+import '../repository/favorite_teacher_repository_provider.dart';
 
 part 'get_favorite_teacher_query_service_provider.g.dart';
 

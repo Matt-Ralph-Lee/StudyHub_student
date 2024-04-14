@@ -179,7 +179,7 @@ class ReportPage extends HookConsumerWidget {
             padding: EdgeInsets.symmetric(
               vertical: PaddingSet.getPaddingSize(
                 context,
-                70,
+                50,
               ),
               horizontal: PaddingSet.getPaddingSize(
                 context,

@@ -85,7 +85,7 @@ class InMemoryQuestionInitialValue {
     questionText: QuestionText(
         '文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？文型ってなんすか？v文型ってなんすか？文型ってなんすか？文型ってなんすか？'),
     questionPhotoPathList: QuestionPhotoPathList([
-      QuestionPhotoPath("assets/images/sample_picture_hd.jpg"),
+      QuestionPhotoPath("assets/images/no_image.jpg"),
       QuestionPhotoPath("assets/images/sample_picture_hd.jpg"),
     ]),
     studentId: InMemoryStudentInitialValue.userStudentId, // userId

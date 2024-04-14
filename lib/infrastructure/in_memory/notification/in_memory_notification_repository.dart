@@ -169,7 +169,8 @@ class InMemoryNotificationInitialValue {
       senderType: NotificationSenderType.admin,
       senderId: null,
       // TODO: photoPath for admin
-      senderPhotoPath: ProfilePhotoPath('assets/photos/sample_use_icon.jpg'),
+      senderPhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_use_icon.jpg'),
     ),
     receiver: NotificationReceiver(
       receiverType: NotificationReceiverType.student,
@@ -193,7 +194,8 @@ class InMemoryNotificationInitialValue {
       senderType: NotificationSenderType.admin,
       senderId: null,
       // TODO: photoPath for admin
-      senderPhotoPath: ProfilePhotoPath('assets/photos/sample_use_icon.jpg'),
+      senderPhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_use_icon.jpg'),
     ),
     receiver: NotificationReceiver(
       receiverType: NotificationReceiverType.student,
@@ -217,7 +219,8 @@ class InMemoryNotificationInitialValue {
       senderType: NotificationSenderType.admin,
       senderId: null,
       // TODO: photoPath for admin
-      senderPhotoPath: ProfilePhotoPath('assets/photos/sample_use_icon.jpg'),
+      senderPhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_use_icon.jpg'),
     ),
     receiver: NotificationReceiver(
       receiverType: NotificationReceiverType.teacher,
@@ -240,7 +243,8 @@ class InMemoryNotificationInitialValue {
       senderType: NotificationSenderType.admin,
       senderId: null,
       // TODO: photoPath for admin
-      senderPhotoPath: ProfilePhotoPath('assets/photos/sample_use_icon.jpg'),
+      senderPhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_use_icon.jpg'),
     ),
     receiver: NotificationReceiver(
       receiverType: NotificationReceiverType.teacher,
@@ -263,7 +267,8 @@ class InMemoryNotificationInitialValue {
       senderType: NotificationSenderType.admin,
       senderId: null,
       // TODO: photoPath for admin
-      senderPhotoPath: ProfilePhotoPath('assets/photos/sample_use_icon.jpg'),
+      senderPhotoPath:
+          ProfilePhotoPath('assets/photos/profile_photo/sample_use_icon.jpg'),
     ),
     receiver: NotificationReceiver(
       receiverType: NotificationReceiverType.teacher,

@@ -1,10 +1,13 @@
-import 'package:studyhub/application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
-
+import '../../../application/bookmarks/exception/bookmarks_use_case_exception_detail.dart';
+import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
-import '../../../domain/question/models/question_photo.dart';
+import '../../../domain/question/models/question_photo_path_list.dart';
+import '../../../domain/question/models/question_text.dart';
+import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
+import '../../../domain/shared/name.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
 import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
@@ -25,6 +28,9 @@ class L10n {
   static const notContainDotText = ".が含まれておらず、メールアドレスの形式ではありません";
   static const invalidEmailText = "メールアドレスの形式ではありません";
   static const isPasswordEmptyText = "パスワードが空です";
+  static const termsOfUseText = "利用規約";
+  static const privacyPolicyText = "プライバシーポリシー";
+  static const douisuruText = "に同意する";
 
   //error系
   static String getStudentAuthExceptionMessage(
@@ -89,6 +95,14 @@ class L10n {
     }
   }
 
+  static String bookmarkUseCaseExceptionMessage(
+      BookmarksUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case BookmarksUseCaseExceptionDetail.bookmarksNotFound:
+        return "Bookmarksが見つかりませんでした。";
+    }
+  }
+
   //password_reset_page
   static const passwordResetTitle = "パスワード再設定";
   static const passwordResetMailAddressInputExplanationText =
@@ -97,7 +111,8 @@ class L10n {
 
   //mail_verification_page
   static const emailVerificationTitleText = "メール認証";
-  static const emailVerificationSubtitleText = "入力されたメールアドレスに認証メールを送りました";
+  static const emailVerificationSubtitleText =
+      "入力されたメールアドレスに認証メールを送りました。\n認証後、以下の「認証しました」ボタンを押してください";
   static const emailVerificationButtonText = "メールを再送信";
   static const resendEmailVerificationText = "メールを再送信しました";
   static const haveVerified = "認証しました";
@@ -106,6 +121,7 @@ class L10n {
   static const indicatorTextOneThird = "1/3";
   static const usernameInputExplanationText = "ユーザー名を入力してください";
   static const usernameTextFieldLabelText = "ユーザ名";
+  static const userNameErrorText = "ユーザ名は${Name.maxLength}字以下にしてください";
 
   static const indicatorTextTwoThirds = "2/3";
   static const genderAndJobInputExplanationText = "性別と職業を選択してください";
@@ -188,15 +204,24 @@ class L10n {
   static const questionsForNextRankText = "questionsForNextRank";
   static const rankDescriptionText =
       "質問数に応じて、Beginner/Novice/Advanced/Expertのいずれかのランクが付与されます。高ランクを目指して沢山質問しましょう！";
+  static const expertDesuyoText = "最高ランクです！";
 
   //question_and_answer_card_widget
   static const questionIconText = "Q.";
   static const answerIconText = "A.";
   static const noAnswerText = "回答までしばらくお待ちください";
+  static const addBookmarkButtonText = "ブックマーク";
+  static const deleteBookmarkButtonText = "ブックマーク中";
+  static const addBookmarkText = "ブックマークに追加しました";
+  static const deleteBookmarkText = "ブックマークから削除しました";
 
   //add_question_page
   static const questionTitleHintText = "タイトルを入力してください";
+  static const questionTitleMaxLengthOverErrorText =
+      "タイトルは${QuestionTitle.maxLength}以下にしてください";
   static const questionHintText = "質問を入力してください";
+  static const questionMaxLengthOverErrorText =
+      "質問は${QuestionText.maxLength}以下にしてください";
   static const selectSubject = "科目を選択してください";
   static const addImagesTextButtonText = "写真を追加";
   static const selectTeachersTextButtonText = "講師を希望する";
@@ -213,15 +238,16 @@ class L10n {
   static const selectedTeachersTextForConfirm = "希望する講師";
 
   //error系
-  static const maxImagesErrorText = "写真は${QuestionPhoto.dataSize}枚まで！";
+  static const maxImagesErrorText =
+      "写真は${QuestionPhotoPathList.maxLength}枚までです！";
   static const maxTeachersErrorText =
       "希望できる講師は${SelectedTeacherList.maxLength}までです！";
 
   //evaluationPage
   static const evaluationText = "評価する";
   static const evaluationStarsText = "5段階で評価してください";
-  static const evaluationContentText = "ご自由にコメントしてください";
-  static const evaluationInputHintText = "分かりやすいお答えありがとうございます!";
+  static const evaluationContentText = "ご自由にコメントしてください！";
+  static const evaluationInputHintText = "分かりやすいご説明ありがとうございます！";
   static const dateFormat = "yyyy/MM/dd";
   static const evaluationSnackBarText = "講師を評価しました！";
 
@@ -244,6 +270,10 @@ class L10n {
   static const reportReason = "報告理由";
   static const reportContent = "報告内容";
   static const reportSnackBarText = "報告しました";
+  static const termsOfUseUrlText =
+      "https://studyhub.hatenablog.com/entry/2024/02/27/104752?_gl=1*12lv4j6*_gcl_au*Mzk1MDY3MTAwLjE3MTI3MjEyODQ.";
+  static const privacyPolicyUrlText =
+      "https://studyhub.hatenablog.com/entry/2024/02/27/104840?_gl=1*12lv4j6*_gcl_au*Mzk1MDY3MTAwLjE3MTI3MjEyODQ.";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";
@@ -253,6 +283,7 @@ class L10n {
   //teacher_profile_page
   static const teacherProfilePageTitle = "教師のプロフィール";
   static const evaluationsTitleText = "生徒からの評価";
+  static const careerText = "経歴";
   static const fromText = "出身";
   static const enrollmentText = "在籍";
   static const favoriteSubjectText = "得意科目";
@@ -263,8 +294,8 @@ class L10n {
   //home_page
   static const titleText = "StudyHub";
   static const allTabText = "全て";
-  static const middleSchoolMathTabText = "中学英語";
-  static const middleSchoolEnglishTabText = "中学数学";
+  static const middleSchoolMathTabText = "中学数学";
+  static const middleSchoolEnglishTabText = "中学英語";
   static const highSchoolMathTabText = "高校数学";
   static const highSchoolEnglishTabText = "高校英語";
 

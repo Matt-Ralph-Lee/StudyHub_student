@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/student/models/student_id.dart';
-import 'package:studyhub/domain/teacher/models/teacher_id.dart';
-import 'package:studyhub/domain/teacher_evaluation/models/teacher_evaluation.dart';
-import 'package:studyhub/domain/teacher_evaluation/models/teacher_evaluation_comment.dart';
-import 'package:studyhub/domain/teacher_evaluation/models/teacher_evaluation_id.dart';
-import 'package:studyhub/domain/teacher_evaluation/models/teacher_evaluation_rating.dart';
 
+import '../../../domain/student/models/student_id.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/teacher_evaluation/models/i_teacher_evaluation_repository.dart';
+import '../../../domain/teacher_evaluation/models/teacher_evaluation.dart';
+import '../../../domain/teacher_evaluation/models/teacher_evaluation_comment.dart';
+import '../../../domain/teacher_evaluation/models/teacher_evaluation_id.dart';
+import '../../../domain/teacher_evaluation/models/teacher_evaluation_rating.dart';
 
 class FirebaseTeacherEvaluationRepository
     implements ITeacherEvaluationRepository {
@@ -30,7 +30,7 @@ class FirebaseTeacherEvaluationRepository
   }
 
   @override
-  Future<List<TeacherEvaluation>?> getByTeacherId(TeacherId teacherId) async {
+  Future<List<TeacherEvaluation>> getByTeacherId(TeacherId teacherId) async {
     final querySnapshot = await db
         .collection("teachers")
         .doc(teacherId.value)

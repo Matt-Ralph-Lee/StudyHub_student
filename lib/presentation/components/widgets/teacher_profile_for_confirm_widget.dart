@@ -21,7 +21,15 @@ class TeacherProfileWForConfirmWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(teacherProfileDto.profilePhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
     return Container(
       // height: screenWidth < 600 ? 50 : 70,
@@ -47,7 +55,7 @@ class TeacherProfileWForConfirmWidget extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircleAvatar(
-              radius: 15,
+              radius: screenWidth < 600 ? 15 : 22,
               backgroundImage: image,
             ),
             const SizedBox(

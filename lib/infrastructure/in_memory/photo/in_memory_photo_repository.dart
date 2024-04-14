@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:studyhub/infrastructure/exceptions/photo/photo_infrastructure_exception.dart';
-import 'package:studyhub/infrastructure/exceptions/photo/photo_infrastructure_exception_detail.dart';
 
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
 import '../../../domain/photo/models/photo.dart';
 import '../../../domain/photo/models/photo_path.dart';
 import '../../../domain/photo/models/photo_path_list.dart';
+import '../../exceptions/photo/photo_infrastructure_exception.dart';
+import '../../exceptions/photo/photo_infrastructure_exception_detail.dart';
 
 class InMemoryPhotoRepository implements IPhotoRepository {
   late Map<PhotoPath, Uint8List> store;

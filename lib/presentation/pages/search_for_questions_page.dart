@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../domain/shared/subject.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_form_field_for_search_teachers.dart';
-import '../components/widgets/loading_overlay_widget.dart';
+import '../components/widgets/question_and_answer_card_skeleton_widget.dart';
 import '../components/widgets/question_and_answer_card_widget.dart';
 import '../controllers/search_questions_controller/serach_questions_controller.dart';
 import '../shared/constants/color_set.dart';
@@ -103,7 +103,11 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                 ),
                 child: Container(
                   height: screenWidth < 600 ? 42 : 63,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.only(
+                    right: PaddingSet.getPaddingSize(context, 20),
+                    left: PaddingSet.getPaddingSize(context, 20),
+                    top: PaddingSet.getPaddingSize(context, 20),
+                  ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorSet.of(context).greySurface),
@@ -215,8 +219,27 @@ class SearchForQuestionsPage extends HookConsumerWidget {
                                     color: ColorSet.of(context).text)),
                           ),
                         ),
-                  loading: () =>
-                      const SliverToBoxAdapter(child: LoadingOverlay()),
+                  loading: () => SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: PaddingSet.getPaddingSize(
+                                  context,
+                                  30,
+                                ),
+                              ),
+                              child:
+                                  const QuestionAndAnswerCardSkeletonWidget(),
+                            ),
+                          ],
+                        );
+                      },
+                      childCount: 5,
+                    ),
+                  ),
                   error: (error, stack) {
                     return const SliverFillRemaining(
                       child: Center(child: TextForError()),

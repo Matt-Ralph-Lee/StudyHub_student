@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/application/di/session/session_provider.dart';
-import 'package:studyhub/presentation/controllers/student_auth_controller/student_auth_controller.dart';
 
+import '../../../application/di/session/session_provider.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../controllers/resend_email_verification_controller/resend_email_verification_controller.dart';
+import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
@@ -95,7 +95,14 @@ class ResendEmailVerificationWidget extends HookConsumerWidget {
           },
           child: Text(
             L10n.haveVerified,
-            style: TextStyle(color: ColorSet.of(context).text),
+            style: TextStyle(
+              fontWeight: FontWeightSet.normal,
+              fontSize: FontSizeSet.getFontSize(
+                context,
+                FontSizeSet.body,
+              ),
+              color: ColorSet.of(context).text,
+            ),
           ),
         )
       ],

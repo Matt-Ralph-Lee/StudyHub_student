@@ -84,7 +84,10 @@ class ConfirmReportModalWidget extends StatelessWidget {
                       L10n.cancelText,
                       style: TextStyle(
                           fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.body,
+                          fontSize: FontSizeSet.getFontSize(
+                            context,
+                            FontSizeSet.body,
+                          ),
                           color: ColorSet.of(context).text),
                     ),
                     onPressed: () {
@@ -95,9 +98,13 @@ class ConfirmReportModalWidget extends StatelessWidget {
                     child: Text(
                       L10n.modalOkText,
                       style: TextStyle(
-                          fontWeight: FontWeightSet.normal,
-                          fontSize: FontSizeSet.body,
-                          color: ColorSet.of(context).text),
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.body,
+                        ),
+                        color: ColorSet.of(context).primary,
+                      ),
                     ),
                     onPressed: () {
                       context.pop(true);

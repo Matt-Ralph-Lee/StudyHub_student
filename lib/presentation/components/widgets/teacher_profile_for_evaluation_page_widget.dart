@@ -19,9 +19,9 @@ import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
 import '../parts/text_button_for_follow_teacher.dart';
 import '../parts/text_button_for_unfollow_teacher.dart';
-import 'loading_overlay_widget.dart';
 import 'show_error_modal_widget.dart';
 import 'specific_exception_modal_widget.dart';
+import 'teacher_profile_for_evaluation_page_skeleton_widget.dart';
 
 class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
   final TeacherId teacherId;
@@ -32,6 +32,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final getTeacherProfileControllerState =
         ref.watch(getTeacherProfileControllerProvider(teacherId));
 
@@ -89,6 +90,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             showErrorModalWidget(context);
           }
         } else {
+          HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
             completionSnackBar(context, L10n.deleteFavoriteTeacherText),
           );
@@ -108,8 +110,15 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                   getTeacherProfileDto.profilePhotoPath))
               .maybeWhen(
                 data: (d) => d,
-                orElse: () =>
-                    const AssetImage("assets/images/sample_picture_hd.jpg"),
+                loading: () {
+                  MediaQuery.of(context).platformBrightness == Brightness.light
+                      ? const AssetImage(
+                          "assets/photos/profile_photo/loading_user_icon_light.png")
+                      : const AssetImage(
+                          "assets/photos/profile_photo/loading_user_icon_dark.png");
+                },
+                orElse: () => const AssetImage(
+                    "assets/photos/profile_photo/sample_user_icon.jpg"),
               );
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -121,7 +130,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        radius: 30,
+                        radius: screenWidth < 600 ? 30 : 45,
                         backgroundImage: image,
                       ),
                       const SizedBox(
@@ -160,7 +169,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
           );
         }
       },
-      loading: () => const LoadingOverlay(),
+      loading: () => const TeacherProfileForEvaluationPageSkeletonWidget(),
       error: (error, stack) {
         return Center(
             child: Column(

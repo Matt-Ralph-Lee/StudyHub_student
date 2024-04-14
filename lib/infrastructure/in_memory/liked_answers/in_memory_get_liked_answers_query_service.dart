@@ -1,9 +1,7 @@
-import 'package:studyhub/application/liked_answers/application_service/liked_answers_dto.dart';
-
-import 'package:studyhub/domain/student/models/student_id.dart';
-
 import '../../../application/liked_answers/application_service/i_get_liked_answers_query_service.dart';
+import '../../../application/liked_answers/application_service/liked_answers_dto.dart';
 import '../../../application/shared/session/session.dart';
+import '../../../domain/student/models/student_id.dart';
 import 'in_memory_liked_answers_repository.dart';
 
 class InMemoryGetLikedAnswersQueryService extends IGetLikedAnswersQueryService {

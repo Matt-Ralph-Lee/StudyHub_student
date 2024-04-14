@@ -22,7 +22,15 @@ class NotificationDetailCardWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(getMyNotificationDto.senderPhotoPath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
 
     return Container(
@@ -52,10 +60,10 @@ class NotificationDetailCardWidget extends ConsumerWidget {
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        radius: 15,
+                        radius: screenWidth < 600 ? 15 : 22,
                         backgroundImage: image,
                       ),
                       const SizedBox(
@@ -67,7 +75,9 @@ class NotificationDetailCardWidget extends ConsumerWidget {
                           style: TextStyle(
                             fontWeight: FontWeightSet.semibold,
                             fontSize: FontSizeSet.getFontSize(
-                                context, FontSizeSet.header3),
+                              context,
+                              FontSizeSet.body,
+                            ),
                             color: ColorSet.of(context).text,
                           ),
                         ),
@@ -92,8 +102,10 @@ class NotificationDetailCardWidget extends ConsumerWidget {
                     getMyNotificationDto.text,
                     style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize:
-                          FontSizeSet.getFontSize(context, FontSizeSet.body),
+                      fontSize: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.body,
+                      ),
                       color: ColorSet.of(context).text,
                     ),
                   ),

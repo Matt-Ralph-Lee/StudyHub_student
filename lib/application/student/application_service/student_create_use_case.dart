@@ -40,17 +40,10 @@ class StudentCreateUseCase {
 
     await _studentAuthRepository.sendEmailVerification();
 
-    /*
-    // TODO: what if email is not verified for a long time?
-    while (_session == null || _session!.isVerified == false) {
-      Future.delayed(const Duration(seconds: 1));
-    }
-    */
-
     final student =
         _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
 
-    _studentRepository.save(student);
+    await _studentRepository.save(student);
   }
 }
 

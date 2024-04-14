@@ -41,7 +41,14 @@ class CheckAnswerImagePage extends HookConsumerWidget {
         .watch(getPhotoControllerProvider(answerDto.teacherProfilePath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage("assets/images/sample_user_icon.jpg"),
         );
 
     return orientation == Orientation.portrait
@@ -94,8 +101,25 @@ class CheckAnswerImagePage extends HookConsumerWidget {
                               currentPage.value = index;
                             },
                             itemBuilder: (BuildContext context, int index) {
+                              final answerImage = ref
+                                  .watch(getPhotoControllerProvider(
+                                      answerDto.answerPhotoList[index]))
+                                  .maybeWhen(
+                                    data: (d) => d,
+                                    loading: () {
+                                      MediaQuery.of(context)
+                                                  .platformBrightness ==
+                                              Brightness.light
+                                          ? const AssetImage(
+                                              "assets/photos/profile_photo/loading_user_icon_light.png")
+                                          : const AssetImage(
+                                              "assets/photos/profile_photo/loading_user_icon_dark.png");
+                                    },
+                                    orElse: () => const AssetImage(
+                                        "assets/images/no_image.jpg"),
+                                  );
                               return Image(
-                                image: image,
+                                image: answerImage!,
                                 fit: BoxFit.contain,
                               );
                             },
@@ -231,8 +255,24 @@ class CheckAnswerImagePage extends HookConsumerWidget {
                 currentPage.value = index;
               },
               itemBuilder: (BuildContext context, int index) {
+                final answerImage = ref
+                    .watch(getPhotoControllerProvider(
+                        answerDto.answerPhotoList[index]))
+                    .maybeWhen(
+                      data: (d) => d,
+                      loading: () {
+                        MediaQuery.of(context).platformBrightness ==
+                                Brightness.light
+                            ? const AssetImage(
+                                "assets/photos/profile_photo/loading_user_icon_light.png")
+                            : const AssetImage(
+                                "assets/photos/profile_photo/loading_user_icon_dark.png");
+                      },
+                      orElse: () =>
+                          const AssetImage("assets/images/no_image.jpg"),
+                    );
                 return Image(
-                  image: image,
+                  image: answerImage!,
                   fit: BoxFit.contain,
                 );
               },

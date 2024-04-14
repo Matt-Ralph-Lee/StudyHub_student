@@ -47,9 +47,9 @@ class InMemoryTeacherEvaluationRepository
 
 // fetch all evaluation from store and convert to evaluation
   @override
-  Future<List<TeacherEvaluation>?> getByTeacherId(TeacherId teacherId) async {
+  Future<List<TeacherEvaluation>> getByTeacherId(TeacherId teacherId) async {
     final evaluation = store[teacherId];
-    if (evaluation == null) return null;
+    if (evaluation == null) return [];
     return evaluation;
   }
 

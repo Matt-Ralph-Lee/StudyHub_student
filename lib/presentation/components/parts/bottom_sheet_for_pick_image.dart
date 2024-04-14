@@ -6,10 +6,17 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
 class BottomSheetForPickImage extends StatelessWidget {
+  final List<String>? imageFilePath;
   final void Function() takePhoto;
   final void Function() pickPhoto;
-  const BottomSheetForPickImage(
-      {super.key, required this.takePhoto, required this.pickPhoto});
+  final void Function(String)? deletePhoto;
+  const BottomSheetForPickImage({
+    super.key,
+    this.imageFilePath,
+    required this.takePhoto,
+    required this.pickPhoto,
+    required this.deletePhoto,
+  });
 
   @override
   Widget build(BuildContext context) {

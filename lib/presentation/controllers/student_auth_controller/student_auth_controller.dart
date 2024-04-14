@@ -6,6 +6,8 @@ import "../../../application/student/application_service/reload_user.dart";
 import "../../../application/student/application_service/student_create_use_case.dart";
 import "../../../application/student_auth/application_service/sign_in_use_case.dart";
 import "../../../application/student_auth/application_service/sign_out_use_case.dart";
+import "../../../application/student_auth/application_service/update_student_auth_info_command.dart";
+import "../../../application/student_auth/application_service/update_student_auth_info_use_case.dart";
 
 part "student_auth_controller.g.dart";
 
@@ -44,6 +46,19 @@ class StudentAuthController extends _$StudentAuthController {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
       final signInUseCase = SignOutUseCase(repository: studentAuthRepository);
       await signInUseCase.execute();
+    });
+  }
+
+  Future<void> resetPassword(final String emailAddress) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
+      final command = UpdateStudentAuthInfoCommand(
+          emailAddress: null, emailAddressToResetPassword: emailAddress);
+      final usecase =
+          UpdateStudentAuthInfoUseCase(repository: studentAuthRepository);
+
+      await usecase.execute(command);
     });
   }
 

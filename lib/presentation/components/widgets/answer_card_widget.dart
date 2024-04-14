@@ -129,7 +129,15 @@ class AnswerCardWidget extends ConsumerWidget {
         .watch(getPhotoControllerProvider(answerDto.teacherProfilePath))
         .maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
 
     return Container(
@@ -163,7 +171,7 @@ class AnswerCardWidget extends ConsumerWidget {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          radius: 15,
+                          radius: screenWidth < 600 ? 15 : 22,
                           backgroundImage: image,
                         ),
                         const SizedBox(
@@ -255,7 +263,7 @@ class AnswerCardWidget extends ConsumerWidget {
                 GestureDetector(
                   onTap: toggleLikeAnswer,
                   child: SizedBox(
-                    width: 30,
+                    width: screenWidth < 600 ? 30 : 44,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -264,7 +272,10 @@ class AnswerCardWidget extends ConsumerWidget {
                           answerDto.hasLiked
                               ? Icons.favorite
                               : Icons.favorite_border,
-                          size: 17,
+                          size: FontSizeSet.getFontSize(
+                            context,
+                            FontSizeSet.header3,
+                          ),
                           color: ColorSet.of(context).primary,
                         ),
                         const SizedBox(

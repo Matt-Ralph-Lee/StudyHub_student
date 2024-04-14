@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:studyhub/presentation/controllers/get_photo_controller/get_photo_controller.dart';
 
+import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import 'bottom_sheet_for_pick_image.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/color_set.dart';
@@ -23,6 +23,7 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final image = ref
         .watch(getPhotoControllerProvider(currentImagePath))
         .maybeWhen(
@@ -33,14 +34,14 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
       child: Stack(
         children: [
           CircleAvatar(
-            radius: 50,
+            radius: screenWidth < 600 ? 50 : 75,
             backgroundImage: (imageFilePath == null)
                 ? image
                 : FileImage(File(imageFilePath!)),
           ),
           Positioned(
-              bottom: 10,
-              right: 10,
+              bottom: 7,
+              right: 7,
               child: InkWell(
                 onTap: () {
                   showModalBottomSheet(
@@ -48,13 +49,27 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
                     builder: ((builder) => BottomSheetForPickImage(
                           takePhoto: takePhoto,
                           pickPhoto: pickPhoto,
+                          deletePhoto: null,
                         )),
                   );
                 },
-                child: Icon(
-                  Icons.camera_alt,
-                  color: ColorSet.of(context).primary,
-                  size: FontSizeSet.getFontSize(context, FontSizeSet.header1),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.header3,
+                      ),
+                      backgroundColor: ColorSet.of(context).greySurface,
+                    ),
+                    Icon(
+                      Icons.camera_alt,
+                      color: ColorSet.of(context).primary,
+                      size:
+                          FontSizeSet.getFontSize(context, FontSizeSet.header1),
+                    ),
+                  ],
                 ),
               ))
         ],

@@ -88,6 +88,7 @@ class UserDetailWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final Map<String, dynamic> nextRankInfo =
         getNextRankInfo(context, userRank);
     final String nextRank = nextRankInfo[L10n.nextRankText];
@@ -110,7 +111,15 @@ class UserDetailWidget extends ConsumerWidget {
 
     final image = ref.watch(getPhotoControllerProvider(userIconUrl)).maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
 
     return Column(
@@ -120,7 +129,7 @@ class UserDetailWidget extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
-              radius: 30,
+              radius: screenWidth < 600 ? 30 : 45,
               backgroundImage: image,
             ),
             Expanded(
@@ -168,15 +177,17 @@ class UserDetailWidget extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              userName,
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize:
-                      FontSizeSet.getFontSize(context, FontSizeSet.header2),
-                  color: ColorSet.of(context).text),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            Flexible(
+              child: Text(
+                userName,
+                style: TextStyle(
+                    fontWeight: FontWeightSet.normal,
+                    fontSize:
+                        FontSizeSet.getFontSize(context, FontSizeSet.header2),
+                    color: ColorSet.of(context).text),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             Container(
               decoration: BoxDecoration(
@@ -241,29 +252,44 @@ class UserDetailWidget extends ConsumerWidget {
             const SizedBox(
               width: 5,
             ),
-            Text(
-              "$nextRank${L10n.madeText}",
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.getFontSize(
-                    context,
-                    FontSizeSet.annotation,
+            userRank != L10n.expertText
+                ? Row(
+                    children: [
+                      Text(
+                        "$nextRank${L10n.madeText}",
+                        style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                              context,
+                              FontSizeSet.annotation,
+                            ),
+                            color: ColorSet.of(context).greyText),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        numberOfQuestionsForNextRank, //若干隣の文字より上に上がってるんよな、数字だから？？
+                        style: TextStyle(
+                            fontWeight: FontWeightSet.normal,
+                            fontSize: FontSizeSet.getFontSize(
+                              context,
+                              FontSizeSet.annotation,
+                            ),
+                            color: ColorSet.of(context).greyText),
+                      ),
+                    ],
+                  )
+                : Text(
+                    L10n.expertDesuyoText,
+                    style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.annotation,
+                        ),
+                        color: ColorSet.of(context).greyText),
                   ),
-                  color: ColorSet.of(context).greyText),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              numberOfQuestionsForNextRank, //若干隣の文字より上に上がってるんよな、数字だから？？
-              style: TextStyle(
-                  fontWeight: FontWeightSet.normal,
-                  fontSize: FontSizeSet.getFontSize(
-                    context,
-                    FontSizeSet.annotation,
-                  ),
-                  color: ColorSet.of(context).greyText),
-            ),
           ],
         ),
       ],

@@ -1,8 +1,7 @@
-import 'package:studyhub/domain/student/exception/student_domain_exception.dart';
-import 'package:studyhub/domain/student/exception/student_domain_exception_detail.dart';
-
 import '../../school/models/school.dart';
 import '../../shared/profile_photo_path.dart';
+import '../exception/student_domain_exception.dart';
+import '../exception/student_domain_exception_detail.dart';
 import 'grade_or_graduate_status.dart';
 import 'question_count.dart';
 import 'status.dart';

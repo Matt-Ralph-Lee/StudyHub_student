@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../domain/student_auth/exception/student_auth_domain_exception.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../controllers/student_auth_controller/student_auth_controller.dart';
+import '../../shared/constants/color_set.dart';
+import '../../shared/constants/font_size_set.dart';
+import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/elevated_button_for_auth.dart';
@@ -23,8 +28,12 @@ class SignUpWidget extends HookConsumerWidget {
     final signUpPassWordController = useTextEditingController();
     final isEmailFilled = useState<bool>(false);
     final isPasswordFilled = useState<bool>(false);
+    final isCheckedTermsOfUse = useState<bool>(false);
+    final isCheckedPrivacyPolicy = useState<bool>(false);
     final emailInputErrorText = useState<String?>(null);
     final passwordInputErrorText = useState<String?>(null);
+    final termsOfUseUrl = Uri.parse(L10n.termsOfUseUrlText);
+    final privacyPolicyUrl = Uri.parse(L10n.privacyPolicyUrlText);
 
     void checkEmailFilled(String text) {
       final RegExp emailRegExp =
@@ -55,6 +64,16 @@ class SignUpWidget extends HookConsumerWidget {
       isPasswordFilled.value = text.isNotEmpty;
     }
 
+    void handleTermsOfUseCheckbox(bool? isChecked) {
+      HapticFeedback.lightImpact();
+      isCheckedTermsOfUse.value = isChecked!;
+    }
+
+    void handlePrivacyPolicyCheckbox(bool? isChecked) {
+      HapticFeedback.lightImpact();
+      isCheckedPrivacyPolicy.value = isChecked!;
+    }
+
     void push(BuildContext context) {
       context.push(
         PageId.emailVerificationPage.path,
@@ -63,7 +82,7 @@ class SignUpWidget extends HookConsumerWidget {
     }
 
     void pushDummy(BuildContext context) {
-      context.push(PageId.home.path);
+      context.push(PageId.profileInput.path);
     }
 
     void dummySignUp(BuildContext context) async {
@@ -115,9 +134,106 @@ class SignUpWidget extends HookConsumerWidget {
           errorText: passwordInputErrorText.value,
         ),
         const SizedBox(height: 40),
+        Row(
+          children: [
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: Checkbox(
+                value: isCheckedTermsOfUse.value,
+                onChanged: handleTermsOfUseCheckbox,
+                activeColor: ColorSet.of(context).primary,
+                checkColor: ColorSet.of(context).whiteText,
+                side: BorderSide(
+                  width: 1,
+                  color: ColorSet.of(context).greySurface,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            GestureDetector(
+              onTap: () => launchUrl(termsOfUseUrl),
+              child: Text(
+                L10n.termsOfUseText,
+                style: TextStyle(
+                  color: ColorSet.of(context).primary,
+                  fontWeight: FontWeightSet.normal,
+                  fontSize: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.body,
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              L10n.douisuruText,
+              style: TextStyle(
+                color: ColorSet.of(context).text,
+                fontWeight: FontWeightSet.normal,
+                fontSize: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.body,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 25),
+        Row(
+          children: [
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: Checkbox(
+                value: isCheckedPrivacyPolicy.value,
+                onChanged: handlePrivacyPolicyCheckbox,
+                activeColor: ColorSet.of(context).primary,
+                checkColor: ColorSet.of(context).whiteText,
+                side: BorderSide(
+                  width: 1,
+                  color: ColorSet.of(context).greySurface,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            GestureDetector(
+              onTap: () => launchUrl(privacyPolicyUrl),
+              child: Text(
+                L10n.privacyPolicyText,
+                style: TextStyle(
+                  color: ColorSet.of(context).primary,
+                  fontWeight: FontWeightSet.normal,
+                  fontSize: FontSizeSet.getFontSize(
+                    context,
+                    FontSizeSet.body,
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              L10n.douisuruText,
+              style: TextStyle(
+                color: ColorSet.of(context).text,
+                fontWeight: FontWeightSet.normal,
+                fontSize: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.body,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 50),
         ElevatedButtonForAuth(
           buttonText: L10n.signUpButtonText,
-          onPressed: isEmailFilled.value && isPasswordFilled.value
+          onPressed: isEmailFilled.value &&
+                  isPasswordFilled.value &&
+                  isCheckedTermsOfUse.value &&
+                  isCheckedPrivacyPolicy.value
               ? () async {
                   ref
                       .read(studentAuthControllerProvider.notifier)

@@ -7,9 +7,10 @@ import '../../domain/teacher/models/teacher_id.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_favorite_teacher_found.dart';
 import '../components/parts/text_form_field_for_search_teachers.dart';
+import '../components/widgets/teacher_small_card_skeleton_widget.dart';
 import '../components/widgets/teacher_small_card_widget.dart';
-import '../components/widgets/loading_overlay_widget.dart';
 import '../controllers/get_favorite_teacher_controller/get_favorite_teacher_controller.dart';
+import '../controllers/get_popular_teacher_controller/get_popular_teacher_controller.dart';
 import '../controllers/search_for_teachers_controller/search_for_teachers_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
@@ -30,6 +31,7 @@ class SearchForTeachersPage extends HookConsumerWidget {
 
     final favoriteTeachersState =
         ref.watch(getFavoriteTeacherControllerProvider);
+    final popularTeachersState = ref.watch(getPopularTeacherControllerProvider);
 
     final searchForTeachersState =
         ref.watch(searchForTeachersControllerProvider(searchTerm.value));
@@ -101,7 +103,12 @@ class SearchForTeachersPage extends HookConsumerWidget {
                               return Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: 10),
+                                    padding: EdgeInsets.only(
+                                      bottom: PaddingSet.getPaddingSize(
+                                        context,
+                                        30,
+                                      ),
+                                    ),
                                     child: TeacherSmallCardWidget(
                                       name: teacher.teacherName,
                                       bio: teacher.bio,
@@ -120,8 +127,26 @@ class SearchForTeachersPage extends HookConsumerWidget {
                       : const SliverToBoxAdapter(
                           child:
                               Center(child: TextForNoFavoriteTeacherFound())),
-                  loading: () =>
-                      const SliverToBoxAdapter(child: LoadingOverlay()),
+                  loading: () => SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: PaddingSet.getPaddingSize(
+                                  context,
+                                  30,
+                                ),
+                              ),
+                              child: const TeacherSmallCardSkeletonWidget(),
+                            ),
+                          ],
+                        );
+                      },
+                      childCount: 10,
+                    ),
+                  ),
                   error: (error, stack) => const SliverToBoxAdapter(
                       child: Center(child: TextForError())),
                 ),
@@ -150,16 +175,21 @@ class SearchForTeachersPage extends HookConsumerWidget {
               SliverPadding(
                 padding: EdgeInsets.symmetric(
                     horizontal: PaddingSet.getPaddingSize(context, 24)),
-                sliver: favoriteTeachersState.when(
+                sliver: popularTeachersState.when(
                   data: (teachers) => teachers.isNotEmpty
                       ? SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               final teacher = teachers[index];
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
+                                padding: EdgeInsets.only(
+                                  bottom: PaddingSet.getPaddingSize(
+                                    context,
+                                    30,
+                                  ),
+                                ),
                                 child: TeacherSmallCardWidget(
-                                  name: teacher.teacherName,
+                                  name: teacher.name,
                                   bio: teacher.bio,
                                   iconUrl: teacher.profilePhotoPath,
                                   isSelected: false,
@@ -174,8 +204,26 @@ class SearchForTeachersPage extends HookConsumerWidget {
                       : const SliverToBoxAdapter(
                           child:
                               Center(child: TextForNoFavoriteTeacherFound())),
-                  loading: () =>
-                      const SliverToBoxAdapter(child: LoadingOverlay()),
+                  loading: () => SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: PaddingSet.getPaddingSize(
+                                  context,
+                                  30,
+                                ),
+                              ),
+                              child: const TeacherSmallCardSkeletonWidget(),
+                            ),
+                          ],
+                        );
+                      },
+                      childCount: 10,
+                    ),
+                  ),
                   error: (error, stack) => const SliverToBoxAdapter(
                       child: Center(child: TextForError())),
                 ),
@@ -195,7 +243,12 @@ class SearchForTeachersPage extends HookConsumerWidget {
                               return Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: 10),
+                                    padding: EdgeInsets.only(
+                                      bottom: PaddingSet.getPaddingSize(
+                                        context,
+                                        30,
+                                      ),
+                                    ),
                                     child: TeacherSmallCardWidget(
                                       name: teacher.name,
                                       bio: teacher.bio,
@@ -221,8 +274,26 @@ class SearchForTeachersPage extends HookConsumerWidget {
                                     color: ColorSet.of(context).text)),
                           ),
                         ),
-                  loading: () =>
-                      const SliverToBoxAdapter(child: LoadingOverlay()),
+                  loading: () => SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: PaddingSet.getPaddingSize(
+                                  context,
+                                  30,
+                                ),
+                              ),
+                              child: const TeacherSmallCardSkeletonWidget(),
+                            ),
+                          ],
+                        );
+                      },
+                      childCount: 10,
+                    ),
+                  ),
                   error: (error, stack) {
                     return const SliverFillRemaining(
                       child: Center(child: TextForError()),

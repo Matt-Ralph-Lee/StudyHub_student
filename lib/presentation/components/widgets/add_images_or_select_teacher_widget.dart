@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/padding_set.dart';
-import '../parts/text_button_for_adding_picture.dart';
-import '../parts/text_button_for_selecting_teachers.dart';
+import '../parts/button_for_adding_picture.dart';
+import '../parts/button_for_selecting_teachers.dart';
 
 class AddImagesOrSelectTeachersWidget extends StatelessWidget {
   final List<String>? imageFilePath;
@@ -13,6 +13,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
   final bool isPhotoAdded;
   final void Function() uploadPhotoFromCamera;
   final void Function() uploadPhotoFromGallery;
+  final void Function(String)? deletePhoto;
   final void Function(TeacherId) selectTeachersFunction;
   const AddImagesOrSelectTeachersWidget({
     super.key,
@@ -22,6 +23,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
     required this.isPhotoAdded,
     required this.uploadPhotoFromCamera,
     required this.uploadPhotoFromGallery,
+    required this.deletePhoto,
     required this.selectTeachersFunction,
   });
 
@@ -44,11 +46,12 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextButtonForAddingPicture(
+              ButtonForAddingPicture(
                 imageFilePath: imageFilePath,
                 takePhoto: uploadPhotoFromCamera,
                 pickPhoto: uploadPhotoFromGallery,
                 isPicturesAdded: isPhotoAdded,
+                deletePhoto: deletePhoto,
               ),
               SizedBox(
                 height: PaddingSet.getPaddingSize(
@@ -56,7 +59,7 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
                   20,
                 ),
               ),
-              TextButtonForSelectingTeacher(
+              ButtonForSelectingTeacher(
                 selectTeachersFunction: selectTeachersFunction,
                 selectedTeachers: teacherIds,
                 isTeacherSelected: isTeacherSelected,

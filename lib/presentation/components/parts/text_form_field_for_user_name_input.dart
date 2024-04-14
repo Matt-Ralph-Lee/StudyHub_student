@@ -9,9 +9,14 @@ import '../../shared/constants/padding_set.dart';
 class TextFormFieldForUserNameInput extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String)? onChanged;
+  final String? errorText;
 
-  const TextFormFieldForUserNameInput(
-      {super.key, required this.controller, required this.onChanged});
+  const TextFormFieldForUserNameInput({
+    super.key,
+    required this.controller,
+    required this.onChanged,
+    required this.errorText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +65,12 @@ class TextFormFieldForUserNameInput extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: BorderSide.none,
               ),
+              errorText: errorText,
+              errorStyle: TextStyle(
+                  fontWeight: FontWeightSet.normal,
+                  fontSize: FontSizeSet.annotation,
+                  color: ColorSet.of(context).errorText),
+              errorMaxLines: 1,
             ),
           ),
         ],

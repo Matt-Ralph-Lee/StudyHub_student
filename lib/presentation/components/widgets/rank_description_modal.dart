@@ -15,10 +15,16 @@ class RankDescriptionModal extends StatelessWidget {
     final modalWidth = screenWidth * 0.6;
     return Container(
       width: modalWidth,
-      padding: EdgeInsets.all(PaddingSet.getPaddingSize(
-        context,
-        20,
-      )),
+      padding: EdgeInsets.symmetric(
+        horizontal: PaddingSet.getPaddingSize(
+          context,
+          30,
+        ),
+        vertical: PaddingSet.getPaddingSize(
+          context,
+          20,
+        ),
+      ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: ColorSet.of(context).surface),

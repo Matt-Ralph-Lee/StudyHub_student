@@ -24,9 +24,18 @@ class TeacherSmallCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final image = ref.watch(getPhotoControllerProvider(iconUrl)).maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          loading: () {
+            MediaQuery.of(context).platformBrightness == Brightness.light
+                ? const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_light.png")
+                : const AssetImage(
+                    "assets/photos/profile_photo/loading_user_icon_dark.png");
+          },
+          orElse: () => const AssetImage(
+              "assets/photos/profile_photo/sample_user_icon.jpg"),
         );
     return GestureDetector(
       onTap: onTap,
@@ -42,7 +51,10 @@ class TeacherSmallCardWidget extends ConsumerWidget {
                 offset: const Offset(0, 0)),
           ],
           border: isSelected
-              ? Border.all(color: ColorSet.of(context).text, width: 2)
+              ? Border.all(
+                  color: ColorSet.of(context).primary,
+                  width: 1,
+                )
               : null,
         ),
         child: Padding(
@@ -53,7 +65,7 @@ class TeacherSmallCardWidget extends ConsumerWidget {
             children: [
               //webだと？表示されない？？手元のシュミレーター動かないのでとりまこのままで <= internetが理由だよ assetsだったら、AssetImage使うっていう応急処置取ってるよ
               CircleAvatar(
-                radius: 15,
+                radius: screenWidth < 600 ? 15 : 22,
                 backgroundImage: image,
               ),
               const SizedBox(

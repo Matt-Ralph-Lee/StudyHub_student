@@ -47,18 +47,18 @@ class MenuPage extends StatelessWidget {
             24,
           )),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 height: PaddingSet.getPaddingSize(context, 30),
               ),
               const OtherFunctionMenuWidget(),
               SizedBox(
-                height: PaddingSet.getPaddingSize(context, 20),
+                height: PaddingSet.getPaddingSize(context, 30),
               ),
               const TermsOfServiceWidget(),
               SizedBox(
-                height: PaddingSet.getPaddingSize(context, 20),
+                height: PaddingSet.getPaddingSize(context, 30),
               ),
               const AccountRelatedMenuWidget(),
               SizedBox(

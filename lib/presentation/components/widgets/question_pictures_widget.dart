@@ -29,7 +29,7 @@ class QuestionPictureWidget extends ConsumerWidget {
 
     final image = ref.watch(getPhotoControllerProvider(photoPath)).maybeWhen(
           data: (d) => d,
-          orElse: () => const AssetImage("assets/images/sample_picture_hd.jpg"),
+          orElse: () => const AssetImage("assets/images/no_image.jpg"),
         );
 
     return GestureDetector(
@@ -38,9 +38,8 @@ class QuestionPictureWidget extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: Image(
           image: image,
-          width: 350,
-          height: 200,
-          fit: BoxFit.cover,
+          width: double.infinity, //最善策無い？
+          fit: BoxFit.contain,
         ),
       ),
     );

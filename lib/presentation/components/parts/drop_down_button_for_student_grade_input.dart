@@ -19,9 +19,7 @@ class DropDownButtonForStudentGradeInput extends HookWidget {
   });
 
   final studentGradeOptions = GradeOrGraduateStatus.values
-      .where((element) =>
-          element != GradeOrGraduateStatus.graduate &&
-          element != GradeOrGraduateStatus.other)
+      .where((element) => element != GradeOrGraduateStatus.graduate)
       .toList();
 
   @override

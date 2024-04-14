@@ -25,6 +25,6 @@ class FavoriteTeachersDeleteUseCase {
 
     favoriteTeachers.delete(favoriteTeacherId);
 
-    _repository.save(favoriteTeachers);
+    await _repository.save(favoriteTeachers);
   }
 }

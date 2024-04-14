@@ -21,6 +21,6 @@ class DecrementAnswerLikeUseCase {
   }) async {
     await _repository.decrementAnswerLike(
         answerId: answerId, questionId: questionId);
-    _likedAnswersRepository.delete(studentId, answerId);
+    await _likedAnswersRepository.delete(studentId, answerId);
   }
 }

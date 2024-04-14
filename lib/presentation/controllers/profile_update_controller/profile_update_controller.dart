@@ -8,6 +8,7 @@ import "../../../application/student/application_service/profile_update_command.
 import "../../../application/student/application_service/profile_update_use_case.dart";
 import "../../../domain/school/services/school_service.dart";
 import "../get_my_profile_controller/get_my_profile_controller.dart";
+import "../get_my_question_controller/get_my_question_controller.dart";
 
 part "profile_update_controller.g.dart";
 
@@ -32,9 +33,10 @@ class ProfileUpdateController extends _$ProfileUpdateController {
         photoRepository: photoRepository,
       );
 
-      profileUpdateUseCase.execute(command);
+      await profileUpdateUseCase.execute(command);
     });
 
     ref.invalidate(getMyProfileControllerProvider);
+    ref.invalidate(getMyQuestionControllerProvider);
   }
 }
