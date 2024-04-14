@@ -1,3 +1,6 @@
+import 'package:studyhub/infrastructure/exceptions/question/question_infrastructure_exception.dart';
+import 'package:studyhub/infrastructure/exceptions/question/question_infrastructure_exception_detail.dart';
+
 import '../../../domain/answer_list/models/answer_list.dart';
 import '../../../domain/question/models/i_question_repository.dart';
 import '../../../domain/question/models/question.dart';
@@ -9,6 +12,7 @@ import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/seen_count.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../domain/shared/subject.dart';
+import '../../../domain/student/models/student_id.dart';
 import '../answer/in_memory_answer_repository.dart';
 import '../student/in_memory_student_repository.dart';
 
@@ -56,6 +60,30 @@ class InMemoryQuestionRepository implements IQuestionRepository {
   @override
   Future<void> save(final Question question) async {
     store[question.questionId] = question;
+  }
+
+  @override
+  Future<bool> checkIsMyQuestion(
+      {required StudentId studentId, required QuestionId questionId}) async {
+    final question = store[questionId];
+    if (question == null) {
+      return false;
+    }
+
+    return question.studentId == studentId;
+  }
+
+  @override
+  Future<void> resolveQuestion(QuestionId questionId) async {
+    final question = store[questionId];
+    if (question == null) {
+      throw const QuestionInfrastructureException(
+          QuestionInfrastructureExceptionDetail.questionNotFound);
+    }
+
+    question.changeQuestionResolved(true);
+
+    store[questionId] = question;
   }
 }
 

@@ -150,4 +150,25 @@ class FirebaseQuestionRepository implements IQuestionRepository {
         .doc(question.questionId.value)
         .set(addData);
   }
+
+  @override
+  Future<void> resolveQuestion(QuestionId questionId) async {
+    await db
+        .collection("all_questions")
+        .doc(questionId.value)
+        .update({"resolved": true});
+  }
+
+  @override
+  Future<bool> checkIsMyQuestion(
+      {required StudentId studentId, required QuestionId questionId}) async {
+    final docSnapshot =
+        await db.collection("all_questions").doc(questionId.value).get();
+    final doc = docSnapshot.data();
+    if (doc == null) {
+      return false;
+    }
+
+    return doc["studentId"] == studentId.value;
+  }
 }
