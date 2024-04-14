@@ -92,6 +92,8 @@ class L10n {
         return "画像が見つかりませんでした。";
       case QuestionUseCaseExceptionDetail.failedImageProcessing:
         return "画像の処理に失敗しました。";
+      case QuestionUseCaseExceptionDetail.notAllowedToResolve:
+        return "Questionを解決する権限がありませんでした。";
     }
   }
 
