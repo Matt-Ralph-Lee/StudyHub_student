@@ -188,7 +188,7 @@ class CreateQuestionPage extends HookConsumerWidget {
           if (addQuestionState.hasError) {
             final error = addQuestionState.error;
             if (error is QuestionUseCaseException) {
-              final errorText = L10n.getQuestionExceptionMessage(
+              final errorText = L10n.questionExceptionMessage(
                   error.detail as QuestionUseCaseExceptionDetail);
               showDialog(
                   context: context,

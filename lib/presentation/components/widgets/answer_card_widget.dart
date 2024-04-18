@@ -4,10 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
+import '../../../application/blockings/exception/blockings_use_case_exception.dart';
+import '../../../application/blockings/exception/blockings_use_case_exception_detail.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
+import '../../controllers/add_blockings_controller/add_blockings_controller.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
+import '../../controllers/delete_blockings_controller/delete_blockings_controller.dart';
 import '../../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
 import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/like_answer_controller/like_answer_controller.dart';
@@ -17,6 +21,8 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
+import 'confirm_add_blocking_modal.dart';
+import 'confirm_delete_blocking_modal.dart';
 import 'show_error_modal_widget.dart';
 import 'specific_exception_modal_widget.dart';
 
@@ -125,6 +131,89 @@ class AnswerCardWidget extends ConsumerWidget {
       });
     }
 
+    void addBlocking() async {
+      final result = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const ConfirmAddBlockingModalWidget();
+          });
+      if (result) {
+        ref
+            .read(addBlockingsControllerProvider.notifier)
+            .addBlockings(answerDto.teacherId)
+            .then((_) {
+          final addBlockingsState = ref.read(addBlockingsControllerProvider);
+          if (addBlockingsState.hasError) {
+            final error = addBlockingsState.error;
+            if (error is BlockingsUseCaseException) {
+              final errorText = L10n.blockingsUseCaseExceptionMessage(
+                  error.detail as BlockingsUseCaseExceptionDetail);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SpecificExceptionModalWidget(
+                      errorMessage: errorText,
+                    );
+                  });
+            } else {
+              showErrorModalWidget(context);
+            }
+          } else {
+            HapticFeedback.lightImpact();
+            ScaffoldMessenger.of(context).showSnackBar(
+              completionSnackBar(
+                context,
+                L10n.blockSnackBarText,
+              ),
+            );
+            context.pop();
+          }
+        });
+      }
+    }
+
+    void deleteBlocking() async {
+      final result = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const ConfirmDeleteBlockingModalWidget();
+          });
+      if (result) {
+        ref
+            .read(deleteBlockingsControllerProvider.notifier)
+            .deleteBlockings(answerDto.teacherId)
+            .then((_) {
+          final deleteBlockingsState =
+              ref.read(deleteBlockingsControllerProvider);
+          if (deleteBlockingsState.hasError) {
+            final error = deleteBlockingsState.error;
+            if (error is BlockingsUseCaseException) {
+              final errorText = L10n.blockingsUseCaseExceptionMessage(
+                  error.detail as BlockingsUseCaseExceptionDetail);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SpecificExceptionModalWidget(
+                      errorMessage: errorText,
+                    );
+                  });
+            } else {
+              showErrorModalWidget(context);
+            }
+          } else {
+            HapticFeedback.lightImpact();
+            ScaffoldMessenger.of(context).showSnackBar(
+              completionSnackBar(
+                context,
+                L10n.deleteBlockSnackBarText,
+              ),
+            );
+            context.pop();
+          }
+        });
+      }
+    }
+
     final image = ref
         .watch(getPhotoControllerProvider(answerDto.teacherProfilePath))
         .maybeWhen(
@@ -215,10 +304,12 @@ class AnswerCardWidget extends ConsumerWidget {
                         context,
                         answerDto.teacherId,
                       );
-                    } else {
+                    } else if (result == "followUnFollow") {
                       answerDto.isFollowing
                           ? deleteFavoriteTeacher()
                           : addFavoriteTeacher();
+                    } else {
+                      answerDto.isBlocking ? deleteBlocking() : addBlocking();
                     }
                   },
                   itemBuilder: (BuildContext context) =>
@@ -241,6 +332,20 @@ class AnswerCardWidget extends ConsumerWidget {
                         answerDto.isFollowing
                             ? L10n.unFollowButtonTextForAnswerCardMenu
                             : L10n.followButtonText,
+                        style: TextStyle(
+                          color: ColorSet.of(context).primary,
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                              context, FontSizeSet.body),
+                        ),
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: "blockUnBlock",
+                      child: Text(
+                        answerDto.isBlocking
+                            ? L10n.unBlockText
+                            : L10n.blockText,
                         style: TextStyle(
                           color: ColorSet.of(context).primary,
                           fontWeight: FontWeightSet.normal,
