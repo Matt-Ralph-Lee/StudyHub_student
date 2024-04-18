@@ -2,11 +2,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/answer/firebase_answer_repository.dart';
 import '../../../../infrastructure/firebase/answer/firebase_get_answer_query_service.dart';
+import '../../../../infrastructure/firebase/blockings/firebase_blockings_repository.dart';
 import '../../../../infrastructure/firebase/favorite_teachers/firebase_favorite_teachers_repository.dart';
 import '../../../../infrastructure/firebase/liked_answers/firebase_liked_answers_repository.dart';
 import '../../../../infrastructure/firebase/teacher/firebase_teacher_repository.dart';
 import '../../../../infrastructure/in_memory/answer/in_memory_answer_repository.dart';
 import '../../../../infrastructure/in_memory/answer/in_memory_get_answer_query_service.dart';
+import '../../../../infrastructure/in_memory/blockings/in_memory_blockings_repository.dart';
 import '../../../../infrastructure/in_memory/favorite_teachers/in_memory_favorite_teachers_repository.dart';
 import '../../../../infrastructure/in_memory/liked_answers/in_memory_liked_answers_repository.dart';
 import '../../../../infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
@@ -36,6 +38,7 @@ IGetAnswerQueryService getAnswerQueryServiceDi(GetAnswerQueryServiceDiRef ref) {
                 as InMemoryFavoriteTeachersRepository,
         likedAnswersRepository: ref.watch(likedAnswersRepositoryDiProvider)
             as InMemoryLikedAnswersRepository,
+        blockingsRepository: InMemoryBlockingsRepository(),
       );
     case Flavor.stg:
       throw UnimplementedError();
@@ -51,6 +54,7 @@ IGetAnswerQueryService getAnswerQueryServiceDi(GetAnswerQueryServiceDiRef ref) {
                 as FirebaseFavoriteTeachersRepository,
         likedAnswersRepository: ref.watch(likedAnswersRepositoryDiProvider)
             as FirebaseLikedAnswersRepository,
+        blockingsRepository: FirebaseBlockingsRepository(),
       );
   }
 }

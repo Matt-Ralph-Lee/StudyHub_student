@@ -1,6 +1,7 @@
 import '../../../domain/blockings/models/blockings.dart';
 import '../../../domain/blockings/models/i_blockings_repository.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 
 class InMemoryBlockingsRepository implements IBlockingsRepository {
   late Map<StudentId, Blockings> store;
@@ -23,5 +24,17 @@ class InMemoryBlockingsRepository implements IBlockingsRepository {
   @override
   Future<Blockings?> getByStudentId(StudentId studentId) async {
     return store[studentId];
+  }
+
+  @override
+  Future<bool> checkTeacherIsBlocking({
+    required StudentId studentId,
+    required TeacherId teacherId,
+  }) async {
+    final blockings = store[studentId];
+    if (blockings == null) {
+      return false;
+    }
+    return blockings.contains(teacherId);
   }
 }

@@ -3,6 +3,7 @@ import '../../../application/answer/application_service/i_get_answer_query_servi
 import '../../../application/shared/session/session.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
+import '../blockings/in_memory_blockings_repository.dart';
 import '../favorite_teachers/in_memory_favorite_teachers_repository.dart';
 import '../liked_answers/in_memory_liked_answers_repository.dart';
 import '../teacher/in_memory_teacher_repository.dart';
@@ -14,6 +15,7 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
   final InMemoryTeacherRepository _teacherRepository;
   final InMemoryFavoriteTeachersRepository _favoriteTeachersRepository;
   final InMemoryLikedAnswersRepository _likedAnswersRepository;
+  final InMemoryBlockingsRepository _blockingsRepository;
 
   InMemoryGetAnswerQueryService({
     required final Session session,
@@ -22,11 +24,13 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
     required final InMemoryFavoriteTeachersRepository
         favoriteTeachersRepository,
     required final InMemoryLikedAnswersRepository likedAnswersRepository,
+    required final InMemoryBlockingsRepository blockingsRepository,
   })  : _session = session,
         _repository = repository,
         _teacherRepository = teacherRepository,
         _favoriteTeachersRepository = favoriteTeachersRepository,
-        _likedAnswersRepository = likedAnswersRepository;
+        _likedAnswersRepository = likedAnswersRepository,
+        _blockingsRepository = blockingsRepository;
 
   @override
   Future<List<AnswerDto>> getById(QuestionId questionId) async {
@@ -54,6 +58,7 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
             answerText: answer.answerText.value,
             answerLike: answer.like.value,
             isFollowing: false,
+            isBlocking: false,
             isEvaluated: answer.evaluated,
             answerPhotoList: answer.answerPhotoPathList
                 .map((answerPhotoPath) => answerPhotoPath.value)
@@ -70,6 +75,10 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
             isFollowing = true;
           }
         }
+
+        final isBlocking = await _blockingsRepository.checkTeacherIsBlocking(
+            studentId: studentId, teacherId: teacher.teacherId);
+
         answerDtoList.add(AnswerDto(
           answerId: answer.answerId,
           questionId: answer.questionId,
@@ -79,6 +88,7 @@ class InMemoryGetAnswerQueryService implements IGetAnswerQueryService {
           answerText: answer.answerText.value,
           answerLike: answer.like.value,
           isFollowing: isFollowing,
+          isBlocking: isBlocking,
           isEvaluated: answer.evaluated,
           answerPhotoList: answer.answerPhotoPathList
               .map((answerPhotoPath) => answerPhotoPath.value)

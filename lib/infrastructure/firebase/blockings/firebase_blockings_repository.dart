@@ -4,6 +4,8 @@ import '../../../domain/blockings/models/blockings.dart';
 import '../../../domain/blockings/models/i_blockings_repository.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
+import '../../exceptions/blockings/blockings_infrastructure_exception.dart';
+import '../../exceptions/blockings/blockings_infrastructure_exception_detail.dart';
 
 class FirebaseBlockingsRepository implements IBlockingsRepository {
   final db = FirebaseFirestore.instance;
@@ -54,5 +56,32 @@ class FirebaseBlockingsRepository implements IBlockingsRepository {
     }
 
     await docRef.update({"blockings": addDataList});
+  }
+
+  @override
+  Future<bool> checkTeacherIsBlocking({
+    required StudentId studentId,
+    required TeacherId teacherId,
+  }) async {
+    final docSnapshot =
+        await db.collection("students").doc(studentId.value).get();
+
+    final doc = docSnapshot.data();
+
+    if (doc == null) {
+      throw const BlockingsInfrastructureException(
+          BlockingsInfrastructureExceptionDetail.studentNotFound);
+    }
+
+    final blockingsData = doc["blockings"];
+
+    for (final blockingData in blockingsData) {
+      final blockingId = TeacherId(blockingData);
+      if (teacherId == blockingId) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
