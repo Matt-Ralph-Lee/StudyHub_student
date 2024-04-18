@@ -10,6 +10,7 @@ import "../../domain/answer_list/models/answer_id.dart";
 import "../../domain/question/models/question_id.dart";
 import "../../domain/teacher/models/teacher_id.dart";
 import "../pages/auth_page.dart";
+import "../pages/blocking_teachers_page.dart";
 import "../pages/check_answer_image_page.dart";
 import "../pages/check_question_image_page.dart";
 import "../pages/create_question_page.dart";
@@ -240,6 +241,12 @@ GoRouter router(RouterRef ref) {
       path: PageId.resetPassword.path,
       name: PageId.resetPassword.name,
       builder: (context, state) => const ResetPasswordPage(),
+      parentNavigatorKey: _rootNavigatorKey,
+    ),
+    GoRoute(
+      path: PageId.blockingTeacherPage.path,
+      name: PageId.blockingTeacherPage.name,
+      builder: (context, state) => const BlockingTeachersPage(),
       parentNavigatorKey: _rootNavigatorKey,
     ),
   ];

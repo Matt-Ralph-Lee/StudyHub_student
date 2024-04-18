@@ -27,5 +27,6 @@ class AddBookmarkController extends _$AddBookmarkController {
     });
     ref.invalidate(getQuestionDetailControllerProvider);
     ref.invalidate(getMyBookmarksControllerProvider);
+    
   }
 }

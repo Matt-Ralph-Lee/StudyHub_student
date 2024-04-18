@@ -1,24 +1,14 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
-import '../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../domain/teacher/models/teacher_id.dart';
-import '../components/parts/completion_snack_bar.dart';
-import '../components/parts/text_button_for_follow_teacher.dart';
-import '../components/parts/text_button_for_unfollow_teacher.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_evaluation_found.dart';
 import '../components/widgets/evaluation_card_skeleton_widget.dart';
 import '../components/widgets/evaluation_card_widget.dart';
-import '../components/widgets/show_error_modal_widget.dart';
-import '../components/widgets/specific_exception_modal_widget.dart';
 import '../components/widgets/teacher_profile_skeleton_widget.dart';
 import '../components/widgets/teacher_profile_widget.dart';
-import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
-import '../controllers/delete_favorite_teacher_controller/delete_favorite_teacher_controller.dart';
 import '../controllers/get_teacher_evaluation_controller/get_teacher_evaluation_controller.dart';
 import '../controllers/get_teacher_profile_controller/get_teacher_profile_controller.dart';
 import '../shared/constants/color_set.dart';
@@ -41,68 +31,6 @@ class TeacherProfilePage extends ConsumerWidget {
     final getTeacherEvaluationState =
         ref.watch(getTeacherEvaluationControllerProvider(teacherId));
 
-    void addFavoriteTeacher() async {
-      ref
-          .read(addFavoriteTeacherControllerProvider.notifier)
-          .addFavoriteTeacher(teacherId)
-          .then((_) {
-        final addFavoriteTeacherControllerState =
-            ref.read(addFavoriteTeacherControllerProvider);
-        if (addFavoriteTeacherControllerState.hasError) {
-          final error = addFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.addFavoriteTeacherText),
-          );
-        }
-      });
-    }
-
-    void deleteFavoriteTeacher() async {
-      ref
-          .read(deleteFavoriteTeacherControllerProvider.notifier)
-          .deleteFavoriteTeacher(teacherId)
-          .then((_) {
-        final deleteFavoriteTeacherControllerState =
-            ref.read(deleteFavoriteTeacherControllerProvider);
-        if (deleteFavoriteTeacherControllerState.hasError) {
-          final error = deleteFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.deleteFavoriteTeacherText),
-          );
-        }
-      });
-    }
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -123,26 +51,6 @@ class TeacherProfilePage extends ConsumerWidget {
             color: ColorSet.of(context).text,
           ),
         ),
-        actions: [
-          getTeacherProfileState.when(
-            data: (teacherProfileDto) => teacherProfileDto != null
-                ? teacherProfileDto.isFollowing
-                    ? TextButtonForUnFollowTeacher(
-                        onPressed: deleteFavoriteTeacher,
-                      )
-                    : TextButtonForFollowTeacher(
-                        onPressed: addFavoriteTeacher,
-                      )
-                : const SizedBox(),
-            loading: () => const SizedBox(
-              width: 0,
-            ),
-            error: (error, stack) => const TextForError(),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-        ],
       ),
       backgroundColor: ColorSet.of(context).background,
       body: SingleChildScrollView(
@@ -160,6 +68,7 @@ class TeacherProfilePage extends ConsumerWidget {
                       ),
                       child: TeacherProfileWidget(
                         teacherProfileDto: teacherProfileDto,
+                        teacherId: teacherId,
                       ),
                     )
                   : Padding(

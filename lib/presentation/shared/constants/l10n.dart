@@ -1,3 +1,4 @@
+import '../../../application/blockings/exception/blockings_use_case_exception_detail.dart';
 import '../../../application/bookmarks/exception/bookmarks_use_case_exception_detail.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../application/question/exception/question_use_case_exception_detail.dart';
@@ -79,7 +80,7 @@ class L10n {
     }
   }
 
-  static String getQuestionExceptionMessage(
+  static String questionExceptionMessage(
       QuestionUseCaseExceptionDetail detail) {
     switch (detail) {
       case QuestionUseCaseExceptionDetail.failedDeleting:
@@ -102,6 +103,14 @@ class L10n {
     switch (detail) {
       case BookmarksUseCaseExceptionDetail.bookmarksNotFound:
         return "Bookmarksが見つかりませんでした。";
+    }
+  }
+
+  static String blockingsUseCaseExceptionMessage(
+      BlockingsUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case BlockingsUseCaseExceptionDetail.blockingsNotFound:
+        return "ブロック中の講師が見つかりませんでした。";
     }
   }
 
@@ -169,6 +178,7 @@ class L10n {
   static const menuText = "メニュー";
   static const otherFunctionsButtonExplanationText = "その他の機能";
   static const searchTeachersButtonText = "講師検索ページ";
+  static const checkBlockingTeachersButtonText = "ブロック中の講師を確認する";
 
   static const termsOfServiceInformationButtonExplanationText = "規約情報など";
   static const termsOfServiceButtonText = "利用規約";
@@ -278,6 +288,16 @@ class L10n {
   static const reportReason = "報告理由";
   static const reportContent = "報告内容";
   static const reportSnackBarText = "報告しました";
+  static const blockText = "ブロックする";
+  static const unBlockText = "ブロックを解除する";
+  static const blockSnackBarText = "ブロックしました";
+  static const deleteBlockSnackBarText = "ブロックを解除しました";
+  static const confirmAddBlockingModalTitleText = "ブロックします。よろしいですか？";
+  static const confirmAddBlockingModalDescriptionText =
+      "ブロックした講師からは回答が付きません。なおブロックしたことは講師には伝わらないのでご安心ください";
+  static const confirmDeleteBlockingModalTitleText = "ブロックから外します。よろしいですか？";
+  static const confirmDeleteBlockingModalDescriptionText =
+      "ブロックを外した講師からは回答が付く可能性があります。なおブロックを解除したことは講師には伝わらないのでご安心ください";
   static const termsOfUseUrlText =
       "https://studyhub.hatenablog.com/entry/2024/02/27/104752?_gl=1*12lv4j6*_gcl_au*Mzk1MDY3MTAwLjE3MTI3MjEyODQ.";
   static const privacyPolicyUrlText =
@@ -332,4 +352,8 @@ class L10n {
 
   //search_question_page
   static const noQuestionsFound = "該当する質問がありません";
+
+  //blockings_page
+  static const blockingPageTitleText = "ブロック中の講師";
+  static const noBlockingTeacherFound = "ブロック中の講師はいません";
 }
