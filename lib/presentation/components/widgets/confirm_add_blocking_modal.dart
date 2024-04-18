@@ -26,37 +26,35 @@ class ConfirmAddBlockingModalWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    L10n.confirmAddBlockingModalTitleText,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.semibold,
-                        fontSize: FontSizeSet.getFontSize(
-                          context,
-                          FontSizeSet.body,
-                        ),
-                        color: ColorSet.of(context).text),
-                  ),
-                  SizedBox(
-                    height: PaddingSet.getPaddingSize(
-                      context,
-                      20,
-                    ),
-                  ),
-                  Text(
-                    L10n.confirmAddBlockingModalDescriptionText,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                          context,
-                          FontSizeSet.body,
-                        ),
-                        color: ColorSet.of(context).text),
-                  ),
-                ],
+              Flexible(
+                child: Text(
+                  L10n.confirmAddBlockingModalTitleText,
+                  style: TextStyle(
+                      fontWeight: FontWeightSet.semibold,
+                      fontSize: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.body,
+                      ),
+                      color: ColorSet.of(context).text),
+                ),
+              ),
+              SizedBox(
+                height: PaddingSet.getPaddingSize(
+                  context,
+                  20,
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  L10n.confirmAddBlockingModalDescriptionText,
+                  style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.body,
+                      ),
+                      color: ColorSet.of(context).text),
+                ),
               ),
               const SizedBox(
                 height: 50,

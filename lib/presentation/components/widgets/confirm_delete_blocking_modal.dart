@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../shared/constants/color_set.dart';
@@ -26,37 +28,35 @@ class ConfirmDeleteBlockingModalWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    L10n.confirmDeleteBlockingModalTitleText,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.semibold,
-                        fontSize: FontSizeSet.getFontSize(
-                          context,
-                          FontSizeSet.body,
-                        ),
-                        color: ColorSet.of(context).text),
-                  ),
-                  SizedBox(
-                    height: PaddingSet.getPaddingSize(
-                      context,
-                      20,
-                    ),
-                  ),
-                  Text(
-                    L10n.confirmDeleteBlockingModalDescriptionText,
-                    style: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                          context,
-                          FontSizeSet.body,
-                        ),
-                        color: ColorSet.of(context).text),
-                  ),
-                ],
+              Flexible(
+                child: Text(
+                  L10n.confirmDeleteBlockingModalTitleText,
+                  style: TextStyle(
+                      fontWeight: FontWeightSet.semibold,
+                      fontSize: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.body,
+                      ),
+                      color: ColorSet.of(context).text),
+                ),
+              ),
+              SizedBox(
+                height: PaddingSet.getPaddingSize(
+                  context,
+                  20,
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  L10n.confirmDeleteBlockingModalDescriptionText,
+                  style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize: FontSizeSet.getFontSize(
+                        context,
+                        FontSizeSet.body,
+                      ),
+                      color: ColorSet.of(context).text),
+                ),
               ),
               const SizedBox(
                 height: 50,

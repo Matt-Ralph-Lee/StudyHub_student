@@ -7,7 +7,7 @@ part of 'delete_blockings_controller.dart';
 // **************************************************************************
 
 String _$deleteBlockingsControllerHash() =>
-    r'fbd2a70d0a47092ea9646d2f27e8054c495ca149';
+    r'273b1aafefd5eca4d626c100c79af898ecd81688';
 
 /// See also [DeleteBlockingsController].
 @ProviderFor(DeleteBlockingsController)

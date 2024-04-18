@@ -160,6 +160,7 @@ class TeacherProfilePage extends ConsumerWidget {
                       ),
                       child: TeacherProfileWidget(
                         teacherProfileDto: teacherProfileDto,
+                        teacherId: teacherId,
                       ),
                     )
                   : Padding(

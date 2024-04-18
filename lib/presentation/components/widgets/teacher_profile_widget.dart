@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +11,7 @@ import '../../../application/blockings/exception/blockings_use_case_exception_de
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../application/teacher/application_service/get_teacher_profile_dto.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/add_blockings_controller/add_blockings_controller.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../../controllers/delete_blockings_controller/delete_blockings_controller.dart';
@@ -19,6 +22,7 @@ import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
+import '../parts/completion_snack_bar.dart';
 import 'confirm_add_blocking_modal.dart';
 import 'confirm_delete_blocking_modal.dart';
 import 'show_error_modal_widget.dart';
@@ -26,8 +30,13 @@ import 'specific_exception_modal_widget.dart';
 
 class TeacherProfileWidget extends ConsumerWidget {
   final GetTeacherProfileDto teacherProfileDto;
+  final TeacherId teacherId;
 
-  const TeacherProfileWidget({super.key, required this.teacherProfileDto});
+  const TeacherProfileWidget({
+    super.key,
+    required this.teacherProfileDto,
+    required this.teacherId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,7 +51,7 @@ class TeacherProfileWidget extends ConsumerWidget {
       if (result) {
         ref
             .read(addBlockingsControllerProvider.notifier)
-            .addBlockings(teacherProfileDto.teacherId)
+            .addBlockings(teacherId)
             .then((_) {
           final addBlockingsState = ref.read(addBlockingsControllerProvider);
           if (addBlockingsState.hasError) {
@@ -68,7 +77,6 @@ class TeacherProfileWidget extends ConsumerWidget {
                 L10n.blockSnackBarText,
               ),
             );
-            context.pop();
           }
         });
       }
@@ -83,7 +91,7 @@ class TeacherProfileWidget extends ConsumerWidget {
       if (result) {
         ref
             .read(deleteBlockingsControllerProvider.notifier)
-            .deleteBlockings(teacherProfileDto.teacherId)
+            .deleteBlockings(teacherId)
             .then((_) {
           final deleteBlockingsState =
               ref.read(deleteBlockingsControllerProvider);
@@ -110,7 +118,6 @@ class TeacherProfileWidget extends ConsumerWidget {
                 L10n.deleteBlockSnackBarText,
               ),
             );
-            context.pop();
           }
         });
       }
@@ -119,7 +126,7 @@ class TeacherProfileWidget extends ConsumerWidget {
     void addFavoriteTeacher() async {
       ref
           .read(addFavoriteTeacherControllerProvider.notifier)
-          .addFavoriteTeacher(teacherProfileDto.teacherId)
+          .addFavoriteTeacher(teacherId)
           .then((_) {
         final addFavoriteTeacherControllerState =
             ref.read(addFavoriteTeacherControllerProvider);
@@ -150,7 +157,7 @@ class TeacherProfileWidget extends ConsumerWidget {
     void deleteFavoriteTeacher() async {
       ref
           .read(deleteFavoriteTeacherControllerProvider.notifier)
-          .deleteFavoriteTeacher(teacherProfileDto.teacherId)
+          .deleteFavoriteTeacher(teacherId)
           .then((_) {
         final deleteFavoriteTeacherControllerState =
             ref.read(deleteFavoriteTeacherControllerProvider);
@@ -216,7 +223,7 @@ class TeacherProfileWidget extends ConsumerWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
                 CircleAvatar(

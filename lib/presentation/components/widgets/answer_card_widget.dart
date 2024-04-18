@@ -166,7 +166,6 @@ class AnswerCardWidget extends ConsumerWidget {
                 L10n.blockSnackBarText,
               ),
             );
-            context.pop();
           }
         });
       }
@@ -208,7 +207,6 @@ class AnswerCardWidget extends ConsumerWidget {
                 L10n.deleteBlockSnackBarText,
               ),
             );
-            context.pop();
           }
         });
       }

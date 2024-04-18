@@ -5,7 +5,9 @@ import "../../../application/blockings/application_service/blockings_delete_use_
 import "../../../application/di/blockings/repository/blockings_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../domain/teacher/models/teacher_id.dart";
+import "../get_answer_controller/get_answer_controller.dart";
 import "../get_favorite_teacher_controller/get_favorite_teacher_controller.dart";
+import "../get_my_blockings_controller/get_my_blockings_controller.dart";
 import "../get_teacher_profile_controller/get_teacher_profile_controller.dart";
 
 part "delete_blockings_controller.g.dart";
@@ -27,7 +29,9 @@ class DeleteBlockingsController extends _$DeleteBlockingsController {
       await deleteBookingsUseCase.execute(teacherId);
     });
 
+    ref.invalidate(getAnswerControllerProvider);
     ref.invalidate(getFavoriteTeacherControllerProvider);
     ref.invalidate(getTeacherProfileControllerProvider(teacherId));
+    ref.invalidate(getBlockingsControllerProvider);
   }
 }

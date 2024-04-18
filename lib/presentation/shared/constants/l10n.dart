@@ -178,6 +178,7 @@ class L10n {
   static const menuText = "メニュー";
   static const otherFunctionsButtonExplanationText = "その他の機能";
   static const searchTeachersButtonText = "講師検索ページ";
+  static const checkBlockingTeachersButtonText = "ブロック中の講師を確認する";
 
   static const termsOfServiceInformationButtonExplanationText = "規約情報など";
   static const termsOfServiceButtonText = "利用規約";
@@ -291,10 +292,10 @@ class L10n {
   static const unBlockText = "ブロックを解除する";
   static const blockSnackBarText = "ブロックしました";
   static const deleteBlockSnackBarText = "ブロックを解除しました";
-  static const confirmAddBlockingModalTitleText = "をブロックします。よろしいですか？";
+  static const confirmAddBlockingModalTitleText = "ブロックします。よろしいですか？";
   static const confirmAddBlockingModalDescriptionText =
       "ブロックした講師からは回答が付きません。なおブロックしたことは講師には伝わらないのでご安心ください";
-  static const confirmDeleteBlockingModalTitleText = "をブロックから外します。よろしいですか？";
+  static const confirmDeleteBlockingModalTitleText = "ブロックから外します。よろしいですか？";
   static const confirmDeleteBlockingModalDescriptionText =
       "ブロックを外した講師からは回答が付く可能性があります。なおブロックを解除したことは講師には伝わらないのでご安心ください";
   static const termsOfUseUrlText =
@@ -351,4 +352,8 @@ class L10n {
 
   //search_question_page
   static const noQuestionsFound = "該当する質問がありません";
+
+  //blockings_page
+  static const blockingPageTitleText = "ブロック中の講師";
+  static const noBlockingTeacherFound = "ブロック中の講師はいません";
 }
