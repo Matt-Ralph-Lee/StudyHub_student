@@ -87,10 +87,13 @@ class FirebaseTeacherRepository implements ITeacherRepository {
     final university = doc["university"] as String;
     final enrollmentStatusData = doc["enrollmentStatus"] as String;
 
-    final enrollmentStatus =
-        enrollmentStatusData == EnrollmentStatus.enrolled.english
-            ? EnrollmentStatus.enrolled
-            : EnrollmentStatus.graduated;
+    EnrollmentStatus enrollmentStatus = EnrollmentStatus.noAnswer;
+    if (enrollmentStatusData == EnrollmentStatus.enrolled.english) {
+      enrollmentStatus = EnrollmentStatus.enrolled;
+    }
+    if (enrollmentStatusData == EnrollmentStatus.graduated.english) {
+      enrollmentStatus = EnrollmentStatus.graduated;
+    }
 
     final teacher = Teacher(
       teacherId: teacherId,

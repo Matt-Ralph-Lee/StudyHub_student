@@ -43,7 +43,7 @@ class StudentCreateUseCase {
     final student =
         _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
 
-    await _studentRepository.save(student);
+    await _studentRepository.create(student);
   }
 }
 

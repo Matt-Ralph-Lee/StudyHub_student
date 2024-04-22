@@ -28,16 +28,15 @@ void modifyStudentData() async {
       String gender = Gender.noAnswer.english;
       if (sex == "男") {
         gender = Gender.male.english;
-        profilePhoto =
-            "https://firebasestorage.googleapis.com/v0/b/study-hub-b81c1.appspot.com/o/profile_photo%2Fdefault%2Fmale_default.jpg?alt=media&token=5ad0aaa2-ac51-480a-ba83-3ba847d81c90";
+        profilePhoto = "profile_photo/default/male_default.jpg";
       }
       if (sex == "女") {
         gender = Gender.female.english;
-        profilePhoto =
-            "https://firebasestorage.googleapis.com/v0/b/study-hub-b81c1.appspot.com/o/profile_photo%2Fdefault%2Ffemale_default.jpg?alt=media&token=0b00c4f9-154c-4da6-b74d-2811dc7a1237";
+        profilePhoto = "profile_photo/default/female_default.jpg";
       }
       if (sex == "回答しない") {
         gender = Gender.noAnswer.english;
+        profilePhoto = "profile_photo/default/female_default.jpg";
       }
 
       String gradeOrGraduateState = GradeOrGraduateStatus.other.english;

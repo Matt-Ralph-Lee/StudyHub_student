@@ -44,8 +44,6 @@ class FirebaseGetRecommendedQuestionsQueryService
             .limit(10)
             .get();
 
-    final selectableQuestions = <Question>[];
-
     for (final docSnapshot in querySnapshot.docs) {
       final questionId = docSnapshot.reference.id;
 
@@ -53,10 +51,6 @@ class FirebaseGetRecommendedQuestionsQueryService
 
       if (question == null) continue;
 
-      selectableQuestions.add(question);
-    }
-
-    for (final question in selectableQuestions) {
       final dto = await _toDto(question);
       questionCardDtoList.add(dto);
     }

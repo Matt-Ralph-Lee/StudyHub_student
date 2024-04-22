@@ -43,7 +43,12 @@ class InMemoryStudentRepository implements IStudentRepository {
   }
 
   @override
-  Future<void> save(final Student student) async {
+  Future<void> create(final Student student) async {
+    store[student.studentId] = student;
+  }
+
+  @override
+  Future<void> update(final Student student) async {
     store[student.studentId] = student;
   }
 

@@ -86,9 +86,8 @@ class ProfileUpdateUseCase {
       if (cond1 && cond2 && cond3) {
         await _photoRepository.delete(oldPhotoPath);
       }
-      await _repository.save(student);
     }
 
-    await _repository.save(student);
+    await _repository.update(student);
   }
 }
