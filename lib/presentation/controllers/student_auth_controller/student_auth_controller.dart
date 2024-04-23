@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:studyhub/domain/student/service/student_service.dart";
 
 import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/student/student_provider.dart";
@@ -37,9 +38,12 @@ class StudentAuthController extends _$StudentAuthController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
+      final studentRepository = ref.read(studentRepositoryDiProvider);
+      final service = StudentService(studentRepository);
       final logger = ref.read(loggerDiProvider);
       final signInUseCase = SignInUseCase(
         repository: studentAuthRepository,
+        service: service,
         logger: logger,
       );
       await signInUseCase.execute(
@@ -64,11 +68,13 @@ class StudentAuthController extends _$StudentAuthController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
+      final studentRepository = ref.read(studentRepositoryDiProvider);
       final command = UpdateStudentAuthInfoCommand(
           emailAddress: null, emailAddressToResetPassword: emailAddress);
       final logger = ref.read(loggerDiProvider);
       final usecase = UpdateStudentAuthInfoUseCase(
         repository: studentAuthRepository,
+        studentRepository: studentRepository,
         logger: logger,
       );
 

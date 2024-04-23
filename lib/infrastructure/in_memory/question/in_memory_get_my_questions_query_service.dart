@@ -35,6 +35,7 @@ class InMemoryGetMyQuestionsQueryService
       gradeOrGraduateStatus: DefaultStudent.gradeOrGraduateStatus,
       questionCount: DefaultStudent.questionCount,
       status: DefaultStudent.status,
+      emailAddress: DefaultStudent.emailAddress,
     );
 
     final questionCardDtoList = <QuestionCardDto>[];
