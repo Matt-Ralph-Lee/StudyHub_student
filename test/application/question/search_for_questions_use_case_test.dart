@@ -63,7 +63,7 @@ void main() {
       questionCount: QuestionCount(2),
       status: Status.beginner,
     );
-    studentRepository.save(student1);
+    studentRepository.create(student1);
 
     // student2 has 1 question
     final studentId2 = StudentId('teststudent12345678902');
@@ -79,7 +79,7 @@ void main() {
       questionCount: QuestionCount(1),
       status: Status.beginner,
     );
-    studentRepository.save(student2);
+    studentRepository.create(student2);
 
     // student3 has no questions
     final studentId3 = StudentId('teststudent12345678903');
@@ -95,7 +95,7 @@ void main() {
       questionCount: QuestionCount(1),
       status: Status.beginner,
     );
-    studentRepository.save(student3);
+    studentRepository.create(student3);
 
     final teacherId1 = TeacherId('testteacher12345678901');
     final teacher1 = Teacher(

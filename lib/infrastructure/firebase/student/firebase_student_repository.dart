@@ -115,7 +115,7 @@ class FirebaseStudentRepository implements IStudentRepository {
   }
 
   @override
-  Future<void> save(Student student) async {
+  Future<void> create(Student student) async {
     final docRef = db.collection("students").doc(student.studentId.value);
 
     final addData = <String, dynamic>{};
@@ -133,6 +133,23 @@ class FirebaseStudentRepository implements IStudentRepository {
     addData["likedAnswers"] = <String>[];
 
     await docRef.set(addData);
+  }
+
+  @override
+  Future<void> update(Student student) async {
+    final docRef = db.collection("students").doc(student.studentId.value);
+
+    final addData = <String, dynamic>{};
+
+    addData["gender"] = student.gender.english;
+    addData["gradeOrGraduateStatus"] = student.gradeOrGraduateStatus.english;
+    addData["name"] = student.name.value;
+    addData["occupation"] = student.occupation.english;
+    addData["profilePhoto"] = student.profilePhotoPath.value;
+    addData["questionCount"] = student.questionCount.value;
+    addData["school"] = student.school.value;
+
+    await docRef.update(addData);
   }
 
   @override

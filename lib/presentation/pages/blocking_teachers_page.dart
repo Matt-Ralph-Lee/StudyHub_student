@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_blocking_teacher_found.dart';
-import '../components/parts/text_for_no_favorite_teacher_found.dart';
 import '../components/widgets/teacher_small_card_skeleton_widget.dart';
 import '../components/widgets/teacher_small_card_widget.dart';
 import '../controllers/get_my_blockings_controller/get_my_blockings_controller.dart';

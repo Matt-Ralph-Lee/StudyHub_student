@@ -4,8 +4,6 @@ import '../../../domain/question/models/question.dart';
 import '../../../domain/student/default/default_student.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
-import '../../../domain/teacher/default/default_teacher.dart';
-import '../../../domain/teacher/models/teacher.dart';
 import '../question/firebase_question_repository.dart';
 import '../student/firebase_student_repository.dart';
 import '../teacher/firebase_teacher_repository.dart';
@@ -71,25 +69,14 @@ class FirebaseBookmarksQueryService implements IGetBookmarksQueryService {
       );
     }
 
-    Teacher? teacher =
+    final teacher =
         await _teacherRepository.getByTeacherId(mostLikedAnswer.teacherId);
-    teacher ??= Teacher(
-      teacherId: DefaultTeacher.teacherId,
-      name: DefaultTeacher.name,
-      highSchool: DefaultTeacher.highSchool,
-      university: DefaultTeacher.university,
-      bio: DefaultTeacher.bio,
-      introduction: DefaultTeacher.introduction,
-      rating: DefaultTeacher.rating,
-      bestSubjects: DefaultTeacher.bestSubjects,
-      profilePhotoPath: DefaultStudent.profilePhoto,
-    );
     return QuestionCardDto(
       questionId: question.questionId,
       studentProfilePhotoPath: student.profilePhotoPath.value,
       questionTitle: question.questionTitle.value,
       questionText: question.questionText.value,
-      teacherProfilePhotoPath: teacher.profilePhotoPath.value,
+      teacherProfilePhotoPath: teacher?.profilePhotoPath.value,
       answerText: mostLikedAnswer.answerText.value,
       isMine: question.studentId == student.studentId,
     );
