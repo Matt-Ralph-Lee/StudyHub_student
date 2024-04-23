@@ -9,10 +9,12 @@ import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/favorite_teachers/in_memory_favorite_teachers_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   var repository = InMemoryFavoriteTeachersRepository();
+  final logger = InMemoryLogger();
 
   final studentId = session.studentId;
   final teacherId = TeacherId("01234567890123456789");
@@ -23,7 +25,10 @@ void main() {
     test("should delete a favorite teacher", () async {
       repository.store[studentId] = favoriteTeacher;
       final usecase = FavoriteTeachersDeleteUseCase(
-          session: session, repository: repository);
+        session: session,
+        repository: repository,
+        logger: logger,
+      );
       await usecase.execute(teacherId);
       debugPrint(repository.store.toString());
     });
@@ -31,7 +36,10 @@ void main() {
     test("should throw teacher not found error", () {
       repository = InMemoryFavoriteTeachersRepository();
       final usecase = FavoriteTeachersDeleteUseCase(
-          session: session, repository: repository);
+        session: session,
+        repository: repository,
+        logger: logger,
+      );
 
       expect(() async {
         await usecase.execute(teacherId);

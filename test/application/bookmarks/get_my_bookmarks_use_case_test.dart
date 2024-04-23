@@ -42,6 +42,7 @@ import 'package:studyhub/infrastructure/in_memory/bookmarks/in_memory_bookmarks_
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session1 = MockSession1();
@@ -51,6 +52,7 @@ void main() {
   final questionRepository = InMemoryQuestionRepository();
   final studentRepository = InMemoryStudentRepository();
   final teacherRepository = InMemoryTeacherRepository();
+  final logger = InMemoryLogger();
   final queryService = InMemoryBookmarksQueryService(
     repository: bookmarkRepository,
     questionRepository: questionRepository,
@@ -216,6 +218,7 @@ void main() {
       final usecase = GetMyBookmarksUseCase(
         session: session1,
         queryService: queryService,
+        logger: logger,
       );
       final questionCardList = await usecase.execute();
       debugPrint('student 1');
@@ -227,6 +230,7 @@ void main() {
       final usecase = GetMyBookmarksUseCase(
         session: session2,
         queryService: queryService,
+        logger: logger,
       );
       final questionCardList = await usecase.execute();
       debugPrint('student 2');
@@ -238,6 +242,7 @@ void main() {
       final usecase = GetMyBookmarksUseCase(
         session: session3,
         queryService: queryService,
+        logger: logger,
       );
       final questionCardList = await usecase.execute();
       debugPrint('student 3');

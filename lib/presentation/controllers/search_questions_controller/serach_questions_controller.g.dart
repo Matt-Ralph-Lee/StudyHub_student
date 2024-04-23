@@ -7,7 +7,7 @@ part of 'serach_questions_controller.dart';
 // **************************************************************************
 
 String _$searchQuestionsControllerHash() =>
-    r'326bcd081be22ddeb71d24463bffb04bd974c3a6';
+    r'9ba5aea0e92b945d752bd9b54236cf63e413d3fa';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -4,6 +4,7 @@ import '../../../domain/school/services/school_service.dart';
 import '../../../domain/shared/profile_photo.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/shared/name.dart';
+import '../../interfaces/i_logger.dart';
 import '../../shared/session/session.dart';
 import '../exception/student_use_case_exception.dart';
 import '../exception/student_use_case_exception_detail.dart';
@@ -15,18 +16,23 @@ class ProfileUpdateUseCase {
   final IStudentRepository _repository;
   final SchoolService _schoolService;
   final IPhotoRepository _photoRepository;
+  final ILogger _logger;
 
   ProfileUpdateUseCase({
     required final Session session,
     required final IStudentRepository repository,
     required final SchoolService schoolService,
     required final IPhotoRepository photoRepository,
+    required final ILogger logger,
   })  : _session = session,
         _repository = repository,
         _schoolService = schoolService,
-        _photoRepository = photoRepository;
+        _photoRepository = photoRepository,
+        _logger = logger;
 
-  Future<void> execute(ProfileUpdateCommand command) async {
+  Future<void> execute(final ProfileUpdateCommand command) async {
+    _logger.info('BEGIN $ProfileUpdateUseCase.execute()');
+
     final studentId = _session.studentId;
     final student = await _repository.findById(studentId);
     if (student == null) {
@@ -89,5 +95,7 @@ class ProfileUpdateUseCase {
     }
 
     await _repository.update(student);
+
+    _logger.info('END $ProfileUpdateUseCase.execute()');
   }
 }

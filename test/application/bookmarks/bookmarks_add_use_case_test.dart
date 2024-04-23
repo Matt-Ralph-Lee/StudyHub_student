@@ -6,16 +6,21 @@ import 'package:studyhub/domain/question/models/question_id.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/bookmarks/in_memory_bookmarks_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   final repository = InMemoryBookmarksRepository();
+  final logger = InMemoryLogger();
 
   group("bookmarks add use case", () {
     test("should add favorite teachers", () async {
       final questionId = QuestionId("01234567890123456789");
-      final usecase =
-          BookmarksAddUseCase(session: session, repository: repository);
+      final usecase = BookmarksAddUseCase(
+        session: session,
+        repository: repository,
+        logger: logger,
+      );
       await usecase.execute(questionId);
       debugPrint(repository.store.toString());
     });

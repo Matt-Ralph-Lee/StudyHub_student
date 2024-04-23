@@ -6,16 +6,21 @@ import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/blockings/in_memory_blockings_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   final repository = InMemoryBlockingsRepository();
+  final logger = InMemoryLogger();
 
   group("favorite teachers add use case", () {
     test("should add favorite teachers", () async {
       final teacherId = TeacherId("01234567890123456789");
-      final usecase =
-          BlockingsAddUseCase(session: session, repository: repository);
+      final usecase = BlockingsAddUseCase(
+        session: session,
+        repository: repository,
+        logger: logger,
+      );
       await usecase.execute(teacherId);
       debugPrint(repository.store.toString());
     });

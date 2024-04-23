@@ -1,3 +1,4 @@
+import '../../interfaces/i_logger.dart';
 import '../exception/question_use_case_exception.dart';
 import '../exception/question_use_case_exception_detail.dart';
 
@@ -12,16 +13,21 @@ class QuestionDeleteUseCase {
   final Session _session;
   final IQuestionRepository _repository;
   final IPhotoRepository _photoRepository;
+  final ILogger _logger;
 
   QuestionDeleteUseCase({
     required final Session session,
     required final IQuestionRepository repository,
     required final IPhotoRepository photoRepository,
+    required final ILogger logger,
   })  : _session = session,
         _repository = repository,
-        _photoRepository = photoRepository;
+        _photoRepository = photoRepository,
+        _logger = logger;
 
   void execute(final QuestionId questionId) async {
+    _logger.info('BEGIN $QuestionDeleteUseCase.execute()');
+
     final studentId = _session.studentId;
 
     final Question? question = await _repository.findById(questionId);
@@ -41,5 +47,7 @@ class QuestionDeleteUseCase {
       throw const QuestionUseCaseException(
           QuestionUseCaseExceptionDetail.failedDeleting);
     }
+
+    _logger.info('END $QuestionDeleteUseCase.execute()');
   }
 }

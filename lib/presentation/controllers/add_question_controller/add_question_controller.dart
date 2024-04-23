@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/notification/factory/notification_factory_provider.dart";
 import "../../../application/di/notification/repository/notification_repository_provider.dart";
 import '../../../application/di/photo/repository/photo_repository_provider.dart';
@@ -16,7 +17,7 @@ import "../get_my_profile_controller/get_my_profile_controller.dart";
 import "../get_my_question_controller/get_my_question_controller.dart";
 import "../get_recommended_quesiotns_controller/get_recommended_questions_controller.dart";
 
-part "add_question_contorller.g.dart";
+part "add_question_controller.g.dart";
 
 @riverpod
 class AddQuestionController extends _$AddQuestionController {
@@ -41,6 +42,7 @@ class AddQuestionController extends _$AddQuestionController {
       final notificationFactory = ref.read(notificationFactoryDiProvider);
       final notificationRepository = ref.read(notificationRepositoryDiProvider);
       final studentRepository = ref.read(studentRepositoryDiProvider);
+      final logger = ref.read(loggerDiProvider);
       final addQuestionUseCase = QuestionCreateUseCase(
         session: session,
         repository: questionRepository,
@@ -50,6 +52,7 @@ class AddQuestionController extends _$AddQuestionController {
         notificationFactory: notificationFactory,
         notificationRepository: notificationRepository,
         studentRepository: studentRepository,
+        logger: logger,
       );
       await addQuestionUseCase.execute(
         questionTitleData: questionTitle,

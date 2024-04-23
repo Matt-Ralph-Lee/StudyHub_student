@@ -16,11 +16,13 @@ import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   final repository = InMemoryQuestionRepository();
   final photoRepository = InMemoryPhotoRepository();
+  final logger = InMemoryLogger();
 
   final questionId = QuestionId('01234567890123456789');
   final questionTitle = QuestionTitle("数学がわからない");
@@ -55,9 +57,11 @@ void main() {
   group('question delete use case', () {
     test('should delete question', () {
       final useCase = QuestionDeleteUseCase(
-          session: session,
-          repository: repository,
-          photoRepository: photoRepository);
+        session: session,
+        repository: repository,
+        photoRepository: photoRepository,
+        logger: logger,
+      );
 
       useCase.execute(questionId);
     });

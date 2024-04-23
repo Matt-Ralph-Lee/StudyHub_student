@@ -8,14 +8,19 @@ import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/notification/in_memory_get_my_notifications_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/notification/in_memory_notification_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   final repository = InMemoryNotificationRepository();
+  final logger = InMemoryLogger();
   final queryService =
       InMemoryGetMyNotificationsQueryService(repository: repository);
-  final useCase =
-      GetMyNotificationsUseCase(session: session, queryService: queryService);
+  final useCase = GetMyNotificationsUseCase(
+    session: session,
+    queryService: queryService,
+    logger: logger,
+  );
 
   setUp(() => null);
 
@@ -29,7 +34,10 @@ void main() {
         () async {
       final session3 = MockSession3();
       final useCase3 = GetMyNotificationsUseCase(
-          session: session3, queryService: queryService);
+        session: session3,
+        queryService: queryService,
+        logger: logger,
+      );
       final getMyNotificationDtoList = await useCase3.execute();
       _printDtoList(getMyNotificationDtoList);
     });

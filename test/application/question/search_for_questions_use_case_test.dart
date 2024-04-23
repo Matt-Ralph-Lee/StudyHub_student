@@ -38,11 +38,13 @@ import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_re
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_search_for_questions_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final questionRepository = InMemoryQuestionRepository();
   final studentRepository = InMemoryStudentRepository();
   final teacherRepository = InMemoryTeacherRepository();
+  final logger = InMemoryLogger();
   final queryService = InMemorySearchForQuestionsQueryService(
       repository: questionRepository,
       studentRepository: studentRepository,
@@ -189,21 +191,30 @@ void main() {
 
   group('search for questions properly', () {
     test('should hit all questions', () async {
-      final usecase = SearchForQuestionUseCase(queryService: queryService);
+      final usecase = SearchForQuestionUseCase(
+        queryService: queryService,
+        logger: logger,
+      );
       final questionCardList =
           await usecase.execute(searchWord: "", subject: null);
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 5);
     });
     test('should hit two questions', () async {
-      final usecase = SearchForQuestionUseCase(queryService: queryService);
+      final usecase = SearchForQuestionUseCase(
+        queryService: queryService,
+        logger: logger,
+      );
       final questionCardList =
           await usecase.execute(searchWord: '積分', subject: Subject.midEng);
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 2);
     });
     test('should hit no questions', () async {
-      final usecase = SearchForQuestionUseCase(queryService: queryService);
+      final usecase = SearchForQuestionUseCase(
+        queryService: queryService,
+        logger: logger,
+      );
       final questionCardList =
           await usecase.execute(searchWord: '三角関数', subject: null);
       printQuestionCardList(questionCardList);

@@ -40,12 +40,14 @@ import 'package:studyhub/infrastructure/in_memory/question/in_memory_get_recomme
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   final questionRepository = InMemoryQuestionRepository();
   final studentRepository = InMemoryStudentRepository();
   final teacherRepository = InMemoryTeacherRepository();
+  final logger = InMemoryLogger();
   final queryService = InMemoryGetRecommendedQuestionsQueryService(
       repository: questionRepository,
       studentRepository: studentRepository,
@@ -195,6 +197,7 @@ void main() {
       final usecase = GetRecommendedQuestionsUseCase(
         session: session,
         queryService: queryService,
+        logger: logger,
       );
       final questionCardList = await usecase.execute(null);
       printQuestionCardList(questionCardList);
@@ -204,6 +207,7 @@ void main() {
       final usecase = GetRecommendedQuestionsUseCase(
         session: session,
         queryService: queryService,
+        logger: logger,
       );
       final questionCardList = await usecase.execute(Subject.highMath);
       printQuestionCardList(questionCardList);
@@ -213,6 +217,7 @@ void main() {
       final usecase = GetRecommendedQuestionsUseCase(
         session: session,
         queryService: queryService,
+        logger: logger,
       );
       final questionCardList = await usecase.execute(Subject.highEng);
       printQuestionCardList(questionCardList);

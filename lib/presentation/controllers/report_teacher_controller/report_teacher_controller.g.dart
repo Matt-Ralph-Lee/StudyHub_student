@@ -7,7 +7,7 @@ part of 'report_teacher_controller.dart';
 // **************************************************************************
 
 String _$reportTeacherControllerHash() =>
-    r'5d48dd2e98a800013dd519f7716d5f3066bedd64';
+    r'4b26403b7bb06877773899b9def223f654793413';
 
 /// See also [ReportTeacherController].
 @ProviderFor(ReportTeacherController)
