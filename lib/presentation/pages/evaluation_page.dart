@@ -17,8 +17,7 @@ import '../components/widgets/confirm_teacher_evaluation_modal_widget.dart';
 import '../components/widgets/evaluation_stars_widget.dart';
 import '../components/widgets/evaluation_text_field_widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
-import '../components/widgets/specific_exception_modal_widget.dart';
-import '../components/widgets/show_error_modal_widget.dart';
+import '../components/widgets/error_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_evaluation_page_widget.dart';
 import '../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
 import '../controllers/add_teacher_evaluation_controller/add_teacher_evaluation_controller.dart';
@@ -26,6 +25,7 @@ import '../controllers/resolve_question_controller/resolve_question_controller.d
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
@@ -75,19 +75,15 @@ class EvaluationPage extends HookConsumerWidget {
             final currentState = ref.read(resolveQuestionControllerProvider);
             if (currentState.hasError) {
               final error = currentState.error;
-              if (error is QuestionUseCaseException) {
-                final errorText = L10n.questionExceptionMessage(
-                    error.detail as QuestionUseCaseExceptionDetail);
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SpecificExceptionModalWidget(
-                        errorMessage: errorText,
-                      );
-                    });
-              } else {
-                showErrorModalWidget(context);
-              }
+              final errorMessage = handleError(context, error);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return ErrorModalWidget(
+                    errorMessage: errorMessage,
+                  );
+                },
+              );
             } else {
               HapticFeedback.lightImpact();
               ScaffoldMessenger.of(context).showSnackBar(
@@ -128,22 +124,17 @@ class EvaluationPage extends HookConsumerWidget {
           final currentState = ref.read(addTeacherEvaluationControllerProvider);
           if (currentState.hasError) {
             final error = currentState.error;
-            if (error is EvaluationUseCaseException) {
-              final errorText = L10n.evaluationUseCaseExceptionMessage(
-                  error.detail as EvaluationUseCaseExceptionDetail);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SpecificExceptionModalWidget(
-                      errorMessage: errorText,
-                    );
-                  });
-            } else {
-              showErrorModalWidget(context);
-            }
+            final errorMessage = handleError(context, error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
           } else {
             HapticFeedback.lightImpact();
-
             resolveQuestion();
           }
         });

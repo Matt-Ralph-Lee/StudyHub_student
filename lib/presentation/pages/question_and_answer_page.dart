@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../application/bookmarks/exception/bookmarks_use_case_exception.dart';
-import '../../application/bookmarks/exception/bookmarks_use_case_exception_detail.dart';
 import '../../domain/question/models/question_id.dart';
 import '../components/parts/completion_snack_bar.dart';
 import '../components/parts/text_button_for_add_bookmark.dart';
@@ -20,8 +18,7 @@ import '../components/widgets/answer_picture_widget.dart';
 import '../components/widgets/question_detail_card_skeleton_widget.dart';
 import '../components/widgets/question_detail_card_widget.dart';
 import '../components/widgets/question_pictures_widget.dart';
-import '../components/widgets/show_error_modal_widget.dart';
-import '../components/widgets/specific_exception_modal_widget.dart';
+import '../components/widgets/error_modal_widget.dart';
 import '../controllers/add_bookmark_controller/add_bookmark_controller.dart';
 import '../controllers/delete_bookmark_controller/delete_bookmark_controller.dart';
 import '../controllers/get_answer_controller/get_answer_controller.dart';
@@ -29,6 +26,7 @@ import '../controllers/get_question_detail_controller/get_question_detail_contro
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
@@ -63,19 +61,15 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ref.read(addBookmarkControllerProvider);
         if (addBookmarkControllerState.hasError) {
           final error = addBookmarkControllerState.error;
-          if (error is BookmarksUseCaseException) {
-            final errorText = L10n.bookmarkUseCaseExceptionMessage(
-                error.detail as BookmarksUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
+          final errorMessage = handleError(context, error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -94,19 +88,15 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ref.read(deleteBookmarkControllerProvider);
         if (deleteBookmarkControllerState.hasError) {
           final error = deleteBookmarkControllerState.error;
-          if (error is BookmarksUseCaseException) {
-            final errorText = L10n.bookmarkUseCaseExceptionMessage(
-                error.detail as BookmarksUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
+          final errorMessage = handleError(context, error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(

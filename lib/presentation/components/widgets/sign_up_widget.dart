@@ -5,19 +5,17 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../domain/student_auth/exception/student_auth_domain_exception.dart';
-import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_form_field_for_email_address_input.dart';
 import '../parts/text_form_field_for_password_input.dart';
-import 'specific_exception_modal_widget.dart';
-import 'show_error_modal_widget.dart';
+import 'error_modal_widget.dart';
 
 class SignUpWidget extends HookConsumerWidget {
   const SignUpWidget({super.key});
@@ -93,20 +91,7 @@ class SignUpWidget extends HookConsumerWidget {
         final currentState = ref.read(studentAuthControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          if (error is StudentAuthDomainException) {
-            final errorText = L10n.getStudentAuthExceptionMessage(
-                error.detail as StudentAuthDomainExceptionDetail);
-            //ここ変えてある
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
+          handleError(context, error);
         } else {
           pushDummy(context);
         }
@@ -244,20 +229,15 @@ class SignUpWidget extends HookConsumerWidget {
                         ref.read(studentAuthControllerProvider);
                     if (currentState.hasError) {
                       final error = currentState.error;
-                      if (error is StudentAuthDomainException) {
-                        final errorText = L10n.getStudentAuthExceptionMessage(
-                            error.detail as StudentAuthDomainExceptionDetail);
-                        //ここ変えてある
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SpecificExceptionModalWidget(
-                                errorMessage: errorText,
-                              );
-                            });
-                      } else {
-                        showErrorModalWidget(context);
-                      }
+                      final errorMessage = handleError(context, error);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ErrorModalWidget(
+                            errorMessage: errorMessage,
+                          );
+                        },
+                      );
                     } else {
                       push(context);
                     }

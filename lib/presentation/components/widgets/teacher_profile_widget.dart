@@ -17,13 +17,13 @@ import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
 import '../parts/completion_snack_bar.dart';
 import 'confirm_add_blocking_modal.dart';
 import 'confirm_delete_blocking_modal.dart';
-import 'show_error_modal_widget.dart';
-import 'specific_exception_modal_widget.dart';
+import 'error_modal_widget.dart';
 
 class TeacherProfileWidget extends ConsumerWidget {
   final GetTeacherProfileDto teacherProfileDto;
@@ -53,19 +53,15 @@ class TeacherProfileWidget extends ConsumerWidget {
           final addBlockingsState = ref.read(addBlockingsControllerProvider);
           if (addBlockingsState.hasError) {
             final error = addBlockingsState.error;
-            if (error is BlockingsUseCaseException) {
-              final errorText = L10n.blockingsUseCaseExceptionMessage(
-                  error.detail as BlockingsUseCaseExceptionDetail);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SpecificExceptionModalWidget(
-                      errorMessage: errorText,
-                    );
-                  });
-            } else {
-              showErrorModalWidget(context);
-            }
+            final errorMessage = handleError(context, error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -94,19 +90,15 @@ class TeacherProfileWidget extends ConsumerWidget {
               ref.read(deleteBlockingsControllerProvider);
           if (deleteBlockingsState.hasError) {
             final error = deleteBlockingsState.error;
-            if (error is BlockingsUseCaseException) {
-              final errorText = L10n.blockingsUseCaseExceptionMessage(
-                  error.detail as BlockingsUseCaseExceptionDetail);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SpecificExceptionModalWidget(
-                      errorMessage: errorText,
-                    );
-                  });
-            } else {
-              showErrorModalWidget(context);
-            }
+            final errorMessage = handleError(context, error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -129,19 +121,15 @@ class TeacherProfileWidget extends ConsumerWidget {
             ref.read(addFavoriteTeacherControllerProvider);
         if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
+          final errorMessage = handleError(context, error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -160,19 +148,15 @@ class TeacherProfileWidget extends ConsumerWidget {
             ref.read(deleteFavoriteTeacherControllerProvider);
         if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
-          if (error is FavoriteTeachersUseCaseException) {
-            final errorText = L10n.favoriteTeacherUseCaseExceptionMessage(
-                error.detail as FavoriteTeachersUseCaseExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
+          final errorMessage = handleError(context, error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(

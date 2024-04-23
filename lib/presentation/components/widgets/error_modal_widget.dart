@@ -6,9 +6,9 @@ import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
-class SpecificExceptionModalWidget extends StatelessWidget {
+class ErrorModalWidget extends StatelessWidget {
   final String errorMessage;
-  const SpecificExceptionModalWidget({
+  const ErrorModalWidget({
     super.key,
     required this.errorMessage,
   });
@@ -29,7 +29,7 @@ class SpecificExceptionModalWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              L10n.errorModalText,
+              L10n.errorModalTitleText,
               style: TextStyle(
                   fontWeight: FontWeightSet.normal,
                   fontSize: FontSizeSet.body,
