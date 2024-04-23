@@ -11,9 +11,9 @@ class GetTeacherEvaluationUseCase {
     required final ITeacherEvaluationRepository repository,
   }) : _repository = repository;
 
-  List<GetTeacherEvaluationDto> execute(final TeacherId teacherId) {
-    final teacherEvaluationList = _repository.getByTeacherId(teacherId);
-    if (teacherEvaluationList == null) return [];
+  Future<List<GetTeacherEvaluationDto>> execute(
+      final TeacherId teacherId) async {
+    final teacherEvaluationList = await _repository.getByTeacherId(teacherId);
 
     List<GetTeacherEvaluationDto> teacherEvaluationDtoList = [];
 
@@ -23,7 +23,8 @@ class GetTeacherEvaluationUseCase {
             from: teacherEvaluation.from,
             to: teacherEvaluation.to,
             rating: teacherEvaluation.rating.value,
-            comment: teacherEvaluation.comment.value),
+            comment: teacherEvaluation.comment.value,
+            createdAt: teacherEvaluation.createdAt),
       );
     }
 

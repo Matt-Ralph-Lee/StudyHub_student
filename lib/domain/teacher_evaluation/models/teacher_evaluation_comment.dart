@@ -10,7 +10,7 @@ class TeacherEvaluationComment {
 
   TeacherEvaluationComment(this._value) {
     if (_value.length < minLength || _value.length > maxLength) {
-      throw const EvaluationDomainException(
+      throw const TeacherEvaluationDomainException(
           TeacherEvaluationDomainExceptionDetail.invalidCommentLength);
     }
   }

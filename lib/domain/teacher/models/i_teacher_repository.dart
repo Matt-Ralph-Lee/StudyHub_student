@@ -1,6 +1,8 @@
+import '../../teacher_evaluation/models/teacher_evaluation.dart';
 import 'teacher.dart';
 import 'teacher_id.dart';
 
 abstract class ITeacherRepository {
-  Teacher? getByTeacherId(final TeacherId teacherId);
+  Future<Teacher?> getByTeacherId(final TeacherId teacherId);
+  Future<void> changeRate(final TeacherEvaluation evaluation);
 }

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../components/widgets/reset_password_widget.dart';
 import '../shared/constants/color_set.dart';
+import '../shared/constants/padding_set.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
@@ -11,8 +12,6 @@ class ResetPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = screenHeight * 0.1;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final paddingHorizontal = screenWidth * 0.1;
 
     return Scaffold(
       backgroundColor: ColorSet.of(context).background,
@@ -32,9 +31,16 @@ class ResetPasswordPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
+        padding: EdgeInsets.symmetric(
+            horizontal: PaddingSet.getPaddingSize(
+          context,
+          PaddingSet.horizontalPadding,
+        )),
         child: Column(
-          children: [SizedBox(height: topPadding), const ResetPasswordWidget()],
+          children: [
+            SizedBox(height: topPadding),
+            const ResetPasswordWidget(),
+          ],
         ),
       ),
     );

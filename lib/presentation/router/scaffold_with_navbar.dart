@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/presentation/shared/constants/color_set.dart';
+
+import '../components/widgets/show_create_question_page_widget.dart';
+import '../shared/constants/color_set.dart';
+import '../shared/constants/font_size_set.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
@@ -12,33 +15,71 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        indicatorColor: ColorSet.of(context).navbarIndicator,
-        surfaceTintColor: const Color(0x00000000),
-        backgroundColor: ColorSet.of(context).background,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Page1',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.add),
-            label: 'Page2',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "Page3",
-          )
-        ],
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
-          );
-        },
+      bottomNavigationBar: SizedBox(
+        height: screenWidth < 600 ? 90 : 90, //ipadは90でおけ
+        child: NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          indicatorColor: ColorSet.of(context).navbarIndicator,
+          surfaceTintColor: const Color(0x00000000),
+          backgroundColor: ColorSet.of(context).background,
+          destinations: [
+            NavigationDestination(
+              icon: Icon(
+                Icons.home,
+                color: ColorSet.of(context).greyText,
+                size: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.header1,
+                ),
+              ),
+              selectedIcon: Icon(
+                Icons.home,
+                color: ColorSet.of(context).text,
+                size: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.header1,
+                ),
+              ),
+              label: 'home',
+            ),
+            const NavigationDestination(
+              icon: ShowCreateQuestionBottomSheet(),
+              label: 'addQuestion',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                Icons.person,
+                color: ColorSet.of(context).greyText,
+                size: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.header1,
+                ),
+              ),
+              selectedIcon: Icon(
+                Icons.person,
+                color: ColorSet.of(context).text,
+                size: FontSizeSet.getFontSize(
+                  context,
+                  FontSizeSet.header1,
+                ),
+              ),
+              label: "myPage",
+            )
+          ],
+          selectedIndex: navigationShell.currentIndex,
+          onDestinationSelected: (index) {
+            if (index != 1) {
+              navigationShell.goBranch(
+                index,
+                initialLocation:
+                    index != navigationShell.currentIndex, // TODO: ここの挙動が謎だな
+              );
+            }
+          },
+        ),
       ),
     );
   }

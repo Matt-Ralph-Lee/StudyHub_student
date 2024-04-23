@@ -23,13 +23,20 @@ class StudentDeleteUseCase {
 // TODO: try-catch statement for all usecases
   Future<void> execute() async {
     final studentId = _session.studentId;
-    final student = _studentRepository.findById(studentId);
+    final student = await _studentRepository.findById(studentId);
     if (student == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.notFound);
     }
-    _studentRepository.delete(studentId);
-    _photoRepository.delete(student.profilePhotoPath);
+    await _studentRepository.delete(studentId);
+    final cond1 = student.profilePhotoPath.value !=
+        "profile_photo/default/male_default.jpg";
+    final cond2 = student.profilePhotoPath.value !=
+        "profile_photo/default/female_default.jpg";
+    final cond3 = !student.profilePhotoPath.value.contains("assets");
+    if (cond1 && cond2 && cond3) {
+      await _photoRepository.delete(student.profilePhotoPath);
+    }
     await _studentAuthRepository.delete();
   }
 }

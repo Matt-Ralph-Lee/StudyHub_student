@@ -12,7 +12,6 @@ import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student
 void main() {
   final repository = InMemoryStudentAuthRepository();
   final studentRepository = InMemoryStudentRepository();
-  final session = MockSession();
   final queryService =
       InMemoryGetStudentAuthQueryService(repository: repository);
 
@@ -32,7 +31,6 @@ void main() {
       final usecase = StudentCreateUseCase(
         studentAuthRepository: repository,
         studentRepository: studentRepository,
-        session: session,
       );
 
       await usecase.execute(
@@ -54,6 +52,9 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => StudentId('${'0' * (StudentId.minLength + 9)}1');
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }
 
 void _printStudentAuthInfoWithoutPassword(

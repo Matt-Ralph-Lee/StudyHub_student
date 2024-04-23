@@ -1,10 +1,12 @@
 import '../../school/models/school.dart';
 import '../../shared/profile_photo_path.dart';
+import '../exception/student_domain_exception.dart';
+import '../exception/student_domain_exception_detail.dart';
+import 'grade_or_graduate_status.dart';
 import 'question_count.dart';
 import 'status.dart';
 import 'student_id.dart';
 import 'gender.dart';
-import 'grade.dart';
 import 'occupation.dart';
 import '../../shared/name.dart';
 
@@ -15,7 +17,7 @@ class Student {
   Gender _gender;
   Occupation _occupation;
   School _school;
-  Grade _grade;
+  GradeOrGraduateStatus _gradeOrGraduateStatus;
   QuestionCount _questionCount;
   Status _status;
 
@@ -25,7 +27,7 @@ class Student {
   Gender get gender => _gender;
   Occupation get occupation => _occupation;
   School get school => _school;
-  Grade get grade => _grade;
+  GradeOrGraduateStatus get gradeOrGraduateStatus => _gradeOrGraduateStatus;
   QuestionCount get questionCount => _questionCount;
   Status get status => _status;
 
@@ -36,7 +38,7 @@ class Student {
     required final Gender gender,
     required final Occupation occupation,
     required final School school,
-    required final Grade grade,
+    required final GradeOrGraduateStatus gradeOrGraduateStatus,
     required final QuestionCount questionCount,
     required final Status status,
   })  : _studentId = studentId,
@@ -45,10 +47,15 @@ class Student {
         _gender = gender,
         _occupation = occupation,
         _school = school,
-        _grade = grade,
+        _gradeOrGraduateStatus = gradeOrGraduateStatus,
         _questionCount = questionCount,
         _status = status {
     setStatus();
+    if (_occupation == Occupation.student &&
+        _gradeOrGraduateStatus == GradeOrGraduateStatus.graduate) {
+      throw const StudentDomainException(
+          StudentDomainExceptionDetail.invalidConvination);
+    }
   }
 
   void changeProfilePhoto(final ProfilePhotoPath newProfilePhotoPath) {
@@ -64,6 +71,11 @@ class Student {
   }
 
   void changeOccupation(final Occupation newOccupation) {
+    if (newOccupation == Occupation.student &&
+        _gradeOrGraduateStatus == GradeOrGraduateStatus.graduate) {
+      throw const StudentDomainException(
+          StudentDomainExceptionDetail.invalidConvination);
+    }
     _occupation = newOccupation;
   }
 
@@ -71,8 +83,14 @@ class Student {
     _school = newSchool;
   }
 
-  void changeGrade(final Grade newGrade) {
-    _grade = newGrade;
+  void changeGradeOrGraduateStatus(
+      final GradeOrGraduateStatus newGradeOrGraduateStatus) {
+    if (_occupation == Occupation.student &&
+        newGradeOrGraduateStatus == GradeOrGraduateStatus.graduate) {
+      throw const StudentDomainException(
+          StudentDomainExceptionDetail.invalidConvination);
+    }
+    _gradeOrGraduateStatus = newGradeOrGraduateStatus;
   }
 
   void incrementQuestionCount() {

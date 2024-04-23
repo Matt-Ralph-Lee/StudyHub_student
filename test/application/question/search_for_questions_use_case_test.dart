@@ -20,7 +20,7 @@ import 'package:studyhub/domain/shared/name.dart';
 import 'package:studyhub/domain/shared/profile_photo_path.dart';
 import 'package:studyhub/domain/shared/subject.dart';
 import 'package:studyhub/domain/student/models/gender.dart';
-import 'package:studyhub/domain/student/models/grade.dart';
+import 'package:studyhub/domain/student/models/grade_or_graduate_status.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
 import 'package:studyhub/domain/student/models/question_count.dart';
 import 'package:studyhub/domain/student/models/status.dart';
@@ -59,11 +59,11 @@ void main() {
       gender: Gender.male,
       occupation: Occupation.student,
       school: School('第一高校'),
-      grade: Grade.first,
+      gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(2),
       status: Status.beginner,
     );
-    studentRepository.save(student1);
+    studentRepository.create(student1);
 
     // student2 has 1 question
     final studentId2 = StudentId('teststudent12345678902');
@@ -75,11 +75,11 @@ void main() {
       gender: Gender.male,
       occupation: Occupation.student,
       school: School('第一高校'),
-      grade: Grade.first,
+      gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
     );
-    studentRepository.save(student2);
+    studentRepository.create(student2);
 
     // student3 has no questions
     final studentId3 = StudentId('teststudent12345678903');
@@ -91,11 +91,11 @@ void main() {
       gender: Gender.male,
       occupation: Occupation.student,
       school: School('第一高校'),
-      grade: Grade.first,
+      gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
     );
-    studentRepository.save(student3);
+    studentRepository.create(student3);
 
     final teacherId1 = TeacherId('testteacher12345678901');
     final teacher1 = Teacher(
@@ -128,8 +128,10 @@ void main() {
     teacherRepository.store[teacherId2] = teacher2;
 
     // a question with 2 answers
+    final questionId1 = QuestionId('testquestion12345678901');
     final answer1 = Answer(
         answerId: AnswerId('testanswer12345678901'),
+        questionId: questionId1,
         answerText: AnswerText('強調構文とは、、、'),
         answerPhotoPathList: AnswerPhotoPathList([]),
         like: AnswerLike(2),
@@ -137,13 +139,14 @@ void main() {
         evaluated: false);
     final answer2 = Answer(
         answerId: AnswerId('testanswer12345678902'),
+        questionId: questionId1,
         answerText: AnswerText('まずthatについて、、、'),
         answerPhotoPathList: AnswerPhotoPathList([]),
         like: AnswerLike(10),
         teacherId: teacherId2,
         evaluated: false);
     final questionWithAnswers = Question(
-        questionId: QuestionId('testquestion12345678901'),
+        questionId: questionId1,
         questionSubject: Subject.highEng,
         questionTitle: QuestionTitle('文法について'),
         questionText: QuestionText('強調構文がわかりません'),
@@ -151,7 +154,7 @@ void main() {
         studentId: studentId1,
         answerList: AnswerList([answer1, answer2]),
         seenCount: SeenCount(5),
-        selectedTeacherList: SelectedTeacherList(selectedTeacherList: []),
+        selectedTeacherList: SelectedTeacherList([]),
         resolved: false);
     questionRepository.save(questionWithAnswers);
 
@@ -165,7 +168,7 @@ void main() {
         studentId: studentId1,
         answerList: AnswerList([]),
         seenCount: SeenCount(1),
-        selectedTeacherList: SelectedTeacherList(selectedTeacherList: []),
+        selectedTeacherList: SelectedTeacherList([]),
         resolved: false);
     questionRepository.save(questionWithNoAnswers);
 
@@ -179,27 +182,30 @@ void main() {
         studentId: studentId2,
         answerList: AnswerList([]),
         seenCount: SeenCount(1),
-        selectedTeacherList: SelectedTeacherList(selectedTeacherList: []),
+        selectedTeacherList: SelectedTeacherList([]),
         resolved: false);
     questionRepository.save(questionMadeByStudent2);
   });
 
   group('search for questions properly', () {
-    test('should hit all questions', () {
+    test('should hit all questions', () async {
       final usecase = SearchForQuestionUseCase(queryService: queryService);
-      final questionCardList = usecase.execute('');
+      final questionCardList =
+          await usecase.execute(searchWord: "", subject: null);
       printQuestionCardList(questionCardList);
-      expect(questionCardList.length, 3);
+      expect(questionCardList.length, 5);
     });
-    test('should hit two questions', () {
+    test('should hit two questions', () async {
       final usecase = SearchForQuestionUseCase(queryService: queryService);
-      final questionCardList = usecase.execute('積分');
+      final questionCardList =
+          await usecase.execute(searchWord: '積分', subject: Subject.midEng);
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 2);
     });
-    test('should hit no questions', () {
+    test('should hit no questions', () async {
       final usecase = SearchForQuestionUseCase(queryService: queryService);
-      final questionCardList = usecase.execute('三角関数');
+      final questionCardList =
+          await usecase.execute(searchWord: '三角関数', subject: null);
       printQuestionCardList(questionCardList);
       expect(questionCardList.length, 0);
     });

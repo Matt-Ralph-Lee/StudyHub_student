@@ -5,6 +5,7 @@ import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
+import '../../shared/constants/padding_set.dart';
 
 class ButtonForProfileInputNext extends HookWidget {
   final VoidCallback? incrementCounter;
@@ -31,14 +32,20 @@ class ButtonForProfileInputNext extends HookWidget {
               Radius.circular(5),
             ),
           ),
-          //padding（=実質ボタンの高さ）は要検討
-          padding: const EdgeInsets.symmetric(vertical: 17),
+          padding: EdgeInsets.symmetric(
+              vertical: PaddingSet.getPaddingSize(
+            context,
+            PaddingSet.elevatedButtonPadding,
+          )),
         ),
-        child: const Text(
+        child: Text(
           L10n.nextButtonText,
           style: TextStyle(
             fontWeight: FontWeightSet.normal,
-            fontSize: FontSizeSet.annotation,
+            fontSize: FontSizeSet.getFontSize(
+              context,
+              FontSizeSet.annotation,
+            ),
           ),
         ),
       ),

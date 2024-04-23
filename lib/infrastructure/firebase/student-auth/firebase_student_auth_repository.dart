@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
@@ -73,7 +74,7 @@ class FirebaseStudentAuthRepository implements IStudentAuthRepository {
           StudentAuthInfrastructureExceptionDetail.notSignedIn);
     }
     try {
-      await user.updateEmail(emailAddress.value);
+      await user.verifyBeforeUpdateEmail(emailAddress.value);
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthException(e);
     } catch (e) {
@@ -123,6 +124,18 @@ class FirebaseStudentAuthRepository implements IStudentAuthRepository {
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.unexpected);
     }
+  }
+
+  @override
+  StudentId? getStudentIdSnapshot() {
+    if (_firebaseAuth.currentUser == null) return null;
+    return StudentId(_firebaseAuth.currentUser!.uid);
+  }
+
+  @override
+  Future<void> reloadUser() async {
+    final firebaseUser = _firebaseAuth.currentUser;
+    await firebaseUser?.reload();
   }
 }
 

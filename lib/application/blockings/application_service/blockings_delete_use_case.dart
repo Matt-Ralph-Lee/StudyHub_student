@@ -16,7 +16,7 @@ class BlockingsDeleteUseCase {
 
   Future<void> execute(final TeacherId teacherId) async {
     final studentId = _session.studentId;
-    final blockings = _repository.getByStudentId(studentId);
+    final blockings = await _repository.getByStudentId(studentId);
 
     if (blockings == null) {
       throw const BlockingsUseCaseException(
@@ -25,6 +25,6 @@ class BlockingsDeleteUseCase {
 
     blockings.delete(teacherId);
 
-    _repository.save(blockings);
+    await _repository.save(blockings);
   }
 }

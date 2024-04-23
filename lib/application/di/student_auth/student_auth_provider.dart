@@ -18,10 +18,11 @@ IStudentAuthRepository studentAuthRepositoryDi(StudentAuthRepositoryDiRef ref) {
     case Flavor.dev:
       return InMemoryStudentAuthRepository();
     case Flavor.stg:
-      throw FirebaseStudentAuthRepository(
+      return FirebaseStudentAuthRepository(
           firebaseAuth: ref.watch(firebaseAuthProvider));
     case Flavor.prd:
-      throw UnimplementedError(); // TODO: implementation
+      return FirebaseStudentAuthRepository(
+          firebaseAuth: ref.watch(firebaseAuthProvider));
   }
 }
 
@@ -30,14 +31,15 @@ IGetStudentAuthQueryService getStudentAuthQueryService(
     GetStudentAuthQueryServiceRef ref) {
   switch (flavor) {
     case Flavor.dev:
-      throw InMemoryGetStudentAuthQueryService(
+      return InMemoryGetStudentAuthQueryService(
           repository: ref.watch(studentAuthRepositoryDiProvider)
               as InMemoryStudentAuthRepository);
     case Flavor.stg:
-      throw FirebaseGetStudentAuthQueryService(
+      return FirebaseGetStudentAuthQueryService(
           firebaseAuth: ref.watch(firebaseAuthProvider));
     case Flavor.prd:
-      throw UnimplementedError(); // TODO: implementation
+      return FirebaseGetStudentAuthQueryService(
+          firebaseAuth: ref.watch(firebaseAuthProvider));
   }
 }
 

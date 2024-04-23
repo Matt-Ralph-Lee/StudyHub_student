@@ -1,8 +1,8 @@
 import '../../shared/domain_exception.dart';
 import 'teacher_evaluation_domain_exception_detail.dart';
 
-class EvaluationDomainException extends DomainException {
-  const EvaluationDomainException(
+class TeacherEvaluationDomainException extends DomainException {
+  const TeacherEvaluationDomainException(
     TeacherEvaluationDomainExceptionDetail detail, {
     dynamic info,
   }) : super(detail, info: info);

@@ -14,7 +14,7 @@ ProfilePhotoPath createPathFromId(final StudentId studentId) {
 }
 
 ProfilePhotoPath createPath(final String fileName) {
-  return ProfilePhotoPath('photos/profile_photo/$fileName.jpeg');
+  return ProfilePhotoPath('profile_photo/$fileName.jpg');
 }
 
 String createFileName(final StudentId studentId) {
@@ -31,7 +31,7 @@ String createFileName(final StudentId studentId) {
   return fileName;
 }
 
-Image convertToJpegAndResize(String localPhotoPath) {
+Image resize(String localPhotoPath) {
   final file = File(localPhotoPath);
 
   if (file.existsSync()) {

@@ -1,4 +1,6 @@
 import '../../../domain/photo/models/i_profile_photo_repository.dart';
+import '../../../domain/question/models/question_photo_path.dart';
+import '../../../domain/question/models/question_photo_path_list.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/question/models/i_question_repository.dart';
@@ -28,10 +30,10 @@ class QuestionEditUseCase {
         _repository = repository,
         _photoRepository = photoRepository;
 
-  void execute(QuestionEditCommand command) {
+  void execute(QuestionEditCommand command) async {
     final StudentId studentId = _session.studentId;
     final QuestionId questionId = command.questionId;
-    final Question? question = _repository.findById(questionId);
+    final Question? question = await _repository.findById(questionId);
 
     if (question == null) {
       throw const QuestionUseCaseException(
@@ -58,17 +60,22 @@ class QuestionEditUseCase {
 
     if (newSelectedTeacherList != null) {
       question.changeSelectedTeacherList(SelectedTeacherList(
-          selectedTeacherList: newSelectedTeacherList
+          newSelectedTeacherList
               .map((selectedTeacher) => TeacherId(selectedTeacher))
               .toList()));
     }
 
     if (newLocalPathList != null) {
       // create photo path list and proccess the images
+      final oldQuestionPhotoPathList = question.questionPhotoPathList;
+
+      final needChangePathList = newLocalPathList
+          .where((localPath) =>
+              !oldQuestionPhotoPathList.contains(QuestionPhotoPath(localPath)))
+          .toList();
       final questionPhotoPathList = createPathListFromId(
-          studentId: studentId, localPathList: newLocalPathList);
-      final processedImageList =
-          resizeAndConvertToJpgForMultiplePhoto(newLocalPathList);
+          studentId: studentId, localPathList: needChangePathList);
+      final processedImageList = resizeAndForMultiplePhoto(needChangePathList);
 
       final questionPhotoList = <QuestionPhoto>[];
 
@@ -78,18 +85,26 @@ class QuestionEditUseCase {
         questionPhotoList.add(questionPhoto);
       }
 
-      _photoRepository.save(questionPhotoList);
+      for (final sameQuestionPhotoPath in newLocalPathList.where((localPath) =>
+          oldQuestionPhotoPathList.contains(QuestionPhotoPath(localPath)))) {
+        questionPhotoPathList.toList().insert(
+            newLocalPathList.indexOf(sameQuestionPhotoPath),
+            QuestionPhotoPath(sameQuestionPhotoPath));
+      }
+
+      await _photoRepository.save(questionPhotoList);
 
       // delete the old images
-      final oldQuestionPhotoPathList = question.questionPhotoPathList;
-      for (var i = 0; i < oldQuestionPhotoPathList.length; i++) {
-        _photoRepository.deleteList(oldQuestionPhotoPathList);
-      }
+      await _photoRepository.deleteList(QuestionPhotoPathList(
+          oldQuestionPhotoPathList
+              .where((oldQuestionPhotoPath) =>
+                  !questionPhotoPathList.contains(oldQuestionPhotoPath))
+              .toList()));
 
       // change the question's photo to the new one
       question.changeQuestionPhotoPathList(questionPhotoPathList);
     }
 
-    _repository.save(question);
+    await _repository.save(question);
   }
 }

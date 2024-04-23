@@ -10,7 +10,7 @@ import '../../exception/question_use_case_exception.dart';
 import '../../exception/question_use_case_exception_detail.dart';
 
 QuestionPhotoPath createPath(final String fileName) {
-  return QuestionPhotoPath('photos/question_photo/$fileName.jpg');
+  return QuestionPhotoPath('images/$fileName.jpg');
 }
 
 QuestionPhotoPathList createPathListFromId({
@@ -38,7 +38,7 @@ QuestionPhotoPathList createPathListFromId({
   return QuestionPhotoPathList(questionPhotoPathListData);
 }
 
-List<Image> resizeAndConvertToJpgForMultiplePhoto(List<String> localPathList) {
+List<Image> resizeAndForMultiplePhoto(List<String> localPathList) {
   const sizeThresholdBytes = QuestionPhoto.dataSize;
 
   final processedPhotoList = <Image>[];

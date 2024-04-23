@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../../domain/student/models/grade_or_graduate_status.dart';
 import '../../shared/constants/l10n.dart';
 import '../parts/button_for_profile_input_back.dart';
 import '../parts/button_for_profile_input_next.dart';
 import '../parts/button_for_profile_input_skip.dart';
-import '../parts/radio_button_for_others_grade_input.dart';
+import '../parts/drop_down_button_for_others_grade_input.dart';
 import '../parts/text_for_input_explanation.dart';
 import '../parts/text_form_field_for_school_name_input.dart';
 
 class AcademicHistoryInputWidget extends HookWidget {
-  final VoidCallback incrementProgressCounter;
   final VoidCallback decrementProgressCounter;
+  final VoidCallback updateProfile;
   final TextEditingController academicHistoryInputController;
-  final String? othersGradeValue;
-  final ValueChanged<String?> handleOthersGradeChanged;
+  final GradeOrGraduateStatus? othersGradeValue;
+  final ValueChanged<GradeOrGraduateStatus?> handleOthersGradeChanged;
 
   const AcademicHistoryInputWidget(
       {super.key,
-      required this.incrementProgressCounter,
       required this.decrementProgressCounter,
+      required this.updateProfile,
       required this.academicHistoryInputController,
       required this.othersGradeValue,
       required this.handleOthersGradeChanged});
@@ -29,7 +30,7 @@ class AcademicHistoryInputWidget extends HookWidget {
     final isAcademicHistoryFilled =
         useState<bool>(academicHistoryInputController.text.isNotEmpty);
 
-    void checkAcademicHistoryFilled(String text) {
+    void checkSchoolNameFilled(String text) {
       isAcademicHistoryFilled.value = text.isNotEmpty;
     }
 
@@ -41,10 +42,10 @@ class AcademicHistoryInputWidget extends HookWidget {
         const SizedBox(height: 70),
         TextFormFieldForSchoolNameInput(
           controller: academicHistoryInputController,
-          onChanged: checkAcademicHistoryFilled,
+          onChanged: checkSchoolNameFilled,
         ),
         const SizedBox(height: 50),
-        RadioButtonForOthersGradeInput(
+        DropDownButtonForOthersGradeInput(
           groupValue: othersGradeValue,
           onChanged: handleOthersGradeChanged,
         ),
@@ -56,12 +57,12 @@ class AcademicHistoryInputWidget extends HookWidget {
               decrementCounter: decrementProgressCounter,
             ),
             ButtonForProfileInputSkip(
-              skipCounter: incrementProgressCounter,
+              skipCounter: updateProfile,
             ),
             ButtonForProfileInputNext(
               incrementCounter:
-                  (isAcademicHistoryFilled.value && othersGradeValue != null)
-                      ? incrementProgressCounter
+                  (isAcademicHistoryFilled.value || othersGradeValue != null)
+                      ? updateProfile
                       : null,
             )
           ],

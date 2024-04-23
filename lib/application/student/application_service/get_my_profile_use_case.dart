@@ -14,9 +14,9 @@ class GetMyProfileUseCase {
   })  : _session = session,
         _queryService = queryService;
 
-  GetMyProfileDto execute() {
+  Future<GetMyProfileDto> execute() async {
     final studentId = _session.studentId;
-    final myProfile = _queryService.getById(studentId);
+    final myProfile = await _queryService.getById(studentId);
     if (myProfile == null) {
       throw const StudentUseCaseException(
           StudentUseCaseExceptionDetail.noProfileFound);

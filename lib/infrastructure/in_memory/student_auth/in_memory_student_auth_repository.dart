@@ -10,12 +10,27 @@ import '../../exceptions/student_auth/student_auth_infrastructure_exception.dart
 import '../../exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
 
 class InMemoryStudentAuthRepository implements IStudentAuthRepository {
-  int count = 1;
-  final store = <StudentId, StudentAuthInfo>{};
-  final emailToIdMap = <EmailAddress, StudentId>{};
+  late int count;
+  late Map<StudentId, StudentAuthInfo> store;
+  late Map<EmailAddress, StudentId> emailToIdMap;
   // about current Student
-  final streamController = StreamController<StudentAuthInfoWithoutPassword?>();
-  StudentId? currentStudentId;
+  late StreamController<StudentAuthInfoWithoutPassword?> streamController;
+  late StudentId? currentStudentId;
+
+  static final InMemoryStudentAuthRepository _instance =
+      InMemoryStudentAuthRepository._internal();
+
+  factory InMemoryStudentAuthRepository() {
+    return _instance;
+  }
+
+  InMemoryStudentAuthRepository._internal() {
+    count = 10000;
+    store = {};
+    emailToIdMap = {};
+    streamController = StreamController<StudentAuthInfoWithoutPassword?>();
+    currentStudentId = null;
+  }
 
   @override
   Future<void> createWithEmailAndPassword({
@@ -44,6 +59,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
       emailAddress: emailAddress,
       isVerified: false,
     ));
+
     count++;
   }
 
@@ -60,7 +76,7 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     }
     studentAuth.changeIsVerified(true);
 
-    streamController.add(StudentAuthInfoWithoutPassword(
+    streamController.sink.add(StudentAuthInfoWithoutPassword(
       studentId: studentAuth.studentId,
       emailAddress: studentAuth.emailAddress,
       isVerified: studentAuth.isVerified,
@@ -140,4 +156,12 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     final studentId = emailToIdMap[emailAddress];
     return studentId == null ? null : store[studentId];
   }
+
+  @override
+  StudentId? getStudentIdSnapshot() {
+    return currentStudentId;
+  }
+
+  @override
+  Future<void> reloadUser() async {}
 }

@@ -5,7 +5,9 @@ enum QuestionUseCaseExceptionDetail implements UseCaseExceptionDetail {
   failedEditing('Questionを編集する権限がありませんでした。'),
   questionNotFound('Questionが見つかりません。'),
   imageNotFound('画像が見つかりませんでした。'),
-  failedImageProcessing('画像の処理に失敗しました。');
+  failedImageProcessing('画像の処理に失敗しました。'),
+  notAllowedToResolve('Not allowed to resolve this question'),
+  ;
 
   const QuestionUseCaseExceptionDetail(this._message);
 

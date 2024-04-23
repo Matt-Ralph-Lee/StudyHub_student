@@ -9,13 +9,14 @@ import 'package:studyhub/domain/school/models/school.dart';
 import 'package:studyhub/domain/school/services/school_service.dart';
 import 'package:studyhub/domain/shared/profile_photo_path.dart';
 import 'package:studyhub/domain/student/models/gender.dart';
-import 'package:studyhub/domain/student/models/grade.dart';
+import 'package:studyhub/domain/student/models/grade_or_graduate_status.dart';
 import 'package:studyhub/domain/student/models/occupation.dart';
 import 'package:studyhub/domain/student/models/question_count.dart';
 import 'package:studyhub/domain/student/models/status.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/shared/name.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/school/in_memory_school_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
@@ -35,7 +36,7 @@ void main() {
     const gender = Gender.noAnswer;
     const occupation = Occupation.student;
     final school = School.noAnswer;
-    const grade = Grade.other;
+    const gradeOrGraduateStatus = GradeOrGraduateStatus.other;
     final questionCount = QuestionCount(0);
     const status = Status.beginner;
 
@@ -46,7 +47,7 @@ void main() {
       gender: gender,
       occupation: occupation,
       school: school,
-      grade: grade,
+      gradeOrGraduateStatus: gradeOrGraduateStatus,
       questionCount: questionCount,
       status: status,
     );
@@ -60,8 +61,8 @@ void main() {
         gender: Gender.male,
         occupation: null,
         school: '第一高校',
-        grade: null,
-        localPhotoPath: 'assets/images/sample_user_icon.jpg',
+        gradeOrGraduateStatus: null,
+        localPhotoPath: 'assets/photos/profile_photo/sample_user_icon.jpg',
       );
       final usecase = ProfileUpdateUseCase(
         session: session,
@@ -77,14 +78,14 @@ void main() {
           repository.store[session.studentId]!.occupation, Occupation.student);
     });
 
-    test('should update profile photo with no-square photo', () {
+    test('should update profile photo with no-square photo', () async {
       final command = ProfileUpdateCommand(
         studentName: null,
         gender: null,
         occupation: null,
         school: null,
-        grade: null,
-        localPhotoPath: 'assets/images/sample_user_icon2.jpg',
+        gradeOrGraduateStatus: null,
+        localPhotoPath: 'assets/photos/profile_photo/sample_user_icon2.jpg',
       );
       final usecase = ProfileUpdateUseCase(
         session: session,
@@ -94,7 +95,7 @@ void main() {
       );
       usecase.execute(command);
 
-      final student = repository.findById(session.studentId);
+      final student = await repository.findById(session.studentId);
       final currentPath = student!.profilePhotoPath;
       debugPrint(currentPath.value);
 
@@ -111,7 +112,7 @@ void main() {
         gender: null,
         occupation: null,
         school: '第二高校',
-        grade: null,
+        gradeOrGraduateStatus: null,
         localPhotoPath: null,
       );
       final usecase = ProfileUpdateUseCase(
@@ -132,4 +133,7 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => StudentId('teststudent1234567890');
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }

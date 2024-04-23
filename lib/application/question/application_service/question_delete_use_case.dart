@@ -21,10 +21,10 @@ class QuestionDeleteUseCase {
         _repository = repository,
         _photoRepository = photoRepository;
 
-  void execute(final QuestionId questionId) {
+  void execute(final QuestionId questionId) async {
     final studentId = _session.studentId;
 
-    final Question? question = _repository.findById(questionId);
+    final Question? question = await _repository.findById(questionId);
     if (question == null) {
       throw const QuestionUseCaseException(
           QuestionUseCaseExceptionDetail.questionNotFound);
@@ -33,10 +33,10 @@ class QuestionDeleteUseCase {
     if (question.canDelete(studentId)) {
       final questionPhotoPathList = question.questionPhotoPathList;
       for (var i = 0; i < questionPhotoPathList.length; i++) {
-        _photoRepository.deleteList(questionPhotoPathList);
+        await _photoRepository.deleteList(questionPhotoPathList);
       }
 
-      _repository.delete(question.questionId);
+      await _repository.delete(question.questionId);
     } else {
       throw const QuestionUseCaseException(
           QuestionUseCaseExceptionDetail.failedDeleting);

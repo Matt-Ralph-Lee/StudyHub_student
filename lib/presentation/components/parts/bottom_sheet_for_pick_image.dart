@@ -6,10 +6,17 @@ import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/l10n.dart';
 
 class BottomSheetForPickImage extends StatelessWidget {
+  final List<String>? imageFilePath;
   final void Function() takePhoto;
   final void Function() pickPhoto;
-  const BottomSheetForPickImage(
-      {super.key, required this.takePhoto, required this.pickPhoto});
+  final void Function(String)? deletePhoto;
+  const BottomSheetForPickImage({
+    super.key,
+    this.imageFilePath,
+    required this.takePhoto,
+    required this.pickPhoto,
+    required this.deletePhoto,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +29,16 @@ class BottomSheetForPickImage extends StatelessWidget {
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton.icon(
-                onPressed: () {
-                  takePhoto;
-                },
+                onPressed: takePhoto,
                 icon: Icon(
                   Icons.camera,
                   color: ColorSet.of(context).primary,
@@ -40,14 +48,13 @@ class BottomSheetForPickImage extends StatelessWidget {
                   L10n.takePictureText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.body,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
                       color: ColorSet.of(context).text),
                 ),
               ),
               TextButton.icon(
-                onPressed: () {
-                  pickPhoto;
-                },
+                onPressed: pickPhoto,
                 icon: Icon(
                   Icons.image,
                   color: ColorSet.of(context).primary,
@@ -57,7 +64,8 @@ class BottomSheetForPickImage extends StatelessWidget {
                   L10n.selectPictureFromGalleryText,
                   style: TextStyle(
                       fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.body,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.body),
                       color: ColorSet.of(context).text),
                 ),
               )

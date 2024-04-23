@@ -49,6 +49,13 @@ dependencies:
   file_picker: ^6.1.1
   flutter_image_compress: ^2.1.0
   go_router:
+  intl:
+  expandable_page_view:
+  flutter_rating_bar:
+  firebase_storage: ^11.6.9
+  url_launcher: ^6.2.5
+  shimmer: ^3.0.0
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -104,4 +111,6 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
+    - assets/icon/
     - assets/images/
+    - assets/photos/profile_photo/

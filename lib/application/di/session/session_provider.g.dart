@@ -6,7 +6,7 @@ part of 'session_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sessionStreamDiHash() => r'65ecc79d5409d8afa89a85654be5c1b4e50986aa';
+String _$sessionStreamDiHash() => r'c9ea21da1dd4b0ddb231349ae65779b51d718d7b';
 
 /// See also [_sessionStreamDi].
 @ProviderFor(_sessionStreamDi)
@@ -35,5 +35,48 @@ final sessionDiProvider = AutoDisposeProvider<Session?>.internal(
 );
 
 typedef SessionDiRef = AutoDisposeProviderRef<Session?>;
+String _$isVerifiedHash() => r'fb845c3e919c0f8a2ee7162097258a101fa2fb37';
+
+/// See also [isVerified].
+@ProviderFor(isVerified)
+final isVerifiedProvider = AutoDisposeProvider<bool>.internal(
+  isVerified,
+  name: r'isVerifiedProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$isVerifiedHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef IsVerifiedRef = AutoDisposeProviderRef<bool>;
+String _$isSignedInHash() => r'3933f1f5ddc81487a24b56a7613a71fb948a5922';
+
+/// See also [isSignedIn].
+@ProviderFor(isSignedIn)
+final isSignedInProvider = AutoDisposeProvider<bool>.internal(
+  isSignedIn,
+  name: r'isSignedInProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$isSignedInHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef IsSignedInRef = AutoDisposeProviderRef<bool>;
+String _$nonNullSessionHash() => r'34e3c22c1c0088ace632f96e67f1183a5d819821';
+
+/// See also [nonNullSession].
+@ProviderFor(nonNullSession)
+final nonNullSessionProvider = AutoDisposeProvider<Session>.internal(
+  nonNullSession,
+  name: r'nonNullSessionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$nonNullSessionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef NonNullSessionRef = AutoDisposeProviderRef<Session>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

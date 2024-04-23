@@ -13,6 +13,7 @@ import 'package:studyhub/domain/question/models/seen_count.dart';
 import 'package:studyhub/domain/question/models/selected_teacher_list.dart';
 import 'package:studyhub/domain/shared/subject.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
 
@@ -33,7 +34,7 @@ void main() {
   final answerList = AnswerList(answerListData);
   final seenCount = SeenCount(0);
   const resolved = false;
-  final selectedTeacherList = SelectedTeacherList(selectedTeacherList: []);
+  final selectedTeacherList = SelectedTeacherList([]);
   final question = Question(
       questionId: questionId,
       questionSubject: questionSubject,
@@ -69,4 +70,7 @@ class MockSession implements Session {
 
   @override
   StudentId get studentId => StudentId('teststudent1234567890');
+
+  @override
+  EmailAddress get emailAddress => EmailAddress("test@email.com");
 }

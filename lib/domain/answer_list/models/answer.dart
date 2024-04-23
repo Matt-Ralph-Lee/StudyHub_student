@@ -1,3 +1,4 @@
+import '../../question/models/question_id.dart';
 import '../../teacher/models/teacher_id.dart';
 import 'answer_id.dart';
 import 'answer_photo_path_list.dart';
@@ -6,6 +7,7 @@ import 'answer_like.dart';
 
 class Answer {
   final AnswerId _answerId;
+  final QuestionId _questionId;
   final AnswerText _answerText;
   final AnswerPhotoPathList _answerPhotoPathList;
   final AnswerLike _like;
@@ -13,6 +15,7 @@ class Answer {
   final bool _evaluated;
 
   AnswerId get answerId => _answerId;
+  QuestionId get questionId => _questionId;
   AnswerText get answerText => _answerText;
   AnswerPhotoPathList get answerPhotoPathList => _answerPhotoPathList;
   AnswerLike get like => _like;
@@ -21,12 +24,14 @@ class Answer {
 
   Answer({
     required final AnswerId answerId,
+    required final QuestionId questionId,
     required final AnswerText answerText,
     required final AnswerPhotoPathList answerPhotoPathList,
     required final AnswerLike like,
     required final TeacherId teacherId,
     required final bool evaluated,
   })  : _answerId = answerId,
+        _questionId = questionId,
         _answerText = answerText,
         _answerPhotoPathList = answerPhotoPathList,
         _like = like,

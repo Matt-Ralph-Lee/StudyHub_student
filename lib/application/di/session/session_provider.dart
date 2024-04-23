@@ -7,12 +7,17 @@ part 'session_provider.g.dart';
 
 @riverpod
 Stream<Session?> _sessionStreamDi(_SessionStreamDiRef ref) {
+  ref.keepAlive();
   final queryService = ref.watch(getStudentAuthQueryServiceProvider);
   final state = queryService.userChanges();
   return state.map((studentAuthInfo) {
     return studentAuthInfo == null
         ? null
-        : Session(studentAuthInfo.studentId, studentAuthInfo.isVerified);
+        : Session(
+            studentAuthInfo.studentId,
+            studentAuthInfo.isVerified,
+            studentAuthInfo.emailAddress,
+          );
   });
 }
 
@@ -24,4 +29,23 @@ Session? sessionDi(SessionDiRef ref) {
     error: (_, __) => null, // TODO: error時の処理,
     loading: () => null,
   );
+}
+
+@riverpod
+bool isVerified(IsVerifiedRef ref) {
+  final session = ref.read(sessionDiProvider);
+  if (session == null) return false;
+  return session.isVerified;
+}
+
+@riverpod
+bool isSignedIn(IsSignedInRef ref) {
+  final session = ref.read(sessionDiProvider);
+  return session != null;
+}
+
+@riverpod
+Session nonNullSession(NonNullSessionRef ref) {
+  final session = ref.watch(sessionDiProvider);
+  return session!;
 }

@@ -2,8 +2,9 @@ import 'package:english_words/english_words.dart';
 
 import '../../../domain/school/models/school.dart';
 import '../../../domain/shared/name.dart';
+import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/student/models/gender.dart';
-import '../../../domain/student/models/grade.dart';
+import '../../../domain/student/models/grade_or_graduate_status.dart';
 import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/student/models/occupation.dart';
 import '../../../domain/student/models/question_count.dart';
@@ -13,28 +14,25 @@ import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
-import '../../shared/session/session.dart';
-import 'utils/photo_processing.dart';
 
 class StudentCreateUseCase {
   final IStudentAuthRepository _studentAuthRepository;
   final IStudentRepository _studentRepository;
-  final Session? _session;
 
   StudentCreateUseCase({
     required final IStudentAuthRepository studentAuthRepository,
     required final IStudentRepository studentRepository,
-    required final Session? session,
   })  : _studentAuthRepository = studentAuthRepository,
-        _studentRepository = studentRepository,
-        _session = session;
+        _studentRepository = studentRepository;
 
   Future<void> execute({
     required final String emailAddressData,
     required final String passwordData,
   }) async {
     final emailAddress = EmailAddress(emailAddressData);
+
     final password = Password(passwordData);
+
     await _studentAuthRepository.createWithEmailAndPassword(
       emailAddress: emailAddress,
       password: password,
@@ -42,23 +40,22 @@ class StudentCreateUseCase {
 
     await _studentAuthRepository.sendEmailVerification();
 
-    // TODO: what if email is not verified for a long time?
-    while (_session == null || _session!.isVerified == false) {
-      Future.delayed(const Duration(seconds: 1));
-    }
+    final student =
+        _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
 
-    final student = _createInitially(_session!.studentId);
-    _studentRepository.save(student);
+    await _studentRepository.create(student);
   }
 }
 
 Student _createInitially(final StudentId studentId) {
   final studentName = Name(WordPair.random().asLowerCase);
-  final profilePhotoPath = createPath('initial_photo');
+  // final profilePhotoPath = createPath('initial_photo');
+  final profilePhotoPath =
+      ProfilePhotoPath("profile_photo/default/male_default.jpg");
   const gender = Gender.noAnswer;
   const occupation = Occupation.others;
   final school = School.noAnswer;
-  const grade = Grade.other;
+  const gradeOrGraduateStatus = GradeOrGraduateStatus.other;
   final questionCount = QuestionCount(0);
   const status = Status.beginner;
 
@@ -69,7 +66,7 @@ Student _createInitially(final StudentId studentId) {
     gender: gender,
     occupation: occupation,
     school: school,
-    grade: grade,
+    gradeOrGraduateStatus: gradeOrGraduateStatus,
     questionCount: questionCount,
     status: status,
   );

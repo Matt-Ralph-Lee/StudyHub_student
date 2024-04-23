@@ -7,7 +7,7 @@ class SchoolService {
 
   SchoolService(this._repository);
 
-  bool exists({
+  Future<bool> exists({
     required final School school,
     required final SchoolType? schoolType,
   }) {

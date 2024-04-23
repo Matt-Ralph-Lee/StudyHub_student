@@ -95,7 +95,7 @@ class Question {
 
     var mostLikedAnswer = _answerList.first;
     for (final answer in _answerList) {
-      if (mostLikedAnswer.like > answer.like) {
+      if (mostLikedAnswer.like < answer.like) {
         mostLikedAnswer = answer;
       }
     }
