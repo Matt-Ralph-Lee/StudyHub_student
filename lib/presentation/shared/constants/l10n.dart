@@ -33,7 +33,7 @@ import '../../../domain/teacher_evaluation/models/teacher_evaluation_comment.dar
 import '../../../domain/teacher_evaluation/models/teacher_evaluation_rating.dart';
 import '../../../infrastructure/exceptions/blockings/blockings_infrastructure_exception_detail.dart';
 import '../../../infrastructure/exceptions/bookmarks/bookmarks_infrastructure_exception_detail.dart';
-import '../../../infrastructure/exceptions/favortite_teachers/favorite_teachers_infrastructure_exception_detail.dart';
+import '../../../infrastructure/exceptions/favorite_teachers/favorite_teachers_infrastructure_exception_detail.dart';
 import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
 import '../../../infrastructure/exceptions/question/question_infrastructure_exception_detail.dart';
 import '../../../infrastructure/exceptions/student/student_infrastructure_exception_detail.dart';
