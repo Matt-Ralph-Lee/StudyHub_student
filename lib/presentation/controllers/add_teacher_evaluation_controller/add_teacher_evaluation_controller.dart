@@ -1,6 +1,7 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../application/di/answer/repository/answer_repository_provider.dart";
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/di/teacher/teacher_provider.dart";
 import "../../../application/di/teacher_evaluation/factory/teacher_evaluation_factory_provider.dart";
@@ -35,12 +36,14 @@ class AddTeacherEvaluationController extends _$AddTeacherEvaluationController {
       final teacherRepository = ref.read(teacherRepositoryDiProvider);
       final teacherEvaluationFactory =
           ref.read(teacherEvaluationFactoryDiProvider);
+      final logger = ref.read(loggerDiProvider);
       final addTeacherEvaluationUseCase = TeacherEvaluationAddUseCase(
         session: session,
         repository: teacherEvaluationRepository,
         factory: teacherEvaluationFactory,
         answerRepository: answerRepository,
         teacherRepository: teacherRepository,
+        logger: logger,
       );
       await addTeacherEvaluationUseCase.execute(
         answerId: answerId,

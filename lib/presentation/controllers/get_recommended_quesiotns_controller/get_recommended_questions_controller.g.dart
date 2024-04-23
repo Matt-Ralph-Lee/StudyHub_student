@@ -7,7 +7,7 @@ part of 'get_recommended_questions_controller.dart';
 // **************************************************************************
 
 String _$getRecommendedQuestionsControllerHash() =>
-    r'6382530a03c66dd4aa04cc83f44923328f70d6e0';
+    r'1d368b6470e0d84646dc6f0625abd69c9e6c08a9';
 
 /// Copied from Dart SDK
 class _SystemHash {

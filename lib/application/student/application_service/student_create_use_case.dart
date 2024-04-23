@@ -14,23 +14,28 @@ import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../../domain/student_auth/models/password.dart';
+import '../../interfaces/i_logger.dart';
 
 class StudentCreateUseCase {
   final IStudentAuthRepository _studentAuthRepository;
   final IStudentRepository _studentRepository;
+  final ILogger _logger;
 
   StudentCreateUseCase({
     required final IStudentAuthRepository studentAuthRepository,
     required final IStudentRepository studentRepository,
+    required final ILogger logger,
   })  : _studentAuthRepository = studentAuthRepository,
-        _studentRepository = studentRepository;
+        _studentRepository = studentRepository,
+        _logger = logger;
 
   Future<void> execute({
     required final String emailAddressData,
     required final String passwordData,
   }) async {
-    final emailAddress = EmailAddress(emailAddressData);
+    _logger.info('BEGIN $StudentCreateUseCase.execute()');
 
+    final emailAddress = EmailAddress(emailAddressData);
     final password = Password(passwordData);
 
     await _studentAuthRepository.createWithEmailAndPassword(
@@ -44,6 +49,8 @@ class StudentCreateUseCase {
         _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
 
     await _studentRepository.create(student);
+
+    _logger.info('END $StudentCreateUseCase.execute()');
   }
 }
 

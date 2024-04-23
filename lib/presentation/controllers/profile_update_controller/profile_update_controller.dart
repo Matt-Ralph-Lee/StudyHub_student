@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/interfaces/logger_provider.dart";
 import '../../../application/di/photo/repository/photo_repository_provider.dart';
 import "../../../application/di/school/school_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
@@ -25,12 +26,14 @@ class ProfileUpdateController extends _$ProfileUpdateController {
       final schoolRepository = ref.read(schoolRepositoryDiProvider);
       final schoolService = SchoolService(schoolRepository);
       final photoRepository = ref.read(photoRepositoryDiProvider);
+      final logger = ref.read(loggerDiProvider);
 
       final profileUpdateUseCase = ProfileUpdateUseCase(
         session: session,
         repository: studentRepository,
         schoolService: schoolService,
         photoRepository: photoRepository,
+        logger: logger,
       );
 
       await profileUpdateUseCase.execute(command);

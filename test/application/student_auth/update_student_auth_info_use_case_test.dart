@@ -7,11 +7,13 @@ import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/models/password.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_get_student_auth_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() async {
   final repository = InMemoryStudentAuthRepository();
   final queryService =
       InMemoryGetStudentAuthQueryService(repository: repository);
+  final logger = InMemoryLogger();
 
   final stream = queryService.userChanges();
   stream.listen((data) {
@@ -32,7 +34,10 @@ void main() async {
 
   group('update use case', () {
     test('should update email address', () async {
-      final useCase = UpdateStudentAuthInfoUseCase(repository: repository);
+      final useCase = UpdateStudentAuthInfoUseCase(
+        repository: repository,
+        logger: logger,
+      );
       final command = UpdateStudentAuthInfoCommand(
           emailAddress: 'newtest@example.com',
           emailAddressToResetPassword: null);
@@ -40,7 +45,10 @@ void main() async {
     });
 
     test('should send password update email', () async {
-      final useCase = UpdateStudentAuthInfoUseCase(repository: repository);
+      final useCase = UpdateStudentAuthInfoUseCase(
+        repository: repository,
+        logger: logger,
+      );
       final command = UpdateStudentAuthInfoCommand(
           emailAddress: null, emailAddressToResetPassword: 'test@example.com');
       await useCase.execute(command);

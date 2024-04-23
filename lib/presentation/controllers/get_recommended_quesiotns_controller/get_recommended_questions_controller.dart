@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/question/query_service/get_recommended_questions_query_service_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/question/application_service/get_recommended_questions_use_case.dart";
@@ -18,9 +19,13 @@ class GetRecommendedQuestionsController
     final getRecommendedQuestionsQueryService =
         ref.watch(getRecommendedQuestionQueryServiceDiProvider);
     final session = ref.watch(nonNullSessionProvider);
+    final logger = ref.read(loggerDiProvider);
 
     final getRecommendedQuestionsUseCase = GetRecommendedQuestionsUseCase(
-        session: session, queryService: getRecommendedQuestionsQueryService);
+      session: session,
+      queryService: getRecommendedQuestionsQueryService,
+      logger: logger,
+    );
 
     final getRecommendedQuestionsDto =
         getRecommendedQuestionsUseCase.execute(subject);

@@ -7,7 +7,7 @@ import '../../../domain/teacher_evaluation/models/i_teacher_evaluation_factory.d
 import '../../../domain/teacher_evaluation/models/teacher_evaluation_comment.dart';
 import '../../../domain/teacher_evaluation/models/teacher_evaluation_rating.dart';
 import '../../../domain/teacher_evaluation/models/i_teacher_evaluation_repository.dart';
-
+import '../../interfaces/i_logger.dart';
 import '../../shared/session/session.dart';
 
 class TeacherEvaluationAddUseCase {
@@ -16,6 +16,7 @@ class TeacherEvaluationAddUseCase {
   final ITeacherEvaluationFactory _factory;
   final IAnswerRepository _answerRepository;
   final ITeacherRepository _teacherRepository;
+  final ILogger _logger;
 
   TeacherEvaluationAddUseCase({
     required final Session session,
@@ -23,11 +24,13 @@ class TeacherEvaluationAddUseCase {
     required final ITeacherEvaluationFactory factory,
     required final IAnswerRepository answerRepository,
     required final ITeacherRepository teacherRepository,
+    required final ILogger logger,
   })  : _session = session,
         _repository = repository,
         _factory = factory,
         _answerRepository = answerRepository,
-        _teacherRepository = teacherRepository;
+        _teacherRepository = teacherRepository,
+        _logger = logger;
 
   Future<void> execute({
     required final AnswerId answerId,
@@ -36,6 +39,8 @@ class TeacherEvaluationAddUseCase {
     required final int ratingData,
     required final String commentData,
   }) async {
+    _logger.info('BEGIN $TeacherEvaluationAddUseCase.execute()');
+
     final from = _session.studentId;
     final rating = TeacherEvaluationRating(ratingData);
     final comment = TeacherEvaluationComment(commentData);
@@ -54,5 +59,7 @@ class TeacherEvaluationAddUseCase {
         answerId: answerId, questionId: questionId);
 
     await _teacherRepository.changeRate(teacherEvaluation);
+
+    _logger.info('END $TeacherEvaluationAddUseCase.execute()');
   }
 }

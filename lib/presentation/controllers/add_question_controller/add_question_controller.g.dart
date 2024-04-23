@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_question_contorller.dart';
+part of 'add_question_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
 String _$addQuestionControllerHash() =>
-    r'bc58132207d38bb7428dfac2b32a7be377590868';
+    r'd2c59023cf47479b1818e2cbb8bab89eb3438eea';
 
 /// See also [AddQuestionController].
 @ProviderFor(AddQuestionController)

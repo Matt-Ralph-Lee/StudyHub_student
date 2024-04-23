@@ -7,7 +7,7 @@ part of 'delete_favorite_teacher_controller.dart';
 // **************************************************************************
 
 String _$deleteFavoriteTeacherControllerHash() =>
-    r'd69bb080eb4aa54cf8d900156325d8fba6cf9637';
+    r'ed9cac9dd4ce6a47a24cf80ea6fe7beba4dcffdd';
 
 /// See also [DeleteFavoriteTeacherController].
 @ProviderFor(DeleteFavoriteTeacherController)

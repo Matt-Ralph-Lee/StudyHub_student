@@ -1,17 +1,24 @@
 import '../../../domain/teacher/models/teacher_id.dart';
+import '../../interfaces/i_logger.dart';
 import 'get_teacher_profile_dto.dart';
 import 'i_get_teacher_profile_query_service.dart';
 
 class GetTeacherProfileUseCase {
-  final TeacherId _teacherId;
   final IGetTeacherProfileQueryService _queryService;
+  final ILogger _logger;
 
   GetTeacherProfileUseCase({
-    required final TeacherId teacherId,
     required final IGetTeacherProfileQueryService queryService,
-  })  : _teacherId = teacherId,
-        _queryService = queryService;
-  Future<GetTeacherProfileDto?> execute() async {
-    return await _queryService.findById(_teacherId);
+    required final ILogger logger,
+  })  : _queryService = queryService,
+        _logger = logger;
+
+  Future<GetTeacherProfileDto?> execute(final TeacherId teacherId) async {
+    _logger.info('BEGIN $GetTeacherProfileUseCase.execute()');
+
+    final getTeacherProfileDto = await _queryService.findById(teacherId);
+
+    _logger.info('END $GetTeacherProfileUseCase.execute()');
+    return getTeacherProfileDto;
   }
 }

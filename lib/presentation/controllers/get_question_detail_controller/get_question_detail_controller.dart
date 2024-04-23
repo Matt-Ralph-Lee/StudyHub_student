@@ -1,6 +1,7 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../application/di/bookmarks/repository/bookmarks_repository_provider.dart";
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/question_detail/question_detail_query_service_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/di/student/student_provider.dart";
@@ -13,16 +14,18 @@ part "get_question_detail_controller.g.dart";
 @riverpod
 class GetQuestionDetailController extends _$GetQuestionDetailController {
   @override
-  Future<QuestionDetailDto> build(QuestionId questionId) async {
+  Future<QuestionDetailDto> build(final QuestionId questionId) async {
     final getQuestionDetailQueryService =
         ref.watch(getQuestionDetailQueryServiceDiProvider);
     final studentRepository = ref.watch(studentRepositoryDiProvider);
     final bookmarksRepository = ref.watch(bookmarksRepositoryDiProvider);
+    final logger = ref.read(loggerDiProvider);
 
     final getQuestionDetailUseCase = GetQuestionDetailUseCase(
       queryService: getQuestionDetailQueryService,
       studentRepository: studentRepository,
       bookmarksRepository: bookmarksRepository,
+      logger: logger,
     );
 
     final session = ref.read(nonNullSessionProvider);

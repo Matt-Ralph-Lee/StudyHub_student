@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/student_auth/student_auth_provider.dart";
 import "../../../application/student_auth/application_service/resend_verification_email_use_case.dart";
 
@@ -15,8 +16,11 @@ class ResendEmailVerificationController
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
-      final signUpUseCase =
-          ResendVerificationEmailUseCase(studentAuthRepository);
+      final logger = ref.read(loggerDiProvider);
+      final signUpUseCase = ResendVerificationEmailUseCase(
+        repository: studentAuthRepository,
+        logger: logger,
+      );
       await signUpUseCase.execute(emailAddress);
     });
   }
