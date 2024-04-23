@@ -7,7 +7,7 @@ part of 'search_for_teachers_controller.dart';
 // **************************************************************************
 
 String _$searchForTeachersControllerHash() =>
-    r'3c5205a25ab568c80fe1920d9978e108e7ccd077';
+    r'92cf587837533414bcb99c866b2d2e90160ec366';
 
 /// Copied from Dart SDK
 class _SystemHash {

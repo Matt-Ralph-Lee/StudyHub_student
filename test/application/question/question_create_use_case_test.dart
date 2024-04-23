@@ -16,6 +16,7 @@ import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_fa
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
@@ -28,6 +29,7 @@ void main() {
       InMemoryNotificationFactory(repository: notificationRepository);
   final queryService =
       InMemoryQuestionCreateQueryService(repository: studentRepository);
+  final logger = InMemoryLogger();
   final useCase = QuestionCreateUseCase(
     session: session,
     repository: repository,
@@ -37,6 +39,7 @@ void main() {
     notificationFactory: notificationFactory,
     queryService: queryService,
     studentRepository: studentRepository,
+    logger: logger,
   );
 
   setUp(() {});

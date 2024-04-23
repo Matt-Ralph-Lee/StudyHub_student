@@ -11,6 +11,7 @@ import 'package:studyhub/infrastructure/in_memory/answer/in_memory_answer_reposi
 import 'package:studyhub/infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/teacher_evaluation/in_memory_teacher_evaluation_factory.dart';
 import 'package:studyhub/infrastructure/in_memory/teacher_evaluation/in_memory_teacher_evaluation_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
@@ -18,6 +19,7 @@ void main() {
   final factory = InMemoryTeacherEvaluationFactory(repository);
   final answerRepository = InMemoryAnswerRepository();
   final teacherRepository = InMemoryTeacherRepository();
+  final logger = InMemoryLogger();
 
   group("evaluation add use case", () {
     test("should add favorite teachers", () async {
@@ -32,6 +34,7 @@ void main() {
         factory: factory,
         answerRepository: answerRepository,
         teacherRepository: teacherRepository,
+        logger: logger,
       );
       await usecase.execute(
         answerId: answerId,

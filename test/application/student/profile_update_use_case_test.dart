@@ -20,6 +20,7 @@ import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/school/in_memory_school_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final repository = InMemoryStudentRepository();
@@ -27,6 +28,7 @@ void main() {
   final schoolRepository = InMemorySchoolRepository();
   final photoRepository = InMemoryPhotoRepository();
   final schoolService = SchoolService(schoolRepository);
+  final logger = InMemoryLogger();
 
   setUp(() {
     final studentId = StudentId('teststudent1234567890');
@@ -69,6 +71,7 @@ void main() {
         repository: repository,
         schoolService: schoolService,
         photoRepository: photoRepository,
+        logger: logger,
       );
       usecase.execute(command);
 
@@ -92,6 +95,7 @@ void main() {
         repository: repository,
         schoolService: schoolService,
         photoRepository: photoRepository,
+        logger: logger,
       );
       usecase.execute(command);
 
@@ -120,6 +124,7 @@ void main() {
         repository: repository,
         schoolService: schoolService,
         photoRepository: photoRepository,
+        logger: logger,
       );
       expect(() => usecase.execute(command),
           throwsA(const TypeMatcher<StudentUseCaseException>()));

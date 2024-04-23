@@ -7,7 +7,7 @@ part of 'resend_email_verification_controller.dart';
 // **************************************************************************
 
 String _$resendEmailVerificationControllerHash() =>
-    r'5ec82ee3574949944fe78b0ba078fd0f7d14a0b3';
+    r'0b4aafd07e7509efdab244f30e3570634d22394e';
 
 /// See also [ResendEmailVerificationController].
 @ProviderFor(ResendEmailVerificationController)

@@ -25,7 +25,7 @@ import '../components/widgets/show_error_modal_widget.dart';
 import '../components/widgets/specific_exception_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_confirm_skeleton_widget.dart';
 import '../components/widgets/teacher_profile_for_question_page_widget.dart';
-import '../controllers/add_question_controller/add_question_contorller.dart';
+import '../controllers/add_question_controller/add_question_controller.dart';
 import '../controllers/get_teacher_profile_controller/get_teacher_profile_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';

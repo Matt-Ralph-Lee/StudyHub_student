@@ -7,10 +7,12 @@ import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/teacher_id.dart';
 import 'package:studyhub/infrastructure/in_memory/report/in_memory_teacher_report_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final repository = InMemoryTeacherReportRepository();
   final session = MockSession();
+  final logger = InMemoryLogger();
 
   setUp(() => null);
 
@@ -23,8 +25,11 @@ void main() {
           teacherId: teacherId1,
           reportReason: reportReason1,
           reportTextData: reportTextData1);
-      final usecase =
-          TeacherReportSubmitUseCase(repository: repository, session: session);
+      final usecase = TeacherReportSubmitUseCase(
+        repository: repository,
+        session: session,
+        logger: logger,
+      );
       usecase.execute(command);
 
       expect(repository.store[session.studentId]!.first.text.value,
@@ -39,8 +44,11 @@ void main() {
           teacherId: teacherId1,
           reportReason: reportReason1,
           reportTextData: emptyText);
-      final usecase =
-          TeacherReportSubmitUseCase(repository: repository, session: session);
+      final usecase = TeacherReportSubmitUseCase(
+        repository: repository,
+        session: session,
+        logger: logger,
+      );
       usecase.execute(command);
 
       expect(repository.store[session.studentId]![1].to, teacherId1);

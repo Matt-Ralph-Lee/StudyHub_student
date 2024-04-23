@@ -1,4 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/photo/repository/photo_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/di/student/student_provider.dart";
@@ -19,12 +21,14 @@ class DeleteAccountController extends _$DeleteAccountController {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
       final studentRepository = ref.read(studentRepositoryDiProvider);
       final photoRepository = ref.read(photoRepositoryDiProvider);
-
+      final logger = ref.read(loggerDiProvider);
       final getMyBookmarksUseCase = StudentDeleteUseCase(
-          session: session,
-          studentAuthRepository: studentAuthRepository,
-          studentRepository: studentRepository,
-          photoRepository: photoRepository);
+        session: session,
+        studentAuthRepository: studentAuthRepository,
+        studentRepository: studentRepository,
+        photoRepository: photoRepository,
+        logger: logger,
+      );
 
       await getMyBookmarksUseCase.execute();
     });

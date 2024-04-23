@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/question/repository/question_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/question/application_service/resolve_question_use_case.dart";
@@ -19,7 +20,11 @@ class ResolveQuestionController extends _$ResolveQuestionController {
     state = await AsyncValue.guard(() async {
       final session = ref.read(nonNullSessionProvider);
       final questionRepository = ref.read(questionRepositoryDiProvider);
-      final resolveQuestionUseCase = ResolveQuestionUseCase(questionRepository);
+      final logger = ref.read(loggerDiProvider);
+      final resolveQuestionUseCase = ResolveQuestionUseCase(
+        repository: questionRepository,
+        logger: logger,
+      );
 
       await resolveQuestionUseCase.execute(
         studentId: session.studentId,

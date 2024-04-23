@@ -7,7 +7,7 @@ part of 'read_notification_controller.dart';
 // **************************************************************************
 
 String _$readNotificationControllerHash() =>
-    r'866dbccebf27230af6b1200289060849c46d8d60';
+    r'cf4426034034671bb1d1107c6cf52e5cac1ef510';
 
 /// See also [ReadNotificationController].
 @ProviderFor(ReadNotificationController)

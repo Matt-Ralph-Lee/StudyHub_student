@@ -1,4 +1,5 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/di/student/get_my_profile_query_service.dart";
 import "../../../application/student/application_service/get_my_profile_dto.dart";
@@ -16,10 +17,12 @@ class GetMyProfileController extends _$GetMyProfileController {
     if (session == null) {
       throw Exception('Session is null');
     }
+    final logger = ref.read(loggerDiProvider);
 
     final getMyProfileUseCase = GetMyProfileUseCase(
       session: session,
       queryService: getMyProfileQueryService,
+      logger: logger,
     );
 
     final questionCardDto = getMyProfileUseCase.execute();

@@ -7,7 +7,7 @@ part of 'student_create_controller.dart';
 // **************************************************************************
 
 String _$studentCreateControllerHash() =>
-    r'2b850e51e59be830c76f1f49dbc18c6e9cc47ed9';
+    r'a6fc56f2933f010df4129817eb45702fccc53ab7';
 
 /// See also [StudentCreateController].
 @ProviderFor(StudentCreateController)

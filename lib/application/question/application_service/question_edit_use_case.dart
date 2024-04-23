@@ -11,6 +11,7 @@ import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
 import '../../../utils/zip.dart';
+import '../../interfaces/i_logger.dart';
 import '../../shared/session/session.dart';
 import '../exception/question_use_case_exception.dart';
 import '../exception/question_use_case_exception_detail.dart';
@@ -21,16 +22,21 @@ class QuestionEditUseCase {
   final Session _session;
   final IQuestionRepository _repository;
   final IPhotoRepository _photoRepository;
+  final ILogger _logger;
 
   QuestionEditUseCase({
     required final Session session,
     required final IQuestionRepository repository,
     required final IPhotoRepository photoRepository,
+    required final ILogger logger,
   })  : _session = session,
         _repository = repository,
-        _photoRepository = photoRepository;
+        _photoRepository = photoRepository,
+        _logger = logger;
 
-  void execute(QuestionEditCommand command) async {
+  void execute(final QuestionEditCommand command) async {
+    _logger.info('BEGIN $QuestionEditUseCase.execute()');
+
     final StudentId studentId = _session.studentId;
     final QuestionId questionId = command.questionId;
     final Question? question = await _repository.findById(questionId);
@@ -106,5 +112,7 @@ class QuestionEditUseCase {
     }
 
     await _repository.save(question);
+
+    _logger.info('END $QuestionEditUseCase.execute()');
   }
 }

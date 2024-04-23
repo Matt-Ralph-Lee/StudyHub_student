@@ -22,6 +22,7 @@ import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
+import '../../interfaces/i_logger.dart';
 import '../../shared/session/session.dart';
 import 'i_question_create_query_service.dart';
 import 'utils/photo_processing.dart';
@@ -35,6 +36,7 @@ class QuestionCreateUseCase {
   final INotificationFactory _notificationFactory;
   final IQuestionCreateQueryService _queryService;
   final IStudentRepository _studentRepository;
+  final ILogger _logger;
 
   QuestionCreateUseCase({
     required final Session session,
@@ -45,6 +47,7 @@ class QuestionCreateUseCase {
     required final INotificationFactory notificationFactory,
     required final IQuestionCreateQueryService queryService,
     required final IStudentRepository studentRepository,
+    required final ILogger logger,
   })  : _session = session,
         _repository = repository,
         _factory = factory,
@@ -52,7 +55,8 @@ class QuestionCreateUseCase {
         _notificationRepository = notificationRepository,
         _notificationFactory = notificationFactory,
         _queryService = queryService,
-        _studentRepository = studentRepository;
+        _studentRepository = studentRepository,
+        _logger = logger;
 
   Future<void> execute({
     required final String questionTitleData,
@@ -61,6 +65,8 @@ class QuestionCreateUseCase {
     required final Subject questionSubject,
     required final List<TeacherId> selectedTeacherListData,
   }) async {
+    _logger.info('BEGIN $QuestionCreateUseCase.execute()');
+
     final studentId = _session.studentId;
     final questionTitle = QuestionTitle(questionTitleData);
     final questionText = QuestionText(questionTextData);
@@ -79,6 +85,7 @@ class QuestionCreateUseCase {
     await _studentRepository.incrementQuestionCount(studentId);
 
     if (question.selectedTeacherList.isEmpty) {
+      _logger.info('END $QuestionCreateUseCase.execute()');
       return;
     }
 
@@ -88,6 +95,8 @@ class QuestionCreateUseCase {
     );
 
     await _notificationRepository.save(notificationList);
+
+    _logger.info('END $QuestionCreateUseCase.execute()');
   }
 
   Future<Question> _createQuestion({

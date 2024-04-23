@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/notification/repository/notification_repository_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/notification/application_service/read_notification_use_case.dart";
@@ -18,14 +19,20 @@ class ReadNotificationController extends _$ReadNotificationController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final notificationRepository = ref.read(notificationRepositoryDiProvider);
+      final logger = ref.read(loggerDiProvider);
 
-      final readNotificationUseCase =
-          ReadNotificationUseCase(notificationRepository);
+      final readNotificationUseCase = ReadNotificationUseCase(
+        repository: notificationRepository,
+        logger: logger,
+      );
 
       final session = ref.read(nonNullSessionProvider);
       final studentId = session.studentId;
 
-      readNotificationUseCase.execute(notificationId, studentId);
+      readNotificationUseCase.execute(
+        id: notificationId,
+        studentId: studentId,
+      );
     });
     ref.invalidate(checkNotificationControllerProvider);
     ref.invalidate(getMyNotificationsControllerProvider);

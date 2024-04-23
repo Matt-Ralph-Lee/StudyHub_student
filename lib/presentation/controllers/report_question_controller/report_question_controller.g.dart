@@ -7,7 +7,7 @@ part of 'report_question_controller.dart';
 // **************************************************************************
 
 String _$reportQuestionControllerHash() =>
-    r'59002b7d4cebb98377c40de0546ecc92b42cb110';
+    r'65dae60eb9c35f21262fae2fc8b6abbc64f7f3d9';
 
 /// See also [ReportQuestionController].
 @ProviderFor(ReportQuestionController)
