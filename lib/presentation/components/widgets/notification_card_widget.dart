@@ -3,15 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
-import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception.dart';
-import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
 import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/read_notification_controller/read_notification_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
 import '../../shared/constants/handle_error.dart';
-import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
 import '../../shared/constants/page_path.dart';
 import 'error_modal_widget.dart';
@@ -34,7 +31,7 @@ class NotificationCardWidget extends ConsumerWidget {
         final currentState = ref.read(readNotificationControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

@@ -43,7 +43,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             ref.read(addFavoriteTeacherControllerProvider);
         if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -70,7 +70,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             ref.read(deleteFavoriteTeacherControllerProvider);
         if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

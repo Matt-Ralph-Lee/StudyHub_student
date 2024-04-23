@@ -4,10 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../application/answer/application_service/answer_dto.dart';
-import '../../../application/blockings/exception/blockings_use_case_exception.dart';
-import '../../../application/blockings/exception/blockings_use_case_exception_detail.dart';
-import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
-import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/add_blockings_controller/add_blockings_controller.dart';
 import '../../controllers/add_favorite_teacher_controller/add_favorite_teacher_controller.dart';
@@ -78,7 +74,7 @@ class AnswerCardWidget extends ConsumerWidget {
             ref.read(addFavoriteTeacherControllerProvider);
         if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -105,7 +101,7 @@ class AnswerCardWidget extends ConsumerWidget {
             ref.read(deleteFavoriteTeacherControllerProvider);
         if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -137,7 +133,7 @@ class AnswerCardWidget extends ConsumerWidget {
           final addBlockingsState = ref.read(addBlockingsControllerProvider);
           if (addBlockingsState.hasError) {
             final error = addBlockingsState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -174,7 +170,7 @@ class AnswerCardWidget extends ConsumerWidget {
               ref.read(deleteBlockingsControllerProvider);
           if (deleteBlockingsState.hasError) {
             final error = deleteBlockingsState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {

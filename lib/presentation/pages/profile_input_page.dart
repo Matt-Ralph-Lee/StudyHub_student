@@ -75,7 +75,7 @@ class ProfileInputPage extends HookConsumerWidget {
         final currentState = ref.read(profileUpdateControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

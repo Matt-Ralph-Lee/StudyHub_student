@@ -1,9 +1,8 @@
-import 'package:studyhub/application/question/exception/question_use_case_exception.dart';
-import 'package:studyhub/application/question/exception/question_use_case_exception_detail.dart';
-
 import '../../../domain/question/models/i_question_repository.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../exception/question_use_case_exception.dart';
+import '../exception/question_use_case_exception_detail.dart';
 
 class ResolveQuestionUseCase {
   final IQuestionRepository _repository;

@@ -6,8 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../application/student/application_service/profile_update_command.dart';
-import '../../application/student/exception/student_use_case_exception.dart';
-import '../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../domain/shared/name.dart';
 import '../../domain/student/models/gender.dart';
 import '../../domain/student/models/grade_or_graduate_status.dart';
@@ -107,7 +105,7 @@ class EditProfilePage extends HookConsumerWidget {
             final currentState = ref.read(profileUpdateControllerProvider);
             if (currentState.hasError) {
               final error = currentState.error;
-              final errorMessage = handleError(context, error);
+              final errorMessage = handleError(error);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {

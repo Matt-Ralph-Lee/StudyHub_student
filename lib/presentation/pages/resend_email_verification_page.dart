@@ -31,7 +31,7 @@ class ResendEmailVerificationPage extends ConsumerWidget {
         final deleteAccountState = ref.read(deleteAccountControllerProvider);
         if (deleteAccountState.hasError) {
           final error = deleteAccountState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

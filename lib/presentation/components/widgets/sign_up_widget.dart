@@ -91,7 +91,7 @@ class SignUpWidget extends HookConsumerWidget {
         final currentState = ref.read(studentAuthControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          handleError(context, error);
+          handleError(error);
         } else {
           pushDummy(context);
         }
@@ -229,7 +229,7 @@ class SignUpWidget extends HookConsumerWidget {
                         ref.read(studentAuthControllerProvider);
                     if (currentState.hasError) {
                       final error = currentState.error;
-                      final errorMessage = handleError(context, error);
+                      final errorMessage = handleError(error);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

@@ -67,7 +67,7 @@ class ReportPage extends HookConsumerWidget {
           final currentState = ref.read(reportQuestionControllerProvider);
           if (currentState.hasError) {
             final error = currentState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -107,7 +107,7 @@ class ReportPage extends HookConsumerWidget {
           final currentState = ref.read(reportTeacherControllerProvider);
           if (currentState.hasError) {
             final error = currentState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {

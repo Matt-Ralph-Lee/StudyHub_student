@@ -185,7 +185,7 @@ class CreateQuestionPage extends HookConsumerWidget {
           final addQuestionState = ref.read(addQuestionControllerProvider);
           if (addQuestionState.hasError) {
             final error = addQuestionState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {

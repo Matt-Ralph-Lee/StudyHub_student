@@ -61,7 +61,7 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ref.read(addBookmarkControllerProvider);
         if (addBookmarkControllerState.hasError) {
           final error = addBookmarkControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -88,7 +88,7 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ref.read(deleteBookmarkControllerProvider);
         if (deleteBookmarkControllerState.hasError) {
           final error = deleteBookmarkControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
