@@ -103,7 +103,7 @@ class FirebaseNotificationRepository implements INotificationRepository {
         .collection("students")
         .doc(studentId.value)
         .collection("notification")
-        .where("read", isEqualTo: true)
+        .where("read", isEqualTo: false)
         .count()
         .get();
     if (querySnapshot.count == null) return false;
