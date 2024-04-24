@@ -9,6 +9,7 @@ import "../../../application/student_auth/application_service/sign_in_use_case.d
 import "../../../application/student_auth/application_service/sign_out_use_case.dart";
 import "../../../application/student_auth/application_service/update_student_auth_info_command.dart";
 import "../../../application/student_auth/application_service/update_student_auth_info_use_case.dart";
+import "../../../domain/student/service/student_service.dart";
 
 part "student_auth_controller.g.dart";
 
@@ -37,9 +38,12 @@ class StudentAuthController extends _$StudentAuthController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
+      final studentRepository = ref.read(studentRepositoryDiProvider);
+      final service = StudentService(studentRepository);
       final logger = ref.read(loggerDiProvider);
       final signInUseCase = SignInUseCase(
         repository: studentAuthRepository,
+        service: service,
         logger: logger,
       );
       await signInUseCase.execute(
@@ -64,11 +68,13 @@ class StudentAuthController extends _$StudentAuthController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
+      final studentRepository = ref.read(studentRepositoryDiProvider);
       final command = UpdateStudentAuthInfoCommand(
           emailAddress: null, emailAddressToResetPassword: emailAddress);
       final logger = ref.read(loggerDiProvider);
       final usecase = UpdateStudentAuthInfoUseCase(
         repository: studentAuthRepository,
+        studentRepository: studentRepository,
         logger: logger,
       );
 

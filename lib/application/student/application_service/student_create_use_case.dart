@@ -45,8 +45,9 @@ class StudentCreateUseCase {
 
     await _studentAuthRepository.sendEmailVerification();
 
+    final studentId = _studentAuthRepository.getStudentIdSnapshot()!;
     final student =
-        _createInitially(_studentAuthRepository.getStudentIdSnapshot()!);
+        _createInitially(studentId: studentId, emailAddress: emailAddress);
 
     await _studentRepository.create(student);
 
@@ -54,7 +55,10 @@ class StudentCreateUseCase {
   }
 }
 
-Student _createInitially(final StudentId studentId) {
+Student _createInitially({
+  required final StudentId studentId,
+  required final EmailAddress emailAddress,
+}) {
   final studentName = Name(WordPair.random().asLowerCase);
   // final profilePhotoPath = createPath('initial_photo');
   final profilePhotoPath =
@@ -76,5 +80,6 @@ Student _createInitially(final StudentId studentId) {
     gradeOrGraduateStatus: gradeOrGraduateStatus,
     questionCount: questionCount,
     status: status,
+    emailAddress: emailAddress,
   );
 }

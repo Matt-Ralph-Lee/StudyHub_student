@@ -121,6 +121,8 @@ class L10n {
         return "プロフィールが見つかりませんでした。";
       case StudentUseCaseExceptionDetail.photoNotFound:
         return "画像が見つかりませんでした。";
+      case StudentUseCaseExceptionDetail.notSignedIn:
+        return "サインインしてません。サインインしてからやり直してください。";
     }
   }
 

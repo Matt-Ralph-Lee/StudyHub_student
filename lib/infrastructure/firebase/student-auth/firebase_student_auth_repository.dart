@@ -147,6 +147,9 @@ void _handleFirebaseAuthException(final FirebaseAuthException e) {
     case 'invalid-email':
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.invalidEmailAddress);
+    case 'auth/invalid-email':
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.invalidEmailAddress);
     case 'weak-password':
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.weakPassword);
@@ -156,12 +159,18 @@ void _handleFirebaseAuthException(final FirebaseAuthException e) {
     case 'user-not-found':
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.studentNotFound);
+    case 'auth/user-not-found':
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.studentNotFound);
     case 'user-disabled':
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.studentDisabled);
     case 'wrong-password':
       throw const StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.wrongPassword);
+    case 'invalid-credential':
+      throw const StudentAuthInfrastructureException(
+          StudentAuthInfrastructureExceptionDetail.invalidCredential);
     default:
       throw StudentAuthInfrastructureException(
           StudentAuthInfrastructureExceptionDetail.unexpected,

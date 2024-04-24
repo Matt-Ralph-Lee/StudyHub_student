@@ -56,6 +56,7 @@ class InMemoryBookmarksQueryService implements IGetBookmarksQueryService {
       gradeOrGraduateStatus: DefaultStudent.gradeOrGraduateStatus,
       questionCount: DefaultStudent.questionCount,
       status: DefaultStudent.status,
+      emailAddress: DefaultStudent.emailAddress,
     );
 
     final mostLikedAnswer = question.getMostLikedAnswer();

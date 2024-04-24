@@ -1,6 +1,7 @@
 import '../../school/models/school.dart';
 import '../../shared/name.dart';
 import '../../shared/profile_photo_path.dart';
+import '../../student_auth/models/email_address.dart';
 import '../models/gender.dart';
 import '../models/grade_or_graduate_status.dart';
 import '../models/occupation.dart';
@@ -19,4 +20,5 @@ class DefaultStudent {
   static const gradeOrGraduateStatus = GradeOrGraduateStatus.other;
   static final questionCount = QuestionCount(0);
   static const status = Status.beginner;
+  static final emailAddress = EmailAddress('default@example.com');
 }

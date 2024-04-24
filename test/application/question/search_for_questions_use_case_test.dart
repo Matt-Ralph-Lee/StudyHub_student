@@ -26,6 +26,7 @@ import 'package:studyhub/domain/student/models/question_count.dart';
 import 'package:studyhub/domain/student/models/status.dart';
 import 'package:studyhub/domain/student/models/student.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/teacher/models/bio.dart';
 import 'package:studyhub/domain/teacher/models/graduated.dart';
 import 'package:studyhub/domain/teacher/models/high_school.dart';
@@ -64,6 +65,7 @@ void main() {
       gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(2),
       status: Status.beginner,
+      emailAddress: EmailAddress('teststudent1@example.com'),
     );
     studentRepository.create(student1);
 
@@ -80,6 +82,7 @@ void main() {
       gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
+      emailAddress: EmailAddress('teststudent2@example.com'),
     );
     studentRepository.create(student2);
 
@@ -96,6 +99,7 @@ void main() {
       gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
+      emailAddress: EmailAddress('teststudent3@example.com'),
     );
     studentRepository.create(student3);
 
