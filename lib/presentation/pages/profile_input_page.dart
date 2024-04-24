@@ -84,6 +84,7 @@ class ProfileInputPage extends HookConsumerWidget {
               );
             },
           );
+          progress.value == 0;
         } else {
           Future.delayed(const Duration(seconds: 2)).then(
             (_) => push(context),
