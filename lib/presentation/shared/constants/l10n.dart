@@ -333,6 +333,7 @@ class L10n {
   static const passwordResetMailAddressInputExplanationText =
       "登録されているメールアドレスを入力してください";
   static const passwordResetButtonText = "再設定用のメールを送信";
+  static const resendedPasswordEmail = "再設定用のメールを送信しました";
 
   //mail_verification_page
   static const emailVerificationTitleText = "メール認証";
@@ -393,6 +394,9 @@ class L10n {
   static const otherFunctionsButtonExplanationText = "その他の機能";
   static const searchTeachersButtonText = "講師検索ページ";
   static const checkBlockingTeachersButtonText = "ブロック中の講師を確認する";
+  static const inquiryButtonText = "お問い合わせはこちら";
+  static const inquiryUrlText =
+      "https://docs.google.com/forms/d/e/1FAIpQLSdRR5KTIlTp2c5ijBXGOieGswcvzL6n0L0qdjEMv-GxT-F4HQ/viewform?usp=sf_link";
 
   static const termsOfServiceInformationButtonExplanationText = "規約情報など";
   static const termsOfServiceButtonText = "利用規約";
@@ -513,9 +517,9 @@ class L10n {
   static const confirmDeleteBlockingModalDescriptionText =
       "ブロックを外した講師からは回答が付く可能性があります。なおブロックを解除したことは講師には伝わらないのでご安心ください";
   static const termsOfUseUrlText =
-      "https://studyhub.hatenablog.com/entry/2024/02/27/104752?_gl=1*12lv4j6*_gcl_au*Mzk1MDY3MTAwLjE3MTI3MjEyODQ.";
+      "https://studyhub.hatenablog.com/entry/2023/10/10/190449?_gl=1*1v37cxu*_gcl_au*MTQ2Nzk4ODQ4LjE3MTM0Mjk5Njg.";
   static const privacyPolicyUrlText =
-      "https://studyhub.hatenablog.com/entry/2024/02/27/104840?_gl=1*12lv4j6*_gcl_au*Mzk1MDY3MTAwLjE3MTI3MjEyODQ.";
+      "https://studyhub.hatenablog.com/entry/2024/02/27/104840";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";
