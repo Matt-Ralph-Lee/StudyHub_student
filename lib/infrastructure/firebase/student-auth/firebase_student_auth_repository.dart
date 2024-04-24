@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
@@ -9,6 +11,7 @@ import '../../exceptions/student_auth/student_auth_infrastructure_exception_deta
 
 class FirebaseStudentAuthRepository implements IStudentAuthRepository {
   final FirebaseAuth _firebaseAuth;
+  final db = FirebaseFirestore.instance;
 
   FirebaseStudentAuthRepository({required final FirebaseAuth firebaseAuth})
       : _firebaseAuth = firebaseAuth;
@@ -136,6 +139,34 @@ class FirebaseStudentAuthRepository implements IStudentAuthRepository {
   Future<void> reloadUser() async {
     final firebaseUser = _firebaseAuth.currentUser;
     await firebaseUser?.reload();
+  }
+
+  @override
+  Future<void> registerToken({
+    required final EmailAddress? emailAddress,
+    required final StudentId? studentId,
+  }) async {
+    final messaging = FirebaseMessaging.instance;
+
+    final settings = await messaging.requestPermission();
+    if (settings.authorizationStatus != AuthorizationStatus.authorized) return;
+    final token = await messaging.getToken();
+
+    if (studentId != null) {
+      final docRef = db.collection("students").doc(studentId.value);
+      docRef.update({"fcmToken": token});
+      return;
+    }
+
+    if (emailAddress != null) {
+      final snapshot = await db
+          .collection("students")
+          .where("email", isEqualTo: emailAddress.value)
+          .get();
+      final docRef = snapshot.docs[0].reference;
+
+      docRef.update({"fcmToken": token});
+    }
   }
 }
 

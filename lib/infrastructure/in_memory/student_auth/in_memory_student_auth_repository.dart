@@ -164,4 +164,10 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
 
   @override
   Future<void> reloadUser() async {}
+
+  @override
+  Future<void> registerToken({
+    required EmailAddress? emailAddress,
+    required StudentId? studentId,
+  }) async {}
 }
