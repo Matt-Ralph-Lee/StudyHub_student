@@ -1,5 +1,6 @@
 import '../../school/models/school.dart';
 import '../../shared/profile_photo_path.dart';
+import '../../student_auth/models/email_address.dart';
 import '../exception/student_domain_exception.dart';
 import '../exception/student_domain_exception_detail.dart';
 import 'grade_or_graduate_status.dart';
@@ -20,6 +21,7 @@ class Student {
   GradeOrGraduateStatus _gradeOrGraduateStatus;
   QuestionCount _questionCount;
   Status _status;
+  EmailAddress _emailAddress;
 
   StudentId get studentId => _studentId;
   Name get name => _name;
@@ -30,6 +32,7 @@ class Student {
   GradeOrGraduateStatus get gradeOrGraduateStatus => _gradeOrGraduateStatus;
   QuestionCount get questionCount => _questionCount;
   Status get status => _status;
+  EmailAddress get emailAddress => _emailAddress;
 
   Student({
     required final StudentId studentId,
@@ -41,6 +44,7 @@ class Student {
     required final GradeOrGraduateStatus gradeOrGraduateStatus,
     required final QuestionCount questionCount,
     required final Status status,
+    required final EmailAddress emailAddress,
   })  : _studentId = studentId,
         _name = name,
         _profilePhotoPath = profilePhotoPath,
@@ -49,7 +53,8 @@ class Student {
         _school = school,
         _gradeOrGraduateStatus = gradeOrGraduateStatus,
         _questionCount = questionCount,
-        _status = status {
+        _status = status,
+        _emailAddress = emailAddress {
     setStatus();
     if (_occupation == Occupation.student &&
         _gradeOrGraduateStatus == GradeOrGraduateStatus.graduate) {
@@ -110,6 +115,10 @@ class Student {
     } else {
       _status = Status.beginner;
     }
+  }
+
+  void changeEmailAddress(final EmailAddress newEmailAddress) {
+    _emailAddress = newEmailAddress;
   }
 
   @override

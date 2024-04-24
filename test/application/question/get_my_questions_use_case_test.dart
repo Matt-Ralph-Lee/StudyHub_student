@@ -70,6 +70,7 @@ void main() {
       gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(2),
       status: Status.beginner,
+      emailAddress: EmailAddress('teststudent12345678901@example.com'),
     );
     studentRepository.create(student1);
 
@@ -86,6 +87,7 @@ void main() {
       gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
+      emailAddress: EmailAddress('teststudent12345678902@example.com'),
     );
     studentRepository.create(student2);
 
@@ -102,6 +104,7 @@ void main() {
       gradeOrGraduateStatus: GradeOrGraduateStatus.first,
       questionCount: QuestionCount(1),
       status: Status.beginner,
+      emailAddress: EmailAddress('teststudent12345678903@example.com'),
     );
     studentRepository.create(student3);
 

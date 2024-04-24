@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studyhub/domain/student_auth/models/email_address.dart';
 
 import '../../../domain/school/models/school.dart';
 import '../../../domain/shared/name.dart';
@@ -84,6 +85,7 @@ class FirebaseStudentRepository implements IStudentRepository {
     final profilePhoto = doc["profilePhoto"] as String;
     final questionCount = doc["questionCount"] as int;
     final school = doc["school"] as String;
+    final email = doc["email"] as String;
 
     Status status = Status.beginner;
     if (questionCount > Status.beginner.minQuestionCount.value) {
@@ -109,6 +111,7 @@ class FirebaseStudentRepository implements IStudentRepository {
       gradeOrGraduateStatus: gradeOrGraduateStatus,
       questionCount: QuestionCount(questionCount),
       status: status,
+      emailAddress: EmailAddress(email),
     );
 
     return student;
@@ -157,5 +160,25 @@ class FirebaseStudentRepository implements IStudentRepository {
     final docRef = db.collection("students").doc(studentId.value);
 
     await docRef.update({"questionCount": FieldValue.increment(1)});
+  }
+
+  @override
+  Future<bool> isStudent(EmailAddress emailAddress) async {
+    final querySnapshot = await db
+        .collection("students")
+        .where("email", isEqualTo: emailAddress.value)
+        .get();
+
+    return querySnapshot.docs.isNotEmpty;
+  }
+
+  @override
+  Future<void> updateEmailAddress({
+    required StudentId studentId,
+    required EmailAddress newEmailAddress,
+  }) async {
+    final docRef = db.collection("students").doc(studentId.value);
+
+    await docRef.update({"email": newEmailAddress.value});
   }
 }

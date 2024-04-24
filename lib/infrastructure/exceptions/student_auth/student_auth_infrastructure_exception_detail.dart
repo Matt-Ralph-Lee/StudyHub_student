@@ -10,6 +10,7 @@ enum StudentAuthInfrastructureExceptionDetail
   studentNotFound('student not found'),
   studentDisabled('student disabled'),
   wrongPassword('wrong password'),
+  invalidCredential('invalid credential'),
   // studentDataNotFound('student data not found'),
   // studentNotFound('student not found'),
   // noPassword('password is not set'),

@@ -6,6 +6,7 @@ enum StudentUseCaseExceptionDetail implements UseCaseExceptionDetail {
   noSchoolFound('no school found'),
   noProfileFound('no profile found'),
   photoNotFound('image not found'),
+  notSignedIn('not signed in'),
   ;
 
   const StudentUseCaseExceptionDetail(this._message);

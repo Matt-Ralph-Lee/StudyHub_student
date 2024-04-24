@@ -5,12 +5,14 @@ import 'package:studyhub/application/student_auth/application_service/update_stu
 import 'package:studyhub/application/student_auth/application_service/update_student_auth_info_use_case.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/models/password.dart';
+import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_get_student_auth_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
 import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() async {
   final repository = InMemoryStudentAuthRepository();
+  final stuentRepository = InMemoryStudentRepository();
   final queryService =
       InMemoryGetStudentAuthQueryService(repository: repository);
   final logger = InMemoryLogger();
@@ -36,6 +38,7 @@ void main() async {
     test('should update email address', () async {
       final useCase = UpdateStudentAuthInfoUseCase(
         repository: repository,
+        studentRepository: stuentRepository,
         logger: logger,
       );
       final command = UpdateStudentAuthInfoCommand(
@@ -47,6 +50,7 @@ void main() async {
     test('should send password update email', () async {
       final useCase = UpdateStudentAuthInfoUseCase(
         repository: repository,
+        studentRepository: stuentRepository,
         logger: logger,
       );
       final command = UpdateStudentAuthInfoCommand(

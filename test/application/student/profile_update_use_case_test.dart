@@ -52,6 +52,7 @@ void main() {
       gradeOrGraduateStatus: gradeOrGraduateStatus,
       questionCount: questionCount,
       status: status,
+      emailAddress: EmailAddress('teststudent@example.com'),
     );
     repository.store[studentId] = student;
   });
