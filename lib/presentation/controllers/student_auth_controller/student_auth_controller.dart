@@ -1,5 +1,4 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:studyhub/domain/student/service/student_service.dart";
 
 import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/student/student_provider.dart";
@@ -10,6 +9,7 @@ import "../../../application/student_auth/application_service/sign_in_use_case.d
 import "../../../application/student_auth/application_service/sign_out_use_case.dart";
 import "../../../application/student_auth/application_service/update_student_auth_info_command.dart";
 import "../../../application/student_auth/application_service/update_student_auth_info_use_case.dart";
+import "../../../domain/student/service/student_service.dart";
 
 part "student_auth_controller.g.dart";
 

@@ -1,10 +1,9 @@
-import 'package:studyhub/application/student/exception/student_use_case_exception.dart';
-import 'package:studyhub/application/student/exception/student_use_case_exception_detail.dart';
-import 'package:studyhub/domain/student/models/i_student_repository.dart';
-
+import '../../../domain/student/models/i_student_repository.dart';
 import '../../../domain/student_auth/models/email_address.dart';
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
 import '../../interfaces/i_logger.dart';
+import '../../student/exception/student_use_case_exception.dart';
+import '../../student/exception/student_use_case_exception_detail.dart';
 import 'update_student_auth_info_command.dart';
 
 class UpdateStudentAuthInfoUseCase {
