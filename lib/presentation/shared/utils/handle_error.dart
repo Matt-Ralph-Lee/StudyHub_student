@@ -45,7 +45,7 @@ import '../../../infrastructure/exceptions/question/question_infrastructure_exce
 import '../../../infrastructure/exceptions/student/student_infrastructure_exception_detail.dart';
 import '../../../infrastructure/exceptions/student_auth/student_auth_infrastructure_exception.dart';
 import '../../../infrastructure/exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
-import 'l10n.dart';
+import '../constants/l10n.dart';
 
 String handleError(Object? error) {
   //auth
