@@ -141,7 +141,8 @@ class QuestionCreateUseCase {
         senderPhotoPath: senderPhotoPath);
     final target = NotificationTarget(
         targetType: NotificationTargetType.questioned,
-        targetId: question.questionId);
+        targetId: question.questionId,
+        subTargetId: null);
     final title = NotificationTitle(question.questionTitle.value);
     final text = NotificationText(question.questionText.value);
 

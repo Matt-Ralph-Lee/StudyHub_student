@@ -29,6 +29,7 @@ class InMemoryGetMyNotificationsQueryService
               senderId: notification.sender.senderId,
               senderPhotoPath: notification.sender.senderPhotoPath.value,
               targetId: notification.target.targetId,
+              subTargetId: notification.target.subTargetId,
               title: notification.title.value,
               text: notification.text.value,
               postedAt: notification.postedAt,
