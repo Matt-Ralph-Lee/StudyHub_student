@@ -14,7 +14,7 @@ import '../../controllers/like_answer_controller/like_answer_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
-import '../../shared/constants/handle_error.dart';
+import '../../shared/utils/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';

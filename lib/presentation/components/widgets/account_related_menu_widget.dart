@@ -5,7 +5,7 @@ import "package:go_router/go_router.dart";
 
 import "../../controllers/delete_account_controller/delete_account_controller.dart";
 import "../../controllers/student_auth_controller/student_auth_controller.dart";
-import "../../shared/constants/handle_error.dart";
+import "../../shared/utils/handle_error.dart";
 import "../../shared/constants/l10n.dart";
 import "../../shared/constants/padding_set.dart";
 import "../../shared/constants/page_path.dart";
