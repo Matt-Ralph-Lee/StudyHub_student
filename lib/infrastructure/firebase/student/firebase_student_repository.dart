@@ -134,6 +134,7 @@ class FirebaseStudentRepository implements IStudentRepository {
     addData["bookmarks"] = <String>[];
     addData["favoriteTeachers"] = <String>[];
     addData["likedAnswers"] = <String>[];
+    addData["email"] = student.emailAddress.value;
 
     await docRef.set(addData);
   }
@@ -151,6 +152,7 @@ class FirebaseStudentRepository implements IStudentRepository {
     addData["profilePhoto"] = student.profilePhotoPath.value;
     addData["questionCount"] = student.questionCount.value;
     addData["school"] = student.school.value;
+    addData["email"] = student.emailAddress.value;
 
     await docRef.update(addData);
   }
