@@ -79,24 +79,24 @@ class SignUpWidget extends HookConsumerWidget {
       );
     }
 
-    void pushDummy(BuildContext context) {
-      context.push(PageId.home.path);
-    }
+    // void pushDummy(BuildContext context) {
+    //   context.push(PageId.home.path);
+    // }
 
-    void dummySignUp(BuildContext context) async {
-      ref
-          .read(studentAuthControllerProvider.notifier)
-          .signUp("hoge@gmail.com", "hogehoge")
-          .then((_) {
-        final currentState = ref.read(studentAuthControllerProvider);
-        if (currentState.hasError) {
-          final error = currentState.error;
-          handleError(error);
-        } else {
-          pushDummy(context);
-        }
-      });
-    }
+    // void dummySignUp(BuildContext context) async {
+    //   ref
+    //       .read(studentAuthControllerProvider.notifier)
+    //       .signUp("hoge@gmail.com", "hogehoge")
+    //       .then((_) {
+    //     final currentState = ref.read(studentAuthControllerProvider);
+    //     if (currentState.hasError) {
+    //       final error = currentState.error;
+    //       handleError(error);
+    //     } else {
+    //       pushDummy(context);
+    //     }
+    //   });
+    // }
 
     return Column(
       children: [

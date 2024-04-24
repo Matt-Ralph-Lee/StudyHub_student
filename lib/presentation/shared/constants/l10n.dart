@@ -333,6 +333,7 @@ class L10n {
   static const passwordResetMailAddressInputExplanationText =
       "登録されているメールアドレスを入力してください";
   static const passwordResetButtonText = "再設定用のメールを送信";
+  static const resendedPasswordEmail = "再設定用のメールを送信しました";
 
   //mail_verification_page
   static const emailVerificationTitleText = "メール認証";
