@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/shared/profile_photo_path.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
 import '../../../application/notification/application_service/i_get_my_notifications_query_service.dart';
@@ -17,6 +16,7 @@ import '../../../domain/notification/models/notification_title.dart';
 import '../../../domain/photo/models/photo_path.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../../../domain/shared/id.dart';
+import '../../../domain/shared/profile_photo_path.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../exceptions/notification/notification_infrastructure_exception.dart';

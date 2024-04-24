@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
+import "package:url_launcher/url_launcher.dart";
 
 import "../../shared/constants/l10n.dart";
 import "../../shared/constants/padding_set.dart";
@@ -12,6 +13,8 @@ class OtherFunctionMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final inquiryUrl = Uri.parse(L10n.inquiryUrlText);
+
     void push(BuildContext context) {
       context.push(PageId.searchTeachers.path);
     }
@@ -31,11 +34,18 @@ class OtherFunctionMenuWidget extends StatelessWidget {
             onPressed: () => push(context),
             buttonText: L10n.searchTeachersButtonText),
         SizedBox(
-          height: PaddingSet.getPaddingSize(context, 15),
+          height: PaddingSet.getPaddingSize(context, 30),
         ),
         ElevatedButtonForMenuItems(
           onPressed: () => navigateToBlockingPage(context),
           buttonText: L10n.checkBlockingTeachersButtonText,
+        ),
+        SizedBox(
+          height: PaddingSet.getPaddingSize(context, 30),
+        ),
+        ElevatedButtonForMenuItems(
+          onPressed: () => launchUrl(inquiryUrl),
+          buttonText: L10n.inquiryButtonText,
         )
       ],
     );

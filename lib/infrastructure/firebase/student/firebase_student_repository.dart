@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studyhub/domain/student_auth/models/email_address.dart';
 
 import '../../../domain/school/models/school.dart';
 import '../../../domain/shared/name.dart';
@@ -12,6 +11,7 @@ import '../../../domain/student/models/question_count.dart';
 import '../../../domain/student/models/status.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../../../domain/student_auth/models/email_address.dart';
 
 class FirebaseStudentRepository implements IStudentRepository {
   final db = FirebaseFirestore.instance;

@@ -30,17 +30,19 @@ class ResetPasswordPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: PaddingSet.getPaddingSize(
-          context,
-          PaddingSet.horizontalPadding,
-        )),
-        child: Column(
-          children: [
-            SizedBox(height: topPadding),
-            const ResetPasswordWidget(),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: PaddingSet.getPaddingSize(
+            context,
+            PaddingSet.horizontalPadding,
+          )),
+          child: Column(
+            children: [
+              SizedBox(height: topPadding),
+              const ResetPasswordWidget(),
+            ],
+          ),
         ),
       ),
     );

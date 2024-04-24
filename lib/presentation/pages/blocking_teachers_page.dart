@@ -72,17 +72,41 @@ class BlockingTeachersPage extends ConsumerWidget {
                       ));
                       return blockingsTeacherProfileState.when(
                         data: (teacherProfile) => teacherProfile != null
-                            ? TeacherSmallCardWidget(
-                                name: teacherProfile.name,
-                                bio: teacherProfile.bio,
-                                iconUrl: teacherProfile.profilePhotoPath,
-                                isSelected: false,
-                                onTap: () => context.push(
-                                    PageId.teacherProfile.path,
-                                    extra: blockingTeacher.teacherId),
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: PaddingSet.getPaddingSize(
+                                    context,
+                                    PaddingSet.pageViewItemLightPadding,
+                                  ),
+                                ),
+                                child: TeacherSmallCardWidget(
+                                  name: teacherProfile.name,
+                                  bio: teacherProfile.bio,
+                                  iconUrl: teacherProfile.profilePhotoPath,
+                                  isSelected: false,
+                                  onTap: () => context.push(
+                                      PageId.teacherProfile.path,
+                                      extra: blockingTeacher.teacherId),
+                                ),
                               )
-                            : const TeacherSmallCardSkeletonWidget(),
-                        loading: () => const TeacherSmallCardSkeletonWidget(),
+                            : Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: PaddingSet.getPaddingSize(
+                                    context,
+                                    PaddingSet.pageViewItemLightPadding,
+                                  ),
+                                ),
+                                child: const TeacherSmallCardSkeletonWidget(),
+                              ),
+                        loading: () => Padding(
+                          padding: EdgeInsets.only(
+                            bottom: PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.pageViewItemLightPadding,
+                            ),
+                          ),
+                          child: const TeacherSmallCardSkeletonWidget(),
+                        ),
                         error: (error, stack) {
                           return const Center(
                               child: Column(
