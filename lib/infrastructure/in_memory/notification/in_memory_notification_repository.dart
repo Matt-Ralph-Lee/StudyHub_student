@@ -129,6 +129,7 @@ class InMemoryNotificationInitialValue {
     target: NotificationTarget(
       targetType: NotificationTargetType.info,
       targetId: null,
+      subTargetId: null,
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText(
@@ -154,6 +155,7 @@ class InMemoryNotificationInitialValue {
     target: NotificationTarget(
       targetType: NotificationTargetType.info,
       targetId: null,
+      subTargetId: null,
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText(
@@ -179,6 +181,7 @@ class InMemoryNotificationInitialValue {
     target: NotificationTarget(
       targetType: NotificationTargetType.info,
       targetId: null,
+      subTargetId: null,
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText(
@@ -204,6 +207,7 @@ class InMemoryNotificationInitialValue {
     target: NotificationTarget(
       targetType: NotificationTargetType.info,
       targetId: null,
+      subTargetId: null,
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText(
@@ -229,6 +233,7 @@ class InMemoryNotificationInitialValue {
     target: NotificationTarget(
       targetType: NotificationTargetType.info,
       targetId: null,
+      subTargetId: null,
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),
@@ -253,6 +258,7 @@ class InMemoryNotificationInitialValue {
     target: NotificationTarget(
       targetType: NotificationTargetType.info,
       targetId: null,
+      subTargetId: null,
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),
@@ -277,6 +283,7 @@ class InMemoryNotificationInitialValue {
     target: NotificationTarget(
       targetType: NotificationTargetType.info,
       targetId: null,
+      subTargetId: null,
     ),
     title: NotificationTitle('運営からのお知らせ'),
     text: NotificationText('この度はご協力くださり、誠にありがとうございます。'),

@@ -33,7 +33,7 @@ class FirebaseGetMyNotificationsQueryService
         .collection("notification")
         .get();
 
-    final myNotificationList = <Notification>[];
+    final dtoList = <GetMyNotificationDto>[];
 
     for (final docSnapshot in querySnapshot.docs) {
       final doc = docSnapshot.data();
@@ -79,17 +79,24 @@ class FirebaseGetMyNotificationsQueryService
 
       final targetTypeData = doc["targetType"];
       final targetIdData = doc["targetId"];
-      Id? targetId;
+      final subTargetIdData = doc["subTargetId"];
+
       NotificationTargetType targetType;
+      Id? targetId;
+      Id? subTargetId;
+
       if (targetTypeData == "info") {
         targetType = NotificationTargetType.info;
         targetId = null;
+        subTargetId = null;
       } else if (targetTypeData == "answered") {
         targetType = NotificationTargetType.answered;
         targetId = AnswerId(targetIdData);
+        subTargetId = QuestionId(subTargetIdData);
       } else if (targetTypeData == "questioned") {
         targetType = NotificationTargetType.questioned;
         targetId = QuestionId(targetIdData);
+        subTargetId = null;
       } else {
         throw const NotificationInfrastructureException(
             NotificationInfrastructureExceptionDetail.invalidTargetType);
@@ -105,10 +112,13 @@ class FirebaseGetMyNotificationsQueryService
 
       final read = doc["read"];
 
-      final target =
-          NotificationTarget(targetType: targetType, targetId: targetId);
+      final target = NotificationTarget(
+        targetType: targetType,
+        targetId: targetId,
+        subTargetId: subTargetId,
+      );
 
-      myNotificationList.add(Notification(
+      final notification = Notification(
         notificationId: notificationId,
         sender: sender,
         receiver: receiver,
@@ -117,23 +127,22 @@ class FirebaseGetMyNotificationsQueryService
         text: text,
         postedAt: postedAt,
         read: read,
+      );
+
+      dtoList.add(GetMyNotificationDto(
+        type: notification.target.targetType,
+        id: notification.notificationId,
+        senderId: notification.sender.senderId,
+        senderPhotoPath: notification.sender.senderPhotoPath.value,
+        targetId: notification.target.targetId,
+        subTargetId: notification.target.subTargetId,
+        title: notification.title.value,
+        text: notification.text.value,
+        postedAt: notification.postedAt,
+        read: notification.read,
       ));
     }
 
-    final myNotificationDto = myNotificationList
-        .map((notification) => GetMyNotificationDto(
-              type: notification.target.targetType,
-              id: notification.notificationId,
-              senderId: notification.sender.senderId,
-              senderPhotoPath: notification.sender.senderPhotoPath.value,
-              targetId: notification.target.targetId,
-              title: notification.title.value,
-              text: notification.text.value,
-              postedAt: notification.postedAt,
-              read: notification.read,
-            ))
-        .toList();
-
-    return myNotificationDto;
+    return dtoList;
   }
 }
