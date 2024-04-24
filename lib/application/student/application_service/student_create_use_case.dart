@@ -51,6 +51,9 @@ class StudentCreateUseCase {
 
     await _studentRepository.create(student);
 
+    await _studentAuthRepository.registerToken(
+        emailAddress: null, studentId: studentId);
+
     _logger.info('END $StudentCreateUseCase.execute()');
   }
 }

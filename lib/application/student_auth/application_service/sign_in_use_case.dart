@@ -35,6 +35,9 @@ class SignInUseCase {
     }
     await _repository.signIn(emailAddress: emailAddress, password: password);
 
+    await _repository.registerToken(
+        emailAddress: emailAddress, studentId: null);
+
     _logger.info('END $SignInUseCase.execute()');
   }
 }
