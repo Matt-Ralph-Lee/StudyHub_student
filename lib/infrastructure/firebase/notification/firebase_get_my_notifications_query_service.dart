@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studyhub/domain/shared/profile_photo_path.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
 import '../../../application/notification/application_service/i_get_my_notifications_query_service.dart';
@@ -11,9 +12,13 @@ import '../../../domain/notification/models/notification_sender.dart';
 import '../../../domain/notification/models/notification_sender_type.dart';
 import '../../../domain/notification/models/notification_target.dart';
 import '../../../domain/notification/models/notification_target_type.dart';
+import '../../../domain/notification/models/notification_text.dart';
+import '../../../domain/notification/models/notification_title.dart';
+import '../../../domain/photo/models/photo_path.dart';
 import '../../../domain/question/models/question_id.dart';
 import '../../../domain/shared/id.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../../../domain/teacher/models/teacher_id.dart';
 import '../../exceptions/notification/notification_infrastructure_exception.dart';
 import '../../exceptions/notification/notification_infrastructure_exception_detail.dart';
 
@@ -37,20 +42,29 @@ class FirebaseGetMyNotificationsQueryService
       final notificationId = NotificationId(notificationIdData);
 
       final senderTypeData = doc["senderType"];
-      NotificationSenderType senderType;
+      final senderIdData = doc["senderId"];
+      final senderPhotoPathData = doc["senderPhotoPath"];
+
+      final Id? senderId;
+      final PhotoPath senderPhotoPath;
+      final NotificationSenderType senderType;
+
       if (senderTypeData == "admin") {
         senderType = NotificationSenderType.admin;
+        senderId = null;
+        senderPhotoPath = ProfilePhotoPath(senderPhotoPathData);
       } else if (senderTypeData == "student") {
         senderType = NotificationSenderType.student;
+        senderId = StudentId(senderIdData);
+        senderPhotoPath = ProfilePhotoPath(senderPhotoPathData);
       } else if (senderTypeData == "teacher") {
         senderType = NotificationSenderType.teacher;
+        senderId = TeacherId(senderIdData);
+        senderPhotoPath = ProfilePhotoPath(senderPhotoPathData);
       } else {
         throw const NotificationInfrastructureException(
             NotificationInfrastructureExceptionDetail.invalidSenderType);
       }
-
-      final senderId = doc["senderId"];
-      final senderPhotoPath = doc["senderPhotoPath"];
 
       final sender = NotificationSender(
           senderType: senderType,
@@ -81,9 +95,13 @@ class FirebaseGetMyNotificationsQueryService
             NotificationInfrastructureExceptionDetail.invalidTargetType);
       }
 
-      final title = doc["title"];
-      final text = doc["text"];
-      final postedAt = (doc["postedAt"] as Timestamp).toDate();
+      final titleData = doc["title"];
+      final textData = doc["text"];
+
+      final title = NotificationTitle(titleData);
+      final text = NotificationText(textData);
+
+      final postedAt = (doc["posted"] as Timestamp).toDate();
 
       final read = doc["read"];
 
