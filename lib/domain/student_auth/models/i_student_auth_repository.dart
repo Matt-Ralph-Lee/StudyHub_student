@@ -20,4 +20,8 @@ abstract class IStudentAuthRepository {
   StudentId? getStudentIdSnapshot();
 
   Future<void> reloadUser();
+  Future<void> registerToken({
+    required final EmailAddress? emailAddress,
+    required final StudentId? studentId,
+  });
 }
