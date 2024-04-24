@@ -105,6 +105,8 @@ class L10n {
         return "パスワードが弱いです。";
       case StudentAuthInfrastructureExceptionDetail.wrongPassword:
         return "パスワードが誤っています。";
+      case StudentAuthInfrastructureExceptionDetail.invalidCredential:
+        return "メールアドレスかパスワードが間違っています。";
     }
   }
 
