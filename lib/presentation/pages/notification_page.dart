@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../application/notification/application_service/get_my_notification_dto.dart';
+import '../../domain/notification/models/notification_target_type.dart';
 import '../components/parts/text_for_error.dart';
 import '../components/parts/text_for_no_notifications_found.dart';
 import '../components/parts/text_for_notification_section_header.dart';
@@ -73,8 +74,51 @@ class NotificationPage extends ConsumerWidget {
 
         notifications.add(Padding(
           padding: const EdgeInsets.only(bottom: 20),
-          child: NotificationCardWidget(
-            getMyNotificationDto: notificationDto,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (notificationDto.type == NotificationTargetType.answered)
+                Column(
+                  children: [
+                    Text(
+                      L10n.answeredNotificationTest,
+                      style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.body,
+                        ),
+                        color: ColorSet.of(context).primary,
+                      ),
+                    ),
+                    SizedBox(
+                      height: PaddingSet.getPaddingSize(context, 15),
+                    ),
+                  ],
+                ),
+              if (notificationDto.type == NotificationTargetType.info)
+                Column(
+                  children: [
+                    Text(
+                      L10n.infoText,
+                      style: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.body,
+                        ),
+                        color: ColorSet.of(context).primary,
+                      ),
+                    ),
+                    SizedBox(
+                      height: PaddingSet.getPaddingSize(context, 15),
+                    ),
+                  ],
+                ),
+              NotificationCardWidget(
+                getMyNotificationDto: notificationDto,
+              ),
+            ],
           ),
         ));
       }
@@ -152,6 +196,7 @@ class NotificationPage extends ConsumerWidget {
             ),
           ),
           error: (error, stack) {
+            print(error);
             return const Center(
                 child: Column(
               children: [

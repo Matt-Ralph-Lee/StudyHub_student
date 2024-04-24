@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyhub/domain/question/models/question_id.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
+import '../../../domain/notification/models/notification_target_type.dart';
 import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/read_notification_controller/read_notification_controller.dart';
 import '../../shared/constants/color_set.dart';
@@ -21,9 +23,35 @@ class NotificationCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final screenWidth = MediaQuery.of(context).size.width;
+
     void navigateToNotificationDetailPage(BuildContext context) {
       context.push(PageId.notificationDetailPage.path,
           extra: getMyNotificationDto);
+      ref
+          .read(readNotificationControllerProvider.notifier)
+          .readNotification(getMyNotificationDto.id)
+          .then((_) {
+        final currentState = ref.read(readNotificationControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
+        }
+      });
+    }
+
+    void navigateToQuestionAndAnswerPage(BuildContext context) {
+      context.push(PageId.questionAndAnswerPage.path, extra: [
+        getMyNotificationDto.subTargetId as QuestionId,
+        false,
+      ]);
       ref
           .read(readNotificationControllerProvider.notifier)
           .readNotification(getMyNotificationDto.id)
@@ -60,7 +88,9 @@ class NotificationCardWidget extends ConsumerWidget {
         );
 
     return GestureDetector(
-      onTap: () => navigateToNotificationDetailPage(context),
+      onTap: () => getMyNotificationDto.type == NotificationTargetType.answered
+          ? navigateToQuestionAndAnswerPage(context)
+          : navigateToNotificationDetailPage(context),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(

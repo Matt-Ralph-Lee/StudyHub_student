@@ -37,10 +37,12 @@ import '../shared/constants/padding_set.dart';
 class QuestionAndAnswerPage extends HookConsumerWidget {
   final QuestionId questionId;
   final bool isMyQuestion;
+  final answerId;
   const QuestionAndAnswerPage({
     super.key,
     required this.questionId,
     required this.isMyQuestion,
+    required this.answerId,
   });
 
   @override
@@ -254,11 +256,21 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ),
             getAnswerControllerState.when(
               data: (answerDto) {
+                int initialIndex = 0;
+                if (answerId != null) {
+                  initialIndex = answerDto
+                      .indexWhere((answer) => answer.answerId == answerId);
+                  initialIndex = initialIndex == -1 ? 0 : initialIndex;
+                }
+                selectedAnswerIndex.value = initialIndex;
                 return answerDto.isNotEmpty
                     ? Column(
                         children: [
                           ExpandablePageView.builder(
-                            controller: PageController(viewportFraction: 0.9),
+                            controller: PageController(
+                              viewportFraction: 0.9,
+                              initialPage: initialIndex,
+                            ),
                             itemCount: answerDto.length,
                             onPageChanged: (newIndex) {
                               selectedAnswerIndex.value = newIndex;
@@ -293,7 +305,10 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                               .answerPhotoList
                               .isNotEmpty)
                             ExpandablePageView.builder(
-                              controller: PageController(viewportFraction: 0.9),
+                              controller: PageController(
+                                viewportFraction: 0.9,
+                                initialPage: initialIndex,
+                              ),
                               scrollDirection: Axis.horizontal,
                               itemCount: answerDto[selectedAnswerIndex.value]
                                   .answerPhotoList
