@@ -16,7 +16,7 @@ import '../components/widgets/student_school_name_and_grade_input_widget.dart';
 import '../components/widgets/user_name_input_widget.dart';
 import '../controllers/profile_update_controller/profile_update_controller.dart';
 import '../shared/constants/color_set.dart';
-import '../shared/constants/handle_error.dart';
+import '../shared/utils/handle_error.dart';
 import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
@@ -75,7 +75,7 @@ class ProfileInputPage extends HookConsumerWidget {
         final currentState = ref.read(profileUpdateControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

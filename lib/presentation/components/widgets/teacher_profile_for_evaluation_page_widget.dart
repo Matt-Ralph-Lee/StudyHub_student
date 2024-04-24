@@ -12,7 +12,7 @@ import '../../controllers/get_teacher_profile_controller/get_teacher_profile_con
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
-import '../../shared/constants/handle_error.dart';
+import '../../shared/utils/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
@@ -43,7 +43,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             ref.read(addFavoriteTeacherControllerProvider);
         if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -70,7 +70,7 @@ class TeacherProfileForEvaluationPageWidget extends ConsumerWidget {
             ref.read(deleteFavoriteTeacherControllerProvider);
         if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

@@ -4,10 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../application/question/exception/question_use_case_exception.dart';
-import '../../application/question/exception/question_use_case_exception_detail.dart';
-import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception.dart';
-import '../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
 import '../../domain/answer_list/models/answer_id.dart';
 import '../../domain/question/models/question_id.dart';
 import '../../domain/teacher/models/teacher_id.dart';
@@ -25,7 +21,7 @@ import '../controllers/resolve_question_controller/resolve_question_controller.d
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
-import '../shared/constants/handle_error.dart';
+import '../shared/utils/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
@@ -75,7 +71,7 @@ class EvaluationPage extends HookConsumerWidget {
             final currentState = ref.read(resolveQuestionControllerProvider);
             if (currentState.hasError) {
               final error = currentState.error;
-              final errorMessage = handleError(context, error);
+              final errorMessage = handleError(error);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -124,7 +120,7 @@ class EvaluationPage extends HookConsumerWidget {
           final currentState = ref.read(addTeacherEvaluationControllerProvider);
           if (currentState.hasError) {
             final error = currentState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {

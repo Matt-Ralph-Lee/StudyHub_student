@@ -3,10 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../application/blockings/exception/blockings_use_case_exception.dart';
-import '../../../application/blockings/exception/blockings_use_case_exception_detail.dart';
-import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception.dart';
-import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
 import '../../../application/teacher/application_service/get_teacher_profile_dto.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../controllers/add_blockings_controller/add_blockings_controller.dart';
@@ -17,7 +13,7 @@ import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
-import '../../shared/constants/handle_error.dart';
+import '../../shared/utils/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/padding_set.dart';
 import '../parts/completion_snack_bar.dart';
@@ -53,7 +49,7 @@ class TeacherProfileWidget extends ConsumerWidget {
           final addBlockingsState = ref.read(addBlockingsControllerProvider);
           if (addBlockingsState.hasError) {
             final error = addBlockingsState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -90,7 +86,7 @@ class TeacherProfileWidget extends ConsumerWidget {
               ref.read(deleteBlockingsControllerProvider);
           if (deleteBlockingsState.hasError) {
             final error = deleteBlockingsState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -121,7 +117,7 @@ class TeacherProfileWidget extends ConsumerWidget {
             ref.read(addFavoriteTeacherControllerProvider);
         if (addFavoriteTeacherControllerState.hasError) {
           final error = addFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -148,7 +144,7 @@ class TeacherProfileWidget extends ConsumerWidget {
             ref.read(deleteFavoriteTeacherControllerProvider);
         if (deleteFavoriteTeacherControllerState.hasError) {
           final error = deleteFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

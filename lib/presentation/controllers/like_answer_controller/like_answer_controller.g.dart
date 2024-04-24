@@ -7,7 +7,7 @@ part of 'like_answer_controller.dart';
 // **************************************************************************
 
 String _$likeAnswerControllerHash() =>
-    r'de0f7507c478fe95f62483a5fceae28cad2ceed9';
+    r'f0aab35157a055adb3b3018f648bc97b763c82a8';
 
 /// See also [LikeAnswerController].
 @ProviderFor(LikeAnswerController)

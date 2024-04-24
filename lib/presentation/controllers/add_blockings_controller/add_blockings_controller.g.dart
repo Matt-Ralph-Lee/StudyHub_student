@@ -7,7 +7,7 @@ part of 'add_blockings_controller.dart';
 // **************************************************************************
 
 String _$addBlockingsControllerHash() =>
-    r'6ed04802c507e40bf6420d7ac1b2f4ac33c4596d';
+    r'cb8ffb1287b7eaa61b39977e65ce015f4efc7288';
 
 /// See also [AddBlockingsController].
 @ProviderFor(AddBlockingsController)

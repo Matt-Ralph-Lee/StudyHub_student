@@ -1,6 +1,7 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../application/di/favorite_teacher/query_service/get_favorite_teacher_query_service_provider.dart";
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/favorite_teachers/application_service/get_favorite_teacher_dto.dart";
 import "../../../application/favorite_teachers/application_service/get_favorite_teacher_use_case.dart";
@@ -30,8 +31,12 @@ class GetFavoriteTeacherController extends _$GetFavoriteTeacherController {
   Future<List<GetFavoriteTeacherDto>> build() async {
     final session = ref.read(nonNullSessionProvider);
     final queryService = ref.watch(getFavoriteTeacherQueryServiceDiProvider);
-    final getFavoriteTeacherUseCase =
-        GetFavoriteTeacherUseCase(session: session, queryService: queryService);
+    final logger = ref.read(loggerDiProvider);
+    final getFavoriteTeacherUseCase = GetFavoriteTeacherUseCase(
+      session: session,
+      queryService: queryService,
+      logger: logger,
+    );
     final favoriteTeachers = getFavoriteTeacherUseCase.execute();
     return favoriteTeachers;
   }

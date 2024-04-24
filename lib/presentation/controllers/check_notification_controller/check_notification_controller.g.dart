@@ -7,7 +7,7 @@ part of 'check_notification_controller.dart';
 // **************************************************************************
 
 String _$checkNotificationControllerHash() =>
-    r'e53ae2540a2e2ea95c82544aec170c80c868fd7b';
+    r'7e58ad9cd83a628f1ff603908ab6c54a75768db8';
 
 /// See also [CheckNotificationController].
 @ProviderFor(CheckNotificationController)

@@ -1,5 +1,6 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/session/session_provider.dart";
 import "../../../application/di/student/student_repository_provider.dart";
 import "../../../application/student/application_service/get_student_dto.dart";
@@ -12,13 +13,16 @@ class StudentController extends _$StudentController {
   @override
   Future<GetStudentDto> build() async {
     final session = ref.watch(sessionDiProvider);
+    final repository = ref.watch(studentRepositoryDiProvider);
+    final logger = ref.read(loggerDiProvider);
     if (session == null) {
       throw Exception('Session is null');
     }
 
     final getStudentUseCase = GetStudentUseCase(
       session: session,
-      repository: ref.watch(studentRepositoryDiProvider),
+      repository: repository,
+      logger: logger,
     );
 
     final getStudentDto = getStudentUseCase.execute();

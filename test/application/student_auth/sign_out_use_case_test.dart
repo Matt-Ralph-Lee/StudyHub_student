@@ -6,11 +6,13 @@ import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/domain/student_auth/models/password.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_get_student_auth_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() async {
   final repository = InMemoryStudentAuthRepository();
   final queryService =
       InMemoryGetStudentAuthQueryService(repository: repository);
+  final logger = InMemoryLogger();
 
   final stream = queryService.userChanges();
   stream.listen((data) {
@@ -31,7 +33,10 @@ void main() async {
 
   group('sign out use case', () {
     test('should sign out', () async {
-      final useCase = SignOutUseCase(repository: repository);
+      final useCase = SignOutUseCase(
+        repository: repository,
+        logger: logger,
+      );
       await useCase.execute();
     });
   });

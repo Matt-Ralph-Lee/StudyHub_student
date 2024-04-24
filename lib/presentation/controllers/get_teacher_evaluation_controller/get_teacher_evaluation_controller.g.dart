@@ -7,7 +7,7 @@ part of 'get_teacher_evaluation_controller.dart';
 // **************************************************************************
 
 String _$getTeacherEvaluationControllerHash() =>
-    r'27afb530240dabaf92b2903efb1662c5bbf6fb63';
+    r'98925c505644756f6f9524c5453b0f43dd5d76b7';
 
 /// Copied from Dart SDK
 class _SystemHash {

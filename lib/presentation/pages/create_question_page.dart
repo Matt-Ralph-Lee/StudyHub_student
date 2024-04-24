@@ -22,12 +22,12 @@ import '../components/widgets/question_pictures_for_confirm_widget.dart';
 import '../components/widgets/error_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_confirm_skeleton_widget.dart';
 import '../components/widgets/teacher_profile_for_question_page_widget.dart';
-import '../controllers/add_question_controller/add_question_contorller.dart';
+import '../controllers/add_question_controller/add_question_controller.dart';
 import '../controllers/get_teacher_profile_controller/get_teacher_profile_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
-import '../shared/constants/handle_error.dart';
+import '../shared/utils/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
@@ -185,7 +185,7 @@ class CreateQuestionPage extends HookConsumerWidget {
           final addQuestionState = ref.read(addQuestionControllerProvider);
           if (addQuestionState.hasError) {
             final error = addQuestionState.error;
-            final errorMessage = handleError(context, error);
+            final errorMessage = handleError(error);
             showDialog(
               context: context,
               builder: (BuildContext context) {

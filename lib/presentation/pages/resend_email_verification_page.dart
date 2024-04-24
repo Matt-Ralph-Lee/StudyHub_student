@@ -7,7 +7,7 @@ import '../components/widgets/error_modal_widget.dart';
 import '../controllers/delete_account_controller/delete_account_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
-import '../shared/constants/handle_error.dart';
+import '../shared/utils/handle_error.dart';
 import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
 
@@ -31,7 +31,7 @@ class ResendEmailVerificationPage extends ConsumerWidget {
         final deleteAccountState = ref.read(deleteAccountControllerProvider);
         if (deleteAccountState.hasError) {
           final error = deleteAccountState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {

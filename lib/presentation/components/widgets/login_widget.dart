@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../controllers/student_auth_controller/student_auth_controller.dart';
-import '../../shared/constants/handle_error.dart';
+import '../../shared/utils/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/elevated_button_for_auth.dart';
@@ -84,7 +84,7 @@ class LoginWidget extends HookConsumerWidget {
                         ref.read(studentAuthControllerProvider);
                     if (currentState.hasError) {
                       final error = currentState.error;
-                      final errorMessage = handleError(context, error);
+                      final errorMessage = handleError(error);
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {

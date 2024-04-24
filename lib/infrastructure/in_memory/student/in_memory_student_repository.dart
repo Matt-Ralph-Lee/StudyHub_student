@@ -9,6 +9,7 @@ import '../../../domain/student/models/question_count.dart';
 import '../../../domain/student/models/status.dart';
 import '../../../domain/student/models/student.dart';
 import '../../../domain/student/models/student_id.dart';
+import '../../../domain/student_auth/models/email_address.dart';
 import '../../exceptions/student/student_infrastructure_exception.dart';
 import '../../exceptions/student/student_infrastructure_exception_detail.dart';
 
@@ -62,43 +63,69 @@ class InMemoryStudentRepository implements IStudentRepository {
     student.incrementQuestionCount();
     store[studentId] = student;
   }
+
+  @override
+  Future<bool> isStudent(final EmailAddress emailAddress) async {
+    return store.values
+        .map((student) => student.emailAddress)
+        .contains(emailAddress);
+  }
+
+  @override
+  Future<void> updateEmailAddress({
+    required final StudentId studentId,
+    required final EmailAddress newEmailAddress,
+  }) async {
+    final current = store[studentId];
+    if (current == null) {
+      throw const StudentInfrastructureException(
+          StudentInfrastructureExceptionDetail.studentNotFound);
+    }
+    current.changeEmailAddress(newEmailAddress);
+  }
 }
 
 class InMemoryStudentInitialValue {
   static final userStudentId = StudentId("000000000000000000000000010000");
   static final student1 = Student(
-      studentId: StudentId('000000000000000000000000000001'),
-      name: Name('太郎'),
-      profilePhotoPath:
-          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'),
-      gender: Gender.male,
-      occupation: Occupation.student,
-      school: School('第一高校'),
-      gradeOrGraduateStatus: GradeOrGraduateStatus.first,
-      questionCount: QuestionCount(1),
-      status: Status.beginner);
+    studentId: StudentId('000000000000000000000000000001'),
+    name: Name('太郎'),
+    profilePhotoPath:
+        ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon.jpg'),
+    gender: Gender.male,
+    occupation: Occupation.student,
+    school: School('第一高校'),
+    gradeOrGraduateStatus: GradeOrGraduateStatus.first,
+    questionCount: QuestionCount(1),
+    status: Status.beginner,
+    emailAddress: EmailAddress('student1@example.com'),
+  );
 
   static final student2 = Student(
-      studentId: StudentId('000000000000000000000000000002'),
-      name: Name('花子'),
-      profilePhotoPath:
-          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
-      gender: Gender.female,
-      occupation: Occupation.student,
-      school: School('第一高校'),
-      gradeOrGraduateStatus: GradeOrGraduateStatus.second,
-      questionCount: QuestionCount(1),
-      status: Status.beginner);
+    studentId: StudentId('000000000000000000000000000002'),
+    name: Name('花子'),
+    profilePhotoPath:
+        ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
+    gender: Gender.female,
+    occupation: Occupation.student,
+    school: School('第一高校'),
+    gradeOrGraduateStatus: GradeOrGraduateStatus.second,
+    questionCount: QuestionCount(1),
+    status: Status.beginner,
+    emailAddress: EmailAddress('student2@example.com'),
+  );
 
   static final student3 = Student(
-      studentId: StudentId('01234567890123456789'),
-      name: Name('権兵衛'),
-      profilePhotoPath:
-          ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
-      gender: Gender.male,
-      occupation: Occupation.student,
-      school: School('第三高校'),
-      gradeOrGraduateStatus: GradeOrGraduateStatus.second,
-      questionCount: QuestionCount(0),
-      status: Status.beginner);
+    studentId: StudentId('01234567890123456789'),
+    name: Name('権兵衛'),
+    profilePhotoPath:
+        ProfilePhotoPath('assets/photos/profile_photo/sample_user_icon2.jpg'),
+    gender: Gender.male,
+    occupation: Occupation.student,
+    school: School('第三高校'),
+    gradeOrGraduateStatus: GradeOrGraduateStatus.second,
+    questionCount: QuestionCount(0),
+    status: Status.beginner,
+    emailAddress: EmailAddress('student3@example.com'),
+  );
 }

@@ -7,7 +7,7 @@ part of 'get_popular_teacher_controller.dart';
 // **************************************************************************
 
 String _$getPopularTeacherControllerHash() =>
-    r'45db2329ff992f0880dc1a98eb17afb535bfdb2f';
+    r'09d807bb40f843ed397537a631cf1dcb3742e950';
 
 /// See also [GetPopularTeacherController].
 @ProviderFor(GetPopularTeacherController)

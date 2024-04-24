@@ -18,11 +18,13 @@ import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/question/in_memory_question_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   final repository = InMemoryQuestionRepository();
   final photoRepository = InMemoryPhotoRepository();
+  final logger = InMemoryLogger();
 
   final questionId = QuestionId('01234567890123456789');
   final questionTitle = QuestionTitle("数学がわからない");
@@ -63,9 +65,11 @@ void main() {
           localPathList: null,
           selectedTeacherList: null);
       final useCase = QuestionEditUseCase(
-          session: session,
-          repository: repository,
-          photoRepository: photoRepository);
+        session: session,
+        repository: repository,
+        photoRepository: photoRepository,
+        logger: logger,
+      );
 
       useCase.execute(command);
       debugPrint(repository.store.toString());
@@ -79,9 +83,11 @@ void main() {
           localPathList: ["assets/photos/profile_photo/sample_picture_hd.png"],
           selectedTeacherList: null);
       final useCase = QuestionEditUseCase(
-          session: session,
-          repository: repository,
-          photoRepository: photoRepository);
+        session: session,
+        repository: repository,
+        photoRepository: photoRepository,
+        logger: logger,
+      );
 
       useCase.execute(command);
       debugPrint(repository.store.toString());
@@ -95,9 +101,11 @@ void main() {
           localPathList: null,
           selectedTeacherList: ["01234567890123456789"]);
       final useCase = QuestionEditUseCase(
-          session: session,
-          repository: repository,
-          photoRepository: photoRepository);
+        session: session,
+        repository: repository,
+        photoRepository: photoRepository,
+        logger: logger,
+      );
 
       useCase.execute(command);
       debugPrint(repository.store.toString());

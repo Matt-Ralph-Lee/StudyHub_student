@@ -7,7 +7,7 @@ part of 'get_teacher_profile_controller.dart';
 // **************************************************************************
 
 String _$getTeacherProfileControllerHash() =>
-    r'ce4517019bd7a95d25c184e7a347857a33306df5';
+    r'6a60cd690e6995b36ac8ed44c570cb784d5db868';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,10 +32,10 @@ class _SystemHash {
 
 abstract class _$GetTeacherProfileController
     extends BuildlessAutoDisposeAsyncNotifier<GetTeacherProfileDto?> {
-  late final TeacherId teacherID;
+  late final TeacherId teacherId;
 
   FutureOr<GetTeacherProfileDto?> build(
-    TeacherId teacherID,
+    TeacherId teacherId,
   );
 }
 
@@ -51,10 +51,10 @@ class GetTeacherProfileControllerFamily
 
   /// See also [GetTeacherProfileController].
   GetTeacherProfileControllerProvider call(
-    TeacherId teacherID,
+    TeacherId teacherId,
   ) {
     return GetTeacherProfileControllerProvider(
-      teacherID,
+      teacherId,
     );
   }
 
@@ -63,7 +63,7 @@ class GetTeacherProfileControllerFamily
     covariant GetTeacherProfileControllerProvider provider,
   ) {
     return call(
-      provider.teacherID,
+      provider.teacherId,
     );
   }
 
@@ -88,9 +88,9 @@ class GetTeacherProfileControllerProvider
         GetTeacherProfileDto?> {
   /// See also [GetTeacherProfileController].
   GetTeacherProfileControllerProvider(
-    TeacherId teacherID,
+    TeacherId teacherId,
   ) : this._internal(
-          () => GetTeacherProfileController()..teacherID = teacherID,
+          () => GetTeacherProfileController()..teacherId = teacherId,
           from: getTeacherProfileControllerProvider,
           name: r'getTeacherProfileControllerProvider',
           debugGetCreateSourceHash:
@@ -100,7 +100,7 @@ class GetTeacherProfileControllerProvider
           dependencies: GetTeacherProfileControllerFamily._dependencies,
           allTransitiveDependencies:
               GetTeacherProfileControllerFamily._allTransitiveDependencies,
-          teacherID: teacherID,
+          teacherId: teacherId,
         );
 
   GetTeacherProfileControllerProvider._internal(
@@ -110,17 +110,17 @@ class GetTeacherProfileControllerProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.teacherID,
+    required this.teacherId,
   }) : super.internal();
 
-  final TeacherId teacherID;
+  final TeacherId teacherId;
 
   @override
   FutureOr<GetTeacherProfileDto?> runNotifierBuild(
     covariant GetTeacherProfileController notifier,
   ) {
     return notifier.build(
-      teacherID,
+      teacherId,
     );
   }
 
@@ -129,13 +129,13 @@ class GetTeacherProfileControllerProvider
     return ProviderOverride(
       origin: this,
       override: GetTeacherProfileControllerProvider._internal(
-        () => create()..teacherID = teacherID,
+        () => create()..teacherId = teacherId,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        teacherID: teacherID,
+        teacherId: teacherId,
       ),
     );
   }
@@ -149,13 +149,13 @@ class GetTeacherProfileControllerProvider
   @override
   bool operator ==(Object other) {
     return other is GetTeacherProfileControllerProvider &&
-        other.teacherID == teacherID;
+        other.teacherId == teacherId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, teacherID.hashCode);
+    hash = _SystemHash.combine(hash, teacherId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -163,8 +163,8 @@ class GetTeacherProfileControllerProvider
 
 mixin GetTeacherProfileControllerRef
     on AutoDisposeAsyncNotifierProviderRef<GetTeacherProfileDto?> {
-  /// The parameter `teacherID` of this provider.
-  TeacherId get teacherID;
+  /// The parameter `teacherId` of this provider.
+  TeacherId get teacherId;
 }
 
 class _GetTeacherProfileControllerProviderElement
@@ -173,8 +173,8 @@ class _GetTeacherProfileControllerProviderElement
   _GetTeacherProfileControllerProviderElement(super.provider);
 
   @override
-  TeacherId get teacherID =>
-      (origin as GetTeacherProfileControllerProvider).teacherID;
+  TeacherId get teacherId =>
+      (origin as GetTeacherProfileControllerProvider).teacherId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

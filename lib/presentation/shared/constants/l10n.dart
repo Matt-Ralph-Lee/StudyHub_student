@@ -105,6 +105,8 @@ class L10n {
         return "パスワードが弱いです。";
       case StudentAuthInfrastructureExceptionDetail.wrongPassword:
         return "パスワードが誤っています。";
+      case StudentAuthInfrastructureExceptionDetail.invalidCredential:
+        return "メールアドレスかパスワードが間違っています。";
     }
   }
 
@@ -121,6 +123,8 @@ class L10n {
         return "プロフィールが見つかりませんでした。";
       case StudentUseCaseExceptionDetail.photoNotFound:
         return "画像が見つかりませんでした。";
+      case StudentUseCaseExceptionDetail.notSignedIn:
+        return "サインインしてません。サインインしてからやり直してください。";
     }
   }
 

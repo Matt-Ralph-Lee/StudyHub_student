@@ -9,10 +9,12 @@ import 'package:studyhub/domain/question/models/question_id.dart';
 import 'package:studyhub/domain/student/models/student_id.dart';
 import 'package:studyhub/domain/student_auth/models/email_address.dart';
 import 'package:studyhub/infrastructure/in_memory/bookmarks/in_memory_bookmarks_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() {
   final session = MockSession();
   var repository = InMemoryBookmarksRepository();
+  final logger = InMemoryLogger();
 
   final studentId = session.studentId;
   final questionId = QuestionId("01234567890123456789");
@@ -22,8 +24,11 @@ void main() {
   group("favorite teachers delete use case", () {
     test("should delete a favorite teacher", () async {
       repository.store[studentId] = favoriteTeacher;
-      final usecase =
-          BookmarksDeleteUseCase(session: session, repository: repository);
+      final usecase = BookmarksDeleteUseCase(
+        session: session,
+        repository: repository,
+        logger: logger,
+      );
       await usecase.execute(questionId);
       debugPrint(repository.store.toString());
     });
@@ -32,8 +37,11 @@ void main() {
         "should throw teacher not found error, cause it hasn't been created yet",
         () {
       repository = InMemoryBookmarksRepository();
-      final usecase =
-          BookmarksDeleteUseCase(session: session, repository: repository);
+      final usecase = BookmarksDeleteUseCase(
+        session: session,
+        repository: repository,
+        logger: logger,
+      );
 
       expect(() async {
         await usecase.execute(questionId);

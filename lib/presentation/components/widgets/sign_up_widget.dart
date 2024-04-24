@@ -9,7 +9,7 @@ import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
-import '../../shared/constants/handle_error.dart';
+import '../../shared/utils/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/elevated_button_for_auth.dart';
@@ -91,7 +91,7 @@ class SignUpWidget extends HookConsumerWidget {
         final currentState = ref.read(studentAuthControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          handleError(context, error);
+          handleError(error);
         } else {
           pushDummy(context);
         }
@@ -229,7 +229,7 @@ class SignUpWidget extends HookConsumerWidget {
                         ref.read(studentAuthControllerProvider);
                     if (currentState.hasError) {
                       final error = currentState.error;
-                      final errorMessage = handleError(context, error);
+                      final errorMessage = handleError(error);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

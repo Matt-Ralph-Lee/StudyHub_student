@@ -10,6 +10,7 @@ import 'package:studyhub/infrastructure/in_memory/photo/in_memory_photo_reposito
 import 'package:studyhub/infrastructure/in_memory/student/in_memory_student_repository.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_get_student_auth_query_service.dart';
 import 'package:studyhub/infrastructure/in_memory/student_auth/in_memory_student_auth_repository.dart';
+import 'package:studyhub/infrastructure/repositories/in_memory_logger.dart';
 
 void main() async {
   final studentAuthRepository = InMemoryStudentAuthRepository();
@@ -18,6 +19,7 @@ void main() async {
   final session = MockSession();
   final queryService =
       InMemoryGetStudentAuthQueryService(repository: studentAuthRepository);
+  final logger = InMemoryLogger();
 
   final stream = queryService.userChanges();
   stream.listen((data) {
@@ -28,6 +30,7 @@ void main() async {
   final createUsecase = StudentCreateUseCase(
     studentAuthRepository: studentAuthRepository,
     studentRepository: studentRepository,
+    logger: logger,
   );
   const emailAddressData = 'test@example.com';
   await createUsecase.execute(
@@ -46,6 +49,7 @@ void main() async {
         studentAuthRepository: studentAuthRepository,
         studentRepository: studentRepository,
         photoRepository: profilePhotoRepository,
+        logger: logger,
       );
 
       usecase.execute();

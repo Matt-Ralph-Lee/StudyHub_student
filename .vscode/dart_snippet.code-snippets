@@ -83,5 +83,23 @@
       "int get hashCode => ${2:value}.hashCode;"
     ],
     "description": "Override equals operator."
+  },
+
+  "Begin use case log": {
+    "scope": "dart",
+    "prefix": "begin use case log",
+    "body": [
+      "_logger.info('BEGIN $${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}.execute()');"
+    ],
+    "description": "Log at the beginning of use case."
+  },
+
+  "End use case log": {
+    "scope": "dart",
+    "prefix": "end use case log",
+    "body": [
+      "_logger.info('END $${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}.execute()');"
+    ],
+    "description": "Log at the end of use case."
   }
 }

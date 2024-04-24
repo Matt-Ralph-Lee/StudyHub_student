@@ -7,7 +7,7 @@ part of 'resolve_question_controller.dart';
 // **************************************************************************
 
 String _$resolveQuestionControllerHash() =>
-    r'ba1d2bf80bf82c6a4bcb13206cdbdb554684e23f';
+    r'1c7cbc95b9ee5fa38c8fbd181482d82cc0738954';
 
 /// See also [ResolveQuestionController].
 @ProviderFor(ResolveQuestionController)

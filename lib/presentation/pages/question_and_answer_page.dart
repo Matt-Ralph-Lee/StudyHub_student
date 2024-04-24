@@ -26,7 +26,7 @@ import '../controllers/get_question_detail_controller/get_question_detail_contro
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
-import '../shared/constants/handle_error.dart';
+import '../shared/utils/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
@@ -61,7 +61,7 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ref.read(addBookmarkControllerProvider);
         if (addBookmarkControllerState.hasError) {
           final error = addBookmarkControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -88,7 +88,7 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ref.read(deleteBookmarkControllerProvider);
         if (deleteBookmarkControllerState.hasError) {
           final error = deleteBookmarkControllerState.error;
-          final errorMessage = handleError(context, error);
+          final errorMessage = handleError(error);
           showDialog(
             context: context,
             builder: (BuildContext context) {
