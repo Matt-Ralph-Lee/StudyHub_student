@@ -3,12 +3,9 @@ import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 
-import "../../../application/student/exception/student_use_case_exception.dart";
-import "../../../application/student/exception/student_use_case_exception_detail.dart";
-import "../../../domain/student_auth/exception/student_auth_domain_exception.dart";
-import "../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart";
 import "../../controllers/delete_account_controller/delete_account_controller.dart";
 import "../../controllers/student_auth_controller/student_auth_controller.dart";
+import "../../shared/constants/handle_error.dart";
 import "../../shared/constants/l10n.dart";
 import "../../shared/constants/padding_set.dart";
 import "../../shared/constants/page_path.dart";
@@ -16,8 +13,7 @@ import "../parts/completion_snack_bar.dart";
 import "../parts/elevated_button_for_menu_items.dart";
 import '../parts/text_for_menu_items.dart';
 import 'confirm_account_delete_modal.dart';
-import "show_error_modal_widget.dart";
-import "specific_exception_modal_widget.dart";
+import "error_modal_widget.dart";
 
 class AccountRelatedMenuWidget extends ConsumerWidget {
   const AccountRelatedMenuWidget({super.key});
@@ -40,19 +36,15 @@ class AccountRelatedMenuWidget extends ConsumerWidget {
         final currentState = ref.read(studentAuthControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          if (error is StudentAuthDomainException) {
-            final errorText = L10n.getStudentAuthExceptionMessage(
-                error.detail as StudentAuthDomainExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -77,19 +69,15 @@ class AccountRelatedMenuWidget extends ConsumerWidget {
           final addQuestionState = ref.read(deleteAccountControllerProvider);
           if (addQuestionState.hasError) {
             final error = addQuestionState.error;
-            if (error is StudentUseCaseException) {
-              final errorText = L10n.getStudentUseCaseExceptionMessage(
-                  error.detail as StudentUseCaseExceptionDetail);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SpecificExceptionModalWidget(
-                      errorMessage: errorText,
-                    );
-                  });
-            } else {
-              showErrorModalWidget(context);
-            }
+            final errorMessage = handleError(error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(

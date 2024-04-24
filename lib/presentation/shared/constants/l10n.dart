@@ -1,17 +1,43 @@
 import '../../../application/blockings/exception/blockings_use_case_exception_detail.dart';
 import '../../../application/bookmarks/exception/bookmarks_use_case_exception_detail.dart';
 import '../../../application/favorite_teachers/exception/favorite_teachers_use_case_exception_detail.dart';
+import '../../../application/notification/exception/notification_use_case_exception_detail.dart';
 import '../../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../../application/student/exception/student_use_case_exception_detail.dart';
+import '../../../application/student_auth/exception/student_auth_use_case_exception_detail.dart';
 import '../../../application/teacher_evaluation/exception/teacher_evaluation_use_case_exception_detail.dart';
+import '../../../domain/blockings/exception/blockings_domain_exception_detail.dart';
+import '../../../domain/bookmarks/exception/bookmarks_domain_exception_detail.dart';
+import '../../../domain/favorite_teachers/exception/favorite_teachers_domain_exception_detail.dart';
+import '../../../domain/notification/exception/notification_domain_exception_detail.dart';
+import '../../../domain/notification/models/notification_id.dart';
+import '../../../domain/notification/models/notification_text.dart';
+import '../../../domain/notification/models/notification_title.dart';
+import '../../../domain/question/exception/question_domain_exception_detail.dart';
+import '../../../domain/question/models/question_id.dart';
+import '../../../domain/question/models/question_photo.dart';
 import '../../../domain/question/models/question_photo_path_list.dart';
 import '../../../domain/question/models/question_text.dart';
 import '../../../domain/question/models/question_title.dart';
 import '../../../domain/question/models/selected_teacher_list.dart';
+import '../../../domain/report/exception/report_domain_exception_detail.dart';
+import '../../../domain/report/models/report_text.dart';
 import '../../../domain/shared/name.dart';
+import '../../../domain/shared/profile_photo.dart';
+import '../../../domain/student/exception/student_domain_exception_detail.dart';
+import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../../domain/student_auth/models/password.dart';
+import '../../../domain/teacher_evaluation/exception/teacher_evaluation_domain_exception_detail.dart';
+import '../../../domain/teacher_evaluation/models/teacher_evaluation_comment.dart';
+import '../../../domain/teacher_evaluation/models/teacher_evaluation_rating.dart';
+import '../../../infrastructure/exceptions/blockings/blockings_infrastructure_exception_detail.dart';
+import '../../../infrastructure/exceptions/bookmarks/bookmarks_infrastructure_exception_detail.dart';
+import '../../../infrastructure/exceptions/favorite_teachers/favorite_teachers_infrastructure_exception_detail.dart';
 import '../../../infrastructure/exceptions/notification/notification_infrastructure_exception_detail.dart';
+import '../../../infrastructure/exceptions/question/question_infrastructure_exception_detail.dart';
+import '../../../infrastructure/exceptions/student/student_infrastructure_exception_detail.dart';
+import '../../../infrastructure/exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
 
 class L10n {
   //auth_page
@@ -34,7 +60,7 @@ class L10n {
   static const douisuruText = "に同意する";
 
   //error系
-  static String getStudentAuthExceptionMessage(
+  static String getStudentAuthDomainExceptionMessage(
       StudentAuthDomainExceptionDetail detail) {
     switch (detail) {
       case StudentAuthDomainExceptionDetail.invalidCharacter:
@@ -48,7 +74,43 @@ class L10n {
     }
   }
 
-  static String getStudentUseCaseExceptionMessage(
+  static String getStudentAuthUseCaseExceptionMessage(
+      StudentAuthUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case StudentAuthUseCaseExceptionDetail.alreadyExists:
+        return "メールアドレスは既に存在しています";
+      case StudentAuthUseCaseExceptionDetail.notFound:
+        return "アカウントが見つかりません。";
+    }
+  }
+
+  static String getStudentAuthInfrastructureExceptionMessage(
+      StudentAuthInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case StudentAuthInfrastructureExceptionDetail.emailAddressAlreadyInUse:
+        return "メールアドレスは既に存在しています";
+      case StudentAuthInfrastructureExceptionDetail.invalidEmailAddress:
+        return "メールアドレスが正しくありません";
+      case StudentAuthInfrastructureExceptionDetail.noRecentSignIn:
+        return "直近のサインインがありません";
+      case StudentAuthInfrastructureExceptionDetail.notSignedIn:
+        return "サインインしていません";
+      case StudentAuthInfrastructureExceptionDetail.studentDisabled:
+        return "生徒のアカウントが削除されています";
+      case StudentAuthInfrastructureExceptionDetail.studentNotFound:
+        return "生徒のアカウントが見つかりません";
+      case StudentAuthInfrastructureExceptionDetail.unexpected:
+        return "想定外のエラーです、、";
+      case StudentAuthInfrastructureExceptionDetail.weakPassword:
+        return "パスワードが弱いです。";
+      case StudentAuthInfrastructureExceptionDetail.wrongPassword:
+        return "パスワードが誤っています。";
+      case StudentAuthInfrastructureExceptionDetail.invalidCredential:
+        return "メールアドレスかパスワードが間違っています。";
+    }
+  }
+
+  static String studentUseCaseExceptionMessage(
       StudentUseCaseExceptionDetail detail) {
     switch (detail) {
       case StudentUseCaseExceptionDetail.notFound:
@@ -66,6 +128,32 @@ class L10n {
     }
   }
 
+  static String studentDomainExceptionMessage(
+      StudentDomainExceptionDetail detail) {
+    switch (detail) {
+      case StudentDomainExceptionDetail.nameInvalidLength:
+        return "ユーザー名は${Name.minLength}字以上${Name.maxLength}字以下にしてください。";
+      case StudentDomainExceptionDetail.idInvalidLength:
+        return "Idは${StudentId.minLength}字以上にしてください。";
+      case StudentDomainExceptionDetail.invalidPhotoPath:
+        return "画像パスが不正です。";
+      case StudentDomainExceptionDetail.invalidPhotoSize:
+        return "プロフィール画像の大きさは${ProfilePhoto.avaliableHeight}x${ProfilePhoto.availableWidth}にしてください";
+      case StudentDomainExceptionDetail.invalidQuestionCount:
+        return "質問数が不正です。";
+      case StudentDomainExceptionDetail.invalidCombination:
+        return "属性と職業が合っていません。";
+    }
+  }
+
+  static String studentInfrastructureExceptionMessage(
+      StudentInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case StudentInfrastructureExceptionDetail.studentNotFound:
+        return "生徒が見つかりませんでした。";
+    }
+  }
+
   static String favoriteTeacherUseCaseExceptionMessage(
       FavoriteTeachersUseCaseExceptionDetail detail) {
     switch (detail) {
@@ -74,11 +162,45 @@ class L10n {
     }
   }
 
+  static String favoriteTeacherDomainExceptionMessage(
+      FavoriteTeachersDomainExceptionDetail detail) {
+    switch (detail) {
+      case FavoriteTeachersDomainExceptionDetail.invalidIndex:
+        return "indexが不正です。";
+      case FavoriteTeachersDomainExceptionDetail.invalidTeacherLength:
+        return "お気に入りの講師の数が多すぎます。";
+      case FavoriteTeachersDomainExceptionDetail.duplicateTeacher:
+        return "お気に入り済みの講師が選択されています。";
+      case FavoriteTeachersDomainExceptionDetail.teacherNotFound:
+        return "講師が見つかりませんでした。";
+    }
+  }
+
+  static String favoriteTeacherInfrastructureExceptionMessage(
+      FavoriteTeachersInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case FavoriteTeachersInfrastructureExceptionDetail.docNotFound:
+        return "お気に入りの講師の情報が見つかりませんでした。";
+    }
+  }
+
   static String evaluationUseCaseExceptionMessage(
       EvaluationUseCaseExceptionDetail detail) {
     switch (detail) {
       case EvaluationUseCaseExceptionDetail.favoriteTeacherNotFound:
-        return "フォロー中の講師が見つかりませんでした。"; //これfavoriteTeacherNotFoundではないよね？元書き換えて
+        return "フォロー中の講師が見つかりませんでした。";
+    }
+  }
+
+  static String evaluationDomainExceptionMessage(
+      TeacherEvaluationDomainExceptionDetail detail) {
+    switch (detail) {
+      case TeacherEvaluationDomainExceptionDetail.invalidCommentLength:
+        return "評価は${TeacherEvaluationComment.minLength}以上${TeacherEvaluationComment.maxLength}以下にしてください";
+      case TeacherEvaluationDomainExceptionDetail.invalidId:
+        return "idが正しくありません";
+      case TeacherEvaluationDomainExceptionDetail.invalidRatingValue:
+        return "評価の値は${TeacherEvaluationRating.minValue}以上${TeacherEvaluationRating.maxValue}以下にしてください。";
     }
   }
 
@@ -100,6 +222,46 @@ class L10n {
     }
   }
 
+  static String questionDomainExceptionMessage(
+      QuestionDomainExceptionDetail detail) {
+    switch (detail) {
+      case QuestionDomainExceptionDetail.idInvalidLength:
+        return "${QuestionId.minLength}字以上にしてください";
+      case QuestionDomainExceptionDetail.invalidIndex:
+        return "不正なindexです";
+      case QuestionDomainExceptionDetail.invalidPhotoLength:
+        return "画像は${QuestionPhotoPathList.maxLength}枚までです。";
+      case QuestionDomainExceptionDetail.invalidPhotoPath:
+        return "画像パスが不正です";
+      case QuestionDomainExceptionDetail.invalidPhotoSize:
+        return "画像の大きさは${QuestionPhoto.dataSize}以下にしてください。";
+      case QuestionDomainExceptionDetail.invalidSeenCount:
+        return "閲覧数が不正です。";
+      case QuestionDomainExceptionDetail.invalidTeacherLength:
+        return "'先生の指定数が多すぎます。${SelectedTeacherList.maxLength}人以内にしてください。";
+      case QuestionDomainExceptionDetail.textEmptyLength:
+        return "質問を入力してください。";
+      case QuestionDomainExceptionDetail.textInvalidLength:
+        return "質問は${QuestionText.maxLength}字以上にしてください。";
+      case QuestionDomainExceptionDetail.textInvalidLineLength:
+        return "質問は${QuestionText.maxLine}行以内にしてください。";
+      case QuestionDomainExceptionDetail.titleInvalidLength:
+        return "タイトルは${QuestionTitle.minLength}字以上${QuestionTitle.maxLength}字以下にしてください。";
+    }
+  }
+
+  static String questionInfrastructureExceptionMessage(
+      QuestionInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case QuestionInfrastructureExceptionDetail.studentNotFound:
+        return "生徒が見つかりませんでした。";
+      case QuestionInfrastructureExceptionDetail.teacherNotFound:
+        return "講師が見つかりませんでした。";
+      case QuestionInfrastructureExceptionDetail.questionNotFound:
+        return "質問が見つかりませんでした。";
+    }
+  }
+
   static String bookmarkUseCaseExceptionMessage(
       BookmarksUseCaseExceptionDetail detail) {
     switch (detail) {
@@ -108,11 +270,61 @@ class L10n {
     }
   }
 
+  static String bookmarkInfrastructureExceptionMessage(
+      BookmarksInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case BookmarksInfrastructureExceptionDetail.studentNotFound:
+        return "生徒が見つかりませんでした。";
+      case BookmarksInfrastructureExceptionDetail.teacherNotFound:
+        return "講師が見つかりませんでした。";
+      case BookmarksInfrastructureExceptionDetail.bookmarkNotFound:
+        return "ブックマークが見つかりませんでした。";
+    }
+  }
+
+  static String bookmarkDomainExceptionMessage(
+      BookmarksDomainExceptionDetail detail) {
+    switch (detail) {
+      case BookmarksDomainExceptionDetail.duplicateQuestion:
+        return "ブックマーク済みの質問です。";
+      case BookmarksDomainExceptionDetail.questionNotFound:
+        return "該当する質問が見つかりませんでした。";
+    }
+  }
+
   static String blockingsUseCaseExceptionMessage(
       BlockingsUseCaseExceptionDetail detail) {
     switch (detail) {
       case BlockingsUseCaseExceptionDetail.blockingsNotFound:
         return "ブロック中の講師が見つかりませんでした。";
+    }
+  }
+
+  static String blockingsInfrastructureExceptionMessage(
+      BlockingsInfrastructureExceptionDetail detail) {
+    switch (detail) {
+      case BlockingsInfrastructureExceptionDetail.studentNotFound:
+        return "生徒が見つかりませんでした。";
+    }
+  }
+
+  static String blockingsDomainExceptionMessage(
+      BlockingsDomainExceptionDetail detail) {
+    switch (detail) {
+      case BlockingsDomainExceptionDetail.duplicateTeacher:
+        return "ブロック済みの講師です。";
+      case BlockingsDomainExceptionDetail.teacherNotFound:
+        return "講師が見つかりません。";
+    }
+  }
+
+  static String reportDomainExceptionMessage(
+      ReportDomainExceptionDetail detail) {
+    switch (detail) {
+      case ReportDomainExceptionDetail.textInvalidLength:
+        return "${ReportText.maxLength}字以下にしてください。";
+      case ReportDomainExceptionDetail.textInvalidLineLength:
+        return "${ReportText.maxLine}行以内にしてください。";
     }
   }
 
@@ -272,8 +484,8 @@ class L10n {
   static const resolveQuestionSnackbarText = "質問を解決済みにしました！";
 
   //shared
-  static const errorText = "エラーです。時間をおいてから再度お試しください";
-  static const errorModalText = "エラーです！";
+  static const defaultErrorText = "時間をおいてから再度お試しください";
+  static const errorModalTitleText = "エラーです！";
   static const confirmModalTitleText = "以下の内容でよろしいですか？";
   static const modalOkText = "ok";
   static const cancelText = "キャンセル";
@@ -336,7 +548,7 @@ class L10n {
   static const beforeText = "それ以前";
   static const noNotificationFound = "お知らせがありません";
 
-  static String readNotificationExceptionMessage(
+  static String notificationInfrastructureExceptionMessage(
       NotificationInfrastructureExceptionDetail detail) {
     switch (detail) {
       case NotificationInfrastructureExceptionDetail.idAlreadyExist:
@@ -349,6 +561,38 @@ class L10n {
         return "開発側でのエラーが発生しました";
       case NotificationInfrastructureExceptionDetail.invalidTargetType:
         return "開発側でのエラーが発生しました";
+    }
+  }
+
+  static String notificationUseCaseExceptionMessage(
+      NotificationUseCaseExceptionDetail detail) {
+    switch (detail) {
+      case NotificationUseCaseExceptionDetail.invalidDtoConstruction:
+        return "Dtoが正しくありません。";
+    }
+  }
+
+  static String notificationDomainExceptionMessage(
+      NotificationDomainExceptionDetail detail) {
+    switch (detail) {
+      case NotificationDomainExceptionDetail.invalidNotificationIdLength:
+        return "通知Idは${NotificationId.minLength}以上にしてください";
+      case NotificationDomainExceptionDetail.invalidPhotoPath:
+        return "写真のパスが正しくありません";
+      case NotificationDomainExceptionDetail.invalidTitleLength:
+        return "通知タイトルは${NotificationTitle.minLength}-${NotificationTitle.maxLength}である必要があります。";
+      case NotificationDomainExceptionDetail.invalidTextLength:
+        return "通知内容は ${NotificationText.maxLength} 以下である必要があります。";
+      case NotificationDomainExceptionDetail.empty:
+        return "空白です。";
+      case NotificationDomainExceptionDetail.invalidTextLine:
+        return "通知は ${NotificationText.maxLine} 行以下である必要があります。";
+      case NotificationDomainExceptionDetail.senderTypeMismatched:
+        return "通知者が正しくありません。";
+      case NotificationDomainExceptionDetail.receiverTypeMismatched:
+        return "受け取り側が正しくありません。";
+      case NotificationDomainExceptionDetail.targetTypeMismatched:
+        return "送信先が正しくありません。";
     }
   }
 

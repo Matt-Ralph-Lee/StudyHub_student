@@ -13,13 +13,14 @@ import '../components/parts/completion_snack_bar.dart';
 import '../components/parts/drop_down_button_for_report_reason.dart';
 import '../components/parts/text_form_field_for_report_input.dart';
 import '../components/widgets/confirm_report_modal_widget.dart';
+import '../components/widgets/error_modal_widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
-import '../components/widgets/show_error_modal_widget.dart';
 import '../controllers/report_question_controller/report_question_controller.dart';
 import '../controllers/report_teacher_controller/report_teacher_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
@@ -65,7 +66,16 @@ class ReportPage extends HookConsumerWidget {
             .then((_) {
           final currentState = ref.read(reportQuestionControllerProvider);
           if (currentState.hasError) {
-            showErrorModalWidget(context);
+            final error = currentState.error;
+            final errorMessage = handleError(error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -96,7 +106,16 @@ class ReportPage extends HookConsumerWidget {
             .then((_) {
           final currentState = ref.read(reportTeacherControllerProvider);
           if (currentState.hasError) {
-            showErrorModalWidget(context);
+            final error = currentState.error;
+            final errorMessage = handleError(error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(

@@ -59,7 +59,7 @@ class Student {
     if (_occupation == Occupation.student &&
         _gradeOrGraduateStatus == GradeOrGraduateStatus.graduate) {
       throw const StudentDomainException(
-          StudentDomainExceptionDetail.invalidConvination);
+          StudentDomainExceptionDetail.invalidCombination);
     }
   }
 
@@ -79,7 +79,7 @@ class Student {
     if (newOccupation == Occupation.student &&
         _gradeOrGraduateStatus == GradeOrGraduateStatus.graduate) {
       throw const StudentDomainException(
-          StudentDomainExceptionDetail.invalidConvination);
+          StudentDomainExceptionDetail.invalidCombination);
     }
     _occupation = newOccupation;
   }
@@ -93,7 +93,7 @@ class Student {
     if (_occupation == Occupation.student &&
         newGradeOrGraduateStatus == GradeOrGraduateStatus.graduate) {
       throw const StudentDomainException(
-          StudentDomainExceptionDetail.invalidConvination);
+          StudentDomainExceptionDetail.invalidCombination);
     }
     _gradeOrGraduateStatus = newGradeOrGraduateStatus;
   }

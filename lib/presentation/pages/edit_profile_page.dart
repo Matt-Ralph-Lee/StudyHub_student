@@ -6,21 +6,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../application/student/application_service/profile_update_command.dart';
-import '../../application/student/exception/student_use_case_exception.dart';
-import '../../application/student/exception/student_use_case_exception_detail.dart';
 import '../../domain/shared/name.dart';
 import '../../domain/student/models/gender.dart';
 import '../../domain/student/models/grade_or_graduate_status.dart';
 import '../../domain/student/models/occupation.dart';
 import '../components/parts/completion_snack_bar.dart';
 import '../components/widgets/edit_profile_widget.dart';
-import '../components/widgets/show_error_modal_widget.dart';
-import '../components/widgets/specific_exception_modal_widget.dart';
+import '../components/widgets/error_modal_widget.dart';
 import '../controllers/profile_update_controller/profile_update_controller.dart';
 import '../controllers/student_controller/student_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 import '../shared/constants/page_path.dart';
@@ -107,19 +105,15 @@ class EditProfilePage extends HookConsumerWidget {
             final currentState = ref.read(profileUpdateControllerProvider);
             if (currentState.hasError) {
               final error = currentState.error;
-              if (error is StudentUseCaseException) {
-                final errorText = L10n.getStudentUseCaseExceptionMessage(
-                    error.detail as StudentUseCaseExceptionDetail);
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SpecificExceptionModalWidget(
-                        errorMessage: errorText,
-                      );
-                    });
-              } else {
-                showErrorModalWidget(context);
-              }
+              final errorMessage = handleError(error);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return ErrorModalWidget(
+                    errorMessage: errorMessage,
+                  );
+                },
+              );
             } else {
               HapticFeedback.lightImpact();
               ScaffoldMessenger.of(context).showSnackBar(

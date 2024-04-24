@@ -12,7 +12,7 @@ class TextForError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      L10n.errorText,
+      L10n.defaultErrorText,
       style: TextStyle(
           //エラーテキストのカラーは赤が一般的、、？であればcolorsetに定義しておく？
           color: ColorSet.of(context).text,

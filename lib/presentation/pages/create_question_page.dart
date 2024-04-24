@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../application/question/exception/question_use_case_exception.dart';
-import '../../application/question/exception/question_use_case_exception_detail.dart';
 import '../../domain/question/models/question_photo_path_list.dart';
 import '../../domain/question/models/question_text.dart';
 import '../../domain/question/models/question_title.dart';
@@ -21,8 +19,7 @@ import '../components/widgets/add_question_main_content_widget.dart';
 import '../components/widgets/confirm_question_modal.widget.dart';
 import '../components/widgets/loading_overlay_widget.dart';
 import '../components/widgets/question_pictures_for_confirm_widget.dart';
-import '../components/widgets/show_error_modal_widget.dart';
-import '../components/widgets/specific_exception_modal_widget.dart';
+import '../components/widgets/error_modal_widget.dart';
 import '../components/widgets/teacher_profile_for_confirm_skeleton_widget.dart';
 import '../components/widgets/teacher_profile_for_question_page_widget.dart';
 import '../controllers/add_question_controller/add_question_controller.dart';
@@ -30,6 +27,7 @@ import '../controllers/get_teacher_profile_controller/get_teacher_profile_contro
 import '../shared/constants/color_set.dart';
 import '../shared/constants/font_size_set.dart';
 import '../shared/constants/font_weight_set.dart';
+import '../shared/constants/handle_error.dart';
 import '../shared/constants/l10n.dart';
 import '../shared/constants/padding_set.dart';
 
@@ -88,7 +86,7 @@ class CreateQuestionPage extends HookConsumerWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return const SpecificExceptionModalWidget(
+                return const ErrorModalWidget(
                     errorMessage: L10n.maxImagesErrorText);
               },
             );
@@ -116,7 +114,7 @@ class CreateQuestionPage extends HookConsumerWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return const SpecificExceptionModalWidget(
+                return const ErrorModalWidget(
                     errorMessage: L10n.maxImagesErrorText);
               },
             );
@@ -149,7 +147,7 @@ class CreateQuestionPage extends HookConsumerWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return const SpecificExceptionModalWidget(
+              return const ErrorModalWidget(
                 errorMessage: L10n.maxTeachersErrorText,
               );
             },
@@ -187,19 +185,15 @@ class CreateQuestionPage extends HookConsumerWidget {
           final addQuestionState = ref.read(addQuestionControllerProvider);
           if (addQuestionState.hasError) {
             final error = addQuestionState.error;
-            if (error is QuestionUseCaseException) {
-              final errorText = L10n.questionExceptionMessage(
-                  error.detail as QuestionUseCaseExceptionDetail);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SpecificExceptionModalWidget(
-                      errorMessage: errorText,
-                    );
-                  });
-            } else {
-              showErrorModalWidget(context);
-            }
+            final errorMessage = handleError(error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
           } else {
             HapticFeedback.lightImpact();
             ScaffoldMessenger.of(context).showSnackBar(

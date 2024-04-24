@@ -4,19 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/di/session/session_provider.dart';
-import '../../../domain/student_auth/exception/student_auth_domain_exception.dart';
-import '../../../domain/student_auth/exception/student_auth_domain_exception_detail.dart';
 import '../../controllers/resend_email_verification_controller/resend_email_verification_controller.dart';
 import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/color_set.dart';
 import '../../shared/constants/font_size_set.dart';
 import '../../shared/constants/font_weight_set.dart';
+import '../../shared/constants/handle_error.dart';
 import '../../shared/constants/l10n.dart';
 import '../../shared/constants/page_path.dart';
 import '../parts/completion_snack_bar.dart';
 import '../parts/elevated_button_for_auth.dart';
-import 'show_error_modal_widget.dart';
-import 'specific_exception_modal_widget.dart';
+import 'error_modal_widget.dart';
 
 class ResendEmailVerificationWidget extends HookConsumerWidget {
   final String emailAddress;
@@ -36,19 +34,15 @@ class ResendEmailVerificationWidget extends HookConsumerWidget {
             ref.read(resendEmailVerificationControllerProvider);
         if (currentState.hasError) {
           final error = currentState.error;
-          if (error is StudentAuthDomainException) {
-            final errorText = L10n.getStudentAuthExceptionMessage(
-                error.detail as StudentAuthDomainExceptionDetail);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SpecificExceptionModalWidget(
-                    errorMessage: errorText,
-                  );
-                });
-          } else {
-            showErrorModalWidget(context);
-          }
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
