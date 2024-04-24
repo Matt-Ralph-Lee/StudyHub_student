@@ -1,6 +1,7 @@
 import '../../../domain/answer_list/models/answer_id.dart';
 import '../../../domain/notification/models/notification_id.dart';
 import '../../../domain/notification/models/notification_target_type.dart';
+import '../../../domain/question/models/question_id.dart';
 import '../../../domain/shared/id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../exception/notification_use_case_exception.dart';
@@ -12,6 +13,7 @@ class GetMyNotificationDto {
   final Id? _senderId;
   final String _senderPhotoPath;
   final Id? _targetId;
+  final Id? _subTargetId;
   final String _title;
   final String _text;
   final DateTime _postedAt;
@@ -22,6 +24,7 @@ class GetMyNotificationDto {
   Id? get senderId => _senderId;
   String get senderPhotoPath => _senderPhotoPath;
   Id? get targetId => _targetId;
+  Id? get subTargetId => _subTargetId;
   String get title => _title;
   String get text => _text;
   DateTime get postedAt => _postedAt;
@@ -33,6 +36,7 @@ class GetMyNotificationDto {
     required final Id? senderId,
     required final String senderPhotoPath,
     required final Id? targetId,
+    required final Id? subTargetId,
     required final String title,
     required final String text,
     required final DateTime postedAt,
@@ -42,18 +46,21 @@ class GetMyNotificationDto {
         _senderId = senderId,
         _senderPhotoPath = senderPhotoPath,
         _targetId = targetId,
+        _subTargetId = subTargetId,
         _title = title,
         _text = text,
         _postedAt = postedAt,
         _read = read {
     switch (type) {
       case NotificationTargetType.info:
-        if (senderId != null || targetId != null) {
+        if (senderId != null || targetId != null || subTargetId != null) {
           throw const NotificationUseCaseException(
               NotificationUseCaseExceptionDetail.invalidDtoConstruction);
         }
       case NotificationTargetType.answered:
-        if (senderId is! TeacherId || targetId is! AnswerId) {
+        if (senderId is! TeacherId ||
+            targetId is! AnswerId ||
+            subTargetId is! QuestionId) {
           throw const NotificationUseCaseException(
               NotificationUseCaseExceptionDetail.invalidDtoConstruction);
         }

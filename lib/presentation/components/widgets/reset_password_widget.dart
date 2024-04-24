@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../controllers/student_auth_controller/student_auth_controller.dart';
 import '../../shared/constants/l10n.dart';
+import '../parts/completion_snack_bar.dart';
 import '../parts/elevated_button_for_auth.dart';
 import '../parts/text_for_reset_password_email_address_input_explanation.dart';
 import '../parts/text_form_field_for_email_address_input.dart';
@@ -55,7 +58,14 @@ class ResetPasswordWidget extends HookConsumerWidget {
                 ? () async {
                     ref
                         .read(studentAuthControllerProvider.notifier)
-                        .resetPassword(emailInputErrorText.value!);
+                        .resetPassword(forgetPasswordEmailController.text)
+                        .then((_) {
+                      context.pop();
+                      HapticFeedback.lightImpact();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        completionSnackBar(context, L10n.resendedPasswordEmail),
+                      );
+                    });
                   }
                 : null,
             buttonText: L10n.passwordResetButtonText)

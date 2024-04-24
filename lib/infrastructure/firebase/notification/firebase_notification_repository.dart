@@ -83,9 +83,11 @@ class FirebaseNotificationRepository implements INotificationRepository {
         NotificationTargetType.questioned => "questioned"
       };
       final targetId = notification.target.targetId?.value;
+      final subTargetId = notification.target.subTargetId?.value;
 
       addData["targetType"] = targetType;
       addData["targetId"] = targetId;
+      addData["subTargetId"] = subTargetId;
 
       addData["title"] = notification.title.value;
       addData["text"] = notification.text.value;
