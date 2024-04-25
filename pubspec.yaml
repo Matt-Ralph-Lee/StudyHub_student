@@ -57,6 +57,7 @@ dependencies:
   shimmer: ^3.0.0
   dotted_border: ^2.1.0
   firebase_messaging: ^14.7.19
+  flutter_launcher_icons:
 
 dev_dependencies:
   flutter_test:
@@ -115,3 +116,9 @@ flutter:
     - assets/icon/
     - assets/images/
     - assets/photos/profile_photo/
+
+flutter_icons:       
+  android: true
+  ios: true
+  image_path_android: "assets/icon/app_icon_for_android.png"
+  image_path_ios: "assets/icon/app_icon_for_ios.png"
