@@ -3,9 +3,12 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 
 import "../../application/answer/application_service/answer_dto.dart";
+import "../../application/di/interfaces/logger_provider.dart";
 import "../../application/di/session/session_provider.dart";
+import "../../application/di/student_auth/student_auth_provider.dart";
 import "../../application/notification/application_service/get_my_notification_dto.dart";
 import "../../application/question/application_service/question_detail_dto.dart";
+import "../../application/student/application_service/reload_user_use_case.dart";
 import "../../domain/answer_list/models/answer_id.dart";
 import "../../domain/question/models/question_id.dart";
 import "../../domain/teacher/models/teacher_id.dart";
@@ -251,23 +254,41 @@ GoRouter router(RouterRef ref) {
     ),
   ];
 
-  String? redirect(BuildContext context, GoRouterState state) {
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
     final pagePath = state.uri.toString();
-    final isSignedInState = ref.read(isSignedInProvider);
+    var isSignedInState = ref.read(isSignedInProvider);
+
+    if (!isSignedInState) {
+      final studentAuthRepository = ref.read(studentAuthRepositoryDiProvider);
+      final logger = ref.read(loggerDiProvider);
+      final reloadUser = ReloadUserUseCase(
+        repository: studentAuthRepository,
+        logger: logger,
+      );
+      await reloadUser.execute();
+      isSignedInState = ref.read(isSignedInProvider);
+    }
+
     final isVerifiedState = ref.read(isVerifiedProvider);
 
     if (isSignedInState && !isVerifiedState && isPrivate(pagePath)) {
       return PageId.emailVerificationPage.path;
     }
+
+    if (isSignedInState && requiresLoggedOut(pagePath)) {
+      return PageId.home.path;
+    }
+
     if (!isSignedInState && isPrivate(pagePath)) {
       return PageId.authPage.path;
     }
+
     return null;
   }
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: PageId.page1.path,
+    initialLocation: PageId.authPage.path,
     debugLogDiagnostics: false,
     routes: routes,
     redirect: redirect,
