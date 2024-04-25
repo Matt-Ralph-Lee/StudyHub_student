@@ -8,7 +8,7 @@ import "../../application/di/session/session_provider.dart";
 import "../../application/di/student_auth/student_auth_provider.dart";
 import "../../application/notification/application_service/get_my_notification_dto.dart";
 import "../../application/question/application_service/question_detail_dto.dart";
-import "../../application/student/application_service/reload_user_use_case.dart";
+import '../../application/student_auth/application_service/reload_user_use_case.dart';
 import "../../domain/answer_list/models/answer_id.dart";
 import "../../domain/question/models/question_id.dart";
 import "../../domain/teacher/models/teacher_id.dart";
