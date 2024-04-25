@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA5bURAUkaphXsAtcwkBfyoW5M6VW_5moY',
-    appId: '1:548760440945:android:3847a7190c9332d7d80bd0',
+    appId: '1:548760440945:android:0772908b70a56ecad80bd0',
     messagingSenderId: '548760440945',
     projectId: 'study-hub-b81c1',
     storageBucket: 'study-hub-b81c1.appspot.com',
@@ -63,19 +63,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC1ecs7--Btw9sb8-DzY0f84YGeoVBXokc',
-    appId: '1:548760440945:ios:d984236506f6fefad80bd0',
+    appId: '1:548760440945:ios:ceba04ea4854a32dd80bd0',
     messagingSenderId: '548760440945',
     projectId: 'study-hub-b81c1',
     storageBucket: 'study-hub-b81c1.appspot.com',
-    iosBundleId: 'com.example.studyhub',
+    iosBundleId: 'com.example.studyHub',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyC1ecs7--Btw9sb8-DzY0f84YGeoVBXokc',
-    appId: '1:548760440945:ios:4b9b0ad40393c4ebd80bd0',
+    appId: '1:548760440945:ios:0013162a8d7604d6d80bd0',
     messagingSenderId: '548760440945',
     projectId: 'study-hub-b81c1',
     storageBucket: 'study-hub-b81c1.appspot.com',
-    iosBundleId: 'com.example.studyhub.RunnerTests',
+    iosBundleId: 'com.example.studyHub.RunnerTests',
   );
 }

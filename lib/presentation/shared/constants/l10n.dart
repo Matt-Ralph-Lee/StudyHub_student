@@ -551,6 +551,8 @@ class L10n {
   static const thisWeekText = "今週";
   static const beforeText = "それ以前";
   static const noNotificationFound = "お知らせがありません";
+  static const answeredNotificationTest = "回答が付きました！";
+  static const infoText = "運営からのお知らせ";
 
   static String notificationInfrastructureExceptionMessage(
       NotificationInfrastructureExceptionDetail detail) {

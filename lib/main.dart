@@ -15,7 +15,11 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final messaging = FirebaseMessaging.instance;
-  await messaging.requestPermission();
+  await messaging.requestPermission(
+    alert: true,
+    announcement: true,
+    badge: true,
+  );
 
   runApp(scope);
 }
