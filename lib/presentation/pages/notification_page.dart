@@ -196,7 +196,6 @@ class NotificationPage extends ConsumerWidget {
             ),
           ),
           error: (error, stack) {
-            print(error);
             return const Center(
                 child: Column(
               children: [

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:studyhub/domain/question/models/question_id.dart';
 
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
 import '../../../domain/notification/models/notification_target_type.dart';
+import '../../../domain/question/models/question_id.dart';
 import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../controllers/read_notification_controller/read_notification_controller.dart';
 import '../../shared/constants/color_set.dart';

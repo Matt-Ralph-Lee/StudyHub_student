@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../domain/answer_list/models/answer_id.dart';
 import '../../domain/question/models/question_id.dart';
 import '../components/parts/completion_snack_bar.dart';
 import '../components/parts/text_button_for_add_bookmark.dart';
@@ -37,7 +38,7 @@ import '../shared/constants/padding_set.dart';
 class QuestionAndAnswerPage extends HookConsumerWidget {
   final QuestionId questionId;
   final bool isMyQuestion;
-  final answerId;
+  final AnswerId? answerId;
   const QuestionAndAnswerPage({
     super.key,
     required this.questionId,
