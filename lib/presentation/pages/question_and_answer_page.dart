@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../domain/answer_list/models/answer_id.dart';
 import '../../domain/question/models/question_id.dart';
 import '../components/parts/completion_snack_bar.dart';
 import '../components/parts/text_button_for_add_bookmark.dart';
@@ -37,10 +38,12 @@ import '../shared/constants/padding_set.dart';
 class QuestionAndAnswerPage extends HookConsumerWidget {
   final QuestionId questionId;
   final bool isMyQuestion;
+  final AnswerId? answerId;
   const QuestionAndAnswerPage({
     super.key,
     required this.questionId,
     required this.isMyQuestion,
+    required this.answerId,
   });
 
   @override
@@ -254,11 +257,21 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
             ),
             getAnswerControllerState.when(
               data: (answerDto) {
+                int initialIndex = 0;
+                if (answerId != null) {
+                  initialIndex = answerDto
+                      .indexWhere((answer) => answer.answerId == answerId);
+                  initialIndex = initialIndex == -1 ? 0 : initialIndex;
+                }
+                selectedAnswerIndex.value = initialIndex;
                 return answerDto.isNotEmpty
                     ? Column(
                         children: [
                           ExpandablePageView.builder(
-                            controller: PageController(viewportFraction: 0.9),
+                            controller: PageController(
+                              viewportFraction: 0.9,
+                              initialPage: initialIndex,
+                            ),
                             itemCount: answerDto.length,
                             onPageChanged: (newIndex) {
                               selectedAnswerIndex.value = newIndex;
@@ -293,7 +306,10 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
                               .answerPhotoList
                               .isNotEmpty)
                             ExpandablePageView.builder(
-                              controller: PageController(viewportFraction: 0.9),
+                              controller: PageController(
+                                viewportFraction: 0.9,
+                                initialPage: initialIndex,
+                              ),
                               scrollDirection: Axis.horizontal,
                               itemCount: answerDto[selectedAnswerIndex.value]
                                   .answerPhotoList

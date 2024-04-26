@@ -46,13 +46,8 @@ class NotificationDetailPage extends HookConsumerWidget {
             context,
             PaddingSet.horizontalPadding,
           )),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              NotificationDetailCardWidget(
-                getMyNotificationDto: getMyNotificationDto,
-              ),
-            ],
+          child: NotificationDetailCardWidget(
+            getMyNotificationDto: getMyNotificationDto,
           ),
         ),
       ),

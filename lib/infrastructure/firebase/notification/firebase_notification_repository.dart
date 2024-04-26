@@ -26,13 +26,21 @@ class FirebaseNotificationRepository implements INotificationRepository {
   @override
   Future<NotificationId> generateId(NotificationReceiver receiver) async {
     if (receiver.receiverType == NotificationReceiverType.student) {
-      final docRef = db.collection("students").doc(receiver.receiverId.value);
+      final docRef = db
+          .collection("students")
+          .doc(receiver.receiverId.value)
+          .collection("notification")
+          .doc();
       final id = docRef.id;
 
       return NotificationId(id);
     }
     if (receiver.receiverType == NotificationReceiverType.teacher) {
-      final docRef = db.collection("teachers").doc(receiver.receiverId.value);
+      final docRef = db
+          .collection("teachers")
+          .doc(receiver.receiverId.value)
+          .collection("notification")
+          .doc();
       final id = docRef.id;
       return NotificationId(id);
     }
