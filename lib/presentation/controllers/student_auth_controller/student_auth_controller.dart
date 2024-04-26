@@ -3,7 +3,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 import "../../../application/di/interfaces/logger_provider.dart";
 import "../../../application/di/student/student_provider.dart";
 import "../../../application/di/student_auth/student_auth_provider.dart";
-import '../../../application/student/application_service/reload_user_use_case.dart';
+import '../../../application/student_auth/application_service/reload_user_use_case.dart';
 import "../../../application/student/application_service/student_create_use_case.dart";
 import "../../../application/student_auth/application_service/sign_in_use_case.dart";
 import "../../../application/student_auth/application_service/sign_out_use_case.dart";
