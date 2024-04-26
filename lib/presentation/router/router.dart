@@ -278,10 +278,6 @@ GoRouter router(RouterRef ref) {
       return PageId.emailVerificationPage.path;
     }
 
-    if (isSignedInState && requiresLoggedOut(pagePath)) {
-      return PageId.home.path;
-    }
-
     if (!isSignedInState && isPrivate(pagePath)) {
       return PageId.authPage.path;
     }
@@ -291,7 +287,7 @@ GoRouter router(RouterRef ref) {
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: PageId.authPage.path,
+    initialLocation: PageId.home.path,
     debugLogDiagnostics: false,
     routes: routes,
     redirect: redirect,
