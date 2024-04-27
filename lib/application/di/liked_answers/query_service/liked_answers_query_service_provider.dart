@@ -23,7 +23,6 @@ IGetLikedAnswersQueryService getLikedAnswersQueryServiceDi(
             as InMemoryLikedAnswersRepository,
       );
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseGetLikedAnswersQueryService(
           FirebaseLikedAnswersRepository());

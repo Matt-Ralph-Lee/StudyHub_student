@@ -28,10 +28,10 @@
     "scope": "dart",
     "prefix": "singleton repository",
     "body": [
-      "import 'package:cloud_firestore/cloud_firestore.dart';",
+      "import '../database.dart';",
       "",
       "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} implements $1 {",
-      "  final db = FirebaseFirestore.instance;",
+      "  final db = Database.db;",
       "",
       "  static final ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} _instance =",
       "      ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}._internal();",

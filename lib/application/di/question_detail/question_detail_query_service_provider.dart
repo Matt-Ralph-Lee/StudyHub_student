@@ -19,7 +19,6 @@ IGetQuestionDetailQueryService getQuestionDetailQueryServiceDi(
       return InMemoryGetQuestionDetailQueryService(ref
           .watch(questionRepositoryDiProvider) as InMemoryQuestionRepository);
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseGetQuestionDetailQueryService(ref
           .watch(questionRepositoryDiProvider) as FirebaseQuestionRepository);

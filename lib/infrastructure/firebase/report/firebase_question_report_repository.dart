@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../../domain/report/models/i_question_report_repository.dart';
 import '../../../domain/report/models/question_report.dart';
+import '../database.dart';
 
 class FirebaseQuestionReportRepository implements IQuestionReportRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseQuestionReportRepository _instance =
       FirebaseQuestionReportRepository._internal();

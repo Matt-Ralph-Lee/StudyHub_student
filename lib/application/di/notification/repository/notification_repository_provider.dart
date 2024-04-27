@@ -15,7 +15,6 @@ INotificationRepository notificationRepositoryDi(
     case Flavor.dev:
       return InMemoryNotificationRepository();
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseNotificationRepository();
   }

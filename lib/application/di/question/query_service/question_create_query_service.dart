@@ -18,7 +18,6 @@ IQuestionCreateQueryService questionCreateQueryServiceDi(
       return InMemoryQuestionCreateQueryService(
           repository: InMemoryStudentRepository());
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseQuestionCreateQueryService(FirebaseStudentRepository());
   }

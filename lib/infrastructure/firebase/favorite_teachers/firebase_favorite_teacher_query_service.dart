@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../database.dart';
 
 import '../../../application/favorite_teachers/application_service/get_favorite_teacher_dto.dart';
 import '../../../application/favorite_teachers/application_service/i_get_favorite_teacher_query_service.dart';
@@ -8,7 +8,7 @@ import 'firebase_favorite_teachers_repository.dart';
 
 class FirebaseFavoriteTeacherQueryService
     implements IGetFavoriteTeacherQueryService {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
   final FirebaseFavoriteTeachersRepository _repository;
   final FirebaseTeacherRepository _teacherRepository;
 

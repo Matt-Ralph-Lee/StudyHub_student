@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../../domain/teacher_evaluation/models/i_teacher_evaluation_repository.dart';
@@ -10,7 +12,7 @@ import '../../../domain/teacher_evaluation/models/teacher_evaluation_rating.dart
 
 class FirebaseTeacherEvaluationRepository
     implements ITeacherEvaluationRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseTeacherEvaluationRepository _instance =
       FirebaseTeacherEvaluationRepository._internal();

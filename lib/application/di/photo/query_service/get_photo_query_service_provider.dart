@@ -16,7 +16,6 @@ IGetPhotoQueryService getPhotoQueryServiceDi(GetPhotoQueryServiceDiRef ref) {
     case Flavor.dev:
       return InMemoryGetPhotoQueryService(InMemoryPhotoRepository());
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseGetPhotoQueryService(FirebasePhotoRepository());
   }

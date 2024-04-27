@@ -15,7 +15,6 @@ IFavoriteTeachersRepository favoriteTeacherRepositoryDi(
     case Flavor.dev:
       return InMemoryFavoriteTeachersRepository();
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseFavoriteTeachersRepository();
   }

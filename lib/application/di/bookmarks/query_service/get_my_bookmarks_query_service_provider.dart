@@ -36,7 +36,6 @@ IGetBookmarksQueryService getMyBookmarksQueryServiceDi(
             as InMemoryTeacherRepository,
       );
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseBookmarksQueryService(
         repository: (ref.watch(bookmarksRepositoryDiProvider))

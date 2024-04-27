@@ -14,7 +14,6 @@ IQuestionRepository questionRepositoryDi(QuestionRepositoryDiRef ref) {
     case Flavor.dev:
       return InMemoryQuestionRepository();
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseQuestionRepository();
   }

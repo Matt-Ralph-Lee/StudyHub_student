@@ -20,7 +20,6 @@ IGetMyNotificationsQueryService getMyNotificationsQueryServiceDi(
             as InMemoryNotificationRepository,
       );
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseGetMyNotificationsQueryService();
   }

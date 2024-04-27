@@ -32,7 +32,6 @@ IGetTeacherProfileQueryService getTeacherProfileQueryServiceDi(
         blockingsRepository: InMemoryBlockingsRepository(),
       );
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseGetTeacherProfileQueryService(
         session: ref.watch(nonNullSessionProvider),

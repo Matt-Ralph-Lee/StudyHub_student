@@ -19,7 +19,6 @@ IGetMyProfileQueryService getMyProfileQueryServiceDi(
       return InMemoryGetMyProfileQueryService(
           ref.watch(studentRepositoryDiProvider) as InMemoryStudentRepository);
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseStudentQueryService(
           ref.watch(studentRepositoryDiProvider) as FirebaseStudentRepository);
