@@ -14,7 +14,6 @@ IPhotoRepository photoRepositoryDi(PhotoRepositoryDiRef ref) {
     case Flavor.dev:
       return InMemoryPhotoRepository();
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebasePhotoRepository();
   }

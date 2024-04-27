@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../application/question/application_service/i_search_for_questions_query_service.dart';
 import '../../../application/shared/application_service/question_card_dto.dart';
 import '../../../domain/question/models/question.dart';
@@ -15,7 +17,7 @@ import 'firebase_question_repository.dart';
 
 class FirebaseSearchForQuestionsQueryService
     implements ISearchForQuestionsQueryService {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
   final FirebaseQuestionRepository _repository;
   final FirebaseStudentRepository _studentRepository;
   final FirebaseTeacherRepository _teacherRepository;

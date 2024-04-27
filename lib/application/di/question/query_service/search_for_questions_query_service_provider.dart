@@ -31,7 +31,6 @@ ISearchForQuestionsQueryService searchForQuestionsQueryServiceDi(
             as InMemoryTeacherRepository,
       );
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseSearchForQuestionsQueryService(
         repository: (ref.watch(questionRepositoryDiProvider))

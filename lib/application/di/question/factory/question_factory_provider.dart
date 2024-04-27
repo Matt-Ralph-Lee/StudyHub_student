@@ -18,7 +18,6 @@ IQuestionFactory questionFactoryDi(QuestionFactoryDiRef ref) {
       return InMemoryQuestionFactory((ref.watch(questionRepositoryDiProvider))
           as InMemoryQuestionRepository);
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseQuestionFactory((ref.watch(questionRepositoryDiProvider))
           as FirebaseQuestionRepository);

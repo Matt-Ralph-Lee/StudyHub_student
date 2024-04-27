@@ -18,7 +18,6 @@ ISearchForTeachersQueryService searchForTeachersQueryServiceDi(
       return InMemorySearchForTeachersQueryService((ref
           .watch(teacherRepositoryDiProvider)) as InMemoryTeacherRepository);
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseSearchForTeachersQueryService();
   }

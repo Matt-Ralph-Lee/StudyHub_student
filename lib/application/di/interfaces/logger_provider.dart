@@ -14,7 +14,6 @@ ILogger loggerDi(LoggerDiRef ref) {
     case Flavor.dev:
       return InMemoryLogger();
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseLogger();
   }

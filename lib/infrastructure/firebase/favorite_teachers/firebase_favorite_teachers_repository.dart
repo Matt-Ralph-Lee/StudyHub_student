@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../database.dart';
 
 import '../../../domain/favorite_teachers/models/favorite_teachers.dart';
 import '../../../domain/favorite_teachers/models/i_favorite_teachers_repository.dart';
@@ -7,7 +7,7 @@ import '../../../domain/teacher/models/teacher_id.dart';
 
 class FirebaseFavoriteTeachersRepository
     implements IFavoriteTeachersRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseFavoriteTeachersRepository _instance =
       FirebaseFavoriteTeachersRepository._internal();

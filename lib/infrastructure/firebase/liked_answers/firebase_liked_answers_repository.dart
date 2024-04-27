@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../domain/answer_list/models/answer_id.dart';
 import '../../../domain/liked_answer/models/i_liked_answers_repository.dart';
 import '../../../domain/liked_answer/models/liked_answers.dart';
@@ -8,7 +10,7 @@ import '../../exceptions/liked_answers/liked_answers_infrastructure_exception.da
 import '../../exceptions/liked_answers/liked_answers_infrastructure_exception_detail.dart';
 
 class FirebaseLikedAnswersRepository implements ILikedAnswersRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseLikedAnswersRepository _instance =
       FirebaseLikedAnswersRepository._internal();

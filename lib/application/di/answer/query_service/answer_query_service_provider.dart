@@ -41,7 +41,6 @@ IGetAnswerQueryService getAnswerQueryServiceDi(GetAnswerQueryServiceDiRef ref) {
         blockingsRepository: InMemoryBlockingsRepository(),
       );
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseGetAnswerQueryService(
         repository:

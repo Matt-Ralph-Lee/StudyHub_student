@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../domain/school/models/school.dart';
 import '../../../domain/shared/name.dart';
 import '../../../domain/shared/profile_photo_path.dart';
@@ -14,7 +16,7 @@ import '../../../domain/student/models/student_id.dart';
 import '../../../domain/student_auth/models/email_address.dart';
 
 class FirebaseStudentRepository implements IStudentRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseStudentRepository _instance =
       FirebaseStudentRepository._internal();

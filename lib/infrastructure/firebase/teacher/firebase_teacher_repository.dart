@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../database.dart';
 
 import '../../../domain/shared/name.dart';
 import '../../../domain/shared/profile_photo_path.dart';
@@ -17,7 +17,7 @@ import '../../exceptions/teacher/teacher_infrastructure_exception.dart';
 import '../../exceptions/teacher/teacher_infrastructure_exception_detail.dart';
 
 class FirebaseTeacherRepository implements ITeacherRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseTeacherRepository _instance =
       FirebaseTeacherRepository._internal();

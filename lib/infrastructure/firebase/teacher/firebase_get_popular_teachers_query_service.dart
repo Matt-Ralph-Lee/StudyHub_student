@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../database.dart';
 
 import '../../../application/teacher/application_service/i_get_popular_teachers_query_service.dart';
 import '../../../application/teacher/application_service/search_for_teachers_dto.dart';
@@ -6,7 +6,7 @@ import '../../../domain/teacher/models/teacher_id.dart';
 
 class FirebaseGetPopularTeachersQueryService
     implements IGetPopularTeachersQueryService {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   @override
   Future<List<SearchForTeacherDto>> find() async {

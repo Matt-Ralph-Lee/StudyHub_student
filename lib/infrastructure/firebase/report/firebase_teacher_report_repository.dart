@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../database.dart';
 
 import '../../../domain/report/models/i_teacher_report_repository.dart';
 import '../../../domain/report/models/teacher_report.dart';
 
 class FirebaseTeacherReportRepository implements ITeacherReportRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseTeacherReportRepository _instance =
       FirebaseTeacherReportRepository._internal();
