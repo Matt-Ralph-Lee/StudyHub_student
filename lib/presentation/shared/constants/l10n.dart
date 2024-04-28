@@ -519,7 +519,7 @@ class L10n {
   static const termsOfUseUrlText =
       "https://studyhub.hatenablog.com/entry/2023/10/10/190449?_gl=1*1v37cxu*_gcl_au*MTQ2Nzk4ODQ4LjE3MTM0Mjk5Njg.";
   static const privacyPolicyUrlText =
-      "https://studyhub.hatenablog.com/entry/2024/02/27/104840";
+      "https://studyhub.hatenablog.com/entry/2023/10/10/185904?_gl=1*s0mjtx*_gcl_au*MTQ2Nzk4ODQ4LjE3MTM0Mjk5Njg.";
 
   //questionPage
   static const questionAndAnswerPageTitleText = "Q&A";
