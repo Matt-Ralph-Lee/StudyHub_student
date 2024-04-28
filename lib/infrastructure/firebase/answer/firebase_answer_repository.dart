@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../domain/answer_list/models/answer.dart';
 import '../../../domain/answer_list/models/answer_id.dart';
 import '../../../domain/answer_list/models/answer_like.dart';
@@ -11,7 +13,7 @@ import '../../../domain/question/models/question_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 
 class FirebaseAnswerRepository implements IAnswerRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseAnswerRepository _instance =
       FirebaseAnswerRepository._internal();

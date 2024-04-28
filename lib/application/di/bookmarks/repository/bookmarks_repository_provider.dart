@@ -14,7 +14,6 @@ IBookmarksRepository bookmarksRepositoryDi(BookmarksRepositoryDiRef ref) {
     case Flavor.dev:
       return InMemoryBookmarksRepository();
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseBookmarksRepository();
   }

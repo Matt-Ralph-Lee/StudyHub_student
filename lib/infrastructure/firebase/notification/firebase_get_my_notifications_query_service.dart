@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../application/notification/application_service/get_my_notification_dto.dart';
 import '../../../application/notification/application_service/i_get_my_notifications_query_service.dart';
 import '../../../domain/answer_list/models/answer_id.dart';
@@ -24,7 +26,7 @@ import '../../exceptions/notification/notification_infrastructure_exception_deta
 
 class FirebaseGetMyNotificationsQueryService
     implements IGetMyNotificationsQueryService {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
   @override
   Future<List<GetMyNotificationDto>> get(StudentId studentId) async {
     final querySnapshot = await db

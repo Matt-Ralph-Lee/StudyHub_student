@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../domain/notification/models/i_notification_repository.dart';
 import '../../../domain/notification/models/notification.dart';
 import '../../../domain/notification/models/notification_id.dart';
@@ -12,7 +14,7 @@ import '../../exceptions/notification/notification_infrastructure_exception.dart
 import '../../exceptions/notification/notification_infrastructure_exception_detail.dart';
 
 class FirebaseNotificationRepository implements INotificationRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseNotificationRepository _instance =
       FirebaseNotificationRepository._internal();

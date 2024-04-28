@@ -1,14 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../../domain/blockings/models/blockings.dart';
 import '../../../domain/blockings/models/i_blockings_repository.dart';
 import '../../../domain/student/models/student_id.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 import '../../exceptions/blockings/blockings_infrastructure_exception.dart';
 import '../../exceptions/blockings/blockings_infrastructure_exception_detail.dart';
+import '../database.dart';
 
 class FirebaseBlockingsRepository implements IBlockingsRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseBlockingsRepository _instance =
       FirebaseBlockingsRepository._internal();

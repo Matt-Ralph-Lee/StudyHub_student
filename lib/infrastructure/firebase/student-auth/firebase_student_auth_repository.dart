@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -11,7 +11,7 @@ import '../../exceptions/student_auth/student_auth_infrastructure_exception_deta
 
 class FirebaseStudentAuthRepository implements IStudentAuthRepository {
   final FirebaseAuth _firebaseAuth;
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   FirebaseStudentAuthRepository({required final FirebaseAuth firebaseAuth})
       : _firebaseAuth = firebaseAuth;

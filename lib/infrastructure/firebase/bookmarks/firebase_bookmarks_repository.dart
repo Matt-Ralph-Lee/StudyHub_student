@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../database.dart';
 
 import '../../../domain/bookmarks/models/bookmarks.dart';
 import '../../../domain/bookmarks/models/i_bookmarks_repository.dart';
@@ -8,7 +8,7 @@ import '../../exceptions/bookmarks/bookmarks_infrastructure_exception.dart';
 import '../../exceptions/bookmarks/bookmarks_infrastructure_exception_detail.dart';
 
 class FirebaseBookmarksRepository implements IBookmarksRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   static final FirebaseBookmarksRepository _instance =
       FirebaseBookmarksRepository._internal();

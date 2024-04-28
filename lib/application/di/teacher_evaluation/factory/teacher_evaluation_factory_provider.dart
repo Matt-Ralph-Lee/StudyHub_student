@@ -18,7 +18,6 @@ ITeacherEvaluationFactory teacherEvaluationFactoryDi(
       return InMemoryTeacherEvaluationFactory(
           InMemoryTeacherEvaluationRepository());
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseTeacherEvaluationFactory(
           FirebaseTeacherEvaluationRepository());

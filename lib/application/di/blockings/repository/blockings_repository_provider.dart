@@ -14,7 +14,6 @@ IBlockingsRepository blockingsRepositoryDi(BlockingsRepositoryDiRef ref) {
     case Flavor.dev:
       return InMemoryBlockingsRepository();
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseBlockingsRepository();
   }

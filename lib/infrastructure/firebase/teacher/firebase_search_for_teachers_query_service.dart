@@ -2,13 +2,15 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../application/teacher/application_service/i_search_for_teachers_query_service.dart';
 import '../../../application/teacher/application_service/search_for_teachers_dto.dart';
 import '../../../domain/teacher/models/teacher_id.dart';
 
 class FirebaseSearchForTeachersQueryService
     implements ISearchForTeachersQueryService {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
 
   @override
   Future<List<SearchForTeacherDto>> search(String keywordString) async {

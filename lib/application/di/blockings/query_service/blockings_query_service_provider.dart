@@ -26,7 +26,6 @@ IGetBlockingsQueryService getBlockingsQueryServiceDi(
             as InMemoryTeacherRepository,
       );
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseBlockingsQueryService(
         repository: (ref.watch(blockingsRepositoryDiProvider))

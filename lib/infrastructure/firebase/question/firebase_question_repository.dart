@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../database.dart';
+
 import '../../../domain/answer_list/models/answer_id.dart';
 import '../../../domain/answer_list/models/answer_list.dart';
 import '../../../domain/question/models/i_question_repository.dart';
@@ -18,7 +20,7 @@ import '../../shared/utils/create_token_map.dart';
 import '../answer/firebase_answer_repository.dart';
 
 class FirebaseQuestionRepository implements IQuestionRepository {
-  final db = FirebaseFirestore.instance;
+  final db = Database.db;
   final FirebaseAnswerRepository _answerRepository = FirebaseAnswerRepository();
 
   static final FirebaseQuestionRepository _instance =

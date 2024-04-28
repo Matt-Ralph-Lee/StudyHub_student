@@ -17,7 +17,6 @@ INotificationFactory notificationFactoryDi(NotificationFactoryDiRef ref) {
       return InMemoryNotificationFactory(
           repository: InMemoryNotificationRepository());
     case Flavor.stg:
-      throw UnimplementedError();
     case Flavor.prd:
       return FirebaseNotificationFactory(FirebaseNotificationRepository());
   }
