@@ -435,6 +435,7 @@ class L10n {
   static const rankDescriptionText =
       "質問数に応じて、Beginner/Novice/Advanced/Expertのいずれかのランクが付与されます。高ランクを目指して沢山質問しましょう！";
   static const expertDesuyoText = "最高ランクです！";
+  static const noBookmarksFound = "ブックマークはありません";
 
   //question_and_answer_card_widget
   static const questionIconText = "Q.";
