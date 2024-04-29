@@ -163,7 +163,7 @@ class NotificationPage extends ConsumerWidget {
           color: ColorSet.of(context).whiteText,
           onRefresh: () async {
             HapticFeedback.lightImpact();
-            return ref.refresh(getMyNotificationsControllerProvider);
+            ref.invalidate(getMyNotificationsControllerProvider);
           },
           child: getMyNotificationsState.when(
             data: (getMyNotificationsDto) {
