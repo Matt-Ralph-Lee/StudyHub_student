@@ -108,206 +108,25 @@ class MyPage extends ConsumerWidget {
       backgroundColor: ColorSet.of(context).background,
       body: DefaultTabController(
         length: 2,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Padding(
-                      padding: EdgeInsets.all(
-                        PaddingSet.getPaddingSize(
-                          context,
-                          PaddingSet.horizontalPadding,
-                        ),
-                      ),
-                      child: getMyProfileState.when(
-                        data: (getMyProfileDto) {
-                          final numberOfFavoriteTeachers =
-                              favoriteTeacherState.maybeWhen(
-                            data: (teachers) => teachers.length,
-                            orElse: () => 0,
-                          ); //ここはもっといい方法？があるはずではある
-                          return UserDetailWidget(
-                            userName: getMyProfileDto.studentName,
-                            numberOfFavoriteTeachers: numberOfFavoriteTeachers,
-                            userRank: getMyProfileDto.status.english,
-                            numberOfQuestions: getMyProfileDto.questionCount,
-                            userIconUrl: getMyProfileDto.profilePhotoPath,
-                          );
-                        },
-                        loading: () => const UserDetailSkeletonWidget(),
-                        error: (error, stackTrace) {
-                          return const Center(
-                            child: TextForError(),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _StickyTabBarDelegate(
-                  tabBar: TabBar(
-                    indicatorColor: ColorSet.of(context).primary,
-                    dividerColor: Colors.transparent,
-                    labelColor: ColorSet.of(context).text,
-                    unselectedLabelColor: ColorSet.of(context).unselectedText,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeightSet.normal,
-                      fontSize: FontSizeSet.getFontSize(
-                        context,
-                        FontSizeSet.header3,
-                      ),
-                    ),
-                    unselectedLabelStyle: TextStyle(
-                        fontWeight: FontWeightSet.normal,
-                        fontSize: FontSizeSet.getFontSize(
-                          context,
-                          FontSizeSet.header3,
-                        )),
-                    tabs: const [
-                      Tab(text: L10n.myQuestionTabText),
-                      Tab(text: L10n.bookmarkTabText),
-                    ],
-                  ),
-                ),
-              ),
-            ];
+        child: RefreshIndicator(
+          notificationPredicate: (notification) => notification.depth == 2,
+          backgroundColor: ColorSet.of(context).primary,
+          color: ColorSet.of(context).whiteText,
+          onRefresh: () async {
+            HapticFeedback.lightImpact();
+            ref.invalidate(getMyQuestionControllerProvider);
+            ref.invalidate(getMyBookmarksControllerProvider);
+            ref.invalidate(checkNotificationControllerProvider);
+            ref.invalidate(getMyProfileControllerProvider);
+            ref.invalidate(getFavoriteTeacherControllerProvider);
           },
-          body: TabBarView(
-            children: [
-              RefreshIndicator(
-                backgroundColor: ColorSet.of(context).primary,
-                color: ColorSet.of(context).whiteText,
-                onRefresh: () async {
-                  HapticFeedback.lightImpact();
-                  //これだと返り値を使えって黄色い波線が出てしまう。他にいい方法ある... ？
-                  // ref.refresh(getMyQuestionControllerProvider);
-                  // ref.refresh(checkNotificationControllerProvider);
-                  // ref.refresh(getMyProfileControllerProvider);
-                  // ref.refresh(getFavoriteTeacherControllerProvider);
-                  return ref.refresh(getMyQuestionControllerProvider);
-                },
-                child: myQuestionState.when(
-                  data: (myQuestions) => ListView.builder(
-                    itemCount: myQuestions.isNotEmpty ? myQuestions.length : 1,
-                    itemBuilder: (context, index) {
-                      if (myQuestions.isEmpty) {
-                        return Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                              PaddingSet.getPaddingSize(
-                                context,
-                                PaddingSet.horizontalPadding,
-                              ),
-                            ),
-                            child: Text(
-                              L10n.noQuestionsFound,
-                              style: TextStyle(
-                                fontWeight: FontWeightSet.normal,
-                                fontSize: FontSizeSet.getFontSize(
-                                    context, FontSizeSet.header3),
-                                color: ColorSet.of(context).text,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      final myQuestion = myQuestions[index];
-                      return Padding(
-                        padding: EdgeInsets.all(
-                          PaddingSet.getPaddingSize(
-                            context,
-                            PaddingSet.horizontalPadding,
-                          ),
-                        ),
-                        child: QuestionAndAnswerCardWidget(
-                          questionCardDto: myQuestion,
-                        ),
-                      );
-                    },
-                  ),
-                  loading: () => ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.all(
-                          PaddingSet.getPaddingSize(
-                            context,
-                            PaddingSet.horizontalPadding,
-                          ),
-                        ),
-                        child: const QuestionAndAnswerCardSkeletonWidget(),
-                      );
-                    },
-                  ),
-                  error: (error, stack) => ListView(
-                    children: [
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(
-                            PaddingSet.getPaddingSize(
-                              context,
-                              PaddingSet.horizontalPadding,
-                            ),
-                          ),
-                          child: const TextForError(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              RefreshIndicator(
-                backgroundColor: ColorSet.of(context).primary,
-                color: ColorSet.of(context).whiteText,
-                onRefresh: () async {
-                  HapticFeedback.lightImpact();
-                  return ref.refresh(getMyBookmarksControllerProvider);
-                },
-                child: myBookmarksState.when(
-                  data: (myBookmarks) => ListView.builder(
-                    itemCount: myBookmarks.isNotEmpty ? myBookmarks.length : 1,
-                    itemBuilder: (context, index) {
-                      if (myBookmarks.isEmpty) {
-                        return Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: PaddingSet.getPaddingSize(
-                                context,
-                                50,
-                              ),
-                            ),
-                            child: Text(
-                              L10n.noBookmarksFound,
-                              style: TextStyle(
-                                  fontWeight: FontWeightSet.normal,
-                                  fontSize: FontSizeSet.getFontSize(
-                                      context, FontSizeSet.header3),
-                                  color: ColorSet.of(context).text),
-                            ),
-                          ),
-                        );
-                      }
-                      final myBookmark = myBookmarks[index];
-                      return Padding(
-                        padding: EdgeInsets.all(
-                          PaddingSet.getPaddingSize(
-                            context,
-                            PaddingSet.horizontalPadding,
-                          ),
-                        ),
-                        child: QuestionAndAnswerCardWidget(
-                          questionCardDto: myBookmark,
-                        ),
-                      );
-                    },
-                  ),
-                  loading: () => ListView(
-                    children: [
+          child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
                       Padding(
                         padding: EdgeInsets.all(
                           PaddingSet.getPaddingSize(
@@ -315,28 +134,221 @@ class MyPage extends ConsumerWidget {
                             PaddingSet.horizontalPadding,
                           ),
                         ),
-                        child: const QuestionAndAnswerCardSkeletonWidget(),
+                        child: getMyProfileState.when(
+                          data: (getMyProfileDto) {
+                            final numberOfFavoriteTeachers =
+                                favoriteTeacherState.maybeWhen(
+                              data: (teachers) => teachers.length,
+                              orElse: () => 0,
+                            ); //ここはもっといい方法？があるはずではある
+                            return UserDetailWidget(
+                              userName: getMyProfileDto.studentName,
+                              numberOfFavoriteTeachers:
+                                  numberOfFavoriteTeachers,
+                              userRank: getMyProfileDto.status.english,
+                              numberOfQuestions: getMyProfileDto.questionCount,
+                              userIconUrl: getMyProfileDto.profilePhotoPath,
+                            );
+                          },
+                          loading: () => const UserDetailSkeletonWidget(),
+                          error: (error, stackTrace) {
+                            return const Center(
+                              child: TextForError(),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
-                  error: (error, stack) => ListView(
-                    children: [
-                      Center(
-                        child: Padding(
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _StickyTabBarDelegate(
+                    tabBar: TabBar(
+                      indicatorColor: ColorSet.of(context).primary,
+                      dividerColor: Colors.transparent,
+                      labelColor: ColorSet.of(context).text,
+                      unselectedLabelColor: ColorSet.of(context).unselectedText,
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeightSet.normal,
+                        fontSize: FontSizeSet.getFontSize(
+                          context,
+                          FontSizeSet.header3,
+                        ),
+                      ),
+                      unselectedLabelStyle: TextStyle(
+                          fontWeight: FontWeightSet.normal,
+                          fontSize: FontSizeSet.getFontSize(
+                            context,
+                            FontSizeSet.header3,
+                          )),
+                      tabs: const [
+                        Tab(text: L10n.myQuestionTabText),
+                        Tab(text: L10n.bookmarkTabText),
+                      ],
+                    ),
+                  ),
+                ),
+              ];
+            },
+            body: TabBarView(
+              children: [
+                RefreshIndicator(
+                  backgroundColor: ColorSet.of(context).primary,
+                  color: ColorSet.of(context).whiteText,
+                  onRefresh: () async {
+                    HapticFeedback.lightImpact();
+                    return ref.refresh(getMyQuestionControllerProvider);
+                  },
+                  child: myQuestionState.when(
+                    data: (myQuestions) => ListView.builder(
+                      itemCount:
+                          myQuestions.isNotEmpty ? myQuestions.length : 1,
+                      itemBuilder: (context, index) {
+                        if (myQuestions.isEmpty) {
+                          return Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                PaddingSet.getPaddingSize(
+                                  context,
+                                  PaddingSet.horizontalPadding,
+                                ),
+                              ),
+                              child: Text(
+                                L10n.noQuestionsFound,
+                                style: TextStyle(
+                                  fontWeight: FontWeightSet.normal,
+                                  fontSize: FontSizeSet.getFontSize(
+                                      context, FontSizeSet.header3),
+                                  color: ColorSet.of(context).text,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        final myQuestion = myQuestions[index];
+                        return Padding(
                           padding: EdgeInsets.all(
                             PaddingSet.getPaddingSize(
                               context,
                               PaddingSet.horizontalPadding,
                             ),
                           ),
-                          child: const TextForError(),
+                          child: QuestionAndAnswerCardWidget(
+                            questionCardDto: myQuestion,
+                          ),
+                        );
+                      },
+                    ),
+                    loading: () => ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.all(
+                            PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.horizontalPadding,
+                            ),
+                          ),
+                          child: const QuestionAndAnswerCardSkeletonWidget(),
+                        );
+                      },
+                    ),
+                    error: (error, stack) => ListView(
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              PaddingSet.getPaddingSize(
+                                context,
+                                PaddingSet.horizontalPadding,
+                              ),
+                            ),
+                            child: const TextForError(),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                RefreshIndicator(
+                  backgroundColor: ColorSet.of(context).primary,
+                  color: ColorSet.of(context).whiteText,
+                  onRefresh: () async {
+                    HapticFeedback.lightImpact();
+                    return ref.refresh(getMyBookmarksControllerProvider);
+                  },
+                  child: myBookmarksState.when(
+                    data: (myBookmarks) => ListView.builder(
+                      itemCount:
+                          myBookmarks.isNotEmpty ? myBookmarks.length : 1,
+                      itemBuilder: (context, index) {
+                        if (myBookmarks.isEmpty) {
+                          return Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: PaddingSet.getPaddingSize(
+                                  context,
+                                  50,
+                                ),
+                              ),
+                              child: Text(
+                                L10n.noBookmarksFound,
+                                style: TextStyle(
+                                    fontWeight: FontWeightSet.normal,
+                                    fontSize: FontSizeSet.getFontSize(
+                                        context, FontSizeSet.header3),
+                                    color: ColorSet.of(context).text),
+                              ),
+                            ),
+                          );
+                        }
+                        final myBookmark = myBookmarks[index];
+                        return Padding(
+                          padding: EdgeInsets.all(
+                            PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.horizontalPadding,
+                            ),
+                          ),
+                          child: QuestionAndAnswerCardWidget(
+                            questionCardDto: myBookmark,
+                          ),
+                        );
+                      },
+                    ),
+                    loading: () => ListView(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(
+                            PaddingSet.getPaddingSize(
+                              context,
+                              PaddingSet.horizontalPadding,
+                            ),
+                          ),
+                          child: const QuestionAndAnswerCardSkeletonWidget(),
+                        ),
+                      ],
+                    ),
+                    error: (error, stack) => ListView(
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              PaddingSet.getPaddingSize(
+                                context,
+                                PaddingSet.horizontalPadding,
+                              ),
+                            ),
+                            child: const TextForError(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
