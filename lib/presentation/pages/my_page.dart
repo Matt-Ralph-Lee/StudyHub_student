@@ -184,6 +184,11 @@ class MyPage extends ConsumerWidget {
                 color: ColorSet.of(context).whiteText,
                 onRefresh: () async {
                   HapticFeedback.lightImpact();
+                  //これだと返り値を使えって黄色い波線が出てしまう。他にいい方法ある... ？
+                  // ref.refresh(getMyQuestionControllerProvider);
+                  // ref.refresh(checkNotificationControllerProvider);
+                  // ref.refresh(getMyProfileControllerProvider);
+                  // ref.refresh(getFavoriteTeacherControllerProvider);
                   return ref.refresh(getMyQuestionControllerProvider);
                 },
                 child: myQuestionState.when(

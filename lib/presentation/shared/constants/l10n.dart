@@ -550,7 +550,7 @@ class L10n {
   static const notificationTitleText = "お知らせ";
   static const todayText = "今日";
   static const thisWeekText = "今週";
-  static const beforeText = "それ以前";
+  static const beforeText = "先週以前"; //「それ以前」は相対的なもので、前者２つがなかった時に成立しない気がしたので
   static const noNotificationFound = "お知らせがありません";
   static const answeredNotificationTest = "回答が付きました！";
   static const infoText = "運営からのお知らせ";
