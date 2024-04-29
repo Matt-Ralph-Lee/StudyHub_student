@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -157,52 +158,75 @@ class NotificationPage extends ConsumerWidget {
             20,
           ),
         ),
-        child: getMyNotificationsState.when(
-          data: (getMyNotificationsDto) {
-            if (getMyNotificationsDto.isNotEmpty) {
-              final notificationsList =
-                  processNotifications(getMyNotificationsDto, context);
-              return ListView.builder(
-                itemCount: notificationsList.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: PaddingSet.getPaddingSize(
-                      context,
-                      PaddingSet.horizontalPadding,
-                    ),
-                  ), //影消さないようにここでpadding入れてる
-                  child: notificationsList[index],
-                ),
-              );
-            } else {
-              return const Center(
-                child: TextForNoNotificationsFound(),
-              );
-            }
+        child: RefreshIndicator(
+          backgroundColor: ColorSet.of(context).primary,
+          color: ColorSet.of(context).whiteText,
+          onRefresh: () async {
+            HapticFeedback.lightImpact();
+            ref.invalidate(getMyNotificationsControllerProvider);
           },
-          loading: () => ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) => Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: PaddingSet.getPaddingSize(
-                  context,
-                  PaddingSet.horizontalPadding,
+          child: getMyNotificationsState.when(
+            data: (getMyNotificationsDto) {
+              if (getMyNotificationsDto.isNotEmpty) {
+                final notificationsList =
+                    processNotifications(getMyNotificationsDto, context);
+                return ListView.builder(
+                  itemCount: notificationsList.isNotEmpty
+                      ? notificationsList.length
+                      : 1,
+                  itemBuilder: (context, index) {
+                    if (notificationsList.isEmpty) {
+                      return Padding(
+                        padding: EdgeInsets.all(
+                          PaddingSet.getPaddingSize(
+                            context,
+                            PaddingSet.horizontalPadding,
+                          ),
+                        ),
+                        child: const TextForNoNotificationsFound(),
+                      );
+                    }
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: PaddingSet.getPaddingSize(
+                          context,
+                          PaddingSet.horizontalPadding,
+                        ),
+                      ), //影消さないようにここでpadding入れてる
+                      child: notificationsList[index],
+                    );
+                  },
+                );
+              } else {
+                return const Center(
+                  child: TextForNoNotificationsFound(),
+                );
+              }
+            },
+            loading: () => ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: PaddingSet.getPaddingSize(
+                    context,
+                    PaddingSet.horizontalPadding,
+                  ),
                 ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-                child: NotificationCardSkeletonWidget(),
+                child: const Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: NotificationCardSkeletonWidget(),
+                ),
               ),
             ),
+            error: (error, stack) {
+              return const Center(
+                  child: Column(
+                children: [
+                  TextForError(),
+                ],
+              ));
+            },
           ),
-          error: (error, stack) {
-            return const Center(
-                child: Column(
-              children: [
-                TextForError(),
-              ],
-            ));
-          },
         ),
       ),
     );
