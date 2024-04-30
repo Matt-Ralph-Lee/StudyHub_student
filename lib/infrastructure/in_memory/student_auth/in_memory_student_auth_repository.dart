@@ -190,16 +190,16 @@ class InMemoryStudentAuthInitialValue {
   static final studentAuth1 = StudentAuthInfo(
       studentId: InMemoryStudentInitialValue.student1.studentId,
       emailAddress: EmailAddress('student1@example.com'),
-      password: Password('student1'),
+      password: Password('password1'),
       isVerified: true);
   static final studentAuth2 = StudentAuthInfo(
       studentId: InMemoryStudentInitialValue.student2.studentId,
       emailAddress: EmailAddress('student2@example.com'),
-      password: Password('student2'),
+      password: Password('password2'),
       isVerified: true);
   static final studentAuth3 = StudentAuthInfo(
       studentId: InMemoryStudentInitialValue.student3.studentId,
       emailAddress: EmailAddress('student3@example.com'),
-      password: Password('student3'),
+      password: Password('password3'),
       isVerified: true);
 }
