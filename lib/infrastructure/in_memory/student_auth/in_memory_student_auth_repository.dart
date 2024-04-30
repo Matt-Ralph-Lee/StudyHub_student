@@ -8,12 +8,12 @@ import '../../../domain/student_auth/models/password.dart';
 import '../../../domain/student_auth/models/student_auth_info.dart';
 import '../../exceptions/student_auth/student_auth_infrastructure_exception.dart';
 import '../../exceptions/student_auth/student_auth_infrastructure_exception_detail.dart';
+import '../student/in_memory_student_repository.dart';
 
 class InMemoryStudentAuthRepository implements IStudentAuthRepository {
   late int count;
   late Map<StudentId, StudentAuthInfo> store;
   late Map<EmailAddress, StudentId> emailToIdMap;
-  // about current Student
   late StreamController<StudentAuthInfoWithoutPassword?> streamController;
   late StudentId? currentStudentId;
 
@@ -26,8 +26,22 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
 
   InMemoryStudentAuthRepository._internal() {
     count = 10000;
-    store = {};
-    emailToIdMap = {};
+    store = {
+      InMemoryStudentAuthInitialValue.studentAuth1.studentId:
+          InMemoryStudentAuthInitialValue.studentAuth1,
+      InMemoryStudentAuthInitialValue.studentAuth2.studentId:
+          InMemoryStudentAuthInitialValue.studentAuth2,
+      InMemoryStudentAuthInitialValue.studentAuth3.studentId:
+          InMemoryStudentAuthInitialValue.studentAuth3,
+    };
+    emailToIdMap = {
+      InMemoryStudentAuthInitialValue.studentAuth1.emailAddress:
+          InMemoryStudentAuthInitialValue.studentAuth1.studentId,
+      InMemoryStudentAuthInitialValue.studentAuth2.emailAddress:
+          InMemoryStudentAuthInitialValue.studentAuth2.studentId,
+      InMemoryStudentAuthInitialValue.studentAuth3.emailAddress:
+          InMemoryStudentAuthInitialValue.studentAuth3.studentId,
+    };
     streamController = StreamController<StudentAuthInfoWithoutPassword?>();
     currentStudentId = null;
   }
@@ -170,4 +184,22 @@ class InMemoryStudentAuthRepository implements IStudentAuthRepository {
     required EmailAddress? emailAddress,
     required StudentId? studentId,
   }) async {}
+}
+
+class InMemoryStudentAuthInitialValue {
+  static final studentAuth1 = StudentAuthInfo(
+      studentId: InMemoryStudentInitialValue.student1.studentId,
+      emailAddress: EmailAddress('student1@example.com'),
+      password: Password('password1'),
+      isVerified: true);
+  static final studentAuth2 = StudentAuthInfo(
+      studentId: InMemoryStudentInitialValue.student2.studentId,
+      emailAddress: EmailAddress('student2@example.com'),
+      password: Password('password2'),
+      isVerified: true);
+  static final studentAuth3 = StudentAuthInfo(
+      studentId: InMemoryStudentInitialValue.student3.studentId,
+      emailAddress: EmailAddress('student3@example.com'),
+      password: Password('password3'),
+      isVerified: true);
 }
