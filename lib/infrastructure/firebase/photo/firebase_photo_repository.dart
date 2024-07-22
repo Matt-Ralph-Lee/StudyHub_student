@@ -37,7 +37,9 @@ class FirebasePhotoRepository implements IPhotoRepository {
     for (final photo in photoList) {
       final imageRef = storageRef.child(photo.path.value);
 
-      await imageRef.putData(photo.data);
+      final metaData = SettableMetadata(contentType: "image/jpg");
+
+      await imageRef.putData(photo.data, metaData);
     }
   }
 
