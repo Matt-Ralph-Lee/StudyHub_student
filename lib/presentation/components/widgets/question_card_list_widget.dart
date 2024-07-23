@@ -99,7 +99,6 @@ class _QuestionCardListWidget extends ConsumerState<QuestionCardListWidget>
           child: TextForError(),
         );
       },
-      skipLoadingOnRefresh: false, // refreshしたときにshimmer effectを追加。
     );
   }
 
