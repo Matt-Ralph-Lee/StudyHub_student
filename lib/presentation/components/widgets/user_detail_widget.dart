@@ -109,6 +109,10 @@ class UserDetailWidget extends ConsumerWidget {
       context.push(PageId.favoriteTeachers.path);
     }
 
+    void navigateToEditProfilePage(BuildContext context) {
+      context.push(PageId.editProfile.path);
+    }
+
     final image = ref.watch(getPhotoControllerProvider(userIconUrl)).maybeWhen(
           data: (d) => d,
           loading: () {
@@ -128,9 +132,12 @@ class UserDetailWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: screenWidth < 600 ? 30 : 45,
-              backgroundImage: image,
+            GestureDetector(
+              onTap: () => navigateToEditProfilePage(context),
+              child: CircleAvatar(
+                radius: screenWidth < 600 ? 30 : 45,
+                backgroundImage: image,
+              ),
             ),
             Expanded(
               child: GestureDetector(
@@ -177,16 +184,19 @@ class UserDetailWidget extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              child: Text(
-                userName,
-                style: TextStyle(
-                    fontWeight: FontWeightSet.normal,
-                    fontSize:
-                        FontSizeSet.getFontSize(context, FontSizeSet.header2),
-                    color: ColorSet.of(context).text),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+            GestureDetector(
+              onTap: () => navigateToEditProfilePage(context),
+              child: Flexible(
+                child: Text(
+                  userName,
+                  style: TextStyle(
+                      fontWeight: FontWeightSet.normal,
+                      fontSize:
+                          FontSizeSet.getFontSize(context, FontSizeSet.header2),
+                      color: ColorSet.of(context).text),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             Container(

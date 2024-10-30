@@ -357,12 +357,12 @@ class AnswerCardWidget extends ConsumerWidget {
                               : Icons.favorite_border,
                           size: FontSizeSet.getFontSize(
                             context,
-                            FontSizeSet.header3,
+                            FontSizeSet.header1,
                           ),
                           color: ColorSet.of(context).primary,
                         ),
                         const SizedBox(
-                          height: 3,
+                          height: 7,
                         ),
                         Text(
                           answerDto.answerLike.toString(),

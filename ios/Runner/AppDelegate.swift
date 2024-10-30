@@ -1,7 +1,7 @@
 import UIKit
 import Flutter
 import Firebase //この行を追加
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(
     _ application: UIApplication,
