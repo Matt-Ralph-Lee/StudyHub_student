@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../controllers/get_photo_controller/get_photo_controller.dart';
 import '../../shared/constants/color_set.dart';
@@ -135,7 +137,7 @@ class UserDetailWidget extends ConsumerWidget {
             GestureDetector(
               onTap: () => navigateToEditProfilePage(context),
               child: CircleAvatar(
-                radius: screenWidth < 600 ? 30 : 45,
+                radius: screenWidth < 600 ? 45 : 45,
                 backgroundImage: image,
               ),
             ),
@@ -179,7 +181,7 @@ class UserDetailWidget extends ConsumerWidget {
           ],
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,13 +209,20 @@ class UserDetailWidget extends ConsumerWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                child: Text(
-                  userRank,
-                  style: TextStyle(
+                child: Shimmer.fromColors(
+                  loop: 1,
+                  baseColor: ColorSet.of(context).whiteText,
+                  highlightColor: ColorSet.of(context).simmerHighlight,
+                  period: const Duration(milliseconds: 1500),
+                  child: Text(
+                    userRank,
+                    style: TextStyle(
                       fontWeight: FontWeightSet.normal,
                       fontSize: FontSizeSet.getFontSize(
                           context, FontSizeSet.annotation),
-                      color: ColorSet.of(context).whiteText),
+                      color: ColorSet.of(context).whiteText,
+                    ),
+                  ),
                 ),
               ),
             ),

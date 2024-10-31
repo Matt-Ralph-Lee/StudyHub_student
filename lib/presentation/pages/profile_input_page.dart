@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../application/student/application_service/profile_update_command.dart';
 import '../../domain/student/models/gender.dart';
 import '../../domain/student/models/grade_or_graduate_status.dart';
 import '../../domain/student/models/occupation.dart';
 import '../components/parts/progress_bar.dart';
-import '../components/parts/text_for_profile_completion_welcome.dart';
 import '../components/widgets/academic_history_input_widget.dart';
 import '../components/widgets/gender_and_job_input_widget.dart';
 import '../components/widgets/error_modal_widget.dart';
 import '../components/widgets/student_school_name_and_grade_input_widget.dart';
-import '../components/widgets/user_name_input_widget.dart';
+import '../components/widgets/profile_image_and_user_name_input_widget.dart';
+import '../components/widgets/welcome_confetti_widget.dart';
 import '../controllers/profile_update_controller/profile_update_controller.dart';
 import '../shared/constants/color_set.dart';
 import '../shared/utils/handle_error.dart';
@@ -32,11 +34,14 @@ class ProfileInputPage extends HookConsumerWidget {
     final job = useState<Occupation?>(null);
     final studentGrade = useState<GradeOrGraduateStatus?>(null);
     final othersGrade = useState<GradeOrGraduateStatus?>(null);
+    final picker = ImagePicker();
+    final profileImage = useState<String>("");
     final userNameInputController = useTextEditingController();
     final studentSchoolNameInputController = useTextEditingController();
     final academicHistoryInputController = useTextEditingController();
 
     void incrementProgressCounter() {
+      HapticFeedback.lightImpact();
       progress.value++;
     }
 
@@ -46,6 +51,28 @@ class ProfileInputPage extends HookConsumerWidget {
 
     void push(BuildContext context) {
       context.push(PageId.home.path);
+    }
+
+    void selectPhoto() async {
+      await picker.pickImage(source: ImageSource.gallery).then((pickedFile) {
+        if (pickedFile != null) {
+          profileImage.value = pickedFile.path;
+        }
+        context.pop();
+      });
+    }
+
+    void takePhoto() async {
+      await picker
+          .pickImage(
+        source: ImageSource.camera,
+      )
+          .then((pickedFile) {
+        if (pickedFile != null) {
+          profileImage.value = pickedFile.path;
+        }
+        context.pop();
+      });
     }
 
     void updateProfile() async {
@@ -65,7 +92,7 @@ class ProfileInputPage extends HookConsumerWidget {
         gradeOrGraduateStatus: job.value == Occupation.student
             ? studentGrade.value
             : othersGrade.value,
-        localPhotoPath: null,
+        localPhotoPath: profileImage.value,
       );
 
       ref
@@ -86,7 +113,7 @@ class ProfileInputPage extends HookConsumerWidget {
           );
           progress.value = 0;
         } else {
-          Future.delayed(const Duration(seconds: 2)).then(
+          Future.delayed(const Duration(seconds: 5)).then(
             (_) => push(context),
           );
         }
@@ -94,9 +121,12 @@ class ProfileInputPage extends HookConsumerWidget {
     }
 
     List<Widget> body = [
-      UserNameInputWidget(
+      ProfileImageAndUserNameInputWidget(
         userNameInputController: userNameInputController,
         incrementProgressCounter: incrementProgressCounter,
+        profileImage: profileImage.value,
+        uploadPhotoFromCamera: takePhoto,
+        uploadPhotoFromGallery: selectPhoto,
       ),
       GenderAndJobInputWidget(
         genderValue: gender.value,
@@ -130,11 +160,8 @@ class ProfileInputPage extends HookConsumerWidget {
                 othersGrade.value = newValue;
               },
             ),
-      SizedBox(
-        height: screenHeight * 0.5,
-        child: const Center(
-          child: TextForProfileCompletionWelcome(),
-        ),
+      WelcomeConfettiWidget(
+        decrementProgressCounter: decrementProgressCounter,
       ),
     ];
 

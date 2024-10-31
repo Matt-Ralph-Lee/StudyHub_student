@@ -3,17 +3,24 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/shared/name.dart';
 import '../../shared/constants/l10n.dart';
+import '../parts/button_for_adding_profile_image.dart';
 import '../parts/button_for_profile_input_next.dart';
 import '../parts/text_for_input_explanation.dart';
 import '../parts/text_form_field_for_user_name_input.dart';
 
-class UserNameInputWidget extends HookWidget {
+class ProfileImageAndUserNameInputWidget extends HookWidget {
   final TextEditingController userNameInputController;
   final VoidCallback incrementProgressCounter;
-  const UserNameInputWidget({
+  final String profileImage;
+  final void Function() uploadPhotoFromCamera;
+  final void Function() uploadPhotoFromGallery;
+  const ProfileImageAndUserNameInputWidget({
     super.key,
     required this.userNameInputController,
     required this.incrementProgressCounter,
+    required this.profileImage,
+    required this.uploadPhotoFromCamera,
+    required this.uploadPhotoFromGallery,
   });
 
   @override
@@ -36,20 +43,29 @@ class UserNameInputWidget extends HookWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const TextForProfileInputExplanation(
-            explanationText: L10n.usernameInputExplanationText),
-        const SizedBox(height: 130),
+            explanationText: L10n.userProfileImageAndNameInputExplanationText),
+        const SizedBox(height: 70),
+        ButtonForAddingProfileImage(
+          isPicturesAdded: profileImage.isNotEmpty,
+          takePhoto: uploadPhotoFromCamera,
+          pickPhoto: uploadPhotoFromGallery,
+          selectedPhoto: profileImage,
+        ),
+        const SizedBox(height: 70),
         TextFormFieldForUserNameInput(
           controller: userNameInputController,
           onChanged: checkUserNameFilled,
           errorText: userNameErrorText.value,
         ),
-        const SizedBox(height: 150),
+        const SizedBox(height: 100),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ButtonForProfileInputNext(
               incrementCounter:
-                  isUserNameFilled.value ? incrementProgressCounter : null,
+                  profileImage.isNotEmpty && isUserNameFilled.value
+                      ? incrementProgressCounter
+                      : null,
             )
           ],
         ),
