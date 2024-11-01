@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/report/models/i_question_report_repository.dart';
@@ -9,8 +10,7 @@ import '../../shared/flavor/flavor_config.dart';
 part 'question_report_repository_provider.g.dart';
 
 @riverpod
-IQuestionReportRepository questionReportRepositoryDi(
-    QuestionReportRepositoryDiRef ref) {
+IQuestionReportRepository questionReportRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryQuestionReportRepository();

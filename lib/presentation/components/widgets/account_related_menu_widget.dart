@@ -29,13 +29,45 @@ class AccountRelatedMenuWidget extends ConsumerWidget {
     }
 
     void logOut() async {
-      await ref
-          .read(studentAuthControllerProvider.notifier)
-          .signOut()
-          .then((_) {
-        final currentState = ref.read(studentAuthControllerProvider);
-        if (currentState.hasError) {
-          final error = currentState.error;
+      await ref.read(studentAuthControllerProvider.notifier).signOut();
+      if (!context.mounted) return;
+      final currentState = ref.read(studentAuthControllerProvider);
+      if (currentState.hasError) {
+        final error = currentState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      } else {
+        HapticFeedback.lightImpact();
+        ScaffoldMessenger.of(context).showSnackBar(
+          completionSnackBar(context, L10n.logoutSnackBarText),
+        );
+        navigateToAuthPage(context);
+      }
+    }
+
+    void deleteAccount() async {
+      final result = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const ConfirmAccountDeleteModalWidget();
+          });
+      if (result) {
+        await ref
+            .read(deleteAccountControllerProvider.notifier)
+            .deleteAccount();
+
+        if (!context.mounted) return;
+
+        final addQuestionState = ref.read(deleteAccountControllerProvider);
+        if (addQuestionState.hasError) {
+          final error = addQuestionState.error;
           final errorMessage = handleError(error);
           showDialog(
             context: context,
@@ -48,44 +80,10 @@ class AccountRelatedMenuWidget extends ConsumerWidget {
         } else {
           HapticFeedback.lightImpact();
           ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.logoutSnackBarText),
+            completionSnackBar(context, L10n.deleteAccountSnackBarText),
           );
           navigateToAuthPage(context);
         }
-      });
-    }
-
-    void deleteAccount() async {
-      final result = await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const ConfirmAccountDeleteModalWidget();
-          });
-      if (result) {
-        ref
-            .read(deleteAccountControllerProvider.notifier)
-            .deleteAccount()
-            .then((_) {
-          final addQuestionState = ref.read(deleteAccountControllerProvider);
-          if (addQuestionState.hasError) {
-            final error = addQuestionState.error;
-            final errorMessage = handleError(error);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorModalWidget(
-                  errorMessage: errorMessage,
-                );
-              },
-            );
-          } else {
-            HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(context, L10n.deleteAccountSnackBarText),
-            );
-            navigateToAuthPage(context);
-          }
-        });
       }
     }
 

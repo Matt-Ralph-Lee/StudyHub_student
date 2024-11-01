@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/in_memory/teacher/in_memory_teacher_repository.dart';
@@ -11,8 +12,7 @@ import 'teacher_provider.dart';
 part 'search_for_teachers_query_service.g.dart';
 
 @riverpod
-ISearchForTeachersQueryService searchForTeachersQueryServiceDi(
-    SearchForTeachersQueryServiceDiRef ref) {
+ISearchForTeachersQueryService searchForTeachersQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemorySearchForTeachersQueryService((ref

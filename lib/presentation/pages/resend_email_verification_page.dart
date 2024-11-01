@@ -24,26 +24,27 @@ class ResendEmailVerificationPage extends ConsumerWidget {
     final topPadding = screenHeight * 0.1;
 
     void backToSignUpPage() async {
-      ref
-          .read(deleteAccountControllerProvider.notifier)
-          .deleteAccount()
-          .then((_) {
-        final deleteAccountState = ref.read(deleteAccountControllerProvider);
-        if (deleteAccountState.hasError) {
-          final error = deleteAccountState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        } else {
-          context.go(PageId.authPage.path);
-        }
-      });
+      await ref.read(deleteAccountControllerProvider.notifier).deleteAccount();
+
+      // 状態を確認
+      final deleteAccountState = ref.read(deleteAccountControllerProvider);
+
+      if (!context.mounted) return; // ウィジェットが破棄されている場合は処理を中断
+
+      if (deleteAccountState.hasError) {
+        final error = deleteAccountState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      } else {
+        context.go(PageId.authPage.path);
+      }
     }
 
     return Scaffold(

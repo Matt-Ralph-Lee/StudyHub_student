@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/liked_answers/firebase_get_liked_answers_query_service.dart';
@@ -13,8 +14,7 @@ import '../repository/liked_answers_repository_provider.dart';
 part 'liked_answers_query_service_provider.g.dart';
 
 @riverpod
-IGetLikedAnswersQueryService getLikedAnswersQueryServiceDi(
-    GetLikedAnswersQueryServiceDiRef ref) {
+IGetLikedAnswersQueryService getLikedAnswersQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryGetLikedAnswersQueryService(

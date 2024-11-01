@@ -74,28 +74,26 @@ class LoginWidget extends HookConsumerWidget {
         ElevatedButtonForAuth(
           buttonText: L10n.loginButtonText,
           onPressed: isEmailFilled.value && isPasswordFilled.value
-              ? () {
-                  ref
-                      .read(studentAuthControllerProvider.notifier)
-                      .login(loginEmailController.text,
-                          loginPassWordController.text)
-                      .then((_) {
-                    final currentState =
-                        ref.read(studentAuthControllerProvider);
-                    if (currentState.hasError) {
-                      final error = currentState.error;
-                      final errorMessage = handleError(error);
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return ErrorModalWidget(
-                              errorMessage: errorMessage,
-                            );
-                          });
-                    } else {
-                      push(context);
-                    }
-                  });
+              ? () async {
+                  await ref.read(studentAuthControllerProvider.notifier).login(
+                      loginEmailController.text, loginPassWordController.text);
+
+                  if (!context.mounted) return;
+
+                  final currentState = ref.read(studentAuthControllerProvider);
+                  if (currentState.hasError) {
+                    final error = currentState.error;
+                    final errorMessage = handleError(error);
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ErrorModalWidget(
+                            errorMessage: errorMessage,
+                          );
+                        });
+                  } else {
+                    push(context);
+                  }
                 }
               : null,
         ),

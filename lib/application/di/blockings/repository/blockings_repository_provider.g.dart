@@ -7,7 +7,7 @@ part of 'blockings_repository_provider.dart';
 // **************************************************************************
 
 String _$blockingsRepositoryDiHash() =>
-    r'cb0b72d228503d7401fc40cd72441dfb73a5dde3';
+    r'ec16e41b4aa45529de3c2fd0e1e74fd1723ed85d';
 
 /// See also [blockingsRepositoryDi].
 @ProviderFor(blockingsRepositoryDi)
@@ -22,6 +22,8 @@ final blockingsRepositoryDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef BlockingsRepositoryDiRef = AutoDisposeProviderRef<IBlockingsRepository>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

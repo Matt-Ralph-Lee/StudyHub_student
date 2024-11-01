@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/student_auth/models/i_student_auth_repository.dart';
@@ -13,7 +14,7 @@ import '../../student_auth/application_service/i_get_student_auth_query_service.
 part 'student_auth_provider.g.dart';
 
 @riverpod
-IStudentAuthRepository studentAuthRepositoryDi(StudentAuthRepositoryDiRef ref) {
+IStudentAuthRepository studentAuthRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryStudentAuthRepository();
@@ -27,8 +28,7 @@ IStudentAuthRepository studentAuthRepositoryDi(StudentAuthRepositoryDiRef ref) {
 }
 
 @riverpod
-IGetStudentAuthQueryService getStudentAuthQueryService(
-    GetStudentAuthQueryServiceRef ref) {
+IGetStudentAuthQueryService getStudentAuthQueryService(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryGetStudentAuthQueryService(
@@ -44,6 +44,6 @@ IGetStudentAuthQueryService getStudentAuthQueryService(
 }
 
 @riverpod
-FirebaseAuth firebaseAuth(FirebaseAuthRef ref) {
+FirebaseAuth firebaseAuth(Ref ref) {
   return FirebaseAuth.instance;
 }

@@ -54,25 +54,23 @@ class ProfileInputPage extends HookConsumerWidget {
     }
 
     void selectPhoto() async {
-      await picker.pickImage(source: ImageSource.gallery).then((pickedFile) {
-        if (pickedFile != null) {
-          profileImage.value = pickedFile.path;
-        }
-        context.pop();
-      });
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (!context.mounted) return;
+      if (pickedFile != null) {
+        profileImage.value = pickedFile.path;
+      }
+      context.pop();
     }
 
     void takePhoto() async {
-      await picker
-          .pickImage(
+      final pickedFile = await picker.pickImage(
         source: ImageSource.camera,
-      )
-          .then((pickedFile) {
-        if (pickedFile != null) {
-          profileImage.value = pickedFile.path;
-        }
-        context.pop();
-      });
+      );
+      if (!context.mounted) return;
+      if (pickedFile != null) {
+        profileImage.value = pickedFile.path;
+      }
+      context.pop();
     }
 
     void updateProfile() async {
@@ -95,29 +93,30 @@ class ProfileInputPage extends HookConsumerWidget {
         localPhotoPath: profileImage.value,
       );
 
-      ref
+      await ref
           .read(profileUpdateControllerProvider.notifier)
-          .profileUpdate(profileUpdateCommand)
-          .then((_) async {
-        final currentState = ref.read(profileUpdateControllerProvider);
-        if (currentState.hasError) {
-          final error = currentState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-          progress.value = 0;
-        } else {
-          Future.delayed(const Duration(seconds: 5)).then(
-            (_) => push(context),
-          );
-        }
-      });
+          .profileUpdate(profileUpdateCommand);
+
+      if (!context.mounted) return;
+
+      final currentState = ref.read(profileUpdateControllerProvider);
+      if (currentState.hasError) {
+        final error = currentState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+        progress.value = 0;
+      } else {
+        await Future.delayed(const Duration(seconds: 5));
+        if (!context.mounted) return;
+        push(context);
+      }
     }
 
     List<Widget> body = [

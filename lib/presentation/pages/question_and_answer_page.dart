@@ -56,57 +56,59 @@ class QuestionAndAnswerPage extends HookConsumerWidget {
     final selectedAnswerIndex = useState(0);
 
     void addBookmark() async {
-      ref
+      await ref
           .read(addBookmarkControllerProvider.notifier)
-          .addBookmark(questionId)
-          .then((_) {
-        final addBookmarkControllerState =
-            ref.read(addBookmarkControllerProvider);
-        if (addBookmarkControllerState.hasError) {
-          final error = addBookmarkControllerState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.addBookmarkText),
-          );
-        }
-      });
+          .addBookmark(questionId);
+
+      if (!context.mounted) return;
+
+      final addBookmarkControllerState =
+          ref.read(addBookmarkControllerProvider);
+      if (addBookmarkControllerState.hasError) {
+        final error = addBookmarkControllerState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      } else {
+        HapticFeedback.lightImpact();
+        ScaffoldMessenger.of(context).showSnackBar(
+          completionSnackBar(context, L10n.addBookmarkText),
+        );
+      }
     }
 
     void deleteBookmark() async {
-      ref
+      await ref
           .read(deleteBookmarkControllerProvider.notifier)
-          .deleteBookmark(questionId)
-          .then((_) {
-        final deleteBookmarkControllerState =
-            ref.read(deleteBookmarkControllerProvider);
-        if (deleteBookmarkControllerState.hasError) {
-          final error = deleteBookmarkControllerState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.deleteBookmarkText),
-          );
-        }
-      });
+          .deleteBookmark(questionId);
+
+      if (!context.mounted) return;
+
+      final deleteBookmarkControllerState =
+          ref.read(deleteBookmarkControllerProvider);
+      if (deleteBookmarkControllerState.hasError) {
+        final error = deleteBookmarkControllerState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      } else {
+        HapticFeedback.lightImpact();
+        ScaffoldMessenger.of(context).showSnackBar(
+          completionSnackBar(context, L10n.deleteBookmarkText),
+        );
+      }
     }
 
     return Scaffold(

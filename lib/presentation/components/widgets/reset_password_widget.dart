@@ -56,16 +56,15 @@ class ResetPasswordWidget extends HookConsumerWidget {
         ElevatedButtonForAuth(
             onPressed: isEmailFilled.value
                 ? () async {
-                    ref
+                    await ref
                         .read(studentAuthControllerProvider.notifier)
-                        .resetPassword(forgetPasswordEmailController.text)
-                        .then((_) {
-                      context.pop();
-                      HapticFeedback.lightImpact();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        completionSnackBar(context, L10n.resendedPasswordEmail),
-                      );
-                    });
+                        .resetPassword(forgetPasswordEmailController.text);
+                    if (!context.mounted) return;
+                    context.pop();
+                    HapticFeedback.lightImpact();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      completionSnackBar(context, L10n.resendedPasswordEmail),
+                    );
                   }
                 : null,
             buttonText: L10n.passwordResetButtonText)

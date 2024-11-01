@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import '../../../../domain/notification/models/i_notification_repository.dart';
@@ -9,8 +10,7 @@ import '../../../shared/flavor/flavor_config.dart';
 part 'notification_repository_provider.g.dart';
 
 @riverpod
-INotificationRepository notificationRepositoryDi(
-    NotificationRepositoryDiRef ref) {
+INotificationRepository notificationRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryNotificationRepository();

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/question/firebase_question_repository.dart';
@@ -18,8 +19,7 @@ import '../repository/question_repository_provider.dart';
 part 'search_for_questions_query_service_provider.g.dart';
 
 @riverpod
-ISearchForQuestionsQueryService searchForQuestionsQueryServiceDi(
-    SearchForQuestionsQueryServiceDiRef ref) {
+ISearchForQuestionsQueryService searchForQuestionsQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemorySearchForQuestionsQueryService(

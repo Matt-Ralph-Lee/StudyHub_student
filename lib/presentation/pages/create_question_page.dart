@@ -79,52 +79,50 @@ class CreateQuestionPage extends HookConsumerWidget {
     void selectPhotos() async {
       const maxImages = QuestionPhotoPathList.maxLength;
       final List<String> updatedList = List<String>.from(selectedPhotos.value);
-      picker.pickMultiImage().then((pickedFiles) {
-        if (pickedFiles.isNotEmpty) {
-          if (pickedFiles.length > maxImages ||
-              updatedList.length + pickedFiles.length > maxImages) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const ErrorModalWidget(
-                    errorMessage: L10n.maxImagesErrorText);
-              },
-            );
-          } else {
-            updatedList.addAll(pickedFiles.map((file) => file.path));
-            selectedPhotos.value = updatedList;
-            context.pop();
-          }
+      final pickedFiles = await picker.pickMultiImage();
+      if (!context.mounted) return;
+      if (pickedFiles.isNotEmpty) {
+        if (pickedFiles.length > maxImages ||
+            updatedList.length + pickedFiles.length > maxImages) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const ErrorModalWidget(
+                  errorMessage: L10n.maxImagesErrorText);
+            },
+          );
+        } else {
+          updatedList.addAll(pickedFiles.map((file) => file.path));
+          selectedPhotos.value = updatedList;
+          context.pop();
         }
-      });
+      }
     }
 
     void takePhoto() async {
-      await picker
-          .pickImage(
+      final pickedFile = await picker.pickImage(
         source: ImageSource.camera,
-      )
-          .then((pickedFile) {
-        if (pickedFile != null) {
-          const maxImages = QuestionPhotoPathList.maxLength;
-          final List<String> updatedList =
-              List<String>.from(selectedPhotos.value);
+      );
+      if (!context.mounted) return;
+      if (pickedFile != null) {
+        const maxImages = QuestionPhotoPathList.maxLength;
+        final List<String> updatedList =
+            List<String>.from(selectedPhotos.value);
 
-          if (updatedList.length >= maxImages) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const ErrorModalWidget(
-                    errorMessage: L10n.maxImagesErrorText);
-              },
-            );
-          } else {
-            updatedList.add(pickedFile.path);
-            selectedPhotos.value = updatedList;
-            context.pop();
-          }
+        if (updatedList.length >= maxImages) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const ErrorModalWidget(
+                  errorMessage: L10n.maxImagesErrorText);
+            },
+          );
+        } else {
+          updatedList.add(pickedFile.path);
+          selectedPhotos.value = updatedList;
+          context.pop();
         }
-      });
+      }
     }
 
     void deletePhoto(String imagePath) async {
@@ -172,36 +170,33 @@ class CreateQuestionPage extends HookConsumerWidget {
             );
           });
       if (result) {
-        ref
-            .read(addQuestionControllerProvider.notifier)
-            .addQuestion(
+        await ref.read(addQuestionControllerProvider.notifier).addQuestion(
               questionTitleController.text,
               questionController.text,
               selectedSubject.value!, //活性非活性のために既にボタンでnullチェックしているため
               selectedPhotos.value,
               selectedTeachersId.value,
-            )
-            .then((_) {
-          final addQuestionState = ref.read(addQuestionControllerProvider);
-          if (addQuestionState.hasError) {
-            final error = addQuestionState.error;
-            final errorMessage = handleError(error);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorModalWidget(
-                  errorMessage: errorMessage,
-                );
-              },
             );
-          } else {
-            HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(context, L10n.questionSnackBarText),
-            );
-            context.pop();
-          }
-        });
+        if (!context.mounted) return;
+        final addQuestionState = ref.read(addQuestionControllerProvider);
+        if (addQuestionState.hasError) {
+          final error = addQuestionState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
+        } else {
+          HapticFeedback.lightImpact();
+          ScaffoldMessenger.of(context).showSnackBar(
+            completionSnackBar(context, L10n.questionSnackBarText),
+          );
+          context.pop();
+        }
       }
     }
 

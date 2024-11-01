@@ -8,7 +8,7 @@ class Database {
     Flavor.dev => throw Exception("you're not suppose to use firebase in dev"),
     Flavor.stg => FirebaseFirestore.instanceFor(
         app: Firebase.app(),
-        databaseURL: "test",
+        databaseId: "test",
       ),
     Flavor.prd => FirebaseFirestore.instance,
   };

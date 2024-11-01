@@ -7,7 +7,7 @@ part of 'answer_query_service_provider.dart';
 // **************************************************************************
 
 String _$getAnswerQueryServiceDiHash() =>
-    r'd640f6ac6860ebf3f19af8bbc8953302f45bb9d1';
+    r'b5e22b7d742bfb0f841b547f42a1355038bf9ac2';
 
 /// See also [getAnswerQueryServiceDi].
 @ProviderFor(getAnswerQueryServiceDi)
@@ -22,7 +22,9 @@ final getAnswerQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetAnswerQueryServiceDiRef
     = AutoDisposeProviderRef<IGetAnswerQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

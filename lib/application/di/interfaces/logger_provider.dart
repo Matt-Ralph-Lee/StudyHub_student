@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../infrastructure/repositories/firebase_logger.dart';
@@ -9,7 +10,7 @@ import '../../shared/flavor/flavor_config.dart';
 part 'logger_provider.g.dart';
 
 @riverpod
-ILogger loggerDi(LoggerDiRef ref) {
+ILogger loggerDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryLogger();

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/bookmarks/firebase_bookmarks_query_service.dart';
@@ -21,8 +22,7 @@ import '../repository/bookmarks_repository_provider.dart';
 part 'get_my_bookmarks_query_service_provider.g.dart';
 
 @riverpod
-IGetBookmarksQueryService getMyBookmarksQueryServiceDi(
-    GetMyBookmarksQueryServiceDiRef ref) {
+IGetBookmarksQueryService getMyBookmarksQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryBookmarksQueryService(

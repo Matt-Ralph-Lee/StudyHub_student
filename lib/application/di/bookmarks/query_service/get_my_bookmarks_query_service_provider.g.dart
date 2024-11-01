@@ -7,7 +7,7 @@ part of 'get_my_bookmarks_query_service_provider.dart';
 // **************************************************************************
 
 String _$getMyBookmarksQueryServiceDiHash() =>
-    r'9ee83e6fa86c913cace2ca7aa812438fd6081630';
+    r'08857d0a3eae3d908cf41d994d70b2228b9a4cd8';
 
 /// See also [getMyBookmarksQueryServiceDi].
 @ProviderFor(getMyBookmarksQueryServiceDi)
@@ -22,7 +22,9 @@ final getMyBookmarksQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetMyBookmarksQueryServiceDiRef
     = AutoDisposeProviderRef<IGetBookmarksQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

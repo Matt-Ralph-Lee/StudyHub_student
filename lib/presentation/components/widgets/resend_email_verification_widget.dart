@@ -26,30 +26,28 @@ class ResendEmailVerificationWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void resendEmailVerification() async {
-      ref
+      await ref
           .read(resendEmailVerificationControllerProvider.notifier)
-          .resendEmailVerification(emailAddress)
-          .then((_) {
-        final currentState =
-            ref.read(resendEmailVerificationControllerProvider);
-        if (currentState.hasError) {
-          final error = currentState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.resendEmailVerificationText),
-          );
-        }
-      });
+          .resendEmailVerification(emailAddress);
+      if (!context.mounted) return;
+      final currentState = ref.read(resendEmailVerificationControllerProvider);
+      if (currentState.hasError) {
+        final error = currentState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      } else {
+        HapticFeedback.lightImpact();
+        ScaffoldMessenger.of(context).showSnackBar(
+          completionSnackBar(context, L10n.resendEmailVerificationText),
+        );
+      }
     }
 
     return Column(
@@ -79,13 +77,10 @@ class ResendEmailVerificationWidget extends HookConsumerWidget {
         const SizedBox(height: 40),
         TextButton(
           onPressed: () async {
-            await ref
-                .read(studentAuthControllerProvider.notifier)
-                .reloadUser()
-                .then((_) {
-              ref.invalidate(sessionDiProvider);
-              context.go(PageId.profileInput.path);
-            });
+            await ref.read(studentAuthControllerProvider.notifier).reloadUser();
+            if (!context.mounted) return;
+            ref.invalidate(sessionDiProvider);
+            context.go(PageId.profileInput.path);
           },
           child: Text(
             L10n.haveVerified,

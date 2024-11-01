@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/bookmarks/models/i_bookmarks_repository.dart';
@@ -9,7 +10,7 @@ import '../../../shared/flavor/flavor_config.dart';
 part 'bookmarks_repository_provider.g.dart';
 
 @riverpod
-IBookmarksRepository bookmarksRepositoryDi(BookmarksRepositoryDiRef ref) {
+IBookmarksRepository bookmarksRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryBookmarksRepository();

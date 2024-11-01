@@ -2,7 +2,6 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../parts/button_for_profile_input_back.dart';
 import '../parts/text_for_profile_completion_welcome.dart';
 
 class WelcomeConfettiWidget extends HookWidget {

@@ -56,45 +56,44 @@ class EvaluationPage extends HookConsumerWidget {
     }
 
     void resolveQuestion() async {
-      showDialog(
+      final result = await showDialog(
           context: context,
           builder: (BuildContext context) {
             return const ConfirmResolveQuestionModalWidget();
-          }).then((result) {
-        if (result) {
-          ref
-              .read(resolveQuestionControllerProvider.notifier)
-              .resolveQuestion(
-                fromQuestion,
-              )
-              .then((_) {
-            final currentState = ref.read(resolveQuestionControllerProvider);
-            if (currentState.hasError) {
-              final error = currentState.error;
-              final errorMessage = handleError(error);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return ErrorModalWidget(
-                    errorMessage: errorMessage,
-                  );
-                },
-              );
-            } else {
-              HapticFeedback.lightImpact();
-              ScaffoldMessenger.of(context).showSnackBar(
-                completionSnackBar(
-                  context,
-                  L10n.resolveQuestionSnackbarText,
-                ),
-              );
-              context.pop();
-            }
           });
+      if (result) {
+        await ref
+            .read(resolveQuestionControllerProvider.notifier)
+            .resolveQuestion(
+              fromQuestion,
+            );
+        if (!context.mounted) return;
+        final currentState = ref.read(resolveQuestionControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
         } else {
-          context.pop(); //これ解決策がわからん、一応動きはする
+          HapticFeedback.lightImpact();
+          ScaffoldMessenger.of(context).showSnackBar(
+            completionSnackBar(
+              context,
+              L10n.resolveQuestionSnackbarText,
+            ),
+          );
+          context.pop();
         }
-      });
+      } else {
+        if (!context.mounted) return;
+        context.pop(); //これ解決策がわからん、一応動きはする
+      }
     }
 
     void evaluateTeacher() async {
@@ -107,7 +106,7 @@ class EvaluationPage extends HookConsumerWidget {
             );
           });
       if (result) {
-        ref
+        await ref
             .read(addTeacherEvaluationControllerProvider.notifier)
             .addTeacherEvaluation(
               answerId: fromAnswer,
@@ -115,25 +114,26 @@ class EvaluationPage extends HookConsumerWidget {
               teacherId: teacherId,
               ratingData: numOfSelectedStars.value,
               commentData: evaluationTextController.text,
-            )
-            .then((_) {
-          final currentState = ref.read(addTeacherEvaluationControllerProvider);
-          if (currentState.hasError) {
-            final error = currentState.error;
-            final errorMessage = handleError(error);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorModalWidget(
-                  errorMessage: errorMessage,
-                );
-              },
             );
-          } else {
-            HapticFeedback.lightImpact();
-            resolveQuestion();
-          }
-        });
+
+        if (!context.mounted) return;
+
+        final currentState = ref.read(addTeacherEvaluationControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
+        } else {
+          HapticFeedback.lightImpact();
+          resolveQuestion();
+        }
       }
     }
 

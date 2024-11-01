@@ -7,7 +7,7 @@ part of 'get_teacher_profile_query_service.dart';
 // **************************************************************************
 
 String _$getTeacherProfileQueryServiceDiHash() =>
-    r'9cf0ae5b9a774f71f729fd7cba9f7fb03b028ddf';
+    r'27ca0312c94aacf4fd36da790e68cb5fdd5c4c64';
 
 /// See also [getTeacherProfileQueryServiceDi].
 @ProviderFor(getTeacherProfileQueryServiceDi)
@@ -22,7 +22,9 @@ final getTeacherProfileQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetTeacherProfileQueryServiceDiRef
     = AutoDisposeProviderRef<IGetTeacherProfileQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

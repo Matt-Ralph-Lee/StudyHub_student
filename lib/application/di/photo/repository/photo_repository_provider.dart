@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/photo/models/i_profile_photo_repository.dart';
@@ -9,7 +10,7 @@ import '../../../shared/flavor/flavor_config.dart';
 part 'photo_repository_provider.g.dart';
 
 @riverpod
-IPhotoRepository photoRepositoryDi(PhotoRepositoryDiRef ref) {
+IPhotoRepository photoRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryPhotoRepository();

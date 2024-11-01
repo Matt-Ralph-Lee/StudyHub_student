@@ -12,7 +12,6 @@ class App extends ConsumerWidget {
     return MaterialApp.router(
       theme: ThemeData(
         colorScheme: const ColorScheme(
-          background: Colors.transparent,
           brightness: Brightness.light,
           primary: Colors.transparent,
           onPrimary: Colors.transparent,
@@ -20,7 +19,6 @@ class App extends ConsumerWidget {
           onSecondary: Colors.transparent,
           error: Colors.transparent,
           onError: Colors.transparent,
-          onBackground: Colors.transparent,
           surface: Colors.transparent,
           onSurface: Colors.transparent,
         ), // colorScheme

@@ -55,9 +55,10 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        // versionCode flutterVersionCode.toInteger()
-        versionCode 6
+        versionCode flutterVersionCode.toInteger()
+        // versionCode 6
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -83,13 +84,13 @@ android {
         prd {
             dimension "default"
             //パッケージ名前をcom.kazukazu.studyhub_studentにするため↓はコメントアウト
-            //applicationIdSuffix ".prd" 
+            applicationIdSuffix ".prd" 
             versionNameSuffix "-prd"
         }
         dev {
             dimension "default"
              //パッケージ名前をcom.kazukazu.studyhub_studentにするため↓はコメントアウト
-            //applicationIdSuffix ".dev"
+            applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
         }
     }
@@ -99,4 +100,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
+}

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/question/models/i_question_factory.dart';
@@ -12,7 +13,7 @@ import '../repository/question_repository_provider.dart';
 part 'question_factory_provider.g.dart';
 
 @riverpod
-IQuestionFactory questionFactoryDi(QuestionFactoryDiRef ref) {
+IQuestionFactory questionFactoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryQuestionFactory((ref.watch(questionRepositoryDiProvider))

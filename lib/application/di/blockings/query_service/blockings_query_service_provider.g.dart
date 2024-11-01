@@ -7,7 +7,7 @@ part of 'blockings_query_service_provider.dart';
 // **************************************************************************
 
 String _$getBlockingsQueryServiceDiHash() =>
-    r'ffff49ffbb4b8a14ccdecb91cfd33758f1f851c7';
+    r'09350fe8762652a9dbcd92910d7702f20638a79b';
 
 /// See also [getBlockingsQueryServiceDi].
 @ProviderFor(getBlockingsQueryServiceDi)
@@ -22,7 +22,9 @@ final getBlockingsQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetBlockingsQueryServiceDiRef
     = AutoDisposeProviderRef<IGetBlockingsQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

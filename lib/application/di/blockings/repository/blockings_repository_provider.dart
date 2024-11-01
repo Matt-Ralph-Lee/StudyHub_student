@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/blockings/models/i_blockings_repository.dart';
@@ -9,7 +10,7 @@ import '../../../shared/flavor/flavor_config.dart';
 part 'blockings_repository_provider.g.dart';
 
 @riverpod
-IBlockingsRepository blockingsRepositoryDi(BlockingsRepositoryDiRef ref) {
+IBlockingsRepository blockingsRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryBlockingsRepository();

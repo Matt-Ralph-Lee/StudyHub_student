@@ -57,33 +57,34 @@ class ReportPage extends HookConsumerWidget {
             );
           });
       if (result) {
-        ref
+        await ref
             .read(reportQuestionControllerProvider.notifier)
             .reportQuestion(QuestionReportSubmitCommand(
                 questionId: questionId!, //これ呼び出す側でnullチェック済みなので
                 reportReason: reportReason.value!,
-                reportTextData: reportContentController.text))
-            .then((_) {
-          final currentState = ref.read(reportQuestionControllerProvider);
-          if (currentState.hasError) {
-            final error = currentState.error;
-            final errorMessage = handleError(error);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorModalWidget(
-                  errorMessage: errorMessage,
-                );
-              },
-            );
-          } else {
-            HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(context, L10n.reportSnackBarText),
-            );
-            context.pop();
-          }
-        });
+                reportTextData: reportContentController.text));
+
+        if (!context.mounted) return;
+
+        final currentState = ref.read(reportQuestionControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
+        } else {
+          HapticFeedback.lightImpact();
+          ScaffoldMessenger.of(context).showSnackBar(
+            completionSnackBar(context, L10n.reportSnackBarText),
+          );
+          context.pop();
+        }
       }
     }
 
@@ -97,33 +98,34 @@ class ReportPage extends HookConsumerWidget {
             );
           });
       if (result) {
-        ref
+        await ref
             .read(reportTeacherControllerProvider.notifier)
             .reportTeacher(TeacherReportSubmitCommand(
                 teacherId: teacherId!, //これ呼び出す側でnullチェック済みなので
                 reportReason: reportReason.value!,
-                reportTextData: reportContentController.text))
-            .then((_) {
-          final currentState = ref.read(reportTeacherControllerProvider);
-          if (currentState.hasError) {
-            final error = currentState.error;
-            final errorMessage = handleError(error);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorModalWidget(
-                  errorMessage: errorMessage,
-                );
-              },
-            );
-          } else {
-            HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(context, L10n.reportSnackBarText),
-            );
-            context.pop();
-          }
-        });
+                reportTextData: reportContentController.text));
+
+        if (!context.mounted) return;
+
+        final currentState = ref.read(reportTeacherControllerProvider);
+        if (currentState.hasError) {
+          final error = currentState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
+        } else {
+          HapticFeedback.lightImpact();
+          ScaffoldMessenger.of(context).showSnackBar(
+            completionSnackBar(context, L10n.reportSnackBarText),
+          );
+          context.pop();
+        }
       }
     }
 
