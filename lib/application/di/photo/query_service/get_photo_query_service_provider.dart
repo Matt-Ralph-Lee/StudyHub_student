@@ -1,3 +1,4 @@
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../../infrastructure/firebase/photo/firebase_get_photo_query_service.dart";
@@ -11,7 +12,7 @@ import "../../../shared/flavor/flavor_config.dart";
 part 'get_photo_query_service_provider.g.dart';
 
 @riverpod
-IGetPhotoQueryService getPhotoQueryServiceDi(GetPhotoQueryServiceDiRef ref) {
+IGetPhotoQueryService getPhotoQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryGetPhotoQueryService(InMemoryPhotoRepository());

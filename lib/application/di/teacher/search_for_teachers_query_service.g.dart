@@ -7,7 +7,7 @@ part of 'search_for_teachers_query_service.dart';
 // **************************************************************************
 
 String _$searchForTeachersQueryServiceDiHash() =>
-    r'f757d844e5e70dc1c052a501f650dd91c3a66e20';
+    r'cb0cd9b9f3eb4fb13d191edf96f58f36fb1e466a';
 
 /// See also [searchForTeachersQueryServiceDi].
 @ProviderFor(searchForTeachersQueryServiceDi)
@@ -22,7 +22,9 @@ final searchForTeachersQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef SearchForTeachersQueryServiceDiRef
     = AutoDisposeProviderRef<ISearchForTeachersQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

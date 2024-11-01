@@ -7,7 +7,7 @@ part of 'search_for_questions_query_service_provider.dart';
 // **************************************************************************
 
 String _$searchForQuestionsQueryServiceDiHash() =>
-    r'a935b93335de71ff22eff3c4e992facc0ee8b905';
+    r'477a8382b01d2d1c5460de1822189768a058c2f0';
 
 /// See also [searchForQuestionsQueryServiceDi].
 @ProviderFor(searchForQuestionsQueryServiceDi)
@@ -22,7 +22,9 @@ final searchForQuestionsQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef SearchForQuestionsQueryServiceDiRef
     = AutoDisposeProviderRef<ISearchForQuestionsQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

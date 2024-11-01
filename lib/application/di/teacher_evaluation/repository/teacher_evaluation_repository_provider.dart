@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/teacher_evaluation/models/i_teacher_evaluation_repository.dart';
@@ -9,8 +10,7 @@ import '../../../shared/flavor/flavor_config.dart';
 part 'teacher_evaluation_repository_provider.g.dart';
 
 @riverpod
-ITeacherEvaluationRepository teacherEvaluationRepositoryDi(
-    TeacherEvaluationRepositoryDiRef ref) {
+ITeacherEvaluationRepository teacherEvaluationRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryTeacherEvaluationRepository();

@@ -19,6 +19,7 @@ void main() async {
     alert: true,
     announcement: true,
     badge: true,
+    sound: true,
   );
 
   runApp(scope);

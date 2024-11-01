@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/notification/firebase_get_my_notifications_query_service.dart';
@@ -11,8 +12,7 @@ import '../repository/notification_repository_provider.dart';
 part 'notification_query_service_provider.g.dart';
 
 @riverpod
-IGetMyNotificationsQueryService getMyNotificationsQueryServiceDi(
-    GetMyNotificationsQueryServiceDiRef ref) {
+IGetMyNotificationsQueryService getMyNotificationsQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryGetMyNotificationsQueryService(

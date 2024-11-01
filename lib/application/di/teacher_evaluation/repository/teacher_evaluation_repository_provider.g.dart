@@ -7,7 +7,7 @@ part of 'teacher_evaluation_repository_provider.dart';
 // **************************************************************************
 
 String _$teacherEvaluationRepositoryDiHash() =>
-    r'575655eca7a592c7a57dcaaa862575592de91fa9';
+    r'38183036ae1d6a93244257d03996446a5f10164d';
 
 /// See also [teacherEvaluationRepositoryDi].
 @ProviderFor(teacherEvaluationRepositoryDi)
@@ -22,7 +22,9 @@ final teacherEvaluationRepositoryDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef TeacherEvaluationRepositoryDiRef
     = AutoDisposeProviderRef<ITeacherEvaluationRepository>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

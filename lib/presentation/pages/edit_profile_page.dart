@@ -88,7 +88,7 @@ class EditProfilePage extends HookConsumerWidget {
           }
         }
 
-        void updateProfile() {
+        void updateProfile() async {
           final profileUpdateCommand = ProfileUpdateCommand(
             studentName: userNameInputController.text,
             gender: gender.value,
@@ -98,30 +98,31 @@ class EditProfilePage extends HookConsumerWidget {
             localPhotoPath: imageFilePath.value,
           );
 
-          ref
+          await ref
               .read(profileUpdateControllerProvider.notifier)
-              .profileUpdate(profileUpdateCommand)
-              .then((_) {
-            final currentState = ref.read(profileUpdateControllerProvider);
-            if (currentState.hasError) {
-              final error = currentState.error;
-              final errorMessage = handleError(error);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return ErrorModalWidget(
-                    errorMessage: errorMessage,
-                  );
-                },
-              );
-            } else {
-              HapticFeedback.lightImpact();
-              ScaffoldMessenger.of(context).showSnackBar(
-                completionSnackBar(context, L10n.editSuccessText),
-              );
-              context.go(PageId.myPage.path);
-            }
-          });
+              .profileUpdate(profileUpdateCommand);
+
+          if (!context.mounted) return;
+
+          final currentState = ref.read(profileUpdateControllerProvider);
+          if (currentState.hasError) {
+            final error = currentState.error;
+            final errorMessage = handleError(error);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorModalWidget(
+                  errorMessage: errorMessage,
+                );
+              },
+            );
+          } else {
+            HapticFeedback.lightImpact();
+            ScaffoldMessenger.of(context).showSnackBar(
+              completionSnackBar(context, L10n.editSuccessText),
+            );
+            context.go(PageId.myPage.path);
+          }
         }
 
         return Scaffold(

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/blockings/firebase_blockings_query_service.dart';
@@ -15,8 +16,7 @@ import '../repository/blockings_repository_provider.dart';
 part 'blockings_query_service_provider.g.dart';
 
 @riverpod
-IGetBlockingsQueryService getBlockingsQueryServiceDi(
-    GetBlockingsQueryServiceDiRef ref) {
+IGetBlockingsQueryService getBlockingsQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryBlockingsQueryService(

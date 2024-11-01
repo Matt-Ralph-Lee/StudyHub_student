@@ -66,19 +66,15 @@ import '../../shared/constants/l10n.dart';
 import 'bottom_sheet_for_pick_image.dart';
 
 class ButtonForAddingPicture extends StatelessWidget {
-  final List<String>? imageFilePath;
   final bool isPicturesAdded;
   final void Function() takePhoto;
   final void Function() pickPhoto;
-  final void Function(String)? deletePhoto;
 
   const ButtonForAddingPicture({
     Key? key,
-    required this.imageFilePath,
     required this.isPicturesAdded,
     required this.takePhoto,
     required this.pickPhoto,
-    required this.deletePhoto,
   }) : super(key: key);
 
   @override
@@ -88,10 +84,8 @@ class ButtonForAddingPicture extends StatelessWidget {
         showModalBottomSheet(
           context: context,
           builder: ((builder) => BottomSheetForPickImage(
-                imageFilePath: imageFilePath,
                 takePhoto: takePhoto,
                 pickPhoto: pickPhoto,
-                deletePhoto: deletePhoto,
               )),
         );
       },

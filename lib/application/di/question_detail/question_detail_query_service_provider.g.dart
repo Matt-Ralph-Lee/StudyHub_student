@@ -7,7 +7,7 @@ part of 'question_detail_query_service_provider.dart';
 // **************************************************************************
 
 String _$getQuestionDetailQueryServiceDiHash() =>
-    r'be0193a073d5a562664e1bdacd7fa178e81d81cc';
+    r'9ce1236f8fcca90f8ff2cb9df8a38b304975aef7';
 
 /// See also [getQuestionDetailQueryServiceDi].
 @ProviderFor(getQuestionDetailQueryServiceDi)
@@ -22,7 +22,9 @@ final getQuestionDetailQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetQuestionDetailQueryServiceDiRef
     = AutoDisposeProviderRef<IGetQuestionDetailQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

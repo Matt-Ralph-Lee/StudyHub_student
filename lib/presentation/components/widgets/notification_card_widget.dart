@@ -24,52 +24,56 @@ class NotificationCardWidget extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    void navigateToNotificationDetailPage(BuildContext context) {
+    void navigateToNotificationDetailPage(BuildContext context) async {
+      await ref
+          .read(readNotificationControllerProvider.notifier)
+          .readNotification(getMyNotificationDto.id);
+
+      if (!context.mounted) return;
+
+      final currentState = ref.read(readNotificationControllerProvider);
+      if (currentState.hasError) {
+        final error = currentState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      }
+
       context.push(PageId.notificationDetailPage.path,
           extra: getMyNotificationDto);
-      ref
-          .read(readNotificationControllerProvider.notifier)
-          .readNotification(getMyNotificationDto.id)
-          .then((_) {
-        final currentState = ref.read(readNotificationControllerProvider);
-        if (currentState.hasError) {
-          final error = currentState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        }
-      });
     }
 
-    void navigateToQuestionAndAnswerPage(BuildContext context) {
+    void navigateToQuestionAndAnswerPage(BuildContext context) async {
+      await ref
+          .read(readNotificationControllerProvider.notifier)
+          .readNotification(getMyNotificationDto.id);
+
+      if (!context.mounted) return;
+
+      final currentState = ref.read(readNotificationControllerProvider);
+      if (currentState.hasError) {
+        final error = currentState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      }
+
       context.push(PageId.questionAndAnswerPage.path, extra: [
         getMyNotificationDto.subTargetId as QuestionId,
         false,
       ]);
-      ref
-          .read(readNotificationControllerProvider.notifier)
-          .readNotification(getMyNotificationDto.id)
-          .then((_) {
-        final currentState = ref.read(readNotificationControllerProvider);
-        if (currentState.hasError) {
-          final error = currentState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        }
-      });
     }
 
     final image = ref

@@ -19,7 +19,7 @@ class ResetPasswordTextButtonWidget extends StatelessWidget {
     return TextButton(
       onPressed: () => push(context),
       style: ButtonStyle(
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
       ),
       child: Text(
         L10n.resetPasswordTextButtonText,

@@ -42,32 +42,33 @@ class TeacherProfileWidget extends ConsumerWidget {
             return const ConfirmAddBlockingModalWidget();
           });
       if (result) {
-        ref
+        await ref
             .read(addBlockingsControllerProvider.notifier)
-            .addBlockings(teacherId)
-            .then((_) {
-          final addBlockingsState = ref.read(addBlockingsControllerProvider);
-          if (addBlockingsState.hasError) {
-            final error = addBlockingsState.error;
-            final errorMessage = handleError(error);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorModalWidget(
-                  errorMessage: errorMessage,
-                );
-              },
-            );
-          } else {
-            HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(
-                context,
-                L10n.blockSnackBarText,
-              ),
-            );
-          }
-        });
+            .addBlockings(teacherId);
+
+        if (!context.mounted) return;
+
+        final addBlockingsState = ref.read(addBlockingsControllerProvider);
+        if (addBlockingsState.hasError) {
+          final error = addBlockingsState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
+        } else {
+          HapticFeedback.lightImpact();
+          ScaffoldMessenger.of(context).showSnackBar(
+            completionSnackBar(
+              context,
+              L10n.blockSnackBarText,
+            ),
+          );
+        }
       }
     }
 
@@ -78,88 +79,89 @@ class TeacherProfileWidget extends ConsumerWidget {
             return const ConfirmDeleteBlockingModalWidget();
           });
       if (result) {
-        ref
+        await ref
             .read(deleteBlockingsControllerProvider.notifier)
-            .deleteBlockings(teacherId)
-            .then((_) {
-          final deleteBlockingsState =
-              ref.read(deleteBlockingsControllerProvider);
-          if (deleteBlockingsState.hasError) {
-            final error = deleteBlockingsState.error;
-            final errorMessage = handleError(error);
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorModalWidget(
-                  errorMessage: errorMessage,
-                );
-              },
-            );
-          } else {
-            HapticFeedback.lightImpact();
-            ScaffoldMessenger.of(context).showSnackBar(
-              completionSnackBar(
-                context,
-                L10n.deleteBlockSnackBarText,
-              ),
-            );
-          }
-        });
+            .deleteBlockings(teacherId);
+
+        if (!context.mounted) return;
+
+        final deleteBlockingsState =
+            ref.read(deleteBlockingsControllerProvider);
+        if (deleteBlockingsState.hasError) {
+          final error = deleteBlockingsState.error;
+          final errorMessage = handleError(error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ErrorModalWidget(
+                errorMessage: errorMessage,
+              );
+            },
+          );
+        } else {
+          HapticFeedback.lightImpact();
+          ScaffoldMessenger.of(context).showSnackBar(
+            completionSnackBar(
+              context,
+              L10n.deleteBlockSnackBarText,
+            ),
+          );
+        }
       }
     }
 
     void addFavoriteTeacher() async {
-      ref
+      await ref
           .read(addFavoriteTeacherControllerProvider.notifier)
-          .addFavoriteTeacher(teacherId)
-          .then((_) {
-        final addFavoriteTeacherControllerState =
-            ref.read(addFavoriteTeacherControllerProvider);
-        if (addFavoriteTeacherControllerState.hasError) {
-          final error = addFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.addFavoriteTeacherText),
-          );
-        }
-      });
+          .addFavoriteTeacher(teacherId);
+
+      if (!context.mounted) return;
+
+      final addFavoriteTeacherControllerState =
+          ref.read(addFavoriteTeacherControllerProvider);
+      if (addFavoriteTeacherControllerState.hasError) {
+        final error = addFavoriteTeacherControllerState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      } else {
+        HapticFeedback.lightImpact();
+        ScaffoldMessenger.of(context).showSnackBar(
+          completionSnackBar(context, L10n.addFavoriteTeacherText),
+        );
+      }
     }
 
     void deleteFavoriteTeacher() async {
-      ref
+      await ref
           .read(deleteFavoriteTeacherControllerProvider.notifier)
-          .deleteFavoriteTeacher(teacherId)
-          .then((_) {
-        final deleteFavoriteTeacherControllerState =
-            ref.read(deleteFavoriteTeacherControllerProvider);
-        if (deleteFavoriteTeacherControllerState.hasError) {
-          final error = deleteFavoriteTeacherControllerState.error;
-          final errorMessage = handleError(error);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ErrorModalWidget(
-                errorMessage: errorMessage,
-              );
-            },
-          );
-        } else {
-          HapticFeedback.lightImpact();
-          ScaffoldMessenger.of(context).showSnackBar(
-            completionSnackBar(context, L10n.deleteFavoriteTeacherText),
-          );
-        }
-      });
+          .deleteFavoriteTeacher(teacherId);
+      if (!context.mounted) return;
+      final deleteFavoriteTeacherControllerState =
+          ref.read(deleteFavoriteTeacherControllerProvider);
+      if (deleteFavoriteTeacherControllerState.hasError) {
+        final error = deleteFavoriteTeacherControllerState.error;
+        final errorMessage = handleError(error);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorModalWidget(
+              errorMessage: errorMessage,
+            );
+          },
+        );
+      } else {
+        HapticFeedback.lightImpact();
+        ScaffoldMessenger.of(context).showSnackBar(
+          completionSnackBar(context, L10n.deleteFavoriteTeacherText),
+        );
+      }
     }
 
     final image = ref

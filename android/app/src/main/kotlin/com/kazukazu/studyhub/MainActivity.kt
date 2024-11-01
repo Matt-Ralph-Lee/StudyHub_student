@@ -1,4 +1,4 @@
-package com.example.studyHub
+package com.kazukazu.studyHub
 
 import io.flutter.embedding.android.FlutterActivity
 

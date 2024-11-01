@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDmGxTGFvpqLX2YxlgR0GO2TPkZ7mpsEzI',
-    appId: '1:548760440945:web:f277b6b7f3c64ebcd80bd0',
-    messagingSenderId: '548760440945',
-    projectId: 'study-hub-b81c1',
-    authDomain: 'study-hub-b81c1.firebaseapp.com',
-    storageBucket: 'study-hub-b81c1.appspot.com',
-    measurementId: 'G-3FNEWK00LV',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA5bURAUkaphXsAtcwkBfyoW5M6VW_5moY',
-    appId: '1:548760440945:android:0772908b70a56ecad80bd0',
+    appId: '1:548760440945:android:32b3acdb1d7aac55d80bd0',
     messagingSenderId: '548760440945',
     projectId: 'study-hub-b81c1',
     storageBucket: 'study-hub-b81c1.appspot.com',
@@ -63,19 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC1ecs7--Btw9sb8-DzY0f84YGeoVBXokc',
-    appId: '1:548760440945:ios:ceba04ea4854a32dd80bd0',
+    appId: '1:548760440945:ios:5caebe906ae0ac02d80bd0',
     messagingSenderId: '548760440945',
     projectId: 'study-hub-b81c1',
     storageBucket: 'study-hub-b81c1.appspot.com',
-    iosBundleId: 'com.example.studyHub',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC1ecs7--Btw9sb8-DzY0f84YGeoVBXokc',
-    appId: '1:548760440945:ios:0013162a8d7604d6d80bd0',
-    messagingSenderId: '548760440945',
-    projectId: 'study-hub-b81c1',
-    storageBucket: 'study-hub-b81c1.appspot.com',
-    iosBundleId: 'com.example.studyHub.RunnerTests',
+    iosBundleId: 'com.kazukazu.studyHub',
   );
 }

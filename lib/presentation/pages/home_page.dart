@@ -86,15 +86,17 @@ class HomePage extends StatelessWidget {
               context,
               20,
             )),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                studyHubIcon,
-                const SizedBox(
-                  width: 10,
-                ),
-                studyHubTitle,
-              ],
+            child: GestureDetector(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  studyHubIcon,
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  studyHubTitle,
+                ],
+              ),
             ), //ここは画像に差し替え
           ),
           leadingWidth: screenWidth < 600 ? 170 : 250,

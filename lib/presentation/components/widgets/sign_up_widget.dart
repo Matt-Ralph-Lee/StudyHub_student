@@ -220,28 +220,27 @@ class SignUpWidget extends HookConsumerWidget {
                   isCheckedTermsOfUse.value &&
                   isCheckedPrivacyPolicy.value
               ? () async {
-                  ref
-                      .read(studentAuthControllerProvider.notifier)
-                      .signUp(signUpEmailController.text,
-                          signUpPassWordController.text)
-                      .then((_) {
-                    final currentState =
-                        ref.read(studentAuthControllerProvider);
-                    if (currentState.hasError) {
-                      final error = currentState.error;
-                      final errorMessage = handleError(error);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ErrorModalWidget(
-                            errorMessage: errorMessage,
-                          );
-                        },
-                      );
-                    } else {
-                      push(context);
-                    }
-                  });
+                  await ref.read(studentAuthControllerProvider.notifier).signUp(
+                      signUpEmailController.text,
+                      signUpPassWordController.text);
+
+                  if (!context.mounted) return;
+
+                  final currentState = ref.read(studentAuthControllerProvider);
+                  if (currentState.hasError) {
+                    final error = currentState.error;
+                    final errorMessage = handleError(error);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ErrorModalWidget(
+                          errorMessage: errorMessage,
+                        );
+                      },
+                    );
+                  } else {
+                    push(context);
+                  }
                 }
               : null,
         ),

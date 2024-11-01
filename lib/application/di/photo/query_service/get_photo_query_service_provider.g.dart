@@ -7,7 +7,7 @@ part of 'get_photo_query_service_provider.dart';
 // **************************************************************************
 
 String _$getPhotoQueryServiceDiHash() =>
-    r'12cc5e80a4a51743182833e6617b87a94bd4e05a';
+    r'6ff922ea1c019a0e4f69ff7c327198daf4c64ff6';
 
 /// See also [getPhotoQueryServiceDi].
 @ProviderFor(getPhotoQueryServiceDi)
@@ -22,7 +22,9 @@ final getPhotoQueryServiceDiProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetPhotoQueryServiceDiRef
     = AutoDisposeProviderRef<IGetPhotoQueryService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

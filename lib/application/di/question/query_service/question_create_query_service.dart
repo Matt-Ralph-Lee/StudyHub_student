@@ -1,3 +1,4 @@
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../../../infrastructure/firebase/question/firebase_question_create_query_service.dart";
@@ -11,8 +12,7 @@ import "../../../shared/flavor/flavor_config.dart";
 part 'question_create_query_service.g.dart';
 
 @riverpod
-IQuestionCreateQueryService questionCreateQueryServiceDi(
-    QuestionCreateQueryServiceDiRef ref) {
+IQuestionCreateQueryService questionCreateQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryQuestionCreateQueryService(

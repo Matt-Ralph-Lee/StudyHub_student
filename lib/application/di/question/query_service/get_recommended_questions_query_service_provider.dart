@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/question/firebase_get_recommended_questions_query_service.dart';
@@ -19,7 +20,7 @@ part 'get_recommended_questions_query_service_provider.g.dart';
 
 @riverpod
 IGetRecommendedQuestionsQueryService getRecommendedQuestionQueryServiceDi(
-    GetRecommendedQuestionQueryServiceDiRef ref) {
+    Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryGetRecommendedQuestionsQueryService(

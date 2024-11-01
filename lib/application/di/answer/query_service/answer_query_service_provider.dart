@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../infrastructure/firebase/answer/firebase_answer_repository.dart';
@@ -24,7 +25,7 @@ import '../repository/answer_repository_provider.dart';
 part 'answer_query_service_provider.g.dart';
 
 @riverpod
-IGetAnswerQueryService getAnswerQueryServiceDi(GetAnswerQueryServiceDiRef ref) {
+IGetAnswerQueryService getAnswerQueryServiceDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryGetAnswerQueryService(

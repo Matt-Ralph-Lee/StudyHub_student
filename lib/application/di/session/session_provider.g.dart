@@ -20,6 +20,8 @@ final _sessionStreamDiProvider = AutoDisposeStreamProvider<Session?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef _SessionStreamDiRef = AutoDisposeStreamProviderRef<Session?>;
 String _$sessionDiHash() => r'73d1666726f9b2d52e4359f07ca249af94875c66';
 
@@ -34,6 +36,8 @@ final sessionDiProvider = AutoDisposeProvider<Session?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef SessionDiRef = AutoDisposeProviderRef<Session?>;
 String _$isVerifiedHash() => r'fb845c3e919c0f8a2ee7162097258a101fa2fb37';
 
@@ -48,6 +52,8 @@ final isVerifiedProvider = AutoDisposeProvider<bool>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef IsVerifiedRef = AutoDisposeProviderRef<bool>;
 String _$isSignedInHash() => r'3933f1f5ddc81487a24b56a7613a71fb948a5922';
 
@@ -62,6 +68,8 @@ final isSignedInProvider = AutoDisposeProvider<bool>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef IsSignedInRef = AutoDisposeProviderRef<bool>;
 String _$nonNullSessionHash() => r'34e3c22c1c0088ace632f96e67f1183a5d819821';
 
@@ -77,6 +85,8 @@ final nonNullSessionProvider = AutoDisposeProvider<Session>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef NonNullSessionRef = AutoDisposeProviderRef<Session>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

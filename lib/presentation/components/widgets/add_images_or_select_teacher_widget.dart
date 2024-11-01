@@ -47,11 +47,9 @@ class AddImagesOrSelectTeachersWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ButtonForAddingPicture(
-                imageFilePath: imageFilePath,
                 takePhoto: uploadPhotoFromCamera,
                 pickPhoto: uploadPhotoFromGallery,
                 isPicturesAdded: isPhotoAdded,
-                deletePhoto: deletePhoto,
               ),
               SizedBox(
                 height: PaddingSet.getPaddingSize(

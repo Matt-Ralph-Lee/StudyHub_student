@@ -40,16 +40,15 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
                 : FileImage(File(imageFilePath!)),
           ),
           Positioned(
-              bottom: 7,
-              right: 7,
-              child: InkWell(
+              bottom: 0,
+              right: 0,
+              child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
                     builder: ((builder) => BottomSheetForPickImage(
                           takePhoto: takePhoto,
                           pickPhoto: pickPhoto,
-                          deletePhoto: null,
                         )),
                   );
                 },
@@ -64,7 +63,7 @@ class CircleAvatarForProfileEdit extends ConsumerWidget {
                       backgroundColor: ColorSet.of(context).greySurface,
                     ),
                     Icon(
-                      Icons.camera_alt,
+                      Icons.edit,
                       color: ColorSet.of(context).primary,
                       size:
                           FontSizeSet.getFontSize(context, FontSizeSet.header1),

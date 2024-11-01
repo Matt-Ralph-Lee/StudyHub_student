@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../domain/favorite_teachers/models/i_favorite_teachers_repository.dart';
@@ -9,8 +10,7 @@ import '../../../shared/flavor/flavor_config.dart';
 part 'favorite_teacher_repository_provider.g.dart';
 
 @riverpod
-IFavoriteTeachersRepository favoriteTeacherRepositoryDi(
-    FavoriteTeacherRepositoryDiRef ref) {
+IFavoriteTeachersRepository favoriteTeacherRepositoryDi(Ref ref) {
   switch (flavor) {
     case Flavor.dev:
       return InMemoryFavoriteTeachersRepository();

@@ -345,7 +345,9 @@ class L10n {
 
   //profile_input_page
   static const indicatorTextOneThird = "1/3";
-  static const usernameInputExplanationText = "ユーザー名を入力してください";
+  static const userProfileImageAndNameInputExplanationText =
+      "アイコンとユーザー名を入力してください";
+  static const userProfileImageInputLabelText = "アイコン";
   static const usernameTextFieldLabelText = "ユーザ名";
   static const userNameErrorText = "ユーザ名は${Name.maxLength}字以下にしてください";
 
@@ -383,7 +385,7 @@ class L10n {
   static const academicHistoryOptionOther = "その他";
 
   static const indicatorTextFin = "Fin.";
-  static const welcomeText = "ようこそ";
+  static const welcomeText = "ようこそ〜！🥳";
 
   static const skipButtonText = "スキップ";
   static const backButtonText = "戻る";

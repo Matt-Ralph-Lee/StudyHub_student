@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../shared/session/session.dart';
@@ -6,7 +7,7 @@ import '../student_auth/student_auth_provider.dart';
 part 'session_provider.g.dart';
 
 @riverpod
-Stream<Session?> _sessionStreamDi(_SessionStreamDiRef ref) {
+Stream<Session?> _sessionStreamDi(Ref ref) {
   ref.keepAlive();
   final queryService = ref.watch(getStudentAuthQueryServiceProvider);
   final state = queryService.userChanges();
@@ -22,7 +23,7 @@ Stream<Session?> _sessionStreamDi(_SessionStreamDiRef ref) {
 }
 
 @riverpod
-Session? sessionDi(SessionDiRef ref) {
+Session? sessionDi(Ref ref) {
   final sessionStream = ref.watch(_sessionStreamDiProvider);
   return sessionStream.when(
     data: (session) => session,
@@ -32,20 +33,20 @@ Session? sessionDi(SessionDiRef ref) {
 }
 
 @riverpod
-bool isVerified(IsVerifiedRef ref) {
+bool isVerified(Ref ref) {
   final session = ref.read(sessionDiProvider);
   if (session == null) return false;
   return session.isVerified;
 }
 
 @riverpod
-bool isSignedIn(IsSignedInRef ref) {
+bool isSignedIn(Ref ref) {
   final session = ref.read(sessionDiProvider);
   return session != null;
 }
 
 @riverpod
-Session nonNullSession(NonNullSessionRef ref) {
+Session nonNullSession(Ref ref) {
   final session = ref.watch(sessionDiProvider);
   return session!;
 }

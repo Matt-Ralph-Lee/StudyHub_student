@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:go_router/go_router.dart";
 
@@ -46,7 +47,7 @@ final _page2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'addQuestion');
 final _page3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'myPage');
 
 @riverpod
-GoRouter router(RouterRef ref) {
+GoRouter router(Ref ref) {
   final routes = [
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: _rootNavigatorKey,
