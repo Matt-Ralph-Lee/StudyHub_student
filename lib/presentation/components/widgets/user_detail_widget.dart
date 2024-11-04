@@ -186,9 +186,9 @@ class UserDetailWidget extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: () => navigateToEditProfilePage(context),
-              child: Flexible(
+            Flexible(
+              child: GestureDetector(
+                onTap: () => navigateToEditProfilePage(context),
                 child: Text(
                   userName,
                   style: TextStyle(

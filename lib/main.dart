@@ -22,5 +22,9 @@ void main() async {
     sound: true,
   );
 
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+  };
+
   runApp(scope);
 }
