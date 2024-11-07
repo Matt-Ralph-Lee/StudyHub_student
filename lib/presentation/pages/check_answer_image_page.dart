@@ -24,6 +24,8 @@ class CheckAnswerImagePage extends HookConsumerWidget {
     final currentPage = useState(order);
     PageController pageController = PageController(initialPage: order);
     TransformationController imageController = TransformationController();
+    TransformationController landscapeImageController =
+        TransformationController();
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     var orientation = MediaQuery.of(context).orientation;
@@ -236,8 +238,7 @@ class CheckAnswerImagePage extends HookConsumerWidget {
               ),
             ),
           )
-        : SizedBox(
-            height: screenHeight,
+        : SafeArea(
             child: PageView.builder(
               controller: pageController,
               itemCount: answerDto.answerPhotoList.length,
@@ -253,9 +254,14 @@ class CheckAnswerImagePage extends HookConsumerWidget {
                       orElse: () => const AssetImage(
                           "assets/images/sample_picture_hd.jpg"),
                     );
-                return Image(
-                  image: questionImage,
-                  fit: BoxFit.contain,
+                return InteractiveViewer(
+                  minScale: 0.5,
+                  maxScale: 4.0,
+                  transformationController: imageController,
+                  child: Image(
+                    image: questionImage,
+                    fit: BoxFit.contain,
+                  ),
                 );
               },
             ),

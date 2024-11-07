@@ -359,8 +359,7 @@ class CheckQuestionImagePage extends HookConsumerWidget {
               ),
             ),
           )
-        : SizedBox(
-            height: screenHeight,
+        : SafeArea(
             child: PageView.builder(
               controller: pageController,
               itemCount: questionDetailDto.questionPhotoPathList.length,
@@ -376,9 +375,14 @@ class CheckQuestionImagePage extends HookConsumerWidget {
                       orElse: () => const AssetImage(
                           "assets/images/sample_picture_hd.jpg"),
                     );
-                return Image(
-                  image: questionImage,
-                  fit: BoxFit.contain,
+                return InteractiveViewer(
+                  minScale: 0.5,
+                  maxScale: 4.0,
+                  transformationController: imageController,
+                  child: Image(
+                    image: questionImage,
+                    fit: BoxFit.contain,
+                  ),
                 );
               },
             ),
